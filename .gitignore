@@ -1,0 +1,10 @@
+# Python environment, built from requirements.txt
+.venv/
+# Reviewer output kept by tools/codex_review.sh (doc/review_policy.md section 8.1)
+.review_logs/
+# Python bytecode and notebook checkpoints
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# macOS folder metadata
+.DS_Store
