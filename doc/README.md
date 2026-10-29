@@ -8,7 +8,9 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 
 | Path | Content |
 |---|---|
-| `doc/` | This README; `project_plan.md` (master plan); `findings.md` (evidence ledger, Finding 000); `review_policy.md` |
+| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `findings.md` (evidence ledger, Finding 000); `review_policy.md` |
+| `doc/llm_usage/` | Evidence for the report's LLM Usage section: verbatim prompts and answers of LLM consultations, one directory per task |
+| `analysis/` | Analysis code: `scoping.py`, the scoping run behind the modeling strategy, with its output `scoping_output.txt` |
 | `reviews/` | Review records, one file per task, required by `review_policy.md` |
 | `tools/` | `codex_review.sh` runs the independent Codex reviewer non-interactively; `fingerprint.py` computes revision fingerprints |
 | `data/` | `train.csv`, `test.csv`, `sample_submission.csv` as downloaded from Kaggle; never modified |
@@ -25,6 +27,9 @@ Ignored by git: `.venv/`, `.review_logs/` (reviewer output kept by `tools/codex_
 - 2026-10-28: a read-only first look at the data in conversation (not reviewed; its facts enter the ledger as findings in phase 1). Python environment `.venv` created from `requirements.txt`.
 - 2026-10-28: Piazza ruling on the use of the release date and the identifiers (course rulings below).
 - 2026-10-28: project made review-controlled on the framework of the Positron Conversion DIO project (P0.1, `../reviews/2026-10-28-p0.1-bootstrap.md`).
+- 2026-10-29: P0.1 approved by Codex in one round and committed (4b724f6, 90b52f7), with Sam's approval of the policy and confirmation of the reviewer model.
+- 2026-10-29: Sam's decision: no pretrained models of any kind, because "pre-trained models certainly include data that is external to the project."
+- 2026-10-29: the modeling strategy drafted with two Codex consultation rounds and a scoping run (P0.2, `../reviews/2026-10-29-p0.2-modeling-strategy.md`), in review. Development starts on Sam's go-ahead.
 
 ## Key numbers
 
