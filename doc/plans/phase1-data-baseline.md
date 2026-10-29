@@ -1,6 +1,6 @@
 # Phase 1: data audit and baseline
 
-v0.1, 2026-10-29. Owner: Sam Zhou. Status: started 2026-10-29 on Sam's go-ahead, verbatim: "Do the day one foundation part now." and "Don't forget to consult deeply with Codex."
+v0.1, 2026-10-29. Owner: Sam Zhou. Status: started 2026-10-29 on Sam's go-ahead, verbatim: "Do the day one foundation part now." and "Don't forget to consult deeply with Codex." Complete 2026-10-29: every exit criterion met (status log below).
 
 ## Goal
 
@@ -100,7 +100,7 @@ A new estimator per fold; estimator seed 0 throughout, separate from the split s
 
 ## Open questions
 
-1. Team members and the Kaggle team name (Sam).
+1. Team members and the Kaggle team name (Sam). Answered 2026-10-29, as Sam reported: the Kaggle team is named after Sam, with Sam as its only member; its exact string is to be confirmed and the course-group arrangement is not recorded (both carried to `phase2-models-features.md`, open questions).
 
 ## Status
 
@@ -108,3 +108,4 @@ A new estimator per fold; estimator seed 0 throughout, separate from the split s
 - 2026-10-29: P1.1 approved in two rounds and committed (a369262, 34247f5).
 - 2026-10-29: P1.2 built to section 4; on Codex consultation round D (`../llm_usage/2026-10-29-day1-consultation/`) the implementation adds, beyond section 4: validation of the cross-validation inputs before any fit and of every bank on saving and loading; run ids from a hash of the full configuration; parameters described without process addresses; `--verify` checking bank hashes, stable metadata, logged metrics and comparisons; split-file validation; fold tables for both sides and both groupings; the diagnostics of `modeling_strategy.md` section 4, step 7 (group-weighted AUC, AUC per era); submission checks that derive the recipe's test features themselves. Findings 007 and 008. In review.
 - 2026-10-29: P1.2 approved in three rounds and committed (7dd8b3d, 0ba74a1). P1.3 built to section 5. Sam then decided, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." and "Remove any skeleton that you may have written already." The report and Colab skeletons written for P1.3 were deleted before any verdict; P1.3 is the first submission file and the integration index. In review. The submission's upload and public score, P1.3's external step, follow its approval.
+- 2026-10-29: P1.3 approved in three rounds and committed (f6add21, 185dffe). Sam uploaded `2026-10-29_p1.3_lightgbm_F2.csv` at about 04:10 PDT with the Kaggle description `2026-10-29_p1.3_lightgbm_F2` (the sidecar keeps the prepared description); Kaggle accepted it; public AUC 0.83597, as Sam reported (`../../submissions/README.md`). Exit criterion 3 met; phase 1 complete. Phase 2: `phase2-models-features.md`.

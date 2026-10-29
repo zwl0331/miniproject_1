@@ -1,6 +1,6 @@
 # CS 155 Miniproject 1: song popularity from audio features
 
-Owner: Weilong (Sam) Zhou. Team members and Kaggle team name: to be recorded (teams of two to four, `../Project_1.pdf` section 2).
+Owner: Weilong (Sam) Zhou. Kaggle team: named after Sam, with Sam as its only member, as Sam reported on 2026-10-29; the exact team-name string is to be confirmed. The assignment asks for groups of two to four (`../Project_1.pdf` section 2); the course-group arrangement is not recorded (`plans/phase2-models-features.md`, open questions).
 
 Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 (`../Project_1.pdf`, released Tuesday 2026-10-27): predict whether a song is of low or high popularity from its audio features. Kaggle competition: `https://www.kaggle.com/competitions/cs-155-fa-26-miniproject-1`. The metric is AUC, so a submission carries the probability of high popularity for each test song, in the format of `../data/sample_submission.csv`. A TA benchmark sits on the public leaderboard. The private leaderboard decides a small extra credit (top 50% of groups, up to 5 points); the report and the Colab demo carry most of the grade.
 
@@ -8,7 +8,7 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 
 | Path | Content |
 |---|---|
-| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `findings.md` (evidence ledger, Findings 000 to 006); `review_policy.md` |
+| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `plans/phase2-models-features.md` (phase 2 plan); `findings.md` (evidence ledger, Findings 000 to 008); `review_policy.md` |
 | `doc/llm_usage/` | Evidence for the report's LLM Usage section: `integration_index.md` (one row per LLM-assisted component) and the verbatim prompts and answers of the consultations, one directory per task |
 | `analysis/` | Analysis code: `scoping.py`, the scoping run behind the modeling strategy, with its output `scoping_output.txt`; `audit.py`, the data audit behind Findings 001 to 005, with its output `audit_output.txt` |
 | `songpop/` | The validation harness (P1.2): loading, features, groups and folds, models, cross-validation, metrics and the bootstrap, banks and submissions |
@@ -40,6 +40,8 @@ Ignored by git: `.venv/`, `.review_logs/` (reviewer output kept by `tools/codex_
 - 2026-10-29: P1.2, the harness and the nine baselines (Findings 007 and 008), built after Codex consultation rounds C and D, in review (`../reviews/2026-10-29-p1.2-harness.md`).
 - 2026-10-29: P1.2 approved after three Codex rounds and committed (7dd8b3d, 0ba74a1).
 - 2026-10-29: P1.3, the first submission file (LightGBM F2) and the LLM integration index, in review (`../reviews/2026-10-29-p1.3-first-submission.md`).
+- 2026-10-29: P1.3 approved after three Codex rounds and committed (f6add21, 185dffe). Sam uploaded the file at about 04:10 PDT; public AUC 0.83597 as Sam reported it, a pipeline check, not a selection signal (`../submissions/README.md`). Phase 1 complete.
+- 2026-10-29: Sam's go-ahead for phase 2 planning. P2.0, the phase 2 plan (`plans/phase2-models-features.md`), built after Codex consultation rounds E and F, in review (`../reviews/2026-10-29-p2.0-phase2-plan.md`).
 
 ## Key numbers
 
