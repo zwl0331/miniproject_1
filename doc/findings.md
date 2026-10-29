@@ -226,3 +226,79 @@ Review status:
 Downstream use:
 
 The reproduction target of the P1.2 harness (the table above, to four decimals); the reference point for the production baselines.
+
+## Finding 007: Harness Reproduction and the Production Baselines
+
+Question:
+
+Does the P1.2 harness reproduce the reviewed scoping results, and what do the three baselines score under the production protocol?
+
+Current conclusion:
+
+- Run through the harness's folds, prediction and metric code, the legacy protocol reproduces all 15 values of Finding 006 to four decimals.
+- Production protocol: the 3,863 eligible rows, the primary groups of Finding 002, `StratifiedGroupKFold` with 5 folds, split seeds 155, 2026 and 1029 (`../artifacts/splits/production_v1.csv`, sha256 b2cba98d…); estimator seed 0; the recipes of `plans/phase1-data-baseline.md` section 4.5. Mean fold AUC over the 15 folds:
+
+| Model | F0 (audio) | F1 (+ year) | F2 (+ date parts) |
+|---|---|---|---|
+| LightGBM | 0.7519 | 0.8149 | 0.8315 |
+| Random forest | 0.7555 | 0.8141 | 0.8279 |
+| Logistic | 0.7300 | 0.7810 | 0.7819 |
+
+- Every validation fold holds 772 or 773 rows with a High rate of 0.351 to 0.352; no class-rate or era-share warning in either grouping.
+- Diagnostics, not for selection: weighting each row by one over its group's size changes the mean fold AUC by at most 0.0022 (largest: logistic F1, 0.00212) (LightGBM F2 0.8297, random forest F2 0.8275). Within a single era the pooled out-of-fold AUC is lower than overall (LightGBM F2: 0.80 to 0.81 from 2020 on, 0.77 in the 2010s, 0.79 to 0.80 in the 2000s, 0.78 to 0.79 in the 1990s; undefined before 1990, where every row is High), because the era itself carries much of the signal.
+- The highest F2 mean fold AUC is LightGBM's, 0.8314739289 (run `production_lightgbm_F2_9c37e77d549e`).
+
+Evidence:
+
+`../scripts/run_baselines.py`; outputs `../artifacts/run_baselines_legacy.txt` and `../artifacts/run_baselines_production.txt`; the nine banks in `../artifacts/bank/` with their sha256 in `../artifacts/experiments.jsonl` (for example LightGBM F2 37027940…); `--verify` recomputes every bank, its log record and the legacy table without writing. `../scripts/check_foundation.py` tests the harness itself (its output: `../artifacts/check_foundation.txt`).
+
+Uncertainty:
+
+Cross-validated estimates of untuned baselines, not leaderboard scores. Random forest predictions recompute within 3.3e-16 (thread summation order); LightGBM and logistic recompute exactly. Era AUCs are pooled out-of-fold diagnostics.
+
+Review status:
+
+`reviewed`, by the P1.2 review (`../reviews/2026-10-29-p1.2-harness.md`). This ledger revision is committed only after that review converges.
+
+Downstream use:
+
+The first submission (P1.3, LightGBM F2 by the rule of `plans/phase1-data-baseline.md` section 5); the incumbents of phase 2.
+
+## Finding 008: Date Features and the F2 Model Comparison
+
+Question:
+
+What do the date features add for each model, and do random forest and LightGBM differ on F2?
+
+Current conclusion:
+
+Paired cluster bootstrap of the difference in mean fold AUC (`plans/modeling_strategy.md` section 4, step 8; 2,000 replicates, seed 155001, all valid):
+
+| Comparison | Difference | 95% interval | Draws above 0 |
+|---|---|---|---|
+| LightGBM F1 minus F0 | +0.0630 | +0.0535 to +0.0726 | 1.000 |
+| Random forest F1 minus F0 | +0.0586 | +0.0491 to +0.0677 | 1.000 |
+| Logistic F1 minus F0 | +0.0511 | +0.0394 to +0.0636 | 1.000 |
+| LightGBM F2 minus F1 | +0.0166 | +0.0113 to +0.0218 | 1.000 |
+| Random forest F2 minus F1 | +0.0138 | +0.0092 to +0.0186 | 1.000 |
+| Logistic F2 minus F1 | +0.0008 | -0.0015 to +0.0031 | 0.755 |
+| Random forest F2 minus LightGBM F2 | -0.0036 | -0.0091 to +0.0023 | 0.104 |
+
+- Under the promotion rule (strategy section 4, step 9), the year and the further date parts both earn their place for the two tree models (gains of at least 0.003 overall, positive on each of the three repeats). For logistic regression the date parts beyond the year do not (+0.0008 overall).
+- Random forest and LightGBM are not separated on F2.
+
+Evidence:
+
+The comparison records in `../artifacts/experiments.jsonl`, printed in `../artifacts/run_baselines_production.txt`; `--verify` recomputes each one and compares it with its record.
+
+Uncertainty:
+
+The intervals are conditional on the fixed out-of-fold predictions: they exclude retraining and model-selection variability, are not leaderboard intervals, and carry no multiple-comparison correction.
+
+Review status:
+
+`reviewed`, by the P1.2 review (`../reviews/2026-10-29-p1.2-harness.md`). This ledger revision is committed only after that review converges.
+
+Downstream use:
+
+F2 as the feature baseline for the tree models in phase 2; both tree families kept as candidates; the date-feature ablation of the report.

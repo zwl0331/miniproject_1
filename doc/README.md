@@ -11,6 +11,9 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 | `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `findings.md` (evidence ledger, Findings 000 to 006); `review_policy.md` |
 | `doc/llm_usage/` | Evidence for the report's LLM Usage section: verbatim prompts and answers of LLM consultations, one directory per task |
 | `analysis/` | Analysis code: `scoping.py`, the scoping run behind the modeling strategy, with its output `scoping_output.txt`; `audit.py`, the data audit behind Findings 001 to 005, with its output `audit_output.txt` |
+| `songpop/` | The validation harness (P1.2): loading, features, groups and folds, models, cross-validation, metrics and the bootstrap, banks and submissions |
+| `scripts/` | Run as modules from the project root: `run_baselines.py` (legacy reproduction and production baselines, `--verify` to recompute without writing), `check_foundation.py` (the harness's self-checks) |
+| `artifacts/` | Produced by the scripts: `splits/production_v1.csv` (groups and folds), `bank/` (one prediction bank per run, never overwritten), `experiments.jsonl` (the experiment log), and the scripts' outputs |
 | `reviews/` | Review records, one file per task, required by `review_policy.md` |
 | `tools/` | `codex_review.sh` runs the independent Codex reviewer non-interactively; `fingerprint.py` computes revision fingerprints |
 | `data/` | `train.csv`, `test.csv`, `sample_submission.csv` as downloaded from Kaggle; never modified |
@@ -32,6 +35,8 @@ Ignored by git: `.venv/`, `.review_logs/` (reviewer output kept by `tools/codex_
 - 2026-10-29: the modeling strategy drafted with two Codex consultation rounds and a scoping run (P0.2, `../reviews/2026-10-29-p0.2-modeling-strategy.md`), in review. Development starts on Sam's go-ahead.
 - 2026-10-29: P0.2 approved after two Codex review rounds and committed (f29267b, 5fc0cef).
 - 2026-10-29: Sam's go-ahead for Day 1; phase 1 started (`plans/phase1-data-baseline.md`). Sam uploads every submission. P1.1, the data audit and Findings 001 to 006, in review (`../reviews/2026-10-29-p1.1-data-audit.md`).
+- 2026-10-29: P1.1 approved after two Codex rounds and committed (a369262, 34247f5).
+- 2026-10-29: P1.2, the harness and the nine baselines (Findings 007 and 008), built after Codex consultation rounds C and D, in review (`../reviews/2026-10-29-p1.2-harness.md`).
 
 ## Key numbers
 
@@ -45,6 +50,8 @@ Every number here cites its finding in `findings.md`.
 | Largest train-versus-test KS distance | 0.043 (acousticness) | Finding 005 |
 | Best scoping baseline, legacy protocol | 0.8268 mean fold AUC (LightGBM, audio and date) | Finding 006 |
 | Date fields over audio only; ungrouped-fold optimism | +0.05 to +0.08; +0.0158 | Finding 006 |
+| Best production baseline (mean fold AUC, primary groups, split seeds 155, 2026, 1029) | 0.8315, LightGBM on F2; random forest 0.8279, logistic 0.7819 | Finding 007 |
+| F2 date parts over F1, LightGBM | +0.0166 (paired bootstrap interval +0.0113 to +0.0218) | Finding 008 |
 
 ## Course rulings
 

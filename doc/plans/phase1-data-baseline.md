@@ -106,3 +106,5 @@ A new estimator per fold; estimator seed 0 throughout, separate from the split s
 ## Status
 
 - 2026-10-29: phase started on Sam's go-ahead; P0.2 committed first (f29267b, 5fc0cef). Codex consultation round C on the Day 1 design. P1.1 in review.
+- 2026-10-29: P1.1 approved in two rounds and committed (a369262, 34247f5).
+- 2026-10-29: P1.2 built to section 4; on Codex consultation round D (`../llm_usage/2026-10-29-day1-consultation/`) the implementation adds, beyond section 4: validation of the cross-validation inputs before any fit and of every bank on saving and loading; run ids from a hash of the full configuration; parameters described without process addresses; `--verify` checking bank hashes, stable metadata, logged metrics and comparisons; split-file validation; fold tables for both sides and both groupings; the diagnostics of `modeling_strategy.md` section 4, step 7 (group-weighted AUC, AUC per era); submission checks that derive the recipe's test features themselves. Findings 007 and 008. In review.

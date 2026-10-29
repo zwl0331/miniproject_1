@@ -1,0 +1,20 @@
+PASS  target: High is 1 and Low is 0; missing and unknown labels rejected                                         
+PASS  rows: permanent row ids survive filtering; only row 425 is ineligible; feature index is the row id          
+PASS  groups: uri, signature, transitive chain, singleton, strict coarsening, label and order invariance          
+PASS  groups: real data counts equal Finding 002                                                                  
+PASS  folds: the saved split file is valid and equals the recomputed folds                                        
+PASS  folds: groups in one fold, both classes on both sides, all folds present; tables for both groupings         
+PASS  folds: the incomplete row gets 4, 3, 0 and cannot move any eligible row's fold                              
+PASS  dates: edge cases, rejections of malformed strings, F2 columns                                              
+PASS  preprocessing: each fold's logistic statistics are those of its training rows; held-out values never enter  
+PASS  run_cv: malformed inputs are rejected before any estimator is created                                       
+PASS  probabilities: class 1 located in classes_; the whole matrix checked                                        
+PASS  AUC: perfect, reversed, constant, weighted ties and zero weights equal scikit-learn, one class is NaN       
+PASS  bootstrap: matches an independent scikit-learn reference draw by draw; identity, repeat, sign, validity     
+PASS  bootstrap: a replicate with a single-class fold is rejected as a whole                                      
+PASS  banks: validation rejects bad schema, inconsistent deployment mean, wrong fold AUC, split groups            
+PASS  banks: an existing path is never written, and an exclusive-create race is not overwritten                   
+PASS  parameters: described without process addresses, callables by name, JSON without NaN                        
+PASS  submission: a valid file is accepted; every defect is rejected; repeated pairs are really checked           
+PASS  submission writer: exclusive write, read-back validated, never over an existing file                        
+19 of 19 checks passed
