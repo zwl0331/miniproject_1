@@ -1,6 +1,6 @@
 # Project plan
 
-v0.2, 2026-10-29. Owner: Sam Zhou. Status: P0.1 converged and committed 2026-10-29 (4b724f6, 90b52f7); P0.2, the modeling strategy (`plans/modeling_strategy.md`), in review.
+v0.2, 2026-10-29. Owner: Sam Zhou. Status: P0.1 converged and committed 2026-10-29 (4b724f6, 90b52f7); P0.2, the modeling strategy (`plans/modeling_strategy.md`), converged and committed 2026-10-29 (f29267b, 5fc0cef); phase 1 started 2026-10-29 on Sam's go-ahead (`plans/phase1-data-baseline.md`), P1.1 in review.
 
 This is the master plan: goal, phases, roles, risks. The task as assigned is `../Project_1.pdf`; the course rules and rulings are in `../CLAUDE.md` and `README.md`. The methods, validation protocol, experiment order and decision rules for phases 1 to 3 are in `plans/modeling_strategy.md`. The work of each phase is planned in its own file under `plans/` when the phase starts.
 
@@ -55,4 +55,4 @@ Rules:
 ## History
 
 - v0.1, 2026-10-28: created with P0.1.
-- v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets.
+- v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets. Status line updated with P1.1: P0.2 committed, phase 1 started; no strategy change.

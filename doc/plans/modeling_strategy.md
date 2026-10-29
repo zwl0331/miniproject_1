@@ -1,6 +1,6 @@
 # Modeling strategy
 
-v0.1, 2026-10-29. Owner: Sam Zhou. Status: in review (P0.2, `../../reviews/2026-10-29-p0.2-modeling-strategy.md`). Development starts only on Sam's go-ahead (Sam, 2026-10-29: "Okay, don't do development today. Yet. Just finish the plan and then pause.").
+v0.1, 2026-10-29. Owner: Sam Zhou. Status: approved in P0.2 after two review rounds (`../../reviews/2026-10-29-p0.2-modeling-strategy.md`) and committed 2026-10-29 (f29267b). Development was paused until Sam's go-ahead (Sam, 2026-10-29: "Okay, don't do development today. Yet. Just finish the plan and then pause.") and started the same day (phase 1, `phase1-data-baseline.md`).
 
 This is the plan for building the best model under the course rules: the constraints, what the data shows so far, what is allowed, the validation protocol, the catalog of methods with priorities, the experiment order, and the decision rules. It covers phases 1 to 3 of `../project_plan.md` and feeds phase 4. It was built from a literature search and a scoping run by Claude, two consultation rounds with Codex (gpt-6-astra at reasoning effort xhigh, live web search; prompts and answers verbatim in `../llm_usage/2026-10-29-p0.2-consultation/`), and Sam's decision on pretrained models. Consultation advice is input to this plan, not approval of it.
 
@@ -240,4 +240,4 @@ Checked on 2026-10-29. "C" checked by Claude, "X" reported by Codex in the consu
 
 ## History
 
-- v0.1, 2026-10-29: created with P0.2.
+- v0.1, 2026-10-29: created with P0.2. Status line updated with P1.1; content unchanged.

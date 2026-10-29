@@ -1,0 +1,90 @@
+[P] provenance
+     command: python analysis/audit.py
+     python 3.12.16, numpy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1; audit.py sha256 08fab4d4b92e9d611d5e5e3572d8d12c93433739b87a8ba933a628450287b6be
+     data/train.csv sha256 d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407
+     data/test.csv sha256 70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3
+     data/sample_submission.csv sha256 35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8
+[A1] dataset contract, target, missingness (Finding 001)
+     shapes: train (3864, 19), test (863, 19), sample_submission (863, 2)
+     train columns in order: ['time_signature', 'speechiness', 'danceability', 'duration_ms', 'energy', 'track_href', 'mode', 'uri', 'type', 'track_album_release_date', 'analysis_url', 'instrumentalness', 'valence', 'key', 'tempo', 'loudness', 'acousticness', 'liveness', 'Popularity_Type']
+     test columns in order: ['ID', 'time_signature', 'speechiness', 'danceability', 'duration_ms', 'energy', 'track_href', 'mode', 'uri', 'type', 'track_album_release_date', 'analysis_url', 'instrumentalness', 'valence', 'key', 'tempo', 'loudness', 'acousticness', 'liveness']
+     columns only in train ['Popularity_Type']; only in test ['ID']
+     Popularity_Type values (missing included): {'Low': 2505, 'High': 1359}; High rate 0.3517
+     train: missing per column {'time_signature': 1, 'speechiness': 1, 'danceability': 1, 'duration_ms': 1, 'energy': 1, 'track_href': 1, 'mode': 1, 'uri': 1, 'type': 1, 'analysis_url': 1, 'instrumentalness': 1, 'valence': 1, 'key': 1, 'tempo': 1, 'loudness': 1, 'acousticness': 1, 'liveness': 1}; audio values that fail to parse 0; non-finite audio values 0
+     test: missing per column none; audio values that fail to parse 0; non-finite audio values 0
+     incomplete train row (position 425): non-missing fields {'track_album_release_date': '2024-09-08', 'Popularity_Type': 'Low'}
+     train rows with some but not all audio features missing: 0
+     complete train rows 3863: High 1359, Low 2504
+     test ID unique True, range 2 to 967; sample_submission columns ['ID', 'Popularity_Type'], its IDs equal the test IDs in order True, its values ['0.5']
+     time_signature values (train; test): {'1.0': 25, '3.0': 271, '4.0': 3449, '5.0': 118}; {'1.0': 11, '3.0': 68, '4.0': 754, '5.0': 30}
+     mode values (train; test): {'0.0': 1676, '1.0': 2187}; {'0.0': 385, '1.0': 478}
+     key values (train; test): {'0.0': 418, '1.0': 474, '10.0': 260, '11.0': 309, '2.0': 358, '3.0': 129, '4.0': 299, '5.0': 318, '6.0': 316, '7.0': 378, '8.0': 251, '9.0': 353}; {'0.0': 81, '1.0': 92, '10.0': 50, '11.0': 91, '2.0': 92, '3.0': 30, '4.0': 58, '5.0': 83, '6.0': 59, '7.0': 93, '8.0': 60, '9.0': 74}
+     speechiness      range train 0.0219 to 0.927; test 0.024 to 0.719
+     danceability     range train 0.0597 to 0.979; test 0.0589 to 0.975
+     duration_ms      range train 35375 to 1.24106e+06; test 64788 to 1.35526e+06
+     energy           range train 0.000202 to 0.996; test 0.000539 to 0.998
+     instrumentalness range train 0 to 0.991; test 0 to 0.974
+     valence          range train 0.0296 to 0.982; test 0.0302 to 0.987
+     tempo            range train 48.232 to 241.426; test 56.162 to 209.852
+     loudness         range train -48.069 to 1.075; test -45.66 to 1.318
+     acousticness     range train 3.59e-06 to 0.995; test 1.52e-05 to 0.996
+     liveness         range train 0.021 to 0.979; test 0.0289 to 0.972
+[A2] track identity and repeated observations (Finding 002)
+     train: uri missing 1; track_href and analysis_url end in the uri token [True, True]; type values ['audio_features']
+     train: distinct uri 3642; uri group sizes (size: count) {1: 3439, 2: 185, 3: 18}; repeated groups 203 with 424 rows; groups whose features or date vary 0; share of rows in repeated uri groups 0.1097
+     test: uri missing 0; track_href and analysis_url end in the uri token [True, True]; type values ['audio_features']
+     test: distinct uri 852; uri group sizes (size: count) {1: 841, 2: 11}; repeated groups 11 with 22 rows; groups whose features or date vary 0; share of rows in repeated uri groups 0.0255
+     train uri groups with conflicting labels 32, rows 66
+     uri shared by train and test 0
+     audio + date signatures: train complete rows 3863, distinct 3637; test distinct 852; distinct signatures shared by train and test 0
+     audio only signatures: train complete rows 3863, distinct 3629; test distinct 852; distinct signatures shared by train and test 2
+     train groups as connected components (the incomplete row is a singleton in each):
+     uri only: groups 3643; group sizes (size: count) {1: 3440, 2: 185, 3: 18}; mixed-label groups 32 (rows 66); groups joining more than one uri 0
+     uri or identical audio + date (primary): groups 3638; group sizes (size: count) {1: 3432, 2: 187, 3: 18, 4: 1}; mixed-label groups 35 (rows 72); groups joining more than one uri 5
+     also identical audio only (strict): groups 3630; group sizes (size: count) {1: 3420, 2: 188, 3: 20, 4: 2}; mixed-label groups 38 (rows 79); groups joining more than one uri 13
+     strict grouping coarsens the primary one: True
+[A3] release-date precision and validity (Finding 003)
+     train: missing dates 0; invalid or malformed 0; precision (length: count) {4: 111, 7: 1, 10: 3752}; year-month values ['1979-06']
+     train: year range 1954 to 2024; full dates 1954-01-01 to 2024-11-22, days since 1970 -5844 to 20049; F2 fields left missing by partial dates: month 111, day, day of year, weekday and days 112
+     test: missing dates 0; invalid or malformed 0; precision (length: count) {4: 23, 10: 840}; year-month values []
+     test: year range 1957 to 2024; full dates 1957-12-02 to 2024-11-22, days since 1970 -4413 to 20049; F2 fields left missing by partial dates: month 23, day, day of year, weekday and days 23
+[A4] marginal associations with High (Finding 004)
+     release era: train rows, distinct uri, High count, High rate; test rows
+     before 1990    134   115   134 1.0000    31
+     1990s          223   210   112 0.5022    38
+     2000s          316   297   164 0.5190    58
+     2010s          810   769   342 0.4222   183
+     2020 on       2381  2251   607 0.2549   553
+     univariate AUC, High positive, increasing raw value as the score
+     loudness         AUC 0.6805  n 3863 (High 1359, Low 2504), missing 1
+     instrumentalness AUC 0.3253  n 3863 (High 1359, Low 2504), missing 1
+     acousticness     AUC 0.3422  n 3863 (High 1359, Low 2504), missing 1
+     release year     AUC 0.3594  n 3864 (High 1359, Low 2505), missing 0
+     energy           AUC 0.6282  n 3863 (High 1359, Low 2504), missing 1
+     duration_ms      AUC 0.6075  n 3863 (High 1359, Low 2504), missing 1
+     valence          AUC 0.5713  n 3863 (High 1359, Low 2504), missing 1
+     danceability     AUC 0.5450  n 3863 (High 1359, Low 2504), missing 1
+     tempo            AUC 0.5436  n 3863 (High 1359, Low 2504), missing 1
+     key              AUC 0.5189  n 3863 (High 1359, Low 2504), missing 1
+     liveness         AUC 0.5138  n 3863 (High 1359, Low 2504), missing 1
+     mode             AUC 0.5123  n 3863 (High 1359, Low 2504), missing 1
+     speechiness      AUC 0.4960  n 3863 (High 1359, Low 2504), missing 1
+     time_signature   AUC 0.5032  n 3863 (High 1359, Low 2504), missing 1
+[A5] train versus test, descriptive; row order (Finding 005)
+     release year percentiles 10/25/50/75/90: train [2001. 2015. 2022. 2024. 2024.], test [2002.  2016.  2022.  2023.5 2024. ]
+     KS distance acousticness     0.0431  (train n 3863, test n 863)
+     KS distance danceability     0.0413  (train n 3863, test n 863)
+     KS distance loudness         0.0400  (train n 3863, test n 863)
+     KS distance tempo            0.0386  (train n 3863, test n 863)
+     KS distance energy           0.0376  (train n 3863, test n 863)
+     KS distance instrumentalness 0.0372  (train n 3863, test n 863)
+     KS distance release year     0.0362  (train n 3864, test n 863)
+     KS distance key              0.0304  (train n 3863, test n 863)
+     KS distance duration_ms      0.0300  (train n 3863, test n 863)
+     KS distance speechiness      0.0271  (train n 3863, test n 863)
+     KS distance liveness         0.0255  (train n 3863, test n 863)
+     KS distance valence          0.0221  (train n 3863, test n 863)
+     KS distance time_signature   0.0149  (train n 3863, test n 863)
+     KS distance mode             0.0123  (train n 3863, test n 863)
+     test rows whose exact date string occurs in train: 623 of 863 (0.7219)
+     AUC of the train row position for High 0.5056; correlation of test ID with release year -0.0271
