@@ -1,0 +1,9 @@
+# Route catboost: the additive dependency closure of catboost==1.2.10, resolved against
+# artifacts/phase2/install/inventory_protected.json jointly with the other routes (doc/plans/phase2-models-features.md section 4.9).
+# Exact wheels by URL and sha256; pip resolves nothing further. Install with:
+# PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pip install --no-deps --require-hashes -r configs/phase2/install/catboost.txt
+--no-index
+--only-binary=:all:
+catboost @ https://files.pythonhosted.org/packages/bb/52/f5cd568800c87576012d715481730da93bcc34e609c5c204550a9ad0c067/catboost-1.2.10-cp312-cp312-macosx_11_0_universal2.whl --hash=sha256:b27115d5b443048f710001c8ac666892dfe03498492310b00466203c91cc30a5
+graphviz @ https://files.pythonhosted.org/packages/91/4c/e0ce1ef95d4000ebc1c11801f9b944fa5910ecc15b5e351865763d8657f8/graphviz-0.21-py3-none-any.whl --hash=sha256:54f33de9f4f911d7e84e4191749cac8cc5653f815b06738c54db9a15ab8b1e42
+plotly @ https://files.pythonhosted.org/packages/e5/7d/905a3a3d51087515719058c94cfbda2ff0fc14417c20d557ae3e82d8b250/plotly-7.1.0-py3-none-any.whl --hash=sha256:dbb7fa18afce40d0a8e80d1bf162eceb3faa0ce5a77fe741ad09a74cf78f53f3

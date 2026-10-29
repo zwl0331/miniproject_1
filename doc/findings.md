@@ -302,3 +302,31 @@ Review status:
 Downstream use:
 
 F2 as the feature baseline for the tree models in phase 2; both tree families kept as candidates; the date-feature ablation of the report.
+
+## Finding 009: The Phase 2 Harness Reproduces the Anchor
+
+Question:
+
+Does the phase 2 engine (`songpop/phase2/`), with its per-fold feature construction, recipes and bank_v2 format, compute exactly what the reviewed phase 1 harness computed, so phase 2 comparisons against the anchor are matched?
+
+Current conclusion:
+
+- The recipe `configs/phase2/recipes/lightgbm_F2_anchor.json` (LightGBM on F2 with the phase 1 parameters, no blocks, no preprocessing, no training weights, estimator seed 0) run through `scripts.run_experiments` on the saved primary folds and all three split seeds gives the bank `p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af`. All ten arrays (row ids, labels, groups, split seeds, folds, out-of-fold predictions, per-fold test predictions, deployment mean, fold AUCs) equal those of the phase 1 bank `production_lightgbm_F2_9c37e77d549e` bit for bit, and the resolved estimator parameters are identical. Mean fold AUC 0.8314739289.
+- Its fold-average deployment output gives submission bytes identical to `submissions/2026-10-29_p1.3_lightgbm_F2.csv`.
+- Requesting split seed 2026 alone uses the saved second repeat: its folds and out-of-fold predictions equal the phase 1 bank's second repeat.
+
+Evidence:
+
+`../artifacts/phase2/run_anchor.txt`; the bank and its record in `../artifacts/phase2/experiments.jsonl`; `scripts.run_experiments --verify-all` recomputes it and compares; `../artifacts/phase2/check_phase2.txt`, check "anchor", recomputes it in memory and compares every array with the phase 1 bank.
+
+Uncertainty:
+
+None for the equality, on this machine and environment (LightGBM 4.7.0 with `deterministic=True`, four threads). Equality was not tested for the other families, whose phase 1 recipes are not phase 2 anchors.
+
+Review status:
+
+`draft`, in the P2.1 review (`../reviews/2026-10-29-p2.1-infrastructure.md`); it becomes `reviewed` when that review converges, and this ledger revision is committed only then.
+
+Downstream use:
+
+The anchor of phase 2: the comparator of the searches and feature blocks, and of the nested evaluation's fallback (`plans/phase2-models-features.md` sections 5.4 and 8).

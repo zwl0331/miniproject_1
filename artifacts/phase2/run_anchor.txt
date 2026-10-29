@@ -1,0 +1,1 @@
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af        0.8315  repeats [0.833456, 0.83095, 0.830016]  (7.6 s, 0 warnings)

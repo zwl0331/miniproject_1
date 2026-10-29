@@ -8,12 +8,13 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 
 | Path | Content |
 |---|---|
-| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `plans/phase2-models-features.md` (phase 2 plan); `findings.md` (evidence ledger, Findings 000 to 008); `review_policy.md` |
+| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `plans/phase2-models-features.md` (phase 2 plan); `findings.md` (evidence ledger, Findings 000 to 009); `review_policy.md` |
 | `doc/llm_usage/` | Evidence for the report's LLM Usage section: `integration_index.md` (one row per LLM-assisted component) and the verbatim prompts and answers of the consultations, one directory per task |
 | `analysis/` | Analysis code: `scoping.py`, the scoping run behind the modeling strategy, with its output `scoping_output.txt`; `audit.py`, the data audit behind Findings 001 to 005, with its output `audit_output.txt` |
-| `songpop/` | The validation harness (P1.2): loading, features, groups and folds, models, cross-validation, metrics and the bootstrap, banks and submissions |
-| `scripts/` | Run as modules from the project root: `run_baselines.py` (legacy reproduction and production baselines, `--verify` to recompute without writing), `check_foundation.py` (the harness's self-checks) |
-| `artifacts/` | Produced by the scripts: `splits/production_v1.csv` (groups and folds), `bank/` (one prediction bank per run, never overwritten), `experiments.jsonl` (the experiment log), and the scripts' outputs |
+| `songpop/` | The validation harness (P1.2): loading, features, groups and folds, models, cross-validation, metrics and the bootstrap, banks and submissions. `songpop/phase2/` (P2.1): recipes, feature blocks and fold-fitted date encodings, model factories with their preprocessing, the engine, bank_v2, blends, runs and searches, submission checks (`plans/phase2-models-features.md` section 4) |
+| `scripts/` | Run as modules from the project root: `run_baselines.py` (legacy reproduction and production baselines, `--verify` to recompute without writing), `check_foundation.py` (the harness's self-checks); phase 2 (P2.1): `run_experiments.py` (runs, searches, blends, comparisons, verification), `check_phase2.py` (self-checks), `prepare_candidate.py` (submissions from a selection manifest), `install_locks.py` (hashed installation locks) |
+| `configs/` | Phase 2 inputs (P2.1): `phase2/recipes/` (recipe JSON), `phase2/searches/` (search specifications), `phase2/install/` (the hashed route locks for CatBoost, EBM and TabM, executed in P2.3 and P2.5; `requirements.txt` stays unchanged) |
+| `artifacts/` | Produced by the scripts: `splits/production_v1.csv` (groups and folds), `bank/` (one prediction bank per run, never overwritten), `experiments.jsonl` (the experiment log), and the scripts' outputs. `phase2/` (P2.1): the phase 2 banks, searches and experiment log, and `install/` (the protected inventory and the dry-run reports) |
 | `submissions/` | Kaggle submission files, each with a sidecar JSON (provenance, description), written by `../scripts/prepare_submission.py`; `README.md` logs every event |
 | `reviews/` | Review records, one file per task, required by `review_policy.md` |
 | `tools/` | `codex_review.sh` runs the independent Codex reviewer non-interactively; `fingerprint.py` computes revision fingerprints |
@@ -42,6 +43,8 @@ Ignored by git: `.venv/`, `.review_logs/` (reviewer output kept by `tools/codex_
 - 2026-10-29: P1.3, the first submission file (LightGBM F2) and the LLM integration index, in review (`../reviews/2026-10-29-p1.3-first-submission.md`).
 - 2026-10-29: P1.3 approved after three Codex rounds and committed (f6add21, 185dffe). Sam uploaded the file at about 04:10 PDT; public AUC 0.83597 as Sam reported it, a pipeline check, not a selection signal (`../submissions/README.md`). Phase 1 complete.
 - 2026-10-29: Sam's go-ahead for phase 2 planning. P2.0, the phase 2 plan (`plans/phase2-models-features.md`), built after Codex consultation rounds E and F, in review (`../reviews/2026-10-29-p2.0-phase2-plan.md`).
+- 2026-10-29: P2.0 approved after two Codex rounds and committed (3e24fe6, df11816).
+- 2026-10-29: P2.1, the phase 2 infrastructure and the anchor reproduced through it (Finding 009), built after Codex consultation rounds G and H; in review (`../reviews/2026-10-29-p2.1-infrastructure.md`). Sam's refinements to the phase 2 experiments, budgets and ensembles become a separate reviewed amendment, P2.0b.
 
 ## Key numbers
 
@@ -56,6 +59,7 @@ Every number here cites its finding in `findings.md`.
 | Best scoping baseline, legacy protocol | 0.8268 mean fold AUC (LightGBM, audio and date) | Finding 006 |
 | Date fields over audio only; ungrouped-fold optimism | +0.05 to +0.08; +0.0158 | Finding 006 |
 | Best production baseline (mean fold AUC, primary groups, split seeds 155, 2026, 1029) | 0.8315, LightGBM on F2; random forest 0.8279, logistic 0.7819 | Finding 007 |
+| Phase 2 anchor through the new engine | bit-identical to the phase 1 LightGBM F2 bank, mean fold AUC 0.8315 | Finding 009 |
 | F2 date parts over F1, LightGBM | +0.0166 (paired bootstrap interval +0.0113 to +0.0218) | Finding 008 |
 
 ## Course rulings

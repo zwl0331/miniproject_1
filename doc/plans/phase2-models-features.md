@@ -1,6 +1,6 @@
 # Phase 2: models and features
 
-v0.1, 2026-10-29. Owner: Sam Zhou. Status: drafted in task P2.0 on Sam's go-ahead, verbatim: "Yes, plan phase 2" and "Again, consult deeply with codex"; in review (`../../reviews/2026-10-29-p2.0-phase2-plan.md`). Built after Codex consultation rounds E (an independent design) and F (a critique of the first draft), verbatim in `../llm_usage/2026-10-29-phase2-consultation/` with what was adopted.
+v0.2, 2026-10-29. Owner: Sam Zhou. Status: v0.1 drafted in task P2.0 on Sam's go-ahead, verbatim: "Yes, plan phase 2" and "Again, consult deeply with codex"; approved after two review rounds and committed (3e24fe6, df11816; `../../reviews/2026-10-29-p2.0-phase2-plan.md`). v0.2: the infrastructure adjustments of P2.1 (section 13), in review (`../../reviews/2026-10-29-p2.1-infrastructure.md`). Sam's later refinements to the experiments, budgets and ensembles are a separate reviewed amendment, P2.0b; until it converges, sections 5 to 11 stand as approved in P2.0. Built after Codex consultation rounds E (an independent design) and F (a critique of the first draft), verbatim in `../llm_usage/2026-10-29-phase2-consultation/` with what was adopted.
 
 ## Goal
 
@@ -49,56 +49,57 @@ Phase 1 files stay unchanged: the top-level `songpop/*.py`, `scripts/run_baselin
 
 | Path | Content |
 |---|---|
-| `songpop/phase2/` | `recipes.py` (load and hash recipes), `features.py` (feature blocks), `encoders.py` (fold-fitted date encodings), `models.py` (estimator factories; optional packages imported inside their factories), `engine.py` (fitting and cross-validation), `banks.py` (bank_v2 metadata, loading with an explicit fold count, validation), `ensembles.py` (blends and seed averages), `selection.py` (the frozen rule), `nested.py` (section 8) |
-| `scripts/` | `run_experiments.py` (runs and searches, `--verify --run-id`), `check_phase2.py` (self-checks), `prepare_candidate.py` (submissions from a selection manifest) |
-| `configs/phase2/` | `recipes/*.json`, `searches/*.json`, `install/` (route locks), `menu.json` |
-| `artifacts/phase2/` | `bank/`, `deploy/` (full-refit predictions), `splits/` (nested-evaluation folds), `selections/`, `install/` (inventories before and after each installation), `experiments.jsonl` |
+| `songpop/phase2/` | `recipes.py` (load and hash recipes), `features.py` (feature blocks), `encoders.py` (fold-fitted date encodings), `models.py` (estimator factories composed with the recipe's preprocessing; optional packages imported inside their factories), `engine.py` (fitting, fit-time checks, cross-validation), `banks.py` (bank_v2 metadata, loading with an explicit fold count, validation), `ensembles.py` (blends, also on a declared subset of split seeds), `runs.py` (data and saved folds, run identities and metadata, the log, verification and replay lookup), `searches.py` (search expansion), `submission.py` (the checks of section 4.7); from P2.6, `selection.py` (the frozen rule); from P2.7, `nested.py` (section 8) |
+| `scripts/` | `run_experiments.py` (runs, searches, blends, comparisons, `--verify --run-id`, `--verify-all`), `check_phase2.py` (self-checks), `prepare_candidate.py` (submissions from a selection manifest), `install_locks.py` (section 4.9) |
+| `configs/phase2/` | `recipes/*.json`, `searches/*.json`, `install/` (route locks); from P2.6, `menu.json` |
+| `artifacts/phase2/` | `bank/`, `searches/` (each search's ordered configurations), `selections/`, `install/` (the protected inventory, the dry-run reports, the inventories before and after each installation), `experiments.jsonl`; from P2.7, `deploy/` (full-refit predictions) and `splits/` (nested-evaluation folds) |
 
 Phase 2 runs are never appended to `artifacts/experiments.jsonl`: the P1.3 selector expects exactly one production F2 run per baseline family there.
 
 ### 4.2 Recipes, searches and identities
 
-- A recipe is a JSON file, not executable code: model family and parameters, feature blocks, preprocessing, training weights, estimator seeds, the iteration or stopping policy, the deployment policy. `recipe_id` carries the sha256 of its canonical JSON.
+- A recipe is a JSON file, not executable code: model family and parameters, feature blocks, a drop list, preprocessing, training weights, estimator seeds, the iteration or stopping policy, the deployment policy. The family, the base and blocks with their drop list, and the preprocessing are independent fields. The drop list removes named feature columns for feature-removal checks. Preprocessing is `none`, `log_standard` (the phase 1 log transforms, median imputation, scaling, one-hot key, mode and time signature) or `spline` (the same with cubic splines before scaling, `n_knots` searchable); a family without native missing-value support needs a preprocessing that imputes. Duplicate JSON keys, non-finite numbers and boolean parameters are rejected. `recipe_id` carries the sha256 of its canonical JSON, without the human name.
 - `run_id` additionally hashes the data, the evaluation and fitting populations, the fold assignments, the requested split seeds, the resolved estimator parameters, the estimator seeds, the source manifest, the relevant package versions and the parent artifacts. A seed-155 screening run and its three-seed confirmation have different run ids.
-- A search file names the family, the space, the number of draws and the sampler seed; the ordered list of configurations is saved before anything is fitted, and duplicates are removed. Phase 1 anchors are copied exactly, even where they fall outside the sampled grid.
+- A search file names the family, the space (a `preprocessing.` prefix sets a preprocessing parameter), the number of draws and the sampler seed; the ordered list of configurations is saved before anything is fitted, and draws whose canonical recipe already exists are skipped. A failing configuration is logged and stops the search. Phase 1 anchors are copied exactly, even where they fall outside the sampled grid.
 
 ### 4.3 Engine
 
 - `fit_recipe(recipe, rows, y, groups, context)` receives only its fitting population: raw rows with their permanent row ids, labels and groups. It never sees outer validation labels or the full dataset. `context` carries seeds and any permitted inner splits. Every learned step (encodings, imputation, scaling, splines, network preprocessing) is fitted inside it.
 - The fitted predictor exposes `predict_high(raw_rows)`, taking raw source columns and returning the probability of numeric class 1, located in `classes_` as `songpop.models.predict_high` does. The phase 4 permutation analysis can then permute an original column and rebuild its derived features without refitting.
-- `run_recipe_cv(recipe, data, folds, split_seeds)` loops over repeats and folds, routes groups, training weights and inner splits explicitly, and validates its inputs as `songpop.evaluate.validate_cv_inputs` does. Any subset of the three split seeds is allowed; the bank says which, and selection rejects a candidate without the complete three-repeat bank, whatever its metadata says.
+- `run_recipe_cv(recipe, data, folds, split_seeds)` loops over repeats and folds, routes groups, training weights and inner splits explicitly, and validates its inputs as `songpop.evaluate.validate_cv_inputs` does. Any subset of the three split seeds is allowed, in the official order and selected by seed value; the bank says which, and selection rejects a candidate without the complete three-repeat bank, whatever its metadata says.
+- At fit time every estimator seed is checked: test rows with identical model inputs (after the feature blocks and the recipe's preprocessing) get identical predictions. Each fit leaves a receipt: its split seed and fold, the hash of its fitting rows, and for each target encoding its inner seed and the hash of its inner splits as permanent row ids.
 
 ### 4.4 Banks
 
 - The phase 1 array schema is kept (`train_row_id`, `y`, `group_id`, `split_seeds`, `fold_id`, `oof`, `test_id`, `test_by_fold`, `test_mean`, `fold_auc`), with schema `bank_v2` metadata that adds: fold and repeat counts; the evaluation and fitting populations; the recipe, its id and the run id; feature lineage from each derived feature to its source columns; estimator seeds; the prediction kind (fitted model, seed average, blend); parent bank hashes; search and stage identity; selection eligibility; inner-split hashes where used; the source manifest of the executing files (the phase 2 modules and the top-level modules they import); package versions including the new ones.
-- Validation: `validate_bank(bank, n_splits=K, require_metadata=False)` from `songpop.evaluate`, unchanged, then `validate_v2_metadata(bank)`. `songpop.artifacts.load_bank` validates with five folds, so phase 2 loads through its own loader with the explicit fold count.
+- Validation: `validate_bank(bank, n_splits=K, require_metadata=False)` from `songpop.evaluate`, unchanged, then `validate_v2_metadata(bank)`, which also checks that the linked fields agree: the config's recipe hash, estimator seeds, split seeds, fold-matrix hash, evaluation population, source-manifest digest and parents against the bank's own; canonical split seeds and stage; the features against the recipe; one fit receipt per fold; for blends, distinct parents with positive weights summing to one. `songpop.artifacts.load_bank` validates with five folds, so phase 2 loads through its own loader with the explicit fold count.
 - Tolerances: identity fields and stable metadata exact; predictions of classical models within `rtol=0, atol=1e-12`, as in phase 1; a neural tolerance only after a repeatability pilot, declared before its bank is accepted.
 - Banks are never overwritten.
 
 ### 4.5 Log, verification and replay
 
 - `artifacts/phase2/experiments.jsonl` holds run, search, comparison, selection and submission records.
-- `run_experiments --verify --run-id ID` recomputes one run in memory and compares it with its bank and record.
+- `run_experiments --verify --run-id ID` reads the bank's envelope first, compares its sources and recorded Python and package versions with those present, then recomputes the run in memory and compares it with its bank and record, unrounded scores included. `--verify-all` also checks every comparison, every search file against its re-expansion, and every submission's files against their recorded hashes. A bank is saved only if the project sources loaded at the end of the run equal those at its start.
 - The execution head recorded in a bank is context, not proof of the executing source: the phase 1 LightGBM F2 bank records 34247f5, a commit before its harness was committed in 7dd8b3d. Replay uses a commit whose files match the recorded source manifest. That association is recorded after the reviewed code is committed, without rewriting any bank, and checked before a replay command is printed. A source or dependency mismatch exits with a nonzero status and never counts as verification.
 
 ### 4.6 Ensembles
 
-`blend_banks(banks, weights)` averages probabilities per repeat and fold, only across banks with identical row ids, labels, groups, split seeds, folds and test ids, and recomputes every AUC from the blended predictions; member AUCs are never averaged. Estimator seeds are averaged within each exact base recipe, then the declared weights apply across base recipes; recipes are never merged because they share a model family. Parent hashes, weights and averaging order are recorded. Rank averaging stays excluded (strategy section 5.5).
+`blend_banks(banks, weights)` averages probabilities per repeat and fold, only across banks with identical row ids, labels, groups, split seeds, folds and test ids, and recomputes every AUC from the blended predictions; member AUCs are never averaged. A blend or a paired comparison may first restrict every bank to a declared subset of split seeds, so a challenger screened on one seed meets a three-seed recipe on identical folds; a comparison is logged once, identified by both bank hashes, the seeds and the bootstrap settings. Estimator seeds are averaged within each exact base recipe, then the declared weights apply across base recipes; recipes are never merged because they share a model family. Parent hashes, weights and averaging order are recorded. Rank averaging stays excluded (strategy section 5.5).
 
 ### 4.7 Submissions
 
-`prepare_candidate.py` reads an explicit selection manifest (run ids, weights, deployment), writes the file once (exclusive create), reads it back and validates it:
+`prepare_candidate.py` reads an explicit selection manifest (`artifacts/phase2/selections/<name>.json`: schema `selection_v1`, name, task id, the run id of one logged fitted recipe or declared blend, purpose, date), writes the file once (exclusive create), reads it back, validates it, and logs a submission record with the manifest, bank, CSV and sidecar hashes. Before rebuilding anything, each member bank must hold the production rows, labels, groups, test ids, data hashes and saved folds, and its source files and dependencies must be those present. The checks:
 
 - the phase 1 checks: 863 rows, `ID, Popularity_Type` in that order, no index column, the sample's ID order, unique IDs, finite probabilities in [0, 1], the hash;
 - the probability of numeric class 1, extracted explicitly for every member;
 - equality with the deployment predictions rebuilt from the banks or the deployment artifact;
-- for every fitted member, its actual transformed test feature vectors: identical vectors (NaN equal to NaN) get predictions equal within the declared tolerance; the composite is checked on rows equivalent for every member; IDs and provenance columns never enter the keys;
+- for every fitted member and fold, its actual model inputs, rebuilt by refitting the feature pipeline on the fold's training rows and the recipe's preprocessing on that cross-fitted training matrix: identical inputs (NaN equal to NaN) get predictions equal within the declared tolerance; the bank holds each recipe's seed average per fold, so this checks the average, and the fit-time check of section 4.3 covered each estimator seed; the composite is checked on rows equivalent for every member; IDs and provenance columns never enter the keys;
 - the 11 repeated test `uri` pairs, enumerated independently: equal predictions within each pair for every member and the composite;
 - an additional raw-source invariant over the 13 audio columns and the raw date string.
 
 ### 4.8 Self-checks
 
-`scripts/check_phase2.py`, in memory, like `check_foundation.py`. P2.1 runs every package-independent check; the CatBoost and TabM runtime checks become mandatory in the task that installs each route. A skipped check is reported as skipped, never as passed.
+`scripts/check_phase2.py`, in memory, like `check_foundation.py`; checks of writing code run against an in-memory file system. P2.1 runs every package-independent check; the CatBoost, EBM and TabM runtime checks become mandatory in the task that installs each route. Checks of code built in a later task are reported as STAGED until it is built, never as passed.
 
 - Label isolation, with fold assignments held fixed: changing outer-validation labels changes no outer-validation or test prediction.
 - Target encoding: a hand-computed example with mixed-label duplicate groups and unseen dates; a row's whole group excluded in its inner folds; unseen dates get the fitting prior.
@@ -115,10 +116,10 @@ Phase 2 runs are never appended to `artifacts/experiments.jsonl`: the P1.3 selec
 Each installation is a gated action (`../review_policy.md` section 4.2). P2.1 resolves all three routes together against one compatible set of exact pins and writes one lock per route in `configs/phase2/install/`, each with its complete additive dependency closure and wheel hashes; a dependency shared by two routes has the same pin in both. P2.1's review covers the locks and the exact commands; P2.3 and P2.5 execute them unchanged.
 
 1. Record the protected inventory: every installed distribution and version (`.venv/bin/python -m pip list --format=json`).
-2. Resolve each route with every installed version constrained: `.venv/bin/python -m pip install --dry-run --report <file> --only-binary=:all: -c <inventory constraints> <packages>`; then check the three resolutions against each other.
+2. Resolve all routes jointly with every installed version constrained (`.venv/bin/python -m pip install --dry-run --report <file> --only-binary=:all: -c <inventory constraints> <packages>`), then each route against the protected inventory plus the joint additions. Each lock lists exact wheel URLs with their sha256, checked against the wheel tags this interpreter supports. `scripts/install_locks.py` runs these steps and the checks of steps 4 and 5.
 3. Reject a resolution that changes an installed version or pins a shared dependency differently in two routes.
-4. Before execution: the installed inventory must equal the protected inventory plus a subset of previously approved additions.
-5. Execute: `.venv/bin/python -m pip install --no-deps --require-hashes -r configs/phase2/install/<route>.txt`, which resolves nothing further. Save the inventories before and after in `artifacts/phase2/install/`.
+4. Before execution: the installed inventory must equal the protected inventory plus a subset of previously approved additions; it is saved as the route's before-inventory.
+5. Execute: `.venv/bin/python -m pip install --no-deps --require-hashes -r configs/phase2/install/<route>.txt`, which resolves nothing further. After it, the inventory must equal the before-inventory plus exactly the route's lock, and is saved.
 6. After execution: `pip check`, imports, a small fit on F2 with its missing values, predictions after a reload, and the phase 1 commands of exit criterion 5.
 
 | Route | Packages | Executed in |
@@ -139,7 +140,7 @@ The initial search has exactly 104 classical configurations (80 core, 24 optiona
 |---|---|---|---|
 | LightGBM | P2.2, core | 32, the phase 1 anchor included | `num_leaves` {7, 15, 31}; `min_child_samples` {10, 20, 40, 80, 120}; learning rate {0.02, 0.05}; trees {300, 600, 1200}; L1 {0, 0.1, 1, 5}; L2 {0, 0.1, 1, 10, 30}; column fraction {0.7, 0.85, 1}; row fraction {0.8, 1}, with `subsample_freq=1` when below 1 |
 | Random forest | P2.2, core | 18, the phase 1 anchor included | 500 trees; `bootstrap=True`; leaf size {1, 2, 3, 5, 8, 12, 20}; `max_features` {"sqrt", 0.5, 0.75, 1.0}; depth {None, 12, 24}; `max_samples` {0.7, 1.0} |
-| Spline logistic | P2.2, core | 6 | knots {4, 7}, degree 3; C {0.1, 1, 10}; section 6.2 |
+| Spline logistic | P2.2, core | 6 | logistic regression with `spline` preprocessing: knots {4, 7}, degree 3; C {0.1, 1, 10}; section 6.2 |
 | CatBoost | P2.3, core | 24, anchors included | depth 3 to 7; L2 {3, 10, 30}; random strength {0, 0.5, 1, 2}; learning rate {0.03, 0.06}; iterations {500, 1000, 1600}; Plain and Ordered boosting; symmetric trees |
 | Extra Trees | P2.2, optional | 6 | 500 trees; no bootstrap; leaf size {2, 5, 12}; feature fraction {0.5, 1} |
 | XGBoost | P2.2, optional | 8 | `hist`; depth 2 to 4; child weight {3, 10, 30}; L2 {1, 10, 30}; learning rate {0.03, 0.07}; trees {500, 1000}; row and column sampling 0.8 |
@@ -268,7 +269,7 @@ Phase 3 proposes A, the strongest stable candidate under this rule, and B, a com
 
 ## 12. Strategy amendments
 
-P2.0 is the reviewed task for this coherent amendment of `modeling_strategy.md`; each row is edited there, with a history note. The strategy's current revision is draft until P2.0 converges; P0.2's approval covers the earlier revision.
+P2.0 was the reviewed task for this coherent amendment of `modeling_strategy.md`; each row is edited there, with a history note. P2.0 converged and was committed (3e24fe6).
 
 | Strategy | Amendment or clarification | Why |
 |---|---|---|
@@ -281,6 +282,15 @@ P2.0 is the reviewed task for this coherent amendment of `modeling_strategy.md`;
 | Section 4, step 10: the restricted nested evaluation | Clarified: the design, the anchor fallback, the deployment comparison and the reduced path of section 8 | Rules declared before the evaluation runs |
 | Sections 5.6 and 6: interpretation on Sunday; section 4, step 11: stress tests for the report | Both in phase 4 | Sam's decision of 2026-10-29 |
 
+## 13. Amendments in P2.1
+
+Infrastructure only, reviewed in P2.1 before P2.2 builds on it; P2.0's approval does not cover these lines.
+
+- Section 4.1: `runs.py`, `searches.py`, `submission.py` and `install_locks.py` join the layout. `selection.py`, `nested.py`, the full-refit artifacts, the TabM wrapper and their self-checks are built in P2.6, P2.7 and P2.5, the tasks that first use them; `check_phase2.py` reports their checks as STAGED until then.
+- Section 4.2: preprocessing is a recipe field of its own, as this section always listed, so spline logistic regression is the logistic family with `spline` preprocessing (section 5.1); a drop list supports feature-removal checks; the recipe hash leaves out the human name.
+- Sections 4.3 to 4.7: fit-time checks of every estimator seed and fit receipts; the linked-field checks of bank_v2; envelope-first verification of sources and dependencies; seed-restricted blends and comparisons; the selection-manifest schema and the submission record; submission checks on rebuilt model inputs after preprocessing and against the production protocol.
+- Section 4.9: joint resolution, exact wheel URLs, saved before- and after-inventories.
+
 ## Open questions
 
 1. The exact Kaggle team name as Kaggle displays it, for the report and the Piazza note (Sam).
@@ -289,3 +299,4 @@ P2.0 is the reviewed task for this coherent amendment of `modeling_strategy.md`;
 ## Status
 
 - 2026-10-29: Sam's go-ahead for planning phase 2 (header). Codex consultation round E (an independent design, after Claude's positions were written down) and round F (a critique of the first draft; its changes adopted, listed in the consultation README). P2.0 in review.
+- 2026-10-29: P2.0 approved in two rounds and committed (3e24fe6, df11816). P2.1 started on Sam's go-ahead, verbatim: "Commit and start P2.1". During P2.1 Sam asked for refinements to the experiments, budgets and ensembles of phase 2; they are a separate reviewed amendment, P2.0b. P2.1 in review.

@@ -1,0 +1,7 @@
+# Route ebm: the additive dependency closure of interpret-core==0.7.8, resolved against
+# artifacts/phase2/install/inventory_protected.json jointly with the other routes (doc/plans/phase2-models-features.md section 4.9).
+# Exact wheels by URL and sha256; pip resolves nothing further. Install with:
+# PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pip install --no-deps --require-hashes -r configs/phase2/install/ebm.txt
+--no-index
+--only-binary=:all:
+interpret-core @ https://files.pythonhosted.org/packages/1b/ba/3075daaf19b8873f207a94e524f52f9a236836729828a64ee0281c723e00/interpret_core-0.7.8-py3-none-any.whl --hash=sha256:6644f1498b8d247c5004fe691a9815ff0efc74af243f249f295a5e9f3202b483

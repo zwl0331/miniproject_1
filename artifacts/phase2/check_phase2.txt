@@ -1,0 +1,59 @@
+search probe_spy_527739113b15: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_527739113b15.json
+search probe_spy_b07a8b74540a: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_b07a8b74540a.json
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_3c6c80ec6264 on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_3c6c80ec6264 on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  already logged
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_3c6c80ec6264 on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  equals log
+PASS    recipes: validation rejects malformed recipes; ids ignore key order
+PASS    searches: anchors first and exact; draws seeded, deduplicated, reproducible
+PASS    anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly
+        mean fold AUC 0.8314739289, all 10 arrays bit-identical; its submission bytes equal the P1.3 file; seed 2026 alone uses the saved second repeat
+PASS    label isolation: changing one held-out fold's labels changes no prediction of that fold's model
+        every block and inverse-group weights; the other folds' models do change (positive control)
+PASS    preprocessing isolation: an extreme value in one held-out row changes nothing else that fold's model predicts
+        imputation, splines, scaling and the era means are fitted on the training part only
+PASS    date target encoding: hand-computed cross-fitting, mixed-label groups, unseen dates, the prior
+PASS    date target encoding on the real data: with inner folds held fixed, a row's group never encodes it
+        group 100 of size 4; other rows of its date do change (positive control)
+PASS    date count: the own group left out for fitting rows; zero for an unseen date
+PASS    era-relative audio: era means shrunk with 20 pseudo-rows; an unseen era uses the fitting mean
+PASS    cyclic and interaction blocks: 2 pi phases, wraparound, NaN where unobserved, formulas
+PASS    training weights: inverse group size, mean one in the fitting rows; they change the fit
+PASS    recipes: the model, the feature blocks and the preprocessing vary independently
+        family, blocks (with a dropped column) and preprocessing each changed alone: four recipe ids, the other two parts unchanged
+PASS    engine: no screening, promotion or selection rule in the fitting code
+        the fitting modules read no log and hold no threshold; any valid recipe fits
+PASS    threads: HistGB fits and predicts under an OpenMP limit of four; the other families set their own
+        OpenMP pools inside the HistGB fit: [4, 4]
+PASS    model factories: every installed family fits F2 with missing values and returns P(class 1)
+        held-out AUC on one fold: lightgbm 0.816, random_forest 0.826, extra_trees 0.815, xgboost 0.792, hist_gb 0.817, logistic_spline 0.786, logistic_log_standard 0.773
+STAGED  CatBoost runtime: fits F2 with missing values, writes no file, returns P(class 1)
+        Built and run in P2.3, after the reviewed installation; an installed package never turns it into a pass.
+STAGED  EBM runtime: fits F2 with missing values, writes no file, returns P(class 1)
+        Built and run in P2.3 if EBM is used, after the reviewed installation.
+PASS    banks: bank_v2 round trip; metadata validation rejects every inconsistency
+        11 single contradictions refused; a three-fold bank round-trips with n_splits=3
+PASS    verification: a source mismatch is refused and names the replay commit
+        the phase 1 LightGBM F2 manifest replays at df11816 (its recorded head is 34247f5)
+PASS    blends: identity, member order, weights, identities, recomputed AUCs
+        estimator seeds [0, 1, 2] equal the mean of three single-seed runs exactly; a blend keeps recipe weights
+PASS    matched comparisons and declared blends, also on a declared subset of split seeds
+        a three-seed leader blended 0.75/0.25 with a seed-155 challenger on seed 155 and compared, paired
+PASS    submissions: a valid candidate passes; every defect, a partial bank and an altered parent are refused
+        member duplicate classes 165, raw classes 11
+PASS    searches: the configuration list is saved before the first fit; a failure is logged and stops the search
+        search probe_spy_527739113b15 in an in-memory file system; an implicit and an explicit n_knots=4 count once
+PASS    verification writes nothing: the logged anchor recomputes with every writer disabled
+        p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af equals its saved bank and log (sources checked on disk against its manifest); tampered unrounded scores and 13 other single record fields are caught
+PASS    comparisons: seed-restricted, matched, logged once, verified
+        a three-seed and a one-seed bank compared on seed 155, logged once, verified; nothing written
+PASS    installation checks: the after-inventory must equal the before-inventory plus the lock
+        a vanished earlier addition, a changed protected version and an unapproved addition are refused
+STAGED  nested evaluation: fitting ids stay inside their outer training rows
+        songpop/phase2/nested.py arrives with P2.7, which first uses it; its check arrives with it.
+STAGED  deployment: full-refit artifacts stay apart from fold averages
+        Full-refit deployment artifacts arrive with P2.7.
+STAGED  selection: the frozen rule rejects partial-seed candidates and breaks ties as declared
+        songpop/phase2/selection.py arrives with P2.6; partial-seed submissions are already refused above.
+STAGED  neural early stopping: preprocessing fitted on inner training rows only
+        The TabM wrapper arrives with P2.5.
+24 passed, 0 failed, 0 skipped, 6 staged
