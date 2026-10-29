@@ -9,11 +9,12 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 | Path | Content |
 |---|---|
 | `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `findings.md` (evidence ledger, Findings 000 to 006); `review_policy.md` |
-| `doc/llm_usage/` | Evidence for the report's LLM Usage section: verbatim prompts and answers of LLM consultations, one directory per task |
+| `doc/llm_usage/` | Evidence for the report's LLM Usage section: `integration_index.md` (one row per LLM-assisted component) and the verbatim prompts and answers of the consultations, one directory per task |
 | `analysis/` | Analysis code: `scoping.py`, the scoping run behind the modeling strategy, with its output `scoping_output.txt`; `audit.py`, the data audit behind Findings 001 to 005, with its output `audit_output.txt` |
 | `songpop/` | The validation harness (P1.2): loading, features, groups and folds, models, cross-validation, metrics and the bootstrap, banks and submissions |
 | `scripts/` | Run as modules from the project root: `run_baselines.py` (legacy reproduction and production baselines, `--verify` to recompute without writing), `check_foundation.py` (the harness's self-checks) |
 | `artifacts/` | Produced by the scripts: `splits/production_v1.csv` (groups and folds), `bank/` (one prediction bank per run, never overwritten), `experiments.jsonl` (the experiment log), and the scripts' outputs |
+| `submissions/` | Kaggle submission files, each with a sidecar JSON (provenance, description), written by `../scripts/prepare_submission.py`; `README.md` logs every event |
 | `reviews/` | Review records, one file per task, required by `review_policy.md` |
 | `tools/` | `codex_review.sh` runs the independent Codex reviewer non-interactively; `fingerprint.py` computes revision fingerprints |
 | `data/` | `train.csv`, `test.csv`, `sample_submission.csv` as downloaded from Kaggle; never modified |
@@ -37,6 +38,8 @@ Ignored by git: `.venv/`, `.review_logs/` (reviewer output kept by `tools/codex_
 - 2026-10-29: Sam's go-ahead for Day 1; phase 1 started (`plans/phase1-data-baseline.md`). Sam uploads every submission. P1.1, the data audit and Findings 001 to 006, in review (`../reviews/2026-10-29-p1.1-data-audit.md`).
 - 2026-10-29: P1.1 approved after two Codex rounds and committed (a369262, 34247f5).
 - 2026-10-29: P1.2, the harness and the nine baselines (Findings 007 and 008), built after Codex consultation rounds C and D, in review (`../reviews/2026-10-29-p1.2-harness.md`).
+- 2026-10-29: P1.2 approved after three Codex rounds and committed (7dd8b3d, 0ba74a1).
+- 2026-10-29: P1.3, the first submission file (LightGBM F2) and the LLM integration index, in review (`../reviews/2026-10-29-p1.3-first-submission.md`).
 
 ## Key numbers
 

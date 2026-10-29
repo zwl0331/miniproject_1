@@ -14,7 +14,7 @@ Numbers marked "scoping" come from `../../analysis/scoping.py` (output `../../an
 | 3,864 training rows, 863 test rows | Small data: variance dominates. Strong regularization, repeated grouped CV, few and large decisions |
 | Kaggle closes Monday 2026-11-02, 5:00 PM PST; 10 submissions a day; two final selections | About four working days from Sam's go-ahead. Submissions test stated hypotheses; they are not a search tool |
 | Every task and every submission waits for a review round | Review turnaround is the bottleneck, not compute: few, well-scoped tasks |
-| Report (90 points) and Colab (10 points) due Tuesday 2026-11-03, 11:59 PM PST | Every experiment leaves evidence for the report; report and Colab work start with the first baseline |
+| Report (90 points) and Colab (10 points) due Tuesday 2026-11-03, 11:59 PM PST | Every experiment leaves evidence for the report (the experiment log, the findings); report and Colab work wait until development ends (Sam's decision of 2026-10-29) |
 | Apple Silicon Mac, CPU only; Colab GPU available | Every scheduled model runs on CPU at this size; Colab is for the demo |
 | Course rules (`../../CLAUDE.md`) and Sam's decision of 2026-10-29 (section 3) | Only models fitted from scratch on the provided training rows |
 
@@ -160,13 +160,13 @@ Day 1 is the day of Sam's go-ahead. The author-time caps exclude review turnarou
 
 | When | Tasks | Work | Cap and exit |
 |---|---|---|---|
-| Day 1 (Thursday evening or Friday morning) | P1.1, P1.2, P1.3 | P1.1: section 2 as draft findings. P1.2: the harness (loading, target map, groups, saved folds, features F0 to F2, the out-of-fold bank, metrics with the paired bootstrap, the submission writer with checks, the experiment log); first reproduce the scoping result with its exact rows, groups, features and seeds, then establish the baselines (LightGBM, random forest, logistic) under the production protocol; differences between the two protocols need not be noise. P1.3: the first submission. Start the report and Colab skeletons | 2 to 3 hours. P1.3 exit: the submission is accepted; schema, orientation, prediction distribution and provenance are verified; the public score is recorded, with no fixed tolerance |
+| Day 1 (Thursday evening or Friday morning) | P1.1, P1.2, P1.3 | P1.1: section 2 as draft findings. P1.2: the harness (loading, target map, groups, saved folds, features F0 to F2, the out-of-fold bank, metrics with the paired bootstrap, the submission writer with checks, the experiment log); first reproduce the scoping result with its exact rows, groups, features and seeds, then establish the baselines (LightGBM, random forest, logistic) under the production protocol; differences between the two protocols need not be noise. P1.3: the first submission | 2 to 3 hours. P1.3 exit: the submission is accepted; schema, orientation, prediction distribution and provenance are verified; the public score is recorded, with no fixed tolerance |
 | Friday | P2.1, P2.2 | P2.1: the date representation (F1 versus F2 and its partial-date rules). P2.2: a small random-forest search; LightGBM and CatBoost screening and tuning; one smooth model; an equal blend as soon as two models exist | 3 to 4 hours |
 | Saturday | P2.3, P2.4 | P2.3: focused ablations (F3 transforms, duplicate weights, the incomplete row), simple ensembles, stress tests. P2.4: at most one challenger, the neural recipe of section 5.3, 90 minutes including setup. Freeze the candidate menu and the selection rule by the evening | 3 to 4 hours |
-| Sunday | P2.5, P4.1 | P2.5: the restricted nested evaluation; interpretation (section 5.6). P4.1: a clean Colab run, report figures and prose. No new model-family search | Freeze Sunday evening |
+| Sunday | P2.5 | The restricted nested evaluation; interpretation (section 5.6). No new model-family search | Freeze Sunday evening |
 | Monday, by 2 PM PST | P3.1 | Final refits and checks, two candidates proposed with their evidence, uploaded. No new feature or hyperparameter search | Uploaded by 2 PM PST |
 | Monday, by 3 PM PST | P3.2 | Sam selects the two final submissions on Kaggle | Selected before 5 PM PST |
-| Tuesday | P4.2, P4.3 | The report from the template; the Colab made public read-only; the Piazza note; the Gradescope upload | By 11:59 PM PST |
+| Monday after the close, and Tuesday | P4.1 to P4.3 | The Colab notebook run from a clean runtime; the report from the template; the Colab made public read-only; the Piazza note; the Gradescope upload | By Tuesday 11:59 PM PST |
 
 If Day 1 slips to Friday, Day 1 and Friday compress into Friday and Saturday by dropping in this order: the incomplete-row ablation, the neural challenger, the smooth model.
 
@@ -240,4 +240,4 @@ Checked on 2026-10-29. "C" checked by Claude, "X" reported by Codex in the consu
 
 ## History
 
-- v0.1, 2026-10-29: created with P0.2. Status line updated with P1.1; content unchanged.
+- v0.1, 2026-10-29: created with P0.2. Status line updated with P1.1; content unchanged. With P1.3, Sam's decision, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." Sections 1 and 6 changed accordingly: no report or Colab work before development ends.

@@ -16,9 +16,9 @@ A well-validated probability model for high popularity, submitted to Kaggle with
 | 1. Data audit and baseline | Day 1: Sam's go-ahead (target Thursday 2026-10-29 evening or Friday 10-30) | Record the facts of the data as findings: the target encoding, repeated tracks and their labels, incomplete rows, the formats of the release date, the identifier columns. A cross-validation harness that keeps every row of a track in one fold. Baseline models. A first Kaggle submission | Findings; cross-validated AUC of the baselines; first public leaderboard score |
 | 2. Models and features | Friday 2026-10-30 to Sunday 11-01 | Features from the release date and transforms of the audio features; gradient-boosted trees, linear and other models; tuning; ensembling; feature influence and its direction | The best cross-validated model; the ranked features with their direction |
 | 3. Final selection | by Monday 2026-11-02, 5:00 PM PST | Propose two final submissions on cross-validation, with the public leaderboard as a check only | Two selections, Sam's decision |
-| 4. Colab and report | Skeletons from Day 1; clean Colab run Sunday 2026-11-01; due Tuesday 2026-11-03, 11:59 PM PST | A Colab notebook that runs the best model and draws the report's figures; the report from the template, LLM Usage included; the Piazza note; the Gradescope upload | Report PDF, public Colab link, Piazza note |
+| 4. Colab and report | After development ends: from the Kaggle close, Monday 2026-11-02, to Tuesday 2026-11-03, 11:59 PM PST (Sam's decision of 2026-10-29) | A Colab notebook that runs the best model and draws the report's figures; the report from the template, LLM Usage included; the Piazza note; the Gradescope upload | Report PDF, public Colab link, Piazza note |
 
-Phases 2 and 4 may overlap: the report can be drafted while models are tuned. The tasks of phases 1 to 4 and their order are in `plans/modeling_strategy.md` section 6.
+Phase 4 starts only after development ends (Sam's decision of 2026-10-29, quoted in the history below). The tasks of phases 1 to 4 and their order are in `plans/modeling_strategy.md` section 6.
 
 ## Plan structure
 
@@ -55,4 +55,4 @@ Rules:
 ## History
 
 - v0.1, 2026-10-28: created with P0.1.
-- v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets. Status line updated with P1.1: P0.2 committed, phase 1 started; no strategy change.
+- v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets. Status line updated with P1.1: P0.2 committed, phase 1 started; no strategy change. With P1.3, Sam's decision, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." Phase 4 moved to after the Kaggle close.

@@ -10,7 +10,7 @@ The facts of the data in the ledger, a validation harness that every later model
 
 1. Findings 001 to 006 reviewed (P1.1).
 2. The harness of section 4 below in place, passing its self-checks; the legacy scoping table reproduced through it to four decimals; the nine production baselines (LightGBM, random forest, logistic on F0, F1, F2) in the prediction bank and the experiment log (P1.2).
-3. The first submission file reviewed and handed to Sam with its description; report and Colab skeletons in place (P1.3). P1.3's external step, Kaggle accepting the file, is complete when Sam reports the submission and its public score.
+3. The first submission file reviewed and handed to Sam with its description (P1.3). P1.3's external step, Kaggle accepting the file, is complete when Sam reports the submission and its public score.
 
 ## Tasks
 
@@ -20,7 +20,7 @@ Each task is one reviewed unit; a task starts only after the one before it conve
 |---|---|---|
 | P1.1 | `../../analysis/audit.py` and its output; Findings 001 to 006 in `../findings.md`; this plan; status updates in `../README.md`, `../project_plan.md` and `modeling_strategy.md` | `../../reviews/2026-10-29-p1.1-data-audit.md` |
 | P1.2 | The package and scripts of section 4; split, bank and log artifacts; the legacy reproduction; the nine production baselines; the paired comparisons of section 4.7 | `../../reviews/2026-10-29-p1.2-harness.md` |
-| P1.3 | The first submission file, its check report, hash and description; the report skeleton; the Colab skeleton; the LLM integration index updated | `../../reviews/2026-10-29-p1.3-first-submission.md` |
+| P1.3 | The first submission file, its check report, hash and description; the LLM integration index | `../../reviews/2026-10-29-p1.3-first-submission.md` |
 
 ## Decisions
 
@@ -95,8 +95,7 @@ A new estimator per fold; estimator seed 0 throughout, separate from the split s
 
 - The first submission is the F2 production baseline with the highest mean fold AUC; an exact tie within 1e-12 goes to the order LightGBM, random forest, logistic. Its purpose is to verify the pipeline, not to select a model; a margin below 0.003 establishes nothing.
 - Its description, filled from the reviewed bank: model, F2, High = 1, five grouped folds with split seeds 155, 2026, 1029, estimator seed 0, the equal average of 15 fold models, mean fold AUC, provided data only, no pretrained models and nothing fitted on test rows, recipe id, file hash, purpose.
-- The report skeleton: a working copy of the course template next to the untouched `../../latex/` files, with the example LLM figures and prose removed, the reviewed facts filled in and explicit placeholders for everything else.
-- The Colab skeleton: a notebook that takes an uploaded, versioned code-only zip (`songpop/`, `scripts/`, `requirements.txt`, the selected recipe, the split file, a source manifest) and the three CSVs, checks their hashes, and runs the same code path. Its clean run is a later task.
+- Report and Colab: none in phase 1. Sam, 2026-10-29, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." and "Remove any skeleton that you may have written already." Both move to the end of the project (`../project_plan.md`, phase 4).
 - `../llm_usage/integration_index.md`: one row per LLM-assisted component (role, model and session evidence, prompt and answer location, the adopted excerpt, where it was implemented, what was changed or rejected, how it was verified, the task).
 
 ## Open questions
@@ -108,3 +107,4 @@ A new estimator per fold; estimator seed 0 throughout, separate from the split s
 - 2026-10-29: phase started on Sam's go-ahead; P0.2 committed first (f29267b, 5fc0cef). Codex consultation round C on the Day 1 design. P1.1 in review.
 - 2026-10-29: P1.1 approved in two rounds and committed (a369262, 34247f5).
 - 2026-10-29: P1.2 built to section 4; on Codex consultation round D (`../llm_usage/2026-10-29-day1-consultation/`) the implementation adds, beyond section 4: validation of the cross-validation inputs before any fit and of every bank on saving and loading; run ids from a hash of the full configuration; parameters described without process addresses; `--verify` checking bank hashes, stable metadata, logged metrics and comparisons; split-file validation; fold tables for both sides and both groupings; the diagnostics of `modeling_strategy.md` section 4, step 7 (group-weighted AUC, AUC per era); submission checks that derive the recipe's test features themselves. Findings 007 and 008. In review.
+- 2026-10-29: P1.2 approved in three rounds and committed (7dd8b3d, 0ba74a1). P1.3 built to section 5. Sam then decided, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." and "Remove any skeleton that you may have written already." The report and Colab skeletons written for P1.3 were deleted before any verdict; P1.3 is the first submission file and the integration index. In review. The submission's upload and public score, P1.3's external step, follow its approval.

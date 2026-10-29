@@ -1,0 +1,38 @@
+{
+  "bank_path": "artifacts/bank/production_lightgbm_F2_9c37e77d549e.npz",
+  "bank_sha256": "37027940c751e46e5137ba096ea08f04c21b85d54d6b2e1827dabc45481e9698",
+  "deployment": "equal average of the test predictions of the 15 fold models (3 split seeds x 5 folds)",
+  "description": "P1.3 pipeline baseline: lightgbm, F2 audio and release-date features, High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029, estimator seed 0. Equal average of the 15 fold models' probabilities. Mean fold CV AUC 0.8315. Provided training data only; no pretrained models; nothing fitted on test rows. Recipe lightgbm_F2, run production_lightgbm_F2_9c37e77d549e, file sha256 13f4f8b6490ee6db8cb6ca46ea6112be0895f20e5b9ea075e56361507575a2be. Purpose: verify the end-to-end submission pipeline.",
+  "file": "submissions/2026-10-29_p1.3_lightgbm_F2.csv",
+  "kaggle_description": "P1.3 pipeline check: lightgbm F2 baseline, grouped 5-fold CV AUC 0.8315 (split seeds 155/2026/1029), mean of 15 fold models; sha256 13f4f8b6490e",
+  "mean_fold_auc": 0.8314739289455241,
+  "purpose": "verify the end-to-end submission pipeline",
+  "recipe_id": "lightgbm_F2",
+  "run_id": "production_lightgbm_F2_9c37e77d549e",
+  "selection_rule": "highest unrounded mean fold AUC among the production F2 banks; tie within 1e-12 to the order LightGBM, random forest, logistic",
+  "sha256": "13f4f8b6490ee6db8cb6ca46ea6112be0895f20e5b9ea075e56361507575a2be",
+  "task": "P1.3",
+  "validation": {
+    "at_0_or_1": 0,
+    "bank_run_id": "production_lightgbm_F2_9c37e77d549e",
+    "identical_feature_groups": 11,
+    "max": 0.9902502825563962,
+    "max_spread_within_identical": 0.0,
+    "mean": 0.31219115725521634,
+    "min": 0.00279853202184363,
+    "path": "submissions/2026-10-29_p1.3_lightgbm_F2.csv",
+    "quantiles": {
+      "0": 0.002799,
+      "0.01": 0.003979,
+      "0.25": 0.08794,
+      "0.5": 0.249455,
+      "0.75": 0.479432,
+      "0.99": 0.985655,
+      "1": 0.99025
+    },
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "sha256": "13f4f8b6490ee6db8cb6ca46ea6112be0895f20e5b9ea075e56361507575a2be",
+    "unique_values": 852
+  }
+}
