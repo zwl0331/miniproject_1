@@ -1,0 +1,15 @@
+source manifest: 404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5, recorded by every P2.2 run; its 24 files on disk unchanged
+19 runs differed in the refit, families ['extra_trees', 'random_forest']
+cause, p2_p22_extra_trees_b1_0_028_seeds155-2026-1029_2d3bae5cbc21: distinct outputs of 20 identical predict calls: 4 with n_jobs 4, 1 with n_jobs 1
+the chain on the logged records reproduces every logged decision and manifest
+guaranteed ranges over every realization within 1e-12 of the saved predictions (no fitting):
+  random_forest: 48 runs, 48 with tolerance-ambiguous pairs; largest possible change of a fold AUC 4.64e-04 (p2_p22_random_forest_b1_0_032_seeds155-2026-1029_9bc6a436de2e), of a mean fold AUC 1.93e-04 (p2_p22_random_forest_b1_0_032_seeds155-2026-1029_9bc6a436de2e)
+  random_forest: best p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9 at 0.8280717040, guaranteed range [0.8280342349, 0.8281052521]; runner-up p2_p22_random_forest_b1_0_041_seeds155-2026-1029_79969be1a6b0 at 0.8280109007; highest upper end among the others 0.8280390597 (p2_p22_random_forest_b1_0_041_seeds155-2026-1029_79969be1a6b0): the best is NOT guaranteed to stay best
+  extra_trees: 56 runs, 56 with tolerance-ambiguous pairs; largest possible change of a fold AUC 5.70e-04 (p2_p22_extra_trees_b1_0_022_seeds155-2026-1029_a806fdc2d787), of a mean fold AUC 4.24e-04 (p2_p22_extra_trees_b1_0_022_seeds155-2026-1029_a806fdc2d787)
+  extra_trees: best p2_p22_extra_trees_b3_001_seeds155-2026-1029_31eda4a97ddd at 0.8288886661, guaranteed range [0.8288568333, 0.8289204962]; runner-up p2_p22_extra_trees_b2_004_seeds155-2026-1029_ca7178e9ceb1 at 0.8285965921; highest upper end among the others 0.8286345462 (p2_p22_extra_trees_b2_004_seeds155-2026-1029_ca7178e9ceb1): the best is guaranteed to stay best
+realization 1: fields outside the criterion: none; decision or planning differences: none
+negative control (the Extra Trees wave 3 incumbent p2_p22_extra_trees_b2_004_seeds155-2026-1029_ca7178e9ceb1 lowered by 0.01): detected: wave 3 extra_trees: the re-planned batch differs
+realization 2: fields outside the criterion: none; decision or planning differences: none
+realization 3: fields outside the criterion: none; decision or planning differences: none
+largest observed differences from the saved banks over 3 realizations of the 19 runs (observed, not guaranteed bounds): predictions 3.3e-16, a fold AUC 2.95e-05, a mean fold AUC 3.19e-06, a contribution blend's mean fold AUC 0.00e+00
+amended verification of the 19 runs: PASSED

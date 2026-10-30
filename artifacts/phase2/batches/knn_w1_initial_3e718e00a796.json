@@ -1,0 +1,1335 @@
+{
+ "batch_id": "knn_w1_initial_3e718e00a796",
+ "family": "knn",
+ "kind": "initial",
+ "protocol_sha256": "c850d2cb9dc019d16c90c703d507a0b9fe0c939fac31b182e18f0a0a3ba1f1ae",
+ "recipe_sha256": [
+  "483fb7586bfccfd08ebb94599c3f4344a011bb730ebc220808bf83bfe5112905",
+  "5e3f1dd47c82eea1c1b1e99c2984f364fb026340e4fd0c478bcdba2b82fd1ecb",
+  "7d5ace165359035c8a0b21dfae154b5444cc2ffc0719a8620aeaa8bc7b7ba7d0",
+  "affd9e536fda3f2b66a735ed93934849b88a333f856c7bd1643ad4ecc8f43143",
+  "50eff3dc0e4b96992705abdc118d133160cdde7c73473a860193990b4a79e084",
+  "1391514e406e04549c9ee09708cf30ced7119964e64729f97e35c2fbce9cb174",
+  "970a005d4d38d816722f0e118812000519e8a9101f72947106c5bf5298374654",
+  "b959a33f5142a220cc47af4272aa7a7582f46751a787a2e258dba643f484e613",
+  "10677607390314fdae411a87c8f1dc07ea4b3793d15e7efd7aab572fb1f4709b",
+  "0d1d65db556bc2a5155cacfe20ac402201ec738ee0b03c1ff040a786e4f671e7",
+  "a0aeefc2fb132591d9d4f1b7258bcca5a62c81a656bd9eac9a92ccfa8080034f",
+  "517a478ac492d1499a06b25b24a37ab9027249aa60a476636a3ae219dce8fa77",
+  "1ea0742436b9bcca7c5c509be854faa4b1234cfe01c9fce9cdb3e8400d4cf2cc",
+  "b86a116b2a16a7c43dcdb48a4951d43594a2d16d6e9b33fcc1c8987b8d64c4e6",
+  "9fe6a54e86bef8897d6215ed5bf79825f486c71cc88177d38c0919939ab76e98",
+  "ccefb58a6dc94c2721b0c7297e90ff60e817da04ea8d376c8128ee9f08751f2f",
+  "2d656a685a5253a247f4a7be106fb9665b416a45b6fafaa3eb058077550623cc",
+  "83b38159de5511e705ec05bc6c0d982b52bb30e5ea0ddb57236fb278d5921141",
+  "518f64f6fc2af1a1b092644d3ffc4fef3cca78b46ccc8cbc1c10be3a536764f6",
+  "8fb81944f26fb0abe5bc5f32917b23d85dbe12519657dc6ebf266f1f3d08963b",
+  "18f4b9d20c90233909faa2eb8306bf52e663f4af2fb941b98cf22a34af34df89",
+  "c506141e4466bac88c61f60c41b5b7612f96275b1e2df84534ca4b2b3f35943b",
+  "e4b516b6870f4f672e737b668fa7525f083ab00a72711b834987c950c9b13e1b",
+  "3f9b9bd740f68ae3a154aa3d782020c51c9a345e4b190c9387fffdc83c5cb56e",
+  "58f07a58dc4555540a2599034621cff01f68b240c0227ff5cee2eee1b0ace60a",
+  "a0cb57163d61e7f44daee43dce75b0f2cb1ee814907f57617dfb53cfba9347f4",
+  "fa835bbf07755ff96048c13012afe59d46547ecb34ffa9c178a52b3f93cdc960",
+  "24623c4f26ba4ab33ae87c887f35bb9a2256f732b64fd343b8c3048a81e4c487",
+  "dadf5e0d92bae534bc2f4409b8614300841c6bf2fd7fe75326cb51f9f3c62409",
+  "1abfe56036d55cfd2c2cc983339e935af7f1aeec927079762c0bf9770faf16fa",
+  "9275cb42227ffcb1f4b96c5f241596425278439f4ebe432421ca1f300e8109d3",
+  "3c5df75c5dca60fc801662b55de5fff71e38c44c58bd072ce124b4831b74f18e",
+  "6134fd9edacdae1959cfb8e50b9898bf39cc5f84b3a0c011cf9cefcbadd409a1",
+  "46faf083f963134f0668b236a67ce2b098ccab29081924a1fed3de1662413b9b",
+  "5c3a94d9dbd9932666a25fd8cca1339d3306d36f3bda35915ba6d573802e920a",
+  "e9818dc3cd0a786b48e3c3bb3bc57fdadebe39c964f8104cd23e3b0b4dbe94e1",
+  "ed7e460812131fad75396dd8270d6bee311024869a07e79475d2d7ce10147025",
+  "7e3d1adf4d093e4b0b82c3c46461be095eaf9fc740e501ea9984557f90f3f773",
+  "d779cbbf13063ebfae6019f00ea8c390323bae4c6717aa1c9831968454e82b01",
+  "13543f20fda75abbd372f3041f7aa57e2cf5086d6e189bdcbdff82b0953e8d80",
+  "fba266e029ceda9848777f7512f9a618acd545f054e2cebcf13db22ffa09939f",
+  "bd4ffd572f43566268f622c30c59575378aa5095279c323735bd3cbc468b6d38",
+  "a78157e6c991d812db58a07b37caa10b93262f22d18b5e1d50cbaa3c4b9f72be",
+  "41ec0cf56cd2d937516c98bd4895b94b4a31c28d5874e2006c107523b0b648d8",
+  "cc21c5633a3721a9f2eab072b9d1ddb94193592a9c439f279266f56f1e1d8b6f",
+  "361981f95ab2a413d3f6d1ce34004e5e5f7713f45edf29e35f0673a92ee3e3de",
+  "08484ab86b9cf8b23d25fc87ad762e903ce89285be3013879069e263498da857",
+  "131e008ada8ff70db8cdbc16899cc89903149ef57c71c9aa3976888e4b9ab529"
+ ],
+ "recipes": [
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_anchor",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_000",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_001",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_002",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_003",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_004",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_005",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_006",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_007",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 15,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_008",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_009",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_010",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_011",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_012",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_013",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_014",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_015",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 30,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_016",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_017",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_018",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_019",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_020",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_022",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_023",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 60,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_024",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_025",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_026",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_027",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_028",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_029",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_030",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_031",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 120,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_032",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_033",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_034",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_035",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_036",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_037",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_038",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_039",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 240,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_040",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_041",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.25,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_042",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_043",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 0.5,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_044",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_045",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 1.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_046",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "uniform"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "knn",
+   "iterations": "fixed",
+   "name": "p22_knn_b1_0_047",
+   "params": {
+    "metric": "euclidean",
+    "n_neighbors": 480,
+    "weights": "distance"
+   },
+   "preprocessing": {
+    "alpha": 2.0,
+    "category_weight": 0.5,
+    "name": "knn_blocks",
+    "normalization": "l2"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579",
+  "p2_p22_knn_b1_0_000_seeds155-2026-1029_7e0b732a34e1",
+  "p2_p22_knn_b1_0_001_seeds155-2026-1029_1c864a364c50",
+  "p2_p22_knn_b1_0_002_seeds155-2026-1029_606e270f89f9",
+  "p2_p22_knn_b1_0_003_seeds155-2026-1029_dd22db6e54f1",
+  "p2_p22_knn_b1_0_004_seeds155-2026-1029_a7a14d25fafe",
+  "p2_p22_knn_b1_0_005_seeds155-2026-1029_a657cbc9fe75",
+  "p2_p22_knn_b1_0_006_seeds155-2026-1029_1bedce3b3172",
+  "p2_p22_knn_b1_0_007_seeds155-2026-1029_f9777a449f1f",
+  "p2_p22_knn_b1_0_008_seeds155-2026-1029_c8849e983445",
+  "p2_p22_knn_b1_0_009_seeds155-2026-1029_d1fb9030cf62",
+  "p2_p22_knn_b1_0_010_seeds155-2026-1029_61a0076189d8",
+  "p2_p22_knn_b1_0_011_seeds155-2026-1029_e8f3035506ea",
+  "p2_p22_knn_b1_0_012_seeds155-2026-1029_fe11cdcc4673",
+  "p2_p22_knn_b1_0_013_seeds155-2026-1029_0ba98072bfd8",
+  "p2_p22_knn_b1_0_014_seeds155-2026-1029_eedc71542cd6",
+  "p2_p22_knn_b1_0_015_seeds155-2026-1029_0f42ef386526",
+  "p2_p22_knn_b1_0_016_seeds155-2026-1029_1cb5a0cc95f7",
+  "p2_p22_knn_b1_0_017_seeds155-2026-1029_3fb0c1582669",
+  "p2_p22_knn_b1_0_018_seeds155-2026-1029_a37b903f6d02",
+  "p2_p22_knn_b1_0_019_seeds155-2026-1029_08ee908cc539",
+  "p2_p22_knn_b1_0_020_seeds155-2026-1029_a57f95dede01",
+  "p2_p22_knn_b1_0_022_seeds155-2026-1029_582c4777813c",
+  "p2_p22_knn_b1_0_023_seeds155-2026-1029_20f57217251b",
+  "p2_p22_knn_b1_0_024_seeds155-2026-1029_b5259a2a38f2",
+  "p2_p22_knn_b1_0_025_seeds155-2026-1029_397126b841b2",
+  "p2_p22_knn_b1_0_026_seeds155-2026-1029_fc66bbde33f4",
+  "p2_p22_knn_b1_0_027_seeds155-2026-1029_a6be7e009c23",
+  "p2_p22_knn_b1_0_028_seeds155-2026-1029_0c890f11e2d9",
+  "p2_p22_knn_b1_0_029_seeds155-2026-1029_56c612173e55",
+  "p2_p22_knn_b1_0_030_seeds155-2026-1029_1e256096671b",
+  "p2_p22_knn_b1_0_031_seeds155-2026-1029_040740fa3953",
+  "p2_p22_knn_b1_0_032_seeds155-2026-1029_80496f3013c7",
+  "p2_p22_knn_b1_0_033_seeds155-2026-1029_f6622a85cd90",
+  "p2_p22_knn_b1_0_034_seeds155-2026-1029_2302715bd42c",
+  "p2_p22_knn_b1_0_035_seeds155-2026-1029_f168e7f32a26",
+  "p2_p22_knn_b1_0_036_seeds155-2026-1029_612b51a1f182",
+  "p2_p22_knn_b1_0_037_seeds155-2026-1029_11d612bd0f3e",
+  "p2_p22_knn_b1_0_038_seeds155-2026-1029_e2d2620f886f",
+  "p2_p22_knn_b1_0_039_seeds155-2026-1029_a45b2d42b149",
+  "p2_p22_knn_b1_0_040_seeds155-2026-1029_ce3091a379c8",
+  "p2_p22_knn_b1_0_041_seeds155-2026-1029_11b37f7e178f",
+  "p2_p22_knn_b1_0_042_seeds155-2026-1029_8c13f306169a",
+  "p2_p22_knn_b1_0_043_seeds155-2026-1029_d32b8b290df7",
+  "p2_p22_knn_b1_0_044_seeds155-2026-1029_7a0693dc4ed0",
+  "p2_p22_knn_b1_0_045_seeds155-2026-1029_52c9d9e6aa13",
+  "p2_p22_knn_b1_0_046_seeds155-2026-1029_2452fffde40e",
+  "p2_p22_knn_b1_0_047_seeds155-2026-1029_d96c01c0f742"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103501
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579"
+  },
+  "incumbent": {
+   "run_id": "p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c",
+   "of_run_id": "p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579"
+  },
+  "reference_h": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  },
+  "strongest": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  }
+ },
+ "task_id": "P2.2",
+ "wave": 1
+}

@@ -1,0 +1,1560 @@
+{
+ "schema": "protocol_v1",
+ "task_id": "P2.2",
+ "name": "p22",
+ "reference": "the LightGBM family anchor's P2.2 run (the phase 1 recipe, estimator seed 0)",
+ "reference_p21_run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+ "split_seeds": [
+  155,
+  2026,
+  1029
+ ],
+ "seed_base": 2026102900,
+ "cutoff_utc": "2026-10-30T12:00:00+00:00",
+ "refinement": {
+  "families": 4,
+  "by_standalone": 2,
+  "batch": 12,
+  "broad": 3,
+  "local": [
+   [
+    5,
+    4
+   ],
+   [
+    4,
+    5
+   ]
+  ],
+  "max_dimensions": 3,
+  "max_per_family": 24
+ },
+ "families": [
+  {
+   "family": "lightgbm",
+   "index": 0,
+   "initial": 64,
+   "expansion": 32,
+   "ceiling": 160,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "num_leaves": 15,
+    "min_child_samples": 20,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8
+   },
+   "initial_branches": [
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {},
+     "space": {
+      "num_leaves": [
+       7,
+       15,
+       31,
+       63
+      ],
+      "min_child_samples": [
+       10,
+       20,
+       40,
+       80,
+       120,
+       200
+      ],
+      "learning_rate": [
+       0.01,
+       0.02,
+       0.03,
+       0.05,
+       0.07,
+       0.1
+      ],
+      "n_estimators": [
+       300,
+       600,
+       1000,
+       1600
+      ],
+      "reg_alpha": [
+       0,
+       0.01,
+       0.1,
+       1,
+       5,
+       10
+      ],
+      "reg_lambda": [
+       0,
+       0.1,
+       1,
+       10,
+       30,
+       100
+      ],
+      "colsample_bytree": [
+       0.6,
+       0.8,
+       1.0
+      ],
+      "subsample": [
+       0.7,
+       0.85,
+       1.0
+      ]
+     },
+     "draws": 63
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "num_leaves": [
+     7,
+     15,
+     31,
+     63
+    ],
+    "min_child_samples": [
+     10,
+     20,
+     40,
+     80,
+     120,
+     200
+    ],
+    "learning_rate": [
+     0.01,
+     0.02,
+     0.03,
+     0.05,
+     0.07,
+     0.1
+    ],
+    "n_estimators": [
+     300,
+     600,
+     1000,
+     1600
+    ],
+    "reg_alpha": [
+     0,
+     0.01,
+     0.1,
+     1,
+     5,
+     10
+    ],
+    "reg_lambda": [
+     0,
+     0.1,
+     1,
+     10,
+     30,
+     100
+    ],
+    "colsample_bytree": [
+     0.6,
+     0.8,
+     1.0
+    ],
+    "subsample": [
+     0.7,
+     0.85,
+     1.0
+    ]
+   },
+   "derived": [
+    {
+     "when": {
+      "param": "subsample",
+      "op": "lt",
+      "value": 1
+     },
+     "set": {
+      "subsample_freq": 1
+     }
+    }
+   ],
+   "admissible": [
+    {
+     "product": [
+      "learning_rate",
+      "n_estimators"
+     ],
+     "min": 5,
+     "max": 100
+    }
+   ],
+   "types": {
+    "num_leaves": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 31
+    },
+    "min_child_samples": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 20
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.1
+    },
+    "n_estimators": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 100
+    },
+    "reg_alpha": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 0.01,
+     "default": 0
+    },
+    "reg_lambda": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 0.1,
+     "default": 0
+    },
+    "colsample_bytree": {
+     "type": "ordinal",
+     "values": [
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "default": 1.0
+    },
+    "subsample": {
+     "type": "ordinal",
+     "values": [
+      0.7,
+      0.8,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "default": 1.0
+    }
+   },
+   "hard_bounds": {
+    "num_leaves": {
+     "min": 3,
+     "max": 127,
+     "integer": true
+    },
+    "min_child_samples": {
+     "min": 5,
+     "max": 400,
+     "integer": true
+    },
+    "learning_rate": {
+     "min": 0.005,
+     "max": 0.2,
+     "integer": false
+    },
+    "n_estimators": {
+     "min": 100,
+     "max": 3200,
+     "integer": true
+    },
+    "reg_alpha": {
+     "min": 0,
+     "max": 100,
+     "integer": false
+    },
+    "reg_lambda": {
+     "min": 0,
+     "max": 1000,
+     "integer": false
+    },
+    "colsample_bytree": {
+     "min": 0.3,
+     "max": 1,
+     "integer": false
+    },
+    "subsample": {
+     "min": 0.3,
+     "max": 1,
+     "integer": false
+    }
+   },
+   "trees": "n_estimators"
+  },
+  {
+   "family": "random_forest",
+   "index": 1,
+   "initial": 48,
+   "expansion": 24,
+   "ceiling": 120,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 500,
+    "min_samples_leaf": 3
+   },
+   "initial_branches": [
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {
+      "n_estimators": 500
+     },
+     "space": {
+      "min_samples_leaf": [
+       1,
+       2,
+       3,
+       5,
+       8,
+       12,
+       20,
+       30
+      ],
+      "max_features": [
+       "sqrt",
+       0.3,
+       0.5,
+       0.75,
+       1.0
+      ],
+      "max_depth": [
+       null,
+       8,
+       16,
+       24
+      ],
+      "max_samples": [
+       0.6,
+       0.8,
+       1.0
+      ]
+     },
+     "draws": 47
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {
+    "n_estimators": 500
+   },
+   "space": {
+    "min_samples_leaf": [
+     1,
+     2,
+     3,
+     5,
+     8,
+     12,
+     20,
+     30
+    ],
+    "max_features": [
+     "sqrt",
+     0.3,
+     0.5,
+     0.75,
+     1.0
+    ],
+    "max_depth": [
+     null,
+     8,
+     16,
+     24
+    ],
+    "max_samples": [
+     0.6,
+     0.8,
+     1.0
+    ]
+   },
+   "derived": [],
+   "admissible": [],
+   "types": {
+    "min_samples_leaf": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 1
+    },
+    "max_features": {
+     "type": "ordinal",
+     "values": [
+      "sqrt",
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.75,
+      0.9,
+      1.0
+     ],
+     "default": "sqrt"
+    },
+    "max_depth": {
+     "type": "ordinal",
+     "values": [
+      8,
+      12,
+      16,
+      20,
+      24,
+      null
+     ],
+     "default": null
+    },
+    "max_samples": {
+     "type": "ordinal",
+     "values": [
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "default": 1.0
+    }
+   },
+   "hard_bounds": {
+    "min_samples_leaf": {
+     "min": 1,
+     "max": 100,
+     "integer": true
+    },
+    "max_samples": {
+     "min": 0.3,
+     "max": 1,
+     "integer": false
+    }
+   },
+   "trees": null
+  },
+  {
+   "family": "xgboost",
+   "index": 2,
+   "initial": 48,
+   "expansion": 24,
+   "ceiling": 120,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 1000,
+    "max_depth": 4,
+    "learning_rate": 0.03,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8
+   },
+   "initial_branches": [
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {},
+     "space": {
+      "max_depth": [
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      "min_child_weight": [
+       1,
+       3,
+       10,
+       30
+      ],
+      "learning_rate": [
+       0.015,
+       0.03,
+       0.05,
+       0.07,
+       0.1
+      ],
+      "n_estimators": [
+       300,
+       600,
+       1000,
+       1600
+      ],
+      "reg_alpha": [
+       0,
+       0.1,
+       1,
+       10
+      ],
+      "reg_lambda": [
+       1,
+       3,
+       10,
+       30,
+       100
+      ],
+      "gamma": [
+       0,
+       0.1,
+       0.5,
+       1
+      ],
+      "subsample": [
+       0.65,
+       0.8,
+       1.0
+      ],
+      "colsample_bytree": [
+       0.65,
+       0.8,
+       1.0
+      ]
+     },
+     "draws": 47
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "max_depth": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "min_child_weight": [
+     1,
+     3,
+     10,
+     30
+    ],
+    "learning_rate": [
+     0.015,
+     0.03,
+     0.05,
+     0.07,
+     0.1
+    ],
+    "n_estimators": [
+     300,
+     600,
+     1000,
+     1600
+    ],
+    "reg_alpha": [
+     0,
+     0.1,
+     1,
+     10
+    ],
+    "reg_lambda": [
+     1,
+     3,
+     10,
+     30,
+     100
+    ],
+    "gamma": [
+     0,
+     0.1,
+     0.5,
+     1
+    ],
+    "subsample": [
+     0.65,
+     0.8,
+     1.0
+    ],
+    "colsample_bytree": [
+     0.65,
+     0.8,
+     1.0
+    ]
+   },
+   "derived": [],
+   "admissible": [
+    {
+     "product": [
+      "learning_rate",
+      "n_estimators"
+     ],
+     "min": 5,
+     "max": 100
+    }
+   ],
+   "types": {
+    "max_depth": {
+     "type": "ordinal",
+     "values": [
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "default": 6
+    },
+    "min_child_weight": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 1
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.3
+    },
+    "n_estimators": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 100
+    },
+    "reg_alpha": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 0.1,
+     "default": 0
+    },
+    "reg_lambda": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 1
+    },
+    "gamma": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 0.1,
+     "default": 0
+    },
+    "subsample": {
+     "type": "ordinal",
+     "values": [
+      0.65,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "default": 1.0
+    },
+    "colsample_bytree": {
+     "type": "ordinal",
+     "values": [
+      0.65,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "default": 1.0
+    }
+   },
+   "hard_bounds": {
+    "max_depth": {
+     "min": 1,
+     "max": 8,
+     "integer": true
+    },
+    "min_child_weight": {
+     "min": 0.3,
+     "max": 100,
+     "integer": false
+    },
+    "learning_rate": {
+     "min": 0.005,
+     "max": 0.2,
+     "integer": false
+    },
+    "n_estimators": {
+     "min": 100,
+     "max": 3200,
+     "integer": true
+    },
+    "reg_alpha": {
+     "min": 0,
+     "max": 100,
+     "integer": false
+    },
+    "reg_lambda": {
+     "min": 0.1,
+     "max": 1000,
+     "integer": false
+    },
+    "gamma": {
+     "min": 0,
+     "max": 10,
+     "integer": false
+    },
+    "subsample": {
+     "min": 0.3,
+     "max": 1,
+     "integer": false
+    },
+    "colsample_bytree": {
+     "min": 0.3,
+     "max": 1,
+     "integer": false
+    }
+   },
+   "trees": "n_estimators"
+  },
+  {
+   "family": "extra_trees",
+   "index": 3,
+   "initial": 32,
+   "expansion": 16,
+   "ceiling": 80,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 500,
+    "min_samples_leaf": 2,
+    "max_features": 1.0
+   },
+   "initial_branches": [
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {
+      "n_estimators": 500
+     },
+     "space": {
+      "min_samples_leaf": [
+       1,
+       2,
+       3,
+       5,
+       8,
+       12,
+       20
+      ],
+      "max_features": [
+       "sqrt",
+       0.3,
+       0.5,
+       0.75,
+       1.0
+      ],
+      "max_depth": [
+       null,
+       12,
+       24
+      ]
+     },
+     "draws": 31
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {
+    "n_estimators": 500
+   },
+   "space": {
+    "min_samples_leaf": [
+     1,
+     2,
+     3,
+     5,
+     8,
+     12,
+     20
+    ],
+    "max_features": [
+     "sqrt",
+     0.3,
+     0.5,
+     0.75,
+     1.0
+    ],
+    "max_depth": [
+     null,
+     12,
+     24
+    ]
+   },
+   "derived": [],
+   "admissible": [],
+   "types": {
+    "min_samples_leaf": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 1
+    },
+    "max_features": {
+     "type": "ordinal",
+     "values": [
+      "sqrt",
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.75,
+      0.9,
+      1.0
+     ],
+     "default": "sqrt"
+    },
+    "max_depth": {
+     "type": "ordinal",
+     "values": [
+      12,
+      18,
+      24,
+      null
+     ],
+     "default": null
+    }
+   },
+   "hard_bounds": {
+    "min_samples_leaf": {
+     "min": 1,
+     "max": 100,
+     "integer": true
+    }
+   },
+   "trees": null
+  },
+  {
+   "family": "hist_gb",
+   "index": 4,
+   "initial": 12,
+   "expansion": 12,
+   "ceiling": 36,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "max_iter": 300,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20,
+    "learning_rate": 0.05
+   },
+   "initial_branches": [
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {},
+     "space": {
+      "max_leaf_nodes": [
+       7,
+       15,
+       31
+      ],
+      "min_samples_leaf": [
+       10,
+       20,
+       40,
+       80
+      ],
+      "learning_rate": [
+       0.02,
+       0.05,
+       0.1
+      ],
+      "max_iter": [
+       150,
+       300,
+       600
+      ],
+      "l2_regularization": [
+       0,
+       1,
+       10
+      ]
+     },
+     "draws": 11
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "max_leaf_nodes": [
+     7,
+     15,
+     31
+    ],
+    "min_samples_leaf": [
+     10,
+     20,
+     40,
+     80
+    ],
+    "learning_rate": [
+     0.02,
+     0.05,
+     0.1
+    ],
+    "max_iter": [
+     150,
+     300,
+     600
+    ],
+    "l2_regularization": [
+     0,
+     1,
+     10
+    ]
+   },
+   "derived": [],
+   "admissible": [
+    {
+     "product": [
+      "learning_rate",
+      "max_iter"
+     ],
+     "min": 5,
+     "max": 100
+    }
+   ],
+   "types": {
+    "max_leaf_nodes": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 31
+    },
+    "min_samples_leaf": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 20
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.1
+    },
+    "max_iter": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 100
+    },
+    "l2_regularization": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 1,
+     "default": 0
+    }
+   },
+   "hard_bounds": {
+    "max_leaf_nodes": {
+     "min": 3,
+     "max": 127,
+     "integer": true
+    },
+    "min_samples_leaf": {
+     "min": 2,
+     "max": 400,
+     "integer": true
+    },
+    "learning_rate": {
+     "min": 0.005,
+     "max": 0.2,
+     "integer": false
+    },
+    "max_iter": {
+     "min": 100,
+     "max": 1200,
+     "integer": true
+    },
+    "l2_regularization": {
+     "min": 0,
+     "max": 100,
+     "integer": false
+    }
+   },
+   "trees": "max_iter"
+  },
+  {
+   "family": "logistic",
+   "index": 5,
+   "initial": 24,
+   "expansion": 12,
+   "ceiling": 48,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "log_standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "C": 1.0
+   },
+   "initial_branches": [
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "log_standard"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "C": 0.001
+      },
+      {
+       "C": 0.01
+      },
+      {
+       "C": 0.1
+      },
+      {
+       "C": 10.0
+      },
+      {
+       "C": 100.0
+      }
+     ]
+    },
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F1",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "log_standard"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "C": 0.001
+      },
+      {
+       "C": 0.01
+      },
+      {
+       "C": 0.1
+      },
+      {
+       "C": 1.0
+      },
+      {
+       "C": 10.0
+      },
+      {
+       "C": 100.0
+      }
+     ]
+    },
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F1",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "spline",
+       "n_knots": 3
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "C": 0.001,
+       "preprocessing.n_knots": 3
+      },
+      {
+       "C": 0.001,
+       "preprocessing.n_knots": 5
+      },
+      {
+       "C": 0.01,
+       "preprocessing.n_knots": 4
+      },
+      {
+       "C": 0.01,
+       "preprocessing.n_knots": 7
+      },
+      {
+       "C": 0.1,
+       "preprocessing.n_knots": 5
+      },
+      {
+       "C": 0.1,
+       "preprocessing.n_knots": 10
+      },
+      {
+       "C": 1.0,
+       "preprocessing.n_knots": 7
+      },
+      {
+       "C": 1.0,
+       "preprocessing.n_knots": 3
+      },
+      {
+       "C": 10.0,
+       "preprocessing.n_knots": 10
+      },
+      {
+       "C": 10.0,
+       "preprocessing.n_knots": 4
+      },
+      {
+       "C": 100.0,
+       "preprocessing.n_knots": 3
+      },
+      {
+       "C": 100.0,
+       "preprocessing.n_knots": 5
+      }
+     ]
+    }
+   ],
+   "space_template": {
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "spline",
+     "n_knots": 3
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "C": [
+     0.001,
+     0.01,
+     0.1,
+     1.0,
+     10.0,
+     100.0
+    ],
+    "preprocessing.n_knots": [
+     3,
+     4,
+     5,
+     7,
+     10
+    ]
+   },
+   "derived": [],
+   "admissible": [],
+   "types": {
+    "C": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 1.0
+    },
+    "preprocessing.n_knots": {
+     "type": "ordinal",
+     "values": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10
+     ],
+     "default": null
+    }
+   },
+   "hard_bounds": {
+    "C": {
+     "min": 0.0001,
+     "max": 1000,
+     "integer": false
+    },
+    "preprocessing.n_knots": {
+     "min": 3,
+     "max": 14,
+     "integer": true
+    }
+   },
+   "trees": null
+  },
+  {
+   "family": "knn",
+   "index": 6,
+   "initial": 48,
+   "expansion": 16,
+   "ceiling": 80,
+   "template": {
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "knn_blocks",
+     "alpha": 1.0,
+     "category_weight": 0.5,
+     "normalization": "l2"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_neighbors": 60,
+    "weights": "distance",
+    "metric": "euclidean"
+   },
+   "initial_branches": [
+    {
+     "kind": "grid",
+     "template": {
+      "base": "F1",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "knn_blocks",
+       "alpha": 1.0,
+       "category_weight": 0.5,
+       "normalization": "l2"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {
+      "metric": "euclidean"
+     },
+     "space": {
+      "n_neighbors": [
+       15,
+       30,
+       60,
+       120,
+       240,
+       480
+      ],
+      "weights": [
+       "uniform",
+       "distance"
+      ],
+      "preprocessing.alpha": [
+       0.25,
+       0.5,
+       1.0,
+       2.0
+      ]
+     }
+    }
+   ],
+   "space_template": {
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "knn_blocks",
+     "alpha": 1.0,
+     "category_weight": 0.5,
+     "normalization": "l2"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "n_neighbors": [
+     15,
+     30,
+     60,
+     120,
+     240,
+     480
+    ],
+    "weights": [
+     "uniform",
+     "distance"
+    ],
+    "preprocessing.alpha": [
+     0.25,
+     0.5,
+     1.0,
+     2.0
+    ],
+    "preprocessing.category_weight": [
+     0.25,
+     0.5,
+     1.0
+    ],
+    "metric": [
+     "euclidean",
+     "manhattan"
+    ]
+   },
+   "derived": [
+    {
+     "when": {
+      "param": "metric",
+      "op": "eq",
+      "value": "euclidean"
+     },
+     "set": {
+      "preprocessing.normalization": "l2"
+     }
+    },
+    {
+     "when": {
+      "param": "metric",
+      "op": "eq",
+      "value": "manhattan"
+     },
+     "set": {
+      "preprocessing.normalization": "l1"
+     }
+    }
+   ],
+   "admissible": [],
+   "types": {
+    "n_neighbors": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 5
+    },
+    "weights": {
+     "type": "categorical",
+     "values": [
+      "uniform",
+      "distance"
+     ],
+     "default": null
+    },
+    "preprocessing.alpha": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": null
+    },
+    "preprocessing.category_weight": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": null
+    },
+    "metric": {
+     "type": "categorical",
+     "values": [
+      "euclidean",
+      "manhattan"
+     ],
+     "default": null
+    }
+   },
+   "hard_bounds": {
+    "n_neighbors": {
+     "min": 5,
+     "max": 960,
+     "integer": true
+    },
+    "preprocessing.alpha": {
+     "min": 0.05,
+     "max": 8,
+     "integer": false
+    },
+    "preprocessing.category_weight": {
+     "min": 0.05,
+     "max": 4,
+     "integer": false
+    }
+   },
+   "trees": null
+  }
+ ]
+}

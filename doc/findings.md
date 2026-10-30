@@ -351,8 +351,126 @@ Wall-clock times depend on machine load and vary between runs. CatBoost, EBM and
 
 Review status:
 
-`draft`, in the P2.0b review (`../reviews/2026-10-29-p2.0b-search-amendment.md`); it becomes `reviewed` when that review converges.
+`reviewed`, by the P2.0b review (`../reviews/2026-10-29-p2.0b-search-amendment.md`), converged in one round and committed (ee557e2).
 
 Downstream use:
 
 The budgets and reservations of `plans/phase2-models-features.md` sections 5 to 8; each later task re-times its actual configurations before sizing a batch.
+
+## Finding 011: The P2.2 Base-Feature Search
+
+Question:
+
+What do broadly searched and locally refined LightGBM, random forest, XGBoost, Extra Trees, HistGB, logistic and kNN configurations score on the base features under the production protocol, and which searches continued under the allocation rule (plan sections 5.6 and 15)?
+
+Current conclusion:
+
+- 348 configurations, all on the 3,863 eligible rows, the saved primary folds, all three split seeds and estimator seed 0: LightGBM 88, random forest 48, XGBoost 48, Extra Trees 56, HistGB 12, logistic 48, kNN 48; 77.2 minutes of fitting. Waves 1 to 3 ran; at wave 4 no family had allowance, so the search ended Friday 2026-10-30 at about 00:00 PDT, five hours before the cutoff.
+- H, the LightGBM anchor's P2.2 run, equals the P2.1 anchor bank in all ten arrays (the `h_check` record).
+- Best complete configuration per family, mean fold AUC, and its difference from H per repeat (split seeds 155, 2026, 1029):
+
+| Family | Best configuration | Mean fold AUC | Minus H | By repeat |
+|---|---|---|---|---|
+| LightGBM | `p22_lightgbm_b3_001` (wave 3) | 0.8339 | +0.0024 | +0.0029, +0.0016, +0.0028 |
+| XGBoost | its anchor (Finding 010's representative recipe) | 0.8290 | -0.0025 | -0.0031, -0.0017, -0.0027 |
+| Extra Trees | `p22_extra_trees_b3_001` (wave 3) | 0.8289 | -0.0026 | -0.0031, -0.0017, -0.0030 |
+| Random forest | `p22_random_forest_b1_0_040` | 0.8281 | -0.0034 | -0.0036, -0.0049, -0.0017 |
+| HistGB | its anchor | 0.8265 | -0.0050 | -0.0058, -0.0073, -0.0018 |
+| Logistic | `p22_logistic_b3_002` (`spline` on F1) | 0.7895 | -0.0420 | -0.0450, -0.0413, -0.0397 |
+| kNN | its anchor (k 60, distance weights, alpha 1) | 0.7829 | -0.0486 | -0.0481, -0.0489, -0.0488 |
+
+- The best LightGBM configuration has 63 leaves, 600 trees, learning rate 0.01, `min_child_samples` 10, `colsample_bytree` 0.7, `subsample` 0.7, `reg_alpha` 0.0714, `reg_lambda` 1. Its paired cluster bootstrap against H (2,000 replicates, seed 155001): +0.0024, interval -0.0003 to +0.0054, 0.959 of draws above zero.
+- Allocation: in wave 1, LightGBM (smaller useful progress, competitive refinement, ensemble contribution), Extra Trees (smaller useful progress) and logistic (clear standalone progress, against its weak anchor) made progress; random forest, XGBoost, HistGB and kNN met no route against their anchors and stopped after their initial batches. The local refinements of waves 2 and 3 made no progress, and the three remaining families stopped.
+
+Evidence:
+
+The run, contribution, allocation, bootstrap, comparison and `h_check` records in `../artifacts/phase2/experiments.jsonl`; the banks in `../artifacts/phase2/bank/`; the manifests in `../artifacts/phase2/batches/`; `../analysis/p22_summary.py` and its output `../analysis/p22_summary_output.txt`. `scripts.run_experiments --audit-task P2.2` (completion) passes; `--verify-task P2.2` reproduces 329 of the 348 runs exactly, and the other 19 pass the amended criterion of plan section 15.7 (Finding 013).
+
+Uncertainty:
+
+Exploratory: each best configuration was chosen on the same three repeats that score it, among many trials (plan section 5.7); the full three-repeat result is a matched evaluation, not an independent confirmation. Bootstrap intervals are conditional on the fixed predictions. A family that stopped under the allocation rule was not shown to be useless: its configurations remain candidates for the ensembles (Finding 012). The thresholds are allocation heuristics. The random forest's best configuration leads `p22_random_forest_b1_0_041` by 6.1e-5 in the logged scores, inside the guaranteed tie range of Finding 013: it is the best by the logged scores and the declared ranking rules, not under every tie-breaking.
+
+Review status:
+
+`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+
+Downstream use:
+
+The cross-family checks of plan section 6.5 (the random-forest configuration with the highest mean fold AUC), the strongest recipes of P2.4, the pool of P2.6b, and the optional calibration submission `../submissions/2026-10-30_p2.2_lightgbm_best.csv`.
+
+## Finding 012: Contributions to H and the Allocation Outcomes
+
+Question:
+
+Which P2.2 configurations complement H in the declared 0.9/0.1 and 0.75/0.25 probability blends, and how did contribution enter the allocation decisions?
+
+Current conclusion:
+
+- Best contribution blend with H per family (unrounded mean fold AUC; difference from H per repeat):
+
+| Family | Configuration and weight | Blend AUC | Minus H | By repeat |
+|---|---|---|---|---|
+| Extra Trees | its anchor (500 trees, leaf 2, all features), 0.25 | 0.8351 | +0.0036 | +0.0032, +0.0042, +0.0035 |
+| Random forest | `p22_random_forest_b1_0_040`, 0.25 | 0.8338 | +0.0023 | +0.0021, +0.0021, +0.0028 |
+| LightGBM | `p22_lightgbm_b3_004`, 0.25 | 0.8338 | +0.0023 | +0.0020, +0.0027, +0.0023 |
+| kNN | its anchor, 0.25 | 0.8325 | +0.0011 | +0.0009, +0.0010, +0.0012 |
+| HistGB | `p22_hist_gb_b1_0_009`, 0.25 | 0.8325 | +0.0010 | +0.0006, +0.0023, +0.0000 |
+| XGBoost | `p22_xgboost_b1_0_020`, 0.25 | 0.8324 | +0.0009 | +0.0008, +0.0009, +0.0010 |
+| Logistic | `p22_logistic_b1_1_004`, 0.1 | 0.8314 | -0.0001 | -0.0005, +0.0002, -0.0001 |
+
+- The bagged tree families complement H more than another boosted family does: an Extra Trees or random forest member at weight 0.25 adds as much as the best single LightGBM recipe alone (+0.0024), and the Extra Trees anchor adds more.
+- Contribution counted as progress only when a blend improved H, and the family's previous best blend, by a mean of at least 0.0005 with a positive difference on every repeat (plan section 15.2). Extra Trees: its anchor's 0.75/0.25 blend (0.8351228937) remained the family's best; the best other Extra Trees blend (`p22_extra_trees_b1_0_019`, 0.8350177845) was lower. Random forest: its best blend, `p22_random_forest_b1_0_040` (0.8338065820), improved on its anchor's (0.8333297379) by 0.0004768441, short of the 0.0005 margin, so random forest stopped after its initial batch. Both families' strongest contributors are kept for P2.6b.
+- Decision-driving bootstraps (descriptive, 2,000 replicates): LightGBM's ensemble witness against H +0.0021 (interval +0.0012 to +0.0032); LightGBM's smaller-useful witness against its anchor +0.0019 (-0.0008 to +0.0051); Extra Trees' smaller-useful witness +0.0023 (-0.0002 to +0.0048); logistic's clear-standalone witness +0.0067 (-0.0018 to +0.0152).
+
+Evidence:
+
+As Finding 011: the contribution, allocation and bootstrap records, recomputed by `--audit-task P2.2`; `../analysis/p22_summary_output.txt`.
+
+Uncertainty:
+
+Fixed weights only; the learned ensembles of plan section 7 may weigh members differently. The blends with H are diagnostics of complementarity on fixed out-of-fold predictions, not ensemble candidates, and are as exploratory as Finding 011.
+
+Review status:
+
+`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+
+Downstream use:
+
+The pool rule of plan section 7.1 (standalone and contribution winners per family), the channels of the learned procedures, the report's model comparison.
+
+## Finding 013: Tie Sensitivity of the Random Forest and Extra Trees Scores
+
+Question:
+
+Why do 19 of the 348 P2.2 runs not reproduce their stored scores exactly in the full refit, and could the difference have changed any P2.2 result?
+
+Current conclusion:
+
+- `--verify-task P2.2` reproduced 329 runs exactly. The other 19 are random forest (4) and Extra Trees (15) runs. Their predictions recompute inside the plan's prediction tolerance of 1e-12 (section 4.4), but AUC-valued fields differ: the fold AUCs in 16 runs, only the pooled out-of-fold AUCs or the diagnostics in 3.
+- Cause: a forest's `predict_proba` with `n_jobs` 4 sums the trees' probabilities in parallel threads, so the summation order and the last bits of a prediction vary between calls (20 identical calls on one fitted Extra Trees model gave 4 distinct outputs with `n_jobs` 4 and 1 with `n_jobs` 1). Predictions tied in exact arithmetic can then come out in either order, which moves an AUC by multiples of one pair.
+- Amended verification (plan section 15.7, Sam's decision), passed. Over three further realizations of the 19 runs, no bank or log field outside the AUC-valued ones differed; with each realization's scores and contribution blends substituted, every P2.2 allocation (routes, progress, counter) and every re-planned wave 2 and 3 manifest was unchanged, and wave 4 stayed empty. A negative control that lowers the Extra Trees wave 3 incumbent by 0.01 was detected. Largest observed differences from the saved banks: predictions 3.3e-16, a fold AUC 2.95e-5, a mean fold AUC 3.19e-6, a contribution blend's mean fold AUC 0. These are observed, not bounds.
+- Guaranteed ranges, without fitting, over every realization whose predictions lie within 1e-12 of the saved ones:
+
+| Family | Runs | With tolerance-ambiguous pairs | Largest possible change: a fold AUC | A mean fold AUC | Best configuration stays best |
+|---|---|---|---|---|---|
+| Random forest | 48 | 48 | 4.64e-4 | 1.93e-4 | Not guaranteed: `b1_0_040` (0.8280717) leads `b1_0_041` (0.8280109) by 6.1e-5; their ranges overlap |
+| Extra Trees | 56 | 56 | 5.70e-4 | 4.24e-4 | Guaranteed: `b3_001`'s lower end, 0.8288568, is above every other run's upper end (highest 0.8286345) |
+
+- The worst case is about a hundred times the observed differences, because it lets every ambiguous pair break the same way. Every P2.2 forest run is tie-sensitive in principle, not only the 19; the other 85 reproduced exactly in the refit.
+- The P2.2 results stand under the amended criterion: the logged scores are kept, every decision was unchanged over the sampled realizations, and later rankings take the logged scores (plan section 15.7).
+
+Evidence:
+
+`../artifacts/phase2/verify_task_p22.txt` (the refit's output); `../analysis/p22_tie_check.py` and its output `../analysis/p22_tie_check_output.txt` (the cause, the guaranteed ranges, three realizations under the amended criterion, the counterfactual chain and its negative control).
+
+Uncertainty:
+
+Three realizations sample the jitter, they do not bound it. The guaranteed ranges bound any realization within the prediction tolerance, but the decisions were not re-judged at those extremes: a decision whose margin lies inside the guaranteed range of its runs, such as the random forest's best against its runner-up, holds for the logged and the sampled realizations, not for every possible one. The same mechanism affects the phase 1 random forest baseline, whose verification has so far passed.
+
+Review status:
+
+`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+
+Downstream use:
+
+Later rankings of P2.2 forest scores (the comparator of plan section 6.5, the pool rule of section 7.1) take the logged scores with their own tie rules (plan section 15.7). The next task that changes the phase 2 code makes forest predictions deterministic (prediction with one thread, or an equivalent fixed summation order) and re-checks the other families' exact reproduction, before any random forest or Extra Trees configuration enters a frozen menu; the finalists of P2.6b are refitted under their final seed policy anyway.

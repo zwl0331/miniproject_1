@@ -1,0 +1,75 @@
+P2.2 summary. H (the LightGBM anchor's P2.2 run): p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c
+  mean fold AUC 0.8314739289, repeats [0.833456, 0.83095, 0.830016]
+  H check against p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af: passed
+Waves planned: [1, 2, 3]; batches 13, judged 13
+
+== lightgbm: 88 configurations run of 88 planned (ceiling 160); 39.9 min of fitting
+  family anchor  p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c  0.8315  minus H by repeat [+0.0000, +0.0000, +0.0000]
+  best standalone p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491  0.8339  minus H +0.0024 by repeat [+0.0029, +0.0016, +0.0028]
+    recipe: base F2, preprocessing {"name": "none"}, params {"colsample_bytree": 0.7, "learning_rate": 0.01, "min_child_samples": 10, "n_estimators": 600, "num_leaves": 63, "reg_alpha": 0.0714, "reg_lambda": 1, "subsample": 0.7, "subsample_freq": 1}
+  best blend with H  p2_p22_lightgbm_b3_004_seeds155-2026-1029_9c47f819118c at weight 0.25  0.8338  minus H +0.0023 by repeat [+0.0020, +0.0027, +0.0023]
+  wave 1 initial     64 configurations: progress True, allowance None -> 2, routes met {'ensemble_contribution': 14, 'smaller_useful': 1, 'competitive_refinement': 2}
+  wave 2 refinement  12 configurations: progress False, allowance 2 -> 1, routes met none
+  wave 3 refinement  12 configurations: progress False, allowance 1 -> 0, routes met none
+
+== random_forest: 48 configurations run of 48 planned (ceiling 120); 17.4 min of fitting
+  family anchor  p2_p22_random_forest_anchor_seeds155-2026-1029_11fc60361401  0.8279  minus H by repeat [-0.0034, -0.0038, -0.0035]
+  best standalone p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9  0.8281  minus H -0.0034 by repeat [-0.0036, -0.0049, -0.0017]
+    recipe: base F2, preprocessing {"name": "none"}, params {"max_depth": 24, "max_features": 0.5, "max_samples": 1.0, "min_samples_leaf": 2, "n_estimators": 500}
+  best blend with H  p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9 at weight 0.25  0.8338  minus H +0.0023 by repeat [+0.0021, +0.0021, +0.0028]
+  wave 1 initial     48 configurations: progress False, allowance None -> 0, routes met none
+
+== xgboost: 48 configurations run of 48 planned (ceiling 120); 5.9 min of fitting
+  family anchor  p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245  0.8290  minus H by repeat [-0.0031, -0.0017, -0.0027]
+  best standalone p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245  0.8290  minus H -0.0025 by repeat [-0.0031, -0.0017, -0.0027]
+    recipe: base F2, preprocessing {"name": "none"}, params {"colsample_bytree": 0.8, "learning_rate": 0.03, "max_depth": 4, "n_estimators": 1000, "subsample": 0.8}
+  best blend with H  p2_p22_xgboost_b1_0_020_seeds155-2026-1029_137391bd7fa6 at weight 0.25  0.8324  minus H +0.0009 by repeat [+0.0008, +0.0009, +0.0010]
+  wave 1 initial     48 configurations: progress False, allowance None -> 0, routes met none
+
+== extra_trees: 56 configurations run of 56 planned (ceiling 80); 10.8 min of fitting
+  family anchor  p2_p22_extra_trees_anchor_seeds155-2026-1029_1c69697b51a7  0.8262  minus H by repeat [-0.0054, -0.0034, -0.0069]
+  best standalone p2_p22_extra_trees_b3_001_seeds155-2026-1029_31eda4a97ddd  0.8289  minus H -0.0026 by repeat [-0.0031, -0.0017, -0.0030]
+    recipe: base F2, preprocessing {"name": "none"}, params {"max_depth": 24, "max_features": 0.4, "min_samples_leaf": 2, "n_estimators": 500}
+  best blend with H  p2_p22_extra_trees_anchor_seeds155-2026-1029_1c69697b51a7 at weight 0.25  0.8351  minus H +0.0036 by repeat [+0.0032, +0.0042, +0.0035]
+  wave 1 initial     32 configurations: progress True, allowance None -> 2, routes met {'smaller_useful': 2}
+  wave 2 refinement  12 configurations: progress False, allowance 2 -> 1, routes met none
+  wave 3 refinement  12 configurations: progress False, allowance 1 -> 0, routes met none
+
+== hist_gb: 12 configurations run of 12 planned (ceiling 36); 1.7 min of fitting
+  family anchor  p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115  0.8265  minus H by repeat [-0.0058, -0.0073, -0.0018]
+  best standalone p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115  0.8265  minus H -0.0050 by repeat [-0.0058, -0.0073, -0.0018]
+    recipe: base F2, preprocessing {"name": "none"}, params {"learning_rate": 0.05, "max_iter": 300, "max_leaf_nodes": 31, "min_samples_leaf": 20}
+  best blend with H  p2_p22_hist_gb_b1_0_009_seeds155-2026-1029_774b1c2d4228 at weight 0.25  0.8325  minus H +0.0010 by repeat [+0.0006, +0.0023, +0.0000]
+  wave 1 initial     12 configurations: progress False, allowance None -> 0, routes met none
+
+== logistic: 48 configurations run of 48 planned (ceiling 48); 0.4 min of fitting
+  family anchor  p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d  0.7820  minus H by repeat [-0.0509, -0.0475, -0.0500]
+  best standalone p2_p22_logistic_b3_002_seeds155-2026-1029_e5d89f9e275f  0.7895  minus H -0.0420 by repeat [-0.0450, -0.0413, -0.0397]
+    recipe: base F1, preprocessing {"n_knots": 8, "name": "spline"}, params {"C": 0.0531}
+  best blend with H  p2_p22_logistic_b1_1_004_seeds155-2026-1029_f7f0053bae40 at weight 0.1  0.8314  minus H -0.0001 by repeat [-0.0005, +0.0002, -0.0001]
+  wave 1 initial     24 configurations: progress True, allowance None -> 2, routes met {'clear_standalone': 5}
+  wave 2 refinement  12 configurations: progress False, allowance 2 -> 1, routes met none
+  wave 3 refinement  12 configurations: progress False, allowance 1 -> 0, routes met none
+
+== knn: 48 configurations run of 48 planned (ceiling 80); 1.2 min of fitting
+  family anchor  p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579  0.7829  minus H by repeat [-0.0481, -0.0489, -0.0488]
+  best standalone p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579  0.7829  minus H -0.0486 by repeat [-0.0481, -0.0489, -0.0488]
+    recipe: base F1, preprocessing {"alpha": 1.0, "category_weight": 0.5, "name": "knn_blocks", "normalization": "l2"}, params {"metric": "euclidean", "n_neighbors": 60, "weights": "distance"}
+  best blend with H  p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579 at weight 0.25  0.8325  minus H +0.0011 by repeat [+0.0009, +0.0010, +0.0012]
+  wave 1 initial     48 configurations: progress False, allowance None -> 0, routes met none
+
+Bootstraps of the decision-driving comparisons (descriptive; conditional on the fixed predictions):
+  extra_trees_w1_initial_795bda60c27d        smaller_useful           +0.0023 [-0.0002, +0.0048] share>0 0.961 repeats [+0.0024, +0.0032, +0.0013]
+  lightgbm_w1_initial_9abd907e43ea           ensemble_contribution    +0.0021 [+0.0012, +0.0032] share>0 1.000 repeats [+0.0019, +0.0023, +0.0021]
+  lightgbm_w1_initial_9abd907e43ea           smaller_useful           +0.0019 [-0.0008, +0.0051] share>0 0.909 repeats [+0.0025, +0.0009, +0.0024]
+  logistic_w1_initial_19bf4e9d11d6           clear_standalone         +0.0067 [-0.0018, +0.0152] share>0 0.932 repeats [+0.0049, +0.0062, +0.0090]
+
+Totals: 348 configurations run, 77.2 min of fitting
+Ranking by best standalone mean fold AUC (exploratory):
+  lightgbm       0.8339   best blend with H 0.8338
+  xgboost        0.8290   best blend with H 0.8324
+  extra_trees    0.8289   best blend with H 0.8351
+  random_forest  0.8281   best blend with H 0.8338
+  hist_gb        0.8265   best blend with H 0.8325
+  logistic       0.7895   best blend with H 0.8314
+  knn            0.7829   best blend with H 0.8325

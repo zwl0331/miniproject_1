@@ -1,0 +1,561 @@
+{
+ "schema": "timing_v1",
+ "cases": [
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_lightgbm_light",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 300,
+     "learning_rate": 0.05,
+     "num_leaves": 7,
+     "min_child_samples": 200,
+     "colsample_bytree": 0.6,
+     "subsample": 0.7,
+     "subsample_freq": 1
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_lightgbm_representative",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 1000,
+     "learning_rate": 0.03,
+     "num_leaves": 31,
+     "min_child_samples": 40,
+     "colsample_bytree": 0.8,
+     "subsample": 0.85,
+     "subsample_freq": 1
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_lightgbm_expensive",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 1600,
+     "learning_rate": 0.05,
+     "num_leaves": 63,
+     "min_child_samples": 10,
+     "colsample_bytree": 1.0,
+     "subsample": 1.0,
+     "reg_alpha": 0,
+     "reg_lambda": 0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_random_forest_light",
+    "family": "random_forest",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 30,
+     "max_features": "sqrt",
+     "max_depth": 8,
+     "max_samples": 0.6
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_random_forest_representative",
+    "family": "random_forest",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 3
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_random_forest_expensive",
+    "family": "random_forest",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 1,
+     "max_features": 1.0,
+     "max_depth": null,
+     "max_samples": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_xgboost_light",
+    "family": "xgboost",
+    "params": {
+     "n_estimators": 300,
+     "max_depth": 2,
+     "learning_rate": 0.05
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_xgboost_representative",
+    "family": "xgboost",
+    "params": {
+     "n_estimators": 1000,
+     "max_depth": 4,
+     "learning_rate": 0.03,
+     "subsample": 0.8,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_xgboost_expensive",
+    "family": "xgboost",
+    "params": {
+     "n_estimators": 1600,
+     "max_depth": 6,
+     "learning_rate": 0.05,
+     "min_child_weight": 1,
+     "subsample": 1.0,
+     "colsample_bytree": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_extra_trees_light",
+    "family": "extra_trees",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 20,
+     "max_features": "sqrt",
+     "max_depth": 12
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_extra_trees_representative",
+    "family": "extra_trees",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 2,
+     "max_features": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_extra_trees_expensive",
+    "family": "extra_trees",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 1,
+     "max_features": 1.0,
+     "max_depth": null
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_hist_gb_light",
+    "family": "hist_gb",
+    "params": {
+     "max_iter": 150,
+     "max_leaf_nodes": 7,
+     "min_samples_leaf": 80,
+     "learning_rate": 0.05
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_hist_gb_representative",
+    "family": "hist_gb",
+    "params": {
+     "max_iter": 300,
+     "max_leaf_nodes": 31,
+     "min_samples_leaf": 20,
+     "learning_rate": 0.05
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_hist_gb_expensive",
+    "family": "hist_gb",
+    "params": {
+     "max_iter": 600,
+     "max_leaf_nodes": 31,
+     "min_samples_leaf": 10,
+     "learning_rate": 0.1
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_logistic_light",
+    "family": "logistic",
+    "params": {
+     "C": 0.001
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "log_standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_logistic_representative",
+    "family": "logistic",
+    "params": {
+     "C": 1
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "spline",
+     "n_knots": 5
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_logistic_expensive",
+    "family": "logistic",
+    "params": {
+     "C": 100
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "spline",
+     "n_knots": 10
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_knn_light",
+    "family": "knn",
+    "params": {
+     "n_neighbors": 15,
+     "weights": "uniform",
+     "metric": "euclidean"
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "knn_blocks",
+     "alpha": 1,
+     "category_weight": 0.5,
+     "normalization": "l2"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_knn_representative",
+    "family": "knn",
+    "params": {
+     "n_neighbors": 60,
+     "weights": "distance",
+     "metric": "euclidean"
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "knn_blocks",
+     "alpha": 1,
+     "category_weight": 0.5,
+     "normalization": "l2"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p22_time_knn_expensive",
+    "family": "knn",
+    "params": {
+     "n_neighbors": 480,
+     "weights": "distance",
+     "metric": "manhattan"
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "knn_blocks",
+     "alpha": 1,
+     "category_weight": 0.5,
+     "normalization": "l1"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  }
+ ]
+}

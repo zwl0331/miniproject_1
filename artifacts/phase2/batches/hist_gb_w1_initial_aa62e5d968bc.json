@@ -1,0 +1,350 @@
+{
+ "batch_id": "hist_gb_w1_initial_aa62e5d968bc",
+ "family": "hist_gb",
+ "kind": "initial",
+ "protocol_sha256": "c850d2cb9dc019d16c90c703d507a0b9fe0c939fac31b182e18f0a0a3ba1f1ae",
+ "recipe_sha256": [
+  "5a49e53a0fef6d14c4bf66dce94230222c12fca581cd84097e92a65ec3a9118f",
+  "6b080304284cf4e059bc152e2eb215add8fdf64b685756bb30b5e5d13c1b1014",
+  "348aa72f098c13a87e2cc26068403570c339bb60db86b9af2a00f122e3245f9d",
+  "04fb481869058527a37dd5eaa041d1d6ef3e07b9df3382759ff46a933d2019f9",
+  "c89805528984803844fc22fa464f99fe27c0a6c5176c8c0769dd8200ebbd10b5",
+  "cfe58364908665745ef37a057d76913cd31d35d6ff5aa9fb10d6cd90371cee8d",
+  "b9663a52b5fcfab499bf741d32102886678cca5cce11fe4d4dce1352d7c7c49e",
+  "b417aac8b531be08750a31294b3b0897a8fce776a3c99be0ade2d857bfd900d0",
+  "a42fc3793a2a9fdab13e45d6de6789743d307fe7a9a7e3635bcaa3bc290c5f9e",
+  "fc96f3bafc44c036912a41d43e290c4ac103ec70ad6105a347cb167ee9550ddd",
+  "f64a431b01a14bd0941576db53bc69831006d47cd5164e694cf5c018f0c55392",
+  "53a971de081ca1f522ff8010350ddd21c4e134b0cc815fa94fa2963517d619cd"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_anchor",
+   "params": {
+    "learning_rate": 0.05,
+    "max_iter": 300,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_000",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.1,
+    "max_iter": 300,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 10
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_001",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.1,
+    "max_iter": 600,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 80
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_002",
+   "params": {
+    "l2_regularization": 10,
+    "learning_rate": 0.1,
+    "max_iter": 600,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 20
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_003",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.02,
+    "max_iter": 300,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 10
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_004",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.05,
+    "max_iter": 600,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 80
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_005",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.1,
+    "max_iter": 300,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_006",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.05,
+    "max_iter": 300,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 40
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_007",
+   "params": {
+    "l2_regularization": 10,
+    "learning_rate": 0.05,
+    "max_iter": 600,
+    "max_leaf_nodes": 15,
+    "min_samples_leaf": 20
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_008",
+   "params": {
+    "l2_regularization": 10,
+    "learning_rate": 0.02,
+    "max_iter": 300,
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 80
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_009",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.1,
+    "max_iter": 300,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 80
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "hist_gb",
+   "iterations": "fixed",
+   "name": "p22_hist_gb_b1_0_010",
+   "params": {
+    "l2_regularization": 0,
+    "learning_rate": 0.1,
+    "max_iter": 150,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115",
+  "p2_p22_hist_gb_b1_0_000_seeds155-2026-1029_de73ca3251aa",
+  "p2_p22_hist_gb_b1_0_001_seeds155-2026-1029_3aad9246f302",
+  "p2_p22_hist_gb_b1_0_002_seeds155-2026-1029_4b14c4b6cc60",
+  "p2_p22_hist_gb_b1_0_003_seeds155-2026-1029_eb1ba4aa4c2a",
+  "p2_p22_hist_gb_b1_0_004_seeds155-2026-1029_67972d486aa4",
+  "p2_p22_hist_gb_b1_0_005_seeds155-2026-1029_759bad8704b0",
+  "p2_p22_hist_gb_b1_0_006_seeds155-2026-1029_df33252d8ea8",
+  "p2_p22_hist_gb_b1_0_007_seeds155-2026-1029_1c41850fcb69",
+  "p2_p22_hist_gb_b1_0_008_seeds155-2026-1029_79f36854b82c",
+  "p2_p22_hist_gb_b1_0_009_seeds155-2026-1029_774b1c2d4228",
+  "p2_p22_hist_gb_b1_0_010_seeds155-2026-1029_f7ee0d5ff6ee"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103301
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115"
+  },
+  "incumbent": {
+   "run_id": "p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c",
+   "of_run_id": "p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115"
+  },
+  "reference_h": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  },
+  "strongest": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  }
+ },
+ "task_id": "P2.2",
+ "wave": 1
+}

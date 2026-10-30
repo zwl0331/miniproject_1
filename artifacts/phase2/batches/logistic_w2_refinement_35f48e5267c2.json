@@ -1,0 +1,376 @@
+{
+ "batch_id": "logistic_w2_refinement_35f48e5267c2",
+ "family": "logistic",
+ "kind": "refinement",
+ "protocol_sha256": "c850d2cb9dc019d16c90c703d507a0b9fe0c939fac31b182e18f0a0a3ba1f1ae",
+ "recipe_sha256": [
+  "5d95f8c1d1fae23d38145ec5ee2f22de911cfc8bd49d3aadcd3e0763c2fe6ce6",
+  "3a9ad72bbe84b8aaa91c3e8ba7b991dd93790ad47579d78507f7d580b82ba58a",
+  "50c6b722c984522b185f7b4f96bc67664e5ca9349e9d4b1fdff4cd8046584c6f",
+  "c67eba24c96b8a6b334c432ad52e4f2c50ea021df465b35660b26ca1934f7c49",
+  "770720ab7ca82250d8d8cee6214cb3258dbf46830a410de9b2dbf22c52d7846f",
+  "f78ac50c39d9b6338cc1ec5577b73020a73707c710c255bbfa17bb26314f8928",
+  "bba563375b3a469b6025e601fe58a6f4de0db56e503424f16b740c1c5190c9b9",
+  "27a036663ca21722a3dfb604a0a359c21cf1b3e367e98498378b5d25773f087a",
+  "d1fa1254717a50b3926fb05a2f362ee330d04212ce18b144207a38a010acd52c",
+  "72d7c732b7f9c43fc02d702895a96567de5db0bf29498f2d01afbef844e21e0d",
+  "a08bd6a56c8cfcd172a73b24d90c01f5914b349f01aefec2c00cd54df53ba9a2",
+  "61840df6ab32d0da8f8fed7aaacf1d72b72a1c016a09e71d7b6863c114c39f89"
+ ],
+ "recipes": [
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_000",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "n_knots": 8,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_001",
+   "params": {
+    "C": 0.0843
+   },
+   "preprocessing": {
+    "n_knots": 8,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_002",
+   "params": {
+    "C": 0.144
+   },
+   "preprocessing": {
+    "n_knots": 8,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_003",
+   "params": {
+    "C": 0.121
+   },
+   "preprocessing": {
+    "n_knots": 8,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_004",
+   "params": {
+    "C": 0.0925
+   },
+   "preprocessing": {
+    "n_knots": 8,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_005",
+   "params": {
+    "C": 0.0932
+   },
+   "preprocessing": {
+    "n_knots": 6,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_006",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "n_knots": 4,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_007",
+   "params": {
+    "C": 0.0545
+   },
+   "preprocessing": {
+    "n_knots": 5,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_008",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "n_knots": 6,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_009",
+   "params": {
+    "C": 100.0
+   },
+   "preprocessing": {
+    "n_knots": 10,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_010",
+   "params": {
+    "C": 0.01
+   },
+   "preprocessing": {
+    "n_knots": 5,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b2_011",
+   "params": {
+    "C": 1.0
+   },
+   "preprocessing": {
+    "n_knots": 10,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p22_logistic_b2_000_seeds155-2026-1029_2f84d3c39c25",
+  "p2_p22_logistic_b2_001_seeds155-2026-1029_e8a51c4a0d87",
+  "p2_p22_logistic_b2_002_seeds155-2026-1029_46effc40ebb5",
+  "p2_p22_logistic_b2_003_seeds155-2026-1029_3f31961a7d2e",
+  "p2_p22_logistic_b2_004_seeds155-2026-1029_ed39df2262c9",
+  "p2_p22_logistic_b2_005_seeds155-2026-1029_6d2eb8ee59f3",
+  "p2_p22_logistic_b2_006_seeds155-2026-1029_2ec9f44fccd8",
+  "p2_p22_logistic_b2_007_seeds155-2026-1029_9795a614d8f9",
+  "p2_p22_logistic_b2_008_seeds155-2026-1029_1188c4ec4491",
+  "p2_p22_logistic_b2_009_seeds155-2026-1029_51cda5d660f9",
+  "p2_p22_logistic_b2_010_seeds155-2026-1029_22ddc24ca65a",
+  "p2_p22_logistic_b2_011_seeds155-2026-1029_97093d46333d"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5",
+ "sources": {
+  "broad": 3,
+  "exclude_digest": "dad2faa9f3060bfd3601ba967d349e76391c17b66dca2585c8a48d7559879f23",
+  "extensions": [],
+  "local_per_parent": [
+   5,
+   4
+  ],
+  "parents": [
+   "p2_p22_logistic_b1_2_005_seeds155-2026-1029_5d9ff1c857f8",
+   "p2_p22_logistic_b1_2_004_seeds155-2026-1029_31941416e2ea"
+  ],
+  "rejected": {
+   "broad_shortfall": 0,
+   "duplicate": 8,
+   "inadmissible": 0,
+   "local_shortfall": [
+    0,
+    0
+   ],
+   "out_of_bounds": 0,
+   "termination": "requested_count"
+  },
+  "sampler_seed": 2026103402
+ },
+ "state": {
+  "allowance_before": 2,
+  "family_anchor": {
+   "run_id": "p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d"
+  },
+  "incumbent": {
+   "bank_sha256": "c949f2d1e2a79ed5747614e1a08532d315d1cc5deac059a5e1493afa2ee36bd2",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.7886869623859147,
+   "recipe_sha256": "56adcb44fcee3d9306515081a3b1f616f76ddc77b43fa4bba0e5e0cc9999e94a",
+   "repeat_mean_auc_unrounded": [
+    0.7874616911174395,
+    0.7896597647011167,
+    0.7889394313391882
+   ],
+   "run_id": "p2_p22_logistic_b1_2_005_seeds155-2026-1029_5d9ff1c857f8"
+  },
+  "previous_best_blend": {
+   "bank_sha256": "de1dcf0323f34604e8f3f04e18973e5bf4e5c2147ca7ab9db0fea9bc35ff38ee",
+   "mean_fold_auc_unrounded": 0.8314739289455241,
+   "repeat_mean_auc_unrounded": [
+    0.8334559624727105,
+    0.8309501561669368,
+    0.8300156681969251
+   ],
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c",
+   "weight": 0.0
+  },
+  "reference_h": {
+   "bank_sha256": "de1dcf0323f34604e8f3f04e18973e5bf4e5c2147ca7ab9db0fea9bc35ff38ee",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.8314739289455241,
+   "recipe_sha256": "08732fab4a5606bf1797465d3186d283e69b1aa90f175ef4d663ef2b9e0b933b",
+   "repeat_mean_auc_unrounded": [
+    0.8334559624727105,
+    0.8309501561669368,
+    0.8300156681969251
+   ],
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  },
+  "strongest": {
+   "bank_sha256": "0ce4c77545b5354c8c70c2e8ac143b686508a9e3dbe80295f49ae64b218270fa",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.8334038014593779,
+   "recipe_sha256": "9a6e0d1579b9c33247542f06d17373a2ec10a885e197268dd90dc4d421ecab97",
+   "repeat_mean_auc_unrounded": [
+    0.8359645477874293,
+    0.8318520685132882,
+    0.8323947880774158
+   ],
+   "run_id": "p2_p22_lightgbm_b1_0_023_seeds155-2026-1029_e80e417c8fe4"
+  }
+ },
+ "task_id": "P2.2",
+ "wave": 2
+}

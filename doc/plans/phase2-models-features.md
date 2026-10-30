@@ -1,6 +1,6 @@
 # Phase 2: models and features
 
-v0.3, 2026-10-29. Owner: Sam Zhou. Status: v0.1 drafted in task P2.0 on Sam's go-ahead, verbatim: "Yes, plan phase 2" and "Again, consult deeply with codex"; approved after two review rounds and committed (3e24fe6, df11816; `../../reviews/2026-10-29-p2.0-phase2-plan.md`). v0.2: the infrastructure adjustments of P2.1 (section 13), approved after two review rounds and committed (719a934, 4e451ec; `../../reviews/2026-10-29-p2.1-infrastructure.md`). v0.3: the amendment P2.0b (section 14) on Sam's refinements to the experiments, budgets and ensembles, in review (`../../reviews/2026-10-29-p2.0b-search-amendment.md`); sections 5 to 8, 10 and 11 and the task table are rewritten by it. Built after Codex consultation rounds E (an independent design) and F (a critique of the first draft), verbatim in `../llm_usage/2026-10-29-phase2-consultation/` with what was adopted.
+v0.5, 2026-10-30. Owner: Sam Zhou. Status: v0.1 drafted in task P2.0 on Sam's go-ahead, verbatim: "Yes, plan phase 2" and "Again, consult deeply with codex"; approved after two review rounds and committed (3e24fe6, df11816; `../../reviews/2026-10-29-p2.0-phase2-plan.md`). v0.2: the infrastructure adjustments of P2.1 (section 13), approved after two review rounds and committed (719a934, 4e451ec; `../../reviews/2026-10-29-p2.1-infrastructure.md`). v0.3: the amendment P2.0b (section 14) on Sam's refinements to the experiments, budgets and ensembles, approved in one review round and committed (ee557e2, 281a014; `../../reviews/2026-10-29-p2.0b-search-amendment.md`); sections 5 to 8, 10 and 11 and the task table are rewritten by it. v0.4: the P2.2 execution protocol (section 15), approved at P2.2's execution-readiness checkpoint after two review rounds; P2.2 executed and at its completion review (`../../reviews/2026-10-29-p2.2-searches.md`). v0.5: section 15.7, the verification of the tie-sensitive forest runs, added at P2.2's completion checkpoint on Sam's decision. Built after Codex consultation rounds E (an independent design) and F (a critique of the first draft), verbatim in `../llm_usage/2026-10-29-phase2-consultation/` with what was adopted.
 
 ## Goal
 
@@ -25,7 +25,7 @@ Each task is one reviewed unit, started only after the one it depends on has con
 | P2.0 | This plan's v0.1 | P1.3 | Thursday morning | `../../reviews/2026-10-29-p2.0-phase2-plan.md` |
 | P2.1 | The infrastructure of section 4; the anchor reproduced (Finding 009) | P2.0 | Thursday midday | `../../reviews/2026-10-29-p2.1-infrastructure.md` |
 | P2.0b | The amendment of section 14 to this plan and the strategy | P2.1 | Thursday afternoon | `../../reviews/2026-10-29-p2.0b-search-amendment.md` |
-| P2.2 | Search extensions (factory parameters, conditional sampling, local refinement batches, timing and allocation records); the kNN family and its representation; the broad searches and first refinements of LightGBM, random forest, XGBoost, Extra Trees, HistGB, the smooth logistic models and kNN (section 5); findings | P2.1, P2.0b | Thursday evening to Friday morning | record named when opened |
+| P2.2 | Search extensions (factory parameters, conditional sampling, local refinement batches, timing and allocation records); the kNN family and its representation; the broad searches and first refinements of LightGBM, random forest, XGBoost, Extra Trees, HistGB, the smooth logistic models and kNN (section 5); findings; executed under section 15 | P2.1, P2.0b | Thursday evening to Friday morning | `../../reviews/2026-10-29-p2.2-searches.md` |
 | P2.3 | The CatBoost and EBM factory changes, installations and runtime checks; timing pilots; their searches and refinements; findings. Installation and timing may start before P2.2 converges; the searches wait for any common P2.2 extension they use | P2.1, P2.0b; P2.2 for shared search extensions | Thursday evening to Friday midday | as above |
 | P2.4 | The feature stage of section 6: screening, the cross-family checks, preprocessing alternatives, removal checks, then re-tuning of up to four model-and-feature combinations; findings. Neural comparisons only after P2.5 converges; otherwise omitted | P2.2, P2.3; P2.5 for neural comparisons | Friday through Saturday morning | as above |
 | P2.5 | The TabM wrapper, its installation, a timing and repeatability pilot, its search and confirmation (section 5.5); findings | P2.1, P2.0b | Thursday evening to Saturday morning | as above |
@@ -169,7 +169,7 @@ Budgets come from measured costs, not from a fixed trial count (Sam, section 14)
 | EBM | P2.3 | 12 | 6 | 30 |
 | TabM | P2.5 | section 5.5 | | |
 
-That is 336 initial classical configurations, 276 in P2.2 and 60 in P2.3, and at most 794 with every expansion. Measured costs for one 15-fit run, all three split seeds, four model threads, one process on the Apple M5 (`../../analysis/phase2_timing.py` at the committed P2.1 code, output `../../analysis/phase2_timing_output.txt`; part of this amendment's review): LightGBM 2.2 to 27.0 s (7.5 s for the anchor; 10.4 s with the date count and target encoding; 23.4 s with three estimator seeds); random forest 8.2 to 26.9 s; Extra Trees 10.7 s; XGBoost with 1,000 trees 6.8 s; HistGB 4.6 s under the four-thread limit; logistic regression 0.4 to 0.6 s; a kNN proxy 0.5 s. A run counts 15 outer fit positions; with three estimator seeds it makes 45 estimator fits. These are representative cases (Finding 010, draft until this amendment converges): the 30 to 60 minutes of serial fitting estimated for the initial batches with known costs extrapolates from them and is not an upper bound for the enlarged spaces. Each task times its actual preprocessing and its declared expensive configuration before fixing a batch's reservation; CatBoost and EBM are timed in P2.3 before their batches are sized.
+That is 336 initial classical configurations, 276 in P2.2 and 60 in P2.3, and at most 794 with every expansion. Measured costs for one 15-fit run, all three split seeds, four model threads, one process on the Apple M5 (`../../analysis/phase2_timing.py` at the committed P2.1 code, output `../../analysis/phase2_timing_output.txt`; part of this amendment's review): LightGBM 2.2 to 27.0 s (7.5 s for the anchor; 10.4 s with the date count and target encoding; 23.4 s with three estimator seeds); random forest 8.2 to 26.9 s; Extra Trees 10.7 s; XGBoost with 1,000 trees 6.8 s; HistGB 4.6 s under the four-thread limit; logistic regression 0.4 to 0.6 s; a kNN proxy 0.5 s. A run counts 15 outer fit positions; with three estimator seeds it makes 45 estimator fits. These are representative cases (Finding 010, reviewed in P2.0b): the 30 to 60 minutes of serial fitting estimated for the initial batches with known costs extrapolates from them and is not an upper bound for the enlarged spaces. Each task times its actual preprocessing and its declared expensive configuration before fixing a batch's reservation; CatBoost and EBM are timed in P2.3 before their batches are sized.
 
 Protocol:
 
@@ -430,6 +430,124 @@ Reviewed in P2.0b before any later task relies on it; the approvals of P0.2, P2.
 
 Superseded by this amendment: v0.1's caps of 104 classical and two neural configurations, its 12-trial refinement for at most two families, its rule that smaller gains authorize no further search, its at most five declared blends and eight predictor candidates, and section 12's rows on those budgets. The runtimes become Finding 010 with this review; the consultation probe numbers (exact-date coverage, round I's HistGB timing and nested projections) stay unreviewed inputs, and the probe AUCs printed by the timing script select nothing.
 
+## 15. P2.2 execution protocol
+
+Declared in P2.2 before any of its search scores exists, and reviewed at its execution-readiness checkpoint (15.1). It resolves what sections 5.1 to 5.6 and 6.2 leave to the task; where it is silent, they apply. The machine-readable counterpart is `../../configs/phase2/p2.2/protocol.json`; the code is `../../songpop/phase2/protocol.py`, `allocation.py`, `refine.py` and `batches.py`, run by `../../scripts/run_experiments.py`.
+
+### 15.1 Scope and review checkpoints
+
+P2.2 searches the installed families on the base features: F2 for the tree families, three logistic branches (`log_standard` on F1 and on F2, `spline` on F1), F1 for kNN. No feature block, training weight, estimator-seed search, removal check or learned ensemble belongs to it. One review record, two checkpoints, each converging on its own fingerprint:
+
+| Checkpoint | The reviewer receives | Its approval permits |
+|---|---|---|
+| Execution readiness | The code and self-checks, the timing and reservation records (times only), this section and the protocol file, the saved wave 1 manifests, the exact commands | Executing this protocol unchanged |
+| Completion | Everything above, the banks, contribution, allocation and bootstrap records, the audit and the full refit, the findings, any proposed submission | Committing P2.2; P2.3's searches |
+
+The first approval covers no result. The source files stay unchanged from the first checkpoint through the waves and the refit; a source edit voids the runs it affects and needs a new readiness round. P2.3 may install and time before P2.2 converges, as the task table allows; its searches wait for P2.2's completion.
+
+### 15.2 Reference, anchors and comparators
+
+- H, for all of P2.2: the LightGBM family anchor's P2.2 run, the phase 1 recipe with estimator seed 0. Its run id differs from the P2.1 anchor's because the source manifest differs; its ten bank arrays must equal those of the P2.1 anchor bank exactly (Finding 009). The initialization checks this and logs an `h_check` record with both bank hashes; no search fit runs without a passed check.
+- Family anchors, the first configuration of each initial batch:
+
+| Family | Anchor |
+|---|---|
+| LightGBM | The phase 1 recipe, exactly |
+| Random forest | The phase 1 recipe: 500 trees, `min_samples_leaf` 3, F2 |
+| XGBoost, Extra Trees, HistGB | The representative recipes of Finding 010, exactly |
+| Logistic | `log_standard` on F2, C 1.0: a new phase 2 reference (phase 1 had no one-hot categories and `max_iter` 2000) |
+| kNN | k 60, distance weights, Euclidean, alpha 1.0, category weight 0.5: a point of its grid |
+
+- The family incumbent: the family's complete three-repeat run with the highest unrounded mean fold AUC, ties to the lower canonical recipe hash.
+- G, the strongest standalone recipe: for wave 1, G is fixed to H. For later waves, G is the strongest complete run from earlier closed waves, H included. Results within the current wave never update its comparators.
+- The family's previous best blend with H: its best contribution blend from earlier waves by unrounded mean fold AUC, with H itself as a floor; for the initial batch, the better of the anchor's two blends, floored at H.
+- A gain of at least m means an unrounded mean difference of at least m and a positive difference on every repeat; "within d of G" compares means only.
+
+### 15.3 Waves
+
+All families advance in waves separated by barriers. Every manifest of wave N is a pure function of the protocol file and the records of earlier waves, so the order of families inside a wave changes nothing, and verification re-plans each wave from the log.
+
+| Wave | Batches |
+|---|---|
+| 0 | The initialization: after the wave 1 manifests are saved, each family's anchor is fitted, then H is checked. No allocation |
+| 1 | The initial batches of section 5.1 (276 configurations); the anchors are reused, not refitted |
+| 2, 3 | A local refinement batch for each refinement family (15.4); a broad expansion batch for every other family with allowance |
+| 4 and later | Broad expansion for every family with allowance |
+
+- A family stops when its allowance reaches zero, at its ceiling (unique configurations proposed, failures included), or at the cutoff: no batch starts, and no anchor is fitted, after Friday 2026-10-30, 05:00 PDT. A `batch_start` record is logged before a batch's first search fit; after the cutoff only batches with such a record continue.
+- Local batches use the same counter as broad ones.
+- A failed fit logs a `run_failure` record and stops the wave; it is investigated, never skipped.
+
+### 15.4 Batch contents
+
+- Wave 1, sampler seed 2026102900 + 100 x family index + 1 (index 0 to 6 in the order of section 5.1): LightGBM, the anchor and 63 draws; random forest, the anchor and 47; XGBoost, the anchor and 47; Extra Trees, the anchor and 31; HistGB, the anchor and 11; logistic, the six C values on `log_standard` F1 and on F2 (the anchor among them) and twelve `spline` F1 configurations, two knot counts per C: (0.001: 3, 5), (0.01: 4, 7), (0.1: 5, 10), (1: 7, 3), (10: 10, 4), (100: 3, 5); kNN, its full grid of 48.
+- Batch b of a family (b = 1 for the initial batch) uses sampler seed 2026102900 + 100 x family index + b.
+- Boosting draws and proposals: learning rate times iterations within 5 to 100, anchors exempt; LightGBM's `subsample_freq` is 1 when `subsample` is below 1 and absent otherwise.
+- Two configurations are the same when their comparison key is: model parameters a recipe leaves out take the factory default the protocol declares, counts compare as integers and every other number as a float. Fractions (`subsample`, `colsample_bytree`, `max_samples`, `max_features`) must be floats, since an integer 1 means one row or feature to scikit-learn.
+- Broad expansion: the declared batch size, or what the ceiling leaves, of new draws from the family's expansion space, never a configuration equivalent to an earlier one. When draws stop finding new configurations, an enumeration must prove the space exhausted (a smaller batch, its reason recorded); otherwise the planning fails. The expansion spaces are the initial spaces, except logistic (the `spline` F1 branch) and kNN (its grid with category weight 0.25, 0.5 or 1.0 and Euclidean or Manhattan distance).
+- Range extension, in broad batches: when the incumbent's value of a parameter with an all-numeric list is an end of that list, one value one geometric step beyond, clipped to the hard bounds of the protocol file, rounded for integers; once per parameter in P2.2; never below a zero end; "sqrt" and None have no edge.
+- Refinement families, chosen at the barrier after wave 1 among the families with allowance: the two strongest by standalone unrounded mean fold AUC, then up to two more by their best contribution to H; ties by the canonical recipe hash, then the family name.
+- A family's best contribution blend, wherever one is chosen (refinement families, the contribution parent, the previous best blend, bootstrap witnesses): the highest unrounded mean fold AUC; ties to the lower canonical recipe hash of its challenger, then the lower weight.
+
+A local batch:
+
+| Part | Rule |
+|---|---|
+| Size | 12: 3 broad draws and 9 local proposals, fewer only at the ceiling |
+| Parents | The standalone parent, the incumbent; the contribution parent, the qualifying configuration (one that met a route of section 5.6) with the best contribution blend with H, other than the incumbent. Without one, the incumbent takes all 9 local slots |
+| Local split | 5 standalone and 4 contribution in the first local batch, 4 and 5 in the second |
+| Tree variants | For the boosting families, the first two standalone slots: the incumbent with round(2T/3) and round(1.5T) iterations, the rest fixed, when admissible, inside the active bounds and new |
+| Moves | One to three parameters per proposal. A scale parameter moves by a log-uniform factor in 0.5 to 2, three significant digits, integers rounded, clipped to the active bounds: a local move never extends a range. Zero moves to its declared step; a move below that step lands on zero. An ordered list moves to a neighbour ("sqrt" and None are members, never edges). A categorical value changes to another |
+| Broad draws | Uniform over the family's active space |
+| Exhausted neighbourhoods | A local slot that finds no new proposal in 500 draws ends its parent's local proposals; the parent's remaining slots become broad draws. When broad draws find nothing new in 500 draws, an enumeration of the active space must prove it exhausted (a smaller batch, its reason recorded); otherwise the planning fails |
+
+kNN under Manhattan distance: block weights 1/10 for the continuous audio, alpha for the year, and beta/6 for the one-hot categories, so a row differing in one of the three categorical fields adds beta/3. F1 holds no date precision, so rows of different primary groups can be exact F1 matches; trees share this, the primary folds are kept, and it is reported as a limitation.
+
+### 15.5 Records and verification
+
+- Every manifest (`../../artifacts/phase2/batches/`) is written once before its batch's first fit and logged with its hash. Before any fit of a wave, a preflight checks every manifest against its file, id, schema and record, the current protocol hash, source manifest, task and split seeds, the run ids recomputed from its recipes, and a re-planning of the wave from the log; any difference stops the wave with nothing fitted.
+- Each configuration's two contribution blends with H are logged as records computed from the two banks and bound to their hashes; no blend bank is saved. H with itself is an identity record, never a blend.
+- Each batch's allocation (routes per configuration, progress, the counter) is logged after the bootstraps of its witnesses, so a logged allocation closes a batch whose bootstraps exist; resuming a closed batch finishes any bootstrap record that is missing. The comparisons that drove it are bootstrapped: for each route met, the qualifying configuration with the highest relevant unrounded score (standalone, or its better blend with H), ties to the lower canonical recipe hash; a standalone witness against the pre-batch incumbent, an ensemble witness against H and against the previous best blend. 2,000 replicates, the seed of phase 1; descriptive, never a gate.
+- Interruptions: planning resumes from the saved manifests; a finalized bank without its log record is recovered once after its identity, sources and arrays are checked; a logged run is reused only after its bank matches its hash.
+- Timing and reservation records hold times, fits, warnings and their provenance, never a score.
+- Verification at completion: `--audit-task P2.2` checks, without refitting, every manifest, every task run against the manifests, every bank against its hash and record, every contribution, allocation and bootstrap and the H check, and that every planned batch is closed, or belongs to the last wave and stayed unstarted because the cutoff passed, with no further wave due before the cutoff; `--verify-task P2.2` refits every P2.2 run once and refuses an incomplete task. The P2.1 anchor is verified at its own source revision; `--verify-all` at the P2.2 head reports it as replaying elsewhere, by design.
+
+### 15.6 Commands, compute and storage
+
+From the project root, with `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m scripts.run_experiments`:
+
+| Step | Arguments | When |
+|---|---|---|
+| Timing | `--timing configs/phase2/p2.2/timing.json --task P2.2`, then `--reserve --task P2.2` | Before readiness |
+| Wave 1 manifests | `--plan-wave 1 --task P2.2` | Before readiness |
+| Initialization | `--run-wave 1 --anchors-only --task P2.2` | After readiness converges |
+| Wave 1 | `--run-wave 1 --task P2.2` | After the initialization |
+| Later waves | `--plan-wave N --task P2.2`, then `--run-wave N --task P2.2`, for N = 2, 3, ... until no family remains or the cutoff | After each wave |
+| Audit and refit | `--audit-task P2.2`, then `--verify-task P2.2` | Before completion |
+
+- Serial: one process, four model threads. Section 5.1 allows at most two processes after a benchmark; P2.2 does not use the second, so the log shards of section 4.10 are unnecessary and not built.
+- Compute: the reservation record projects the initial batches and the ceilings from the timing records; the full refit repeats the fitting done; neither is an upper bound.
+- The banks, about 440 KB each, at most 644 for P2.2's ceilings, are committed with P2.2.
+- Findings 011 (the search results per family) and 012 (contributions and allocation outcomes), labeled exploratory: a full three-repeat evaluation of a configuration chosen on those repeats is a matched evaluation, not an independent confirmation.
+- The optional pipeline submission of section 10: the complete single recipe with the highest unrounded mean fold AUC among those exceeding the anchor's, ties by canonical recipe hash, its three repeat differences reported; prepared and reviewed within P2.2, uploaded by Sam.
+
+### 15.7 Amendment: verification of the tie-sensitive forest runs
+
+Added at P2.2's completion checkpoint, after the searches ran, on Sam's decision of 2026-10-30, verbatim: "Do B". Option B was the explicit acceptance below; option A, a deterministic rerun of all 348 configurations under a versioned protocol (review record, response to round 3). The amendment changes no executed step, record, bank, manifest or ranking rule of sections 15.1 to 15.6; the protocol file is unchanged.
+
+| Item | Rule |
+|---|---|
+| Scope | The 19 random forest and Extra Trees runs that `--verify-task P2.2` did not reproduce exactly (`../../artifacts/phase2/verify_task_p22.txt`). Their banks and log records stay as they are |
+| Reason | A forest predicting with four threads sums its trees' probabilities in a varying order, so predictions that are tied in exact arithmetic can come out in either order. Their AUC-valued fields are one realization of a score defined only up to tie-breaking (Finding 013) |
+| Criterion | Replaces the exact score comparison of section 4.5 for these 19 runs only. A refit must equal the saved bank in every array and stable metadata field except `fold_auc`, its predictions within 1e-12 (section 4.4). Its rebuilt log record must equal the logged one in every field except the AUC-valued ones: the rounded and unrounded scores, the pooled out-of-fold AUCs and the AUC values of the diagnostics. Every P2.2 decision must be unchanged when the refit's scores and contribution blends replace the logged ones: wave 1 re-judged, each later wave re-planned from the substituted records and judged against its refreshed comparators, wave 4 empty again |
+| Check | `../../analysis/p22_tie_check.py`: three realizations of the 19 runs, run ids and refits under the source manifest the P2.2 runs recorded, a negative control that lowers a later-wave comparator |
+| Bounds | Differences observed over the realizations are reported as observed, never as bounds. The script also reports, without fitting, the guaranteed range of every P2.2 forest run's fold AUCs over all realizations within the prediction tolerance. Decisions are shown invariant over the sampled realizations only |
+| Rankings downstream | Unchanged. Every later use of a P2.2 forest score (the comparator of section 6.5, the pool rule of section 7.1) takes the logged scores with that section's own tie rule, so each ranking is a deterministic function of the log |
+| The other forest runs | The other 85 reproduced exactly in the refit and keep the original criterion. The mechanism is the same, and the guaranteed ranges cover them |
+| Follow-up | The next task that changes the phase 2 code makes forest prediction deterministic (one thread, or an equivalent fixed summation order) and re-checks the exact reproduction of the other families, before any random forest or Extra Trees configuration enters a frozen menu |
+
+P2.2's verification at completion is therefore the audit of section 15.5, the full refit (329 runs exact) and this check for the 19.
+
 ## Open questions
 
 1. The exact Kaggle team name as Kaggle displays it, for the report and the Piazza note (Sam).
@@ -440,3 +558,7 @@ Superseded by this amendment: v0.1's caps of 104 classical and two neural config
 - 2026-10-29: Sam's go-ahead for planning phase 2 (header). Codex consultation round E (an independent design, after Claude's positions were written down) and round F (a critique of the first draft; its changes adopted, listed in the consultation README). P2.0 in review.
 - 2026-10-29: P2.0 approved in two rounds and committed (3e24fe6, df11816). P2.1 started on Sam's go-ahead, verbatim: "Commit and start P2.1". During P2.1 Sam asked for refinements to the experiments, budgets and ensembles of phase 2; they are a separate reviewed amendment, P2.0b. P2.1 in review.
 - 2026-10-29: P2.1 approved in two rounds and committed (719a934, 4e451ec). P2.0b, the amendment of section 14, built after Codex consultation rounds I (an independent design, after Claude's positions were written down) and J (a critique of the draft); in review.
+- 2026-10-29: P2.0b approved in one round and committed (ee557e2, 281a014). P2.2 started on Sam's go-ahead, verbatim: "Commit and start P2.2", and "remember to consult deeply with codex"; its execution protocol (section 15) and code built after Codex consultation rounds K (an independent design, after Claude's positions were written down) and L (a critique of the draft); at its execution-readiness review.
+- 2026-10-29: P2.2's execution-readiness checkpoint approved in its second round (five findings fixed: exhausted local neighbourhoods, completion before the cutoff, bootstraps before allocations, contribution ties, whitespace).
+- 2026-10-30: P2.2 executed under section 15: the initialization (H equal to the P2.1 anchor bank), waves 1 to 3, 348 configurations; no family had allowance at wave 4, about 00:00 PDT. The completion audit passes; the full refit reproduces 329 runs exactly and 19 random forest and Extra Trees runs within the tie sensitivity of Finding 013. Findings 011 to 013 and a calibration submission file; at its completion review.
+- 2026-10-30: P2.2's completion review, round 3: changes requested (F6 to F9). Sam chose option B for the 19 tie-sensitive forest runs, verbatim: "Do B". Section 15.7 accepts them by an amended verification, which passes (Finding 013). Round 4 in review.

@@ -8,6 +8,7 @@ no check failed.
 import builtins
 import copy
 import io
+import itertools
 import math
 import sys
 from pathlib import Path
@@ -16,19 +17,21 @@ from unittest import mock
 import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
+from sklearn.neighbors import KNeighborsClassifier
 
 from songpop import artifacts
 from songpop.data import AUDIO, DATE
 from songpop.evaluate import PredictionBank
 from songpop.metrics import paired_cluster_bootstrap
-from songpop.phase2 import banks, runs, searches
+from songpop.phase2 import allocation, banks, batches, protocol, refine, runs, searches
 from songpop.phase2.encoders import DateCount, DateTargetEncoder, EraRelative, FitContext, inner_group_splits
 from songpop.phase2.engine import fit_recipe, run_recipe_cv, training_weights
 from songpop.phase2.ensembles import blend_banks, select_seeds
 from songpop.phase2.features import FeaturePipeline, feature_columns
 from songpop.phase2.models import make_model
-from songpop.phase2.recipes import load_recipe, recipe_id, validate_recipe
+from songpop.phase2.recipes import load_recipe, recipe_hash, recipe_id, validate_recipe
 from songpop.phase2.submission import members_of, repeated_uri_pairs, validate_candidate, write_candidate
+from songpop.splits import SPLIT_SEEDS
 from scripts import install_locks, run_experiments  # loaded before the source manifest is taken
 
 ROOT = Path(".").resolve()
@@ -128,6 +131,21 @@ class MemFS:
             x.stop()
 
 
+class Patches:
+    """Several mock patches as one context."""
+
+    def __init__(self, patches):
+        self.patches = patches
+
+    def __enter__(self):
+        for x in self.patches:
+            x.start()
+
+    def __exit__(self, *exc):
+        for x in reversed(self.patches):
+            x.stop()
+
+
 CTX = runs.Context.load(ROOT)
 MANIFEST = banks.source_manifest(ROOT)
 INV = {"argv": ["check_phase2"]}
@@ -201,6 +219,102 @@ def _():
                   space={"C": [0.1, 1.0, 10.0], "preprocessing.n_knots": [4, 7]}, anchors=[], draws=6)
     got = sorted((r["params"]["C"], r["preprocessing"]["n_knots"]) for r in searches.expand(spline))
     assert got == sorted((c, k) for c in (0.1, 1.0, 10.0) for k in (4, 7)), got
+
+
+@check("searches v2: derived parameters, admissible regions, rejection counts; v1 expansions unchanged")
+def _():
+    v1 = {"schema": "search_v1", "name": "probe", "family": "lightgbm", "base": "F2", "blocks": [], "drop": [],
+          "preprocessing": {"name": "none"}, "training_weights": "none", "estimator_seeds": [0],
+          "fixed": {"subsample_freq": 1},
+          "space": {"num_leaves": [7, 15], "learning_rate": [0.02, 0.05], "n_estimators": [300, 600]},
+          "anchors": [dict(load_recipe(ROOT / ANCHOR)["params"])], "draws": 7, "sampler_seed": 1}
+    # The expansion of this specification under the committed P2.1 code (281a014), pinned: v2 leaves v1 untouched.
+    assert artifacts.sha256_bytes(artifacts.dumps([recipe_id(r) for r in searches.expand(v1)]).encode()) == \
+        "4731448fa1b8469a6bbabf5738f62605fe78551fb107c47a23ebacd14779a4eb"
+    space = {"num_leaves": [7, 15], "learning_rate": [0.01, 0.1], "n_estimators": [300, 1600],
+             "subsample": [0.7, 1.0]}
+    v2 = dict(v1, schema="search_v2", fixed={}, space=space, draws=8,
+              derived=[{"when": {"param": "subsample", "op": "lt", "value": 1}, "set": {"subsample_freq": 1}}],
+              admissible=[{"product": ["learning_rate", "n_estimators"], "min": 5, "max": 100}])
+    recipes, rejected = searches.expand_v2(v2)
+    assert recipes[0]["params"] == v1["anchors"][0]  # anchors exact and exempt
+    for r in recipes[1:]:
+        q = r["params"]
+        assert 5 <= q["learning_rate"] * q["n_estimators"] <= 100, q
+        assert ("subsample_freq" in q) == (q["subsample"] < 1) and q.get("subsample_freq", 1) == 1, q
+    # 2 x 2 x 2 x 2 = 16 combinations; lr x trees of 3 (0.01 x 300) and 160 (0.1 x 1600) are inadmissible: 8 remain.
+    assert len(recipes) == 9 and rejected["inadmissible"] > 0, (len(recipes), rejected)
+    raises(lambda: searches.expand_v2(dict(v2, draws=9)), ValueError, "no new admissible configuration")
+    got, info = searches.expand_v2(dict(v2, draws=9), allow_fewer=True)
+    assert len(got) == 9 and info["termination"] == "enumerated_exhaustion"
+    # A sparse admissible region inside a space too large to enumerate fails instead of passing for exhaustion.
+    sparse = dict(v2, space={f"p{i}": list(range(12)) for i in range(5)}, admissible=[], derived=[], anchors=[],
+                  draws=5, family="random_forest", fixed={})
+    with mock.patch.object(searches, "MAX_ATTEMPTS", 3), mock.patch.object(searches, "admissible", lambda q, a: False):
+        raises(lambda: searches.expand_v2(sparse, allow_fewer=True), ValueError, "not proven exhausted")
+    assert searches.expand(v2) == recipes and searches.expand_v2(v2) == (recipes, rejected)
+    raises(lambda: searches.validate_search(dict(v2, fixed={"subsample_freq": 1})), ValueError, "derived")
+    raises(lambda: searches.validate_search(dict(v2, admissible=[{"product": ["learning_rate"], "min": 5,
+                                                                      "max": 100}])), ValueError)
+    raises(lambda: searches.validate_search(dict(v1, derived=[])), ValueError)
+    return f"{len(recipes) - 1} admissible draws, rejections {rejected}; exhaustion proven by enumeration, a sparse " \
+           "region refused"
+
+
+@check("kNN: the block-weighted representation of plan section 6.2, fitted on the training part only")
+def _():
+    knn = recipe(family="knn", params={"n_neighbors": 25, "weights": "distance", "metric": "euclidean"}, base="F1",
+                 preprocessing={"name": "knn_blocks", "alpha": 0.7, "category_weight": 0.5, "normalization": "l2"})
+    tr = np.flatnonzero(CTX.fold_id([155])[0] != 0)
+    f = fit_recipe(knn, CTX.rows.iloc[tr], CTX.data.y[tr], CTX.groups[tr], FitContext(155, 0))
+    Z = f.model_inputs(CTX.rows.iloc[tr])
+    assert Z.shape[1] == 10 + 1 + 18, Z.shape  # ten continuous, the year, one-hot key (12), mode (2), metre (4)
+    assert np.allclose(Z[:, :10].std(axis=0), 1 / np.sqrt(10), atol=1e-9)
+    assert np.allclose(Z[:, :10].mean(axis=0), 0, atol=1e-9) and abs(Z[:, 10].std() - 0.7) < 1e-9
+    assert set(np.round(Z[:, 11:].ravel(), 12)) == {0.0, round(0.5 / np.sqrt(3), 12)}
+    m = recipe(**{**knn, "params": dict(knn["params"], metric="manhattan"),
+                  "preprocessing": dict(knn["preprocessing"], normalization="l1")})
+    Zm = fit_recipe(m, CTX.rows.iloc[tr], CTX.data.y[tr], CTX.groups[tr], FitContext(155, 0)).model_inputs(
+        CTX.rows.iloc[tr])
+    assert np.allclose(Zm[:, :10].std(axis=0), 1 / 10, atol=1e-9)
+    assert set(np.round(Zm[:, 11:].ravel(), 12)) == {0.0, round(0.5 / 6, 12)}
+    for bad in (dict(base="F2"), dict(estimator_seeds=[0, 1]), dict(training_weights="inverse_group_size"),
+                dict(blocks=["cyclic"]), dict(preprocessing={"name": "log_standard"}),
+                dict(params=dict(knn["params"], metric="manhattan")), dict(params=dict(knn["params"], metric="cosine")),
+                dict(drop=["key"]), dict(params=dict(knn["params"], n_neighbors=0)),
+                dict(preprocessing={"name": "knn_blocks", "alpha": 0, "category_weight": 0.5, "normalization": "l2"})):
+        raises(lambda: validate_recipe(dict(knn, **bad)), ValueError)
+    raises(lambda: validate_recipe(dict(knn, family="logistic")), ValueError)
+    # Fitted on the training part only: held-out rows never enter the fit; a changed training row changes the fitted
+    # statistics (positive control) while a changed held-out row cannot.
+    rows = CTX.rows.iloc[tr].copy()
+    rows.iloc[0, rows.columns.get_loc("loudness")] += 30.0
+    g = fit_recipe(knn, rows, CTX.data.y[tr], CTX.groups[tr], FitContext(155, 0))
+    va = np.flatnonzero(CTX.fold_id([155])[0] == 0)
+    assert not np.allclose(g.model_inputs(CTX.rows.iloc[va]), f.model_inputs(CTX.rows.iloc[va]))
+    heldout = CTX.rows.copy()
+    heldout.iloc[va, heldout.columns.get_loc("loudness")] += 30.0
+    f2 = fit_recipe(knn, heldout.iloc[tr], CTX.data.y[tr], CTX.groups[tr], FitContext(155, 0))
+    assert np.array_equal(f2.model_inputs(CTX.test_rows), f.model_inputs(CTX.test_rows))
+    tie = KNeighborsClassifier(n_neighbors=1, algorithm="brute").fit(np.array([[1.0], [-1.0], [2.0]]), np.array([0, 1, 1]))
+    assert len({float(tie.predict_proba([[0.0]])[0, 1]) for _ in range(5)}) == 1  # a k-th-neighbor tie is repeatable
+    p1, p2 = f.predict_high(CTX.test_rows), f.predict_high(CTX.test_rows)
+    assert np.array_equal(p1, p2) and np.all((p1 >= 0) & (p1 <= 1))
+    # Exact matches and ties (synthetic): zero-distance neighbors take the weight; identical queries, alone or in a
+    # batch at any position, get identical predictions; an unseen category is all zeros.
+    Xs, ys = np.array([[0.0], [0.0], [2.0], [4.0]]), np.array([0, 1, 1, 0])
+    kd = KNeighborsClassifier(n_neighbors=3, weights="distance", algorithm="brute").fit(Xs, ys)
+    ku = KNeighborsClassifier(n_neighbors=3, weights="uniform", algorithm="brute").fit(Xs, ys)
+    assert kd.predict_proba([[0.0]])[0, 1] == 0.5 and abs(ku.predict_proba([[0.0]])[0, 1] - 2 / 3) < 1e-12
+    q = CTX.test_rows.iloc[[5, 1, 5, 2, 5]]
+    batch, alone = f.predict_high(q), f.predict_high(CTX.test_rows.iloc[[5]])
+    assert batch[0] == batch[2] == batch[4] == alone[0]
+    odd = CTX.test_rows.iloc[[0]].copy()
+    odd["key"] = 99.0
+    zi = f.model_inputs(odd)[0, 11:]
+    assert np.isfinite(f.predict_high(odd)).all() and np.count_nonzero(zi) == 2  # mode and metre known, key unseen
+    return "29 columns; block weights 1/sqrt(10), alpha, beta/sqrt(3) (1/10, alpha, beta/6 under Manhattan); " \
+           "exact matches, ties, batch positions and unseen categories behave as declared"
 
 
 @check("anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly")
@@ -710,34 +824,38 @@ def _():
     return f"search {sid} in an in-memory file system; an implicit and an explicit n_knots=4 count once"
 
 
-@check("verification writes nothing: the logged anchor recomputes with every writer disabled")
+@check("verification writes nothing: a run under the current sources recomputes with every writer disabled")
 def _():
-    recs = [r for r in runs.logged(CTX) if r.get("recipe_id", "").startswith("lightgbm_F2_anchor_")]
-    if not recs:
-        raise Skip("no logged anchor run yet; P2.1 logs it with scripts.run_experiments")
-    stored = runs.load_logged(CTX, recs[-1]["run_id"])[0].metadata["source_manifest"]
-    boom = mock.Mock(side_effect=AssertionError("a writer was called during verification"))
-    with mock.patch.object(artifacts, "append_experiment", boom), mock.patch.object(banks, "save_bank_v2", boom), \
-            mock.patch.object(searches, "save_expansion", boom), mock.patch.object(runs, "save_run", boom):
-        bad = runs.verify_run(CTX, recs[-1]["run_id"], stored, INV)
-    assert not bad, bad
-    tampered = [dict(r, mean_fold_auc_unrounded=0.123, repeat_mean_auc_unrounded=[0.123] * 3) for r in runs.logged(CTX)]
-    with mock.patch.object(runs, "logged", lambda ctx, record="run": tampered if record == "run" else []):
-        bad = runs.verify_run(CTX, recs[-1]["run_id"], stored, INV)
-    assert "logged mean_fold_auc_unrounded" in bad and "logged repeat_mean_auc_unrounded" in bad, bad
-    fields = {"family": "random_forest", "stage": "seeds155", "task_id": "P9.9", "search_id": "none",
-              "source_manifest_hash": "0" * 64, "n_rows": 1, "n_groups": 1, "n_features": 1, "execution_status": "failed",
-              "warnings": ["probe"], "bank_sha256": "0" * 64, "recipe_id": "x", "record": "other"}
-    for k, v in fields.items():
-        one = [dict(r, **{k: v}) if r["run_id"] == recs[-1]["run_id"] else r for r in runs.logged(CTX)]
-        with mock.patch.object(runs, "logged", lambda ctx, record="run", one=one: one if record == "run" else []):
-            try:
-                bad = runs.verify_run(CTX, recs[-1]["run_id"], stored, INV)
-            except ValueError:
-                bad = [f"logged {k}"]  # a record the loader itself refuses
-        assert f"logged {k}" in bad, (k, bad)
-    return f"{recs[-1]['run_id']} equals its saved bank and log (sources checked on disk against its manifest); " \
-           f"tampered unrounded scores and {len(fields)} other single record fields are caught"
+    """A probe run outside the search spaces, logged in an in-memory file system under the current sources. The
+    historical anchor's refusal under changed sources is the check "verification: a source mismatch is refused"."""
+    probe = recipe(name="probe_verify", params=dict(SMALL_LGBM, n_estimators=20))
+    with MemFS() as fs, Patches([mock.patch.object(runs, "LOG_FILE", Path(fs.root) / "log.jsonl"),
+                                 mock.patch.object(runs, "BANK_DIR", Path(fs.root) / "bank")]):
+        rid = runs.save_run(CTX, runs.fitted_run(CTX, probe, list(SPLIT_SEEDS), "P9.9", MANIFEST, INV))["run_id"]
+        boom = mock.Mock(side_effect=AssertionError("a writer was called during verification"))
+        with mock.patch.object(artifacts, "append_experiment", boom), mock.patch.object(banks, "save_bank_v2", boom), \
+                mock.patch.object(searches, "save_expansion", boom), mock.patch.object(runs, "save_run", boom):
+            bad = runs.verify_run(CTX, rid, MANIFEST, INV)
+        assert not bad and not boom.called, bad
+        logged = runs.logged(CTX)
+        tampered = [dict(r, mean_fold_auc_unrounded=0.123, repeat_mean_auc_unrounded=[0.123] * 3) for r in logged]
+        with mock.patch.object(runs, "logged", lambda ctx, record="run": tampered if record == "run" else []):
+            bad = runs.verify_run(CTX, rid, MANIFEST, INV)
+        assert "logged mean_fold_auc_unrounded" in bad and "logged repeat_mean_auc_unrounded" in bad, bad
+        fields = {"family": "random_forest", "stage": "seeds155", "task_id": "P9.8", "search_id": "none",
+                  "source_manifest_hash": "0" * 64, "n_rows": 1, "n_groups": 1, "n_features": 1,
+                  "execution_status": "failed", "warnings": ["probe"], "bank_sha256": "0" * 64, "recipe_id": "x",
+                  "record": "other"}
+        for k, v in fields.items():
+            one = [dict(r, **{k: v}) if r["run_id"] == rid else r for r in logged]
+            with mock.patch.object(runs, "logged", lambda ctx, record="run", one=one: one if record == "run" else []):
+                try:
+                    bad = runs.verify_run(CTX, rid, MANIFEST, INV)
+                except ValueError:
+                    bad = [f"logged {k}"]  # a record the loader itself refuses
+            assert f"logged {k}" in bad, (k, bad)
+    return f"a probe run equals its saved bank and log with every writer disabled; tampered unrounded scores and " \
+           f"{len(fields)} other single record fields are caught"
 
 
 @check("comparisons: seed-restricted, matched, logged once, verified")
@@ -752,10 +870,12 @@ def _():
         fs.files[str(log)] = (ROOT / runs.LOG_FILE).read_bytes()
         with mock.patch.object(runs, "LOG_FILE", log), mock.patch.object(runs, "BANK_DIR", Path(fs.root) / "bank"):
             rec = runs.save_run(CTX, probe)
+            before = len(runs.logged(CTX, "comparison"))  # the live log may already hold comparisons of real tasks
             raises(lambda: run_experiments.compare(CTX, anchor, rec["run_id"], "P2.1"), ValueError)
             run_experiments.compare(CTX, anchor, rec["run_id"], "P2.1", seeds=[155])
             run_experiments.compare(CTX, anchor, rec["run_id"], "P2.1", seeds=[155])
-            cmp = [r for r in runs.logged(CTX, "comparison")]
+            cmp = [r for r in runs.logged(CTX, "comparison") if r["b"] == rec["run_id"]]
+            assert len(runs.logged(CTX, "comparison")) == before + 1  # the repeated call logs nothing new
             assert len(cmp) == 1 and cmp[0]["seeds"] == [155] and len(cmp[0]["repeat_differences"]) == 1
             assert run_experiments.compare(CTX, anchor, rec["run_id"], None, seeds=cmp[0]["seeds"], verify=True,
                                            comparison_id=cmp[0]["comparison_id"])
@@ -778,6 +898,453 @@ def _():
         entries = install_locks.read_lock(ROOT, route)
         assert entries and all(len(h) == 64 for _, h in entries.values())
     return "a vanished earlier addition, a changed protected version and an unapproved addition are refused"
+
+
+PROTO = protocol.load_protocol(ROOT / run_experiments.PROTOCOL)
+FAKE_ID = lambda r: f"run_{r['name']}_{recipe_hash(r)[:8]}"
+
+
+def finding010_recipes():
+    text = (ROOT / "analysis/phase2_timing_output.txt").read_text()
+    return [c["recipe"] for c in run_experiments.strict_loads(text[text.index("\n{") + 1:])["cases"] if c["recipe"]]
+
+
+@check("protocol: the wave 1 manifests hold 276 configurations, anchors first and exact, admissible, deterministic")
+def _():
+    ms = protocol.plan_wave(PROTO, protocol.Log([], "P2.2", None), 1, FAKE_ID)
+    counts = {m["family"]: len(m["recipes"]) for m in ms}
+    assert counts == {"lightgbm": 64, "random_forest": 48, "xgboost": 48, "extra_trees": 32, "hist_gb": 12,
+                      "logistic": 24, "knn": 48}, counts
+    first = {m["family"]: m["recipes"][0] for m in ms}
+    assert recipe_hash(first["lightgbm"]) == recipe_hash(load_recipe(ROOT / ANCHOR))
+    assert first["random_forest"]["params"] == {"n_estimators": 500, "min_samples_leaf": 3}
+    f10 = {(r["family"], artifacts.dumps(r["params"])) for r in finding010_recipes()}
+    for fam in ("xgboost", "extra_trees", "hist_gb"):
+        assert (fam, artifacts.dumps(first[fam]["params"])) in f10 and first[fam]["base"] == "F2", fam
+    assert first["logistic"]["params"] == {"C": 1} and first["logistic"]["preprocessing"] == {"name": "log_standard"}
+    assert first["knn"]["params"] == {"metric": "euclidean", "n_neighbors": 60, "weights": "distance"}
+    for m in ms:
+        hashes = [recipe_hash(r) for r in m["recipes"]]
+        assert len(set(hashes)) == len(hashes) and m["run_ids"] == [FAKE_ID(r) for r in m["recipes"]]
+        it = {"lightgbm": "n_estimators", "xgboost": "n_estimators", "hist_gb": "max_iter"}.get(m["family"])
+        for r in m["recipes"][1:]:
+            q = r["params"]
+            if it:
+                assert 5 <= q["learning_rate"] * q[it] <= 100, q
+            if m["family"] == "lightgbm":
+                assert ("subsample_freq" in q) == (q["subsample"] < 1), q
+    log_ = {m["family"]: m for m in ms}["logistic"]["recipes"]
+    kinds = sorted((r["base"], r["preprocessing"]["name"]) for r in log_)
+    assert kinds.count(("F1", "log_standard")) == 6 and kinds.count(("F2", "log_standard")) == 6 \
+        and kinds.count(("F1", "spline")) == 12
+    pairs = sorted((r["params"]["C"], r["preprocessing"]["n_knots"]) for r in log_ if r["preprocessing"]["name"] == "spline")
+    assert pairs == sorted([(0.001, 3), (0.001, 5), (0.01, 4), (0.01, 7), (0.1, 5), (0.1, 10), (1, 7), (1, 3), (10, 10),
+                            (10, 4), (100, 3), (100, 5)])
+    knn = {m["family"]: m for m in ms}["knn"]["recipes"]
+    assert sorted((r["params"]["n_neighbors"], r["params"]["weights"], r["preprocessing"]["alpha"]) for r in knn) == \
+        sorted((k, w, a) for k in (15, 30, 60, 120, 240, 480) for w in ("uniform", "distance") for a in (0.25, 0.5, 1, 2))
+    again = protocol.plan_wave(PROTO, protocol.Log([], "P2.2", None), 1, FAKE_ID)
+    assert artifacts.dumps(again) == artifacts.dumps(ms)
+    # The comparison key: equivalent numbers and omitted factory defaults are the same computation.
+    fam = {f["family"]: f for f in PROTO["families"]}
+    kl, kr = protocol.search_key(fam["logistic"]), protocol.search_key(fam["random_forest"])
+    mk = lambda f, v: protocol.make_recipe(fam[f]["template"], f, "k", v)
+    assert kl(mk("logistic", {"C": 100})) == kl(mk("logistic", {"C": 100.0})) != kl(mk("logistic", {"C": 10.0}))
+    assert kr(first["random_forest"]) == kr(mk("random_forest", {"n_estimators": 500, "min_samples_leaf": 3,
+                                                                 "max_features": "sqrt", "max_depth": None,
+                                                                 "max_samples": 1.0}))
+    assert kr(first["random_forest"]) != kr(mk("random_forest", {"n_estimators": 500, "min_samples_leaf": 3,
+                                                                 "max_features": 0.3}))
+    for m in ms:
+        k = protocol.search_key(fam[m["family"]])
+        assert len({k(r) for r in m["recipes"]}) == len(m["recipes"]), m["family"]
+    raises(lambda: protocol.make_recipe(fam["random_forest"]["template"], "random_forest", "k",
+                                        {"n_estimators": 500, "max_samples": 1}), ValueError, "out of domain")
+    return "64, 48, 48, 32, 12, 24, 48; anchors as declared (Finding 010 recipes exact); deterministic; " \
+           "equivalent configurations share one key; an integer fraction refused"
+
+
+@check("refinement: typed local moves, zero steps, sqrt and None, active bounds, tree variants, deduplication")
+def _():
+    rng = np.random.default_rng(0)
+    log_t = {"type": "log", "min": 1, "max": 100, "integer": False, "zero_step": 0.1, "default": 0}
+    assert refine.move(0, log_t, rng) == 0.1
+    assert all(refine.move(0.12, log_t, np.random.default_rng(i)) in (0,) or refine.move(0.12, log_t, np.random.default_rng(i)) >= 1
+               for i in range(20))  # below the step lands on zero, otherwise clipped up to the active minimum
+    ordinal = {"type": "ordinal", "values": ["sqrt", 0.3, 0.5, None], "default": "sqrt"}
+    assert refine.move("sqrt", ordinal, rng) == 0.3 and refine.move(None, ordinal, rng) == 0.5
+    assert {refine.move(0.3, ordinal, np.random.default_rng(i)) for i in range(20)} == {"sqrt", 0.5}
+    integer = {"type": "log", "min": 7, "max": 63, "integer": True, "zero_step": None, "default": 31}
+    assert all(isinstance(refine.move(15, integer, np.random.default_rng(i)), int) and
+               7 <= refine.move(15, integer, np.random.default_rng(i)) <= 63 for i in range(50))
+    fam = next(f for f in PROTO["families"] if f["family"] == "lightgbm")
+    parent = protocol.anchor_recipe(PROTO, fam)
+    other = protocol.make_recipe(fam["template"], "lightgbm", "other", dict(parent["params"], num_leaves=31))
+    space = fam["space"]
+    spec = {"schema": refine.REFINE_SCHEMA, "name": "probe_r", "family": "lightgbm", "parents": [parent, other],
+            "local_per_parent": [5, 4], "trees": "n_estimators", "broad": 3,
+            "broad_template": protocol.make_recipe(fam["template"], "lightgbm", "t", searches.apply_derived(
+                {n: v[0] for n, v in space.items()}, fam["derived"])),
+            "broad_space": space, "types": protocol.local_types(fam, space), "derived": fam["derived"],
+            "admissible": fam["admissible"], "exclude_recipe_sha256": [], "sampler_seed": 5, "max_dimensions": 3}
+    got, rej = refine.propose(spec)
+    assert len(got) == 12 and [r["params"]["n_estimators"] for r in got[:2]] == [400, 900], [r["params"] for r in got[:2]]
+    assert all({k: v for k, v in r["params"].items() if k != "n_estimators"} ==
+               {k: v for k, v in parent["params"].items() if k != "n_estimators"} for r in got[:2])
+    for r in got:
+        q = r["params"]
+        assert 5 <= q["learning_rate"] * q["n_estimators"] <= 100 and 7 <= q["num_leaves"] <= 63 \
+            and 300 <= q["n_estimators"] <= 1600 and ("subsample_freq" in q) == (q.get("subsample", 1.0) < 1), q
+    assert len({recipe_hash(r) for r in got} | {recipe_hash(parent), recipe_hash(other)}) == 14
+    again, _ = refine.propose(spec)
+    assert artifacts.dumps(again) == artifacts.dumps(got)
+    excl, _ = refine.propose(dict(spec, exclude_recipe_sha256=[recipe_hash(r) for r in got]))
+    assert not {recipe_hash(r) for r in excl} & {recipe_hash(r) for r in got} and len(excl) == 12
+    lfam = next(f for f in PROTO["families"] if f["family"] == "logistic")
+    lp = protocol.anchor_recipe(PROTO, lfam)
+    assert refine.applicable(lp, sorted(lfam["types"])) == ["C"]
+    one, _ = refine.propose(dict(spec, parents=[parent], local_per_parent=[9]))
+    assert len(one) == 12
+    # An exhausted local neighborhood (review round 1, F1): the Extra Trees wave 1 recipe with leaf 1, "sqrt" and no
+    # depth limit has six new neighbors; its other three slots become broad draws.
+    et = next(f for f in PROTO["families"] if f["family"] == "extra_trees")
+    ket = protocol.search_key(et)
+    w1 = protocol.initial_recipes(PROTO, et)
+    small = next(r for r in w1 if r["params"] == {"n_estimators": 500, "min_samples_leaf": 1, "max_features": "sqrt",
+                                                  "max_depth": None})
+    tmpl = protocol.make_recipe(et["space_template"], "extra_trees", "t", dict(et["fixed"], **{
+        n: v[0] for n, v in et["space"].items()}))
+    espec = dict(spec, family="extra_trees", parents=[small], local_per_parent=[9], trees=None, broad=3,
+                 broad_template=tmpl, broad_space=et["space"], types=protocol.local_types(et, et["space"]), derived=[],
+                 admissible=[], exclude_recipe_sha256=sorted({ket(r) for r in w1}))
+    got_et, info = refine.propose(espec, key=ket)
+    assert len(got_et) == 12 and info["local_shortfall"] == [3] and info["termination"] == "requested_count", info
+    # Everything reachable already seen but two broad configurations: a smaller batch, exhaustion proven.
+    allc = [protocol.make_recipe(et["space_template"], "extra_trees", "a", dict(et["fixed"], **dict(zip(sorted(
+        et["space"]), c)))) for c in itertools.product(*(et["space"][n] for n in sorted(et["space"])))]
+    keep = {ket(allc[0]), ket(allc[1])} - {ket(small)}
+    gone = sorted({ket(r) for r in allc + got_et + w1} - keep)
+    got2, info2 = refine.propose(dict(espec, exclude_recipe_sha256=gone), key=ket)
+    assert len(got2) == len(keep) and info2["termination"] == "enumerated_exhaustion", (len(got2), info2)
+    with mock.patch.object(refine, "SLOT_ATTEMPTS", 2), mock.patch.object(refine, "ENUMERATE_LIMIT", 10):
+        raises(lambda: refine.propose(dict(espec, exclude_recipe_sha256=gone), key=ket), ValueError,
+               "not proven exhausted")
+    return f"12 proposals, tree variants 400 and 900 first, rejections {rej}; deterministic; exclusions honoured; " \
+           f"an exhausted neighborhood passes its slots to broad draws; exhaustion proven or refused"
+
+
+@check("allocation: the four routes at their margins, positive repeats, means-only proximity, the counter")
+def _():
+    inc, top = [0.8000] * 3, [0.8300] * 3
+    R = lambda s, b=((0.83,) * 3, (0.83,) * 3): allocation.routes({"standalone": list(s), "blends": [list(x) for x in b]},
+                                                               inc, top, [0.83] * 3, [0.83] * 3)
+    assert R([0.8031] * 3) == ["clear_standalone"]
+    assert R([0.8100, 0.8100, 0.7999]) == []  # a mean gain of 0.0066 with one negative repeat
+    near = allocation.routes({"standalone": [0.8265] * 3, "blends": [[0.83] * 3] * 2}, [0.8250] * 3, top, [0.83] * 3,
+                             [0.83] * 3)
+    assert near == ["smaller_useful"], near
+    close = allocation.routes({"standalone": [0.8290] * 3, "blends": [[0.83] * 3] * 2}, [0.8284] * 3, top, [0.83] * 3,
+                              [0.83] * 3)
+    assert close == ["competitive_refinement"], close
+    assert allocation.routes({"standalone": [0.8290, 0.8310, 0.8270], "blends": [[0.83] * 3] * 2}, [0.8284] * 3,
+                             [0.8310, 0.8290, 0.8300], [0.83] * 3, [0.83] * 3) == []  # repeat 3 below the incumbent
+    assert R([0.79] * 3, ([0.8306] * 3, [0.83] * 3)) == ["ensemble_contribution"]
+    assert R([0.79] * 3, ([0.8306, 0.8306, 0.8300], [0.83] * 3)) == []
+    assert allocation.routes({"standalone": [0.79] * 3, "blends": [[0.8306] * 3] * 2}, inc, top, [0.83] * 3,
+                             [0.8303] * 3) == []  # does not beat the previous best blend by 0.0005
+    n = allocation.next_allowance
+    assert (n(None, True, True), n(None, False, True), n(2, False, False), n(1, False, False), n(1, True, False)) == \
+        (2, 0, 1, 0, 2)
+    return "clear, smaller, competitive and ensemble routes at their margins; the counter 2, 0, 1, 0, 2"
+
+
+def synthetic_log(score, blend):
+    """A log of wave 1 with synthetic scores: score(family, recipe) and blend(family, recipe) give the standalone and
+    the better contribution blend means (equal on every repeat); the other blend is H's mean."""
+    ms = protocol.plan_wave(PROTO, protocol.Log([], "P2.2", None), 1, FAKE_ID)
+    files, records = {}, []
+    h = ms[0]["run_ids"][0]
+    for m in ms:
+        bid = f"{m['family']}_w1"
+        files[bid] = {"recipes": m["recipes"]}
+        records.append({"record": "batch", "task_id": "P2.2", "batch_id": bid, "family": m["family"], "wave": 1,
+                        "kind": "initial", "file": bid, "run_ids": m["run_ids"], "state": m["state"],
+                        "sources": m["sources"]})
+        for r, rid in zip(m["recipes"], m["run_ids"]):
+            v = 0.8314739289 if rid == h else score(m["family"], r)
+            records.append({"record": "run", "run_id": rid, "recipe_id": recipe_id(r), "selection_eligible": True,
+                            "split_seeds": list(SPLIT_SEEDS), "n_rows": 3863, "bank_sha256": "bank_" + rid,
+                            "estimator_seeds": [0], "mean_fold_auc_unrounded": v, "repeat_mean_auc_unrounded": [v] * 3})
+            b = 0.8314739289 if rid == h else blend(m["family"], r)
+            for w, val in ((0.1, b), (0.25, 0.8314739289)):
+                records.append({"record": "contribution", "task_id": "P2.2", "run_id": rid, "h_run_id": h, "weight": w,
+                                "bank_sha256": "bank_" + rid, "h_sha256": "bank_" + h, "identity": rid == h,
+                                "mean_fold_auc_unrounded": val, "repeat_mean_auc_unrounded": [val] * 3})
+    log = protocol.Log(records, "P2.2", files.__getitem__)
+    for b in log.batches:
+        res = protocol.judge(b, log)
+        records.append({"record": "allocation", "task_id": "P2.2", "batch_id": b["batch_id"], **res})
+    return protocol.Log(records, "P2.2", files.__getitem__), records
+
+
+def _score(family, r):
+    q, j = r["params"], int(recipe_hash(r)[:4], 16) / 65536 * 1e-5
+    return {"lightgbm": 0.8320 + 1e-5 * q.get("num_leaves", 0) - 1e-6 * q.get("min_child_samples", 0),
+            "random_forest": 0.8270, "xgboost": 0.8300 + j, "extra_trees": 0.8200, "hist_gb": 0.8240 + j,
+            "logistic": 0.7850, "knn": 0.7700}[family] + (0.0 if family == "lightgbm" else j) \
+        - (0.004 if family in ("xgboost", "hist_gb") and r["name"].endswith("_anchor") else 0.0)
+
+
+def _blend(family, r):
+    if r["name"].endswith("_anchor"):
+        return 0.8314739289
+    return {"random_forest": 0.8323, "logistic": 0.8321, "hist_gb": 0.83155}.get(family, 0.8314739289) \
+        + int(recipe_hash(r)[:4], 16) / 65536 * 1e-6
+
+
+@check("protocol: judging and wave 2 planning on a synthetic log: routes, counter, refinement families, local split")
+def _():
+    log, records = synthetic_log(_score, _blend)
+    alloc = {r["batch_id"].split("_w")[0]: r for r in records if r["record"] == "allocation"}
+    after = {f: a["allowance_after"] for f, a in alloc.items()}
+    assert after == {"lightgbm": 2, "random_forest": 2, "xgboost": 2, "extra_trees": 0, "hist_gb": 2, "logistic": 2,
+                     "knn": 0}, after
+    h = log.batches[0]["run_ids"][0]
+    assert h not in alloc["lightgbm"]["routes"]  # the anchor judges its batch, it is not judged
+    assert protocol.refinement_families(PROTO, log, PROTO["families"]) == ["lightgbm", "xgboost", "random_forest",
+                                                                           "logistic"]
+    w2 = protocol.plan_wave(PROTO, log, 2, FAKE_ID)
+    kinds = {m["family"]: (m["kind"], len(m["recipes"])) for m in w2}
+    assert kinds == {"lightgbm": ("refinement", 12), "random_forest": ("refinement", 12), "xgboost": ("refinement", 12),
+                     "hist_gb": ("expansion", 12), "logistic": ("refinement", 12)}, kinds
+    lgb = next(m for m in w2 if m["family"] == "lightgbm")
+    assert lgb["sources"]["local_per_parent"] == [5, 4] and lgb["sources"]["broad"] == 3
+    inc = lgb["state"]["incumbent"]["run_id"]
+    t = log.manifest_recipe(inc)["params"]["n_estimators"]
+    assert [r["params"]["n_estimators"] for r in lgb["recipes"][:2]] == [int(2 * t / 3 + 0.5), int(1.5 * t + 0.5)] or \
+        lgb["sources"]["rejected"]["inadmissible"] + lgb["sources"]["rejected"]["out_of_bounds"] > 0
+    assert lgb["state"]["strongest"]["run_id"] == inc and lgb["state"]["allowance_before"] == 2
+    prior = {r for b in log.batches if b["family"] == "lightgbm" for r in log.batches[0]["run_ids"]}
+    assert not {FAKE_ID(r) for r in lgb["recipes"]} & prior
+    assert artifacts.dumps(protocol.plan_wave(PROTO, log, 2, FAKE_ID)) == artifacts.dumps(w2)
+    # Range extension: the LightGBM incumbent has 63 leaves (the top of its list): 63 x 63 / 31 clipped to 127.
+    fam = PROTO["families"][0]
+    ext = protocol.new_extensions(fam, fam["space"], log.manifest_recipe(inc), [])
+    assert {"parameter": "num_leaves", "edge": 63, "value": 127, "hard_bounds": fam["hard_bounds"]["num_leaves"]} in ext
+    assert not protocol.new_extensions(fam, fam["space"], log.manifest_recipe(inc), ext)  # once per parameter
+    rf = next(f for f in PROTO["families"] if f["family"] == "random_forest")
+    assert all(e["parameter"] not in ("max_features", "max_depth") for e in protocol.new_extensions(
+        rf, rf["space"], dict(log.manifest_recipe(inc), params={"max_features": 1.0, "max_depth": None}), []))
+    # Ties (review round 1, F4): equal contribution blends resolve by the challenger's canonical recipe hash.
+    tied, _ = synthetic_log(_score, lambda f, r: 0.8314739289 if r["name"].endswith("_anchor") else
+                            {"random_forest": 0.8323, "logistic": 0.8323, "hist_gb": 0.8323}.get(f, 0.8314739289))
+    rows = {}
+    h_t = tied.batches[0]["run_ids"][0]
+    for f in ("random_forest", "logistic", "hist_gb"):
+        cs = tied.family_contributions(f, 2, h_t)
+        pick = protocol.best_blend(cs)
+        top = [c for c in cs if not c.get("identity") and c["mean_fold_auc_unrounded"] == pick["mean_fold_auc_unrounded"]]
+        assert pick["run_id"] == min(top, key=lambda c: (c["recipe_sha256"], c["weight"]))["run_id"]
+        rows[f] = tied.runs[pick["run_id"]]["recipe_sha256"]
+    order = sorted(rows, key=lambda f: (rows[f], f))
+    assert protocol.refinement_families(PROTO, tied, PROTO["families"]) == ["lightgbm", "xgboost"] + order[:2], order
+    b = next(x for x in tied.batches if x["family"] == "random_forest")
+    res = protocol.judge(b, tied)
+    ens = [w for w in protocol.witnesses(b, res, tied) if w[0] == "ensemble_contribution"]
+    met = [r for r, v in res["routes"].items() if "ensemble_contribution" in v]
+    assert ens and ens[0][1][1] == min(met, key=lambda r: tied.runs[r]["recipe_sha256"])
+    return "allowances 2, 2, 2, 0, 2, 2, 0; refinement lightgbm, xgboost, random_forest, logistic; " \
+           "local 5/4 + 3 broad; num_leaves extends to 127 once; tied contributions resolve by recipe hash"
+
+
+def tiny_protocol():
+    """Two families of tiny models outside the P2.2 spaces (F0, a few trees), for an end-to-end run in memory."""
+    T = lambda prep: {"base": "F0", "blocks": [], "drop": [], "preprocessing": prep, "training_weights": "none",
+                      "estimator_seeds": [0]}
+    L = lambda i, d: {"type": "log", "integer": i, "zero_step": None, "default": d}
+    lgb_space = {"num_leaves": [3, 5], "n_estimators": [20, 30]}
+    return {"schema": "protocol_v1", "task_id": "P9.9", "name": "tiny", "reference": "probe",
+            "reference_p21_run_id": None, "split_seeds": list(SPLIT_SEEDS),
+            "seed_base": 1, "cutoff_utc": "2100-01-01T00:00:00+00:00",
+            "refinement": {"families": 4, "by_standalone": 2, "batch": 12, "broad": 3, "local": [[5, 4], [4, 5]],
+                           "max_dimensions": 3, "max_per_family": 24},
+            "families": [
+                {"family": "lightgbm", "index": 0, "initial": 3, "expansion": 1, "ceiling": 4, "template": T({"name": "none"}),
+                 "anchor": {"n_estimators": 20, "learning_rate": 0.3, "num_leaves": 4, "min_child_samples": 20},
+                 "initial_branches": [{"kind": "draws", "template": T({"name": "none"}),
+                                       "fixed": {"learning_rate": 0.3, "min_child_samples": 20}, "space": lgb_space, "draws": 2}],
+                 "space_template": T({"name": "none"}), "fixed": {"learning_rate": 0.3, "min_child_samples": 20},
+                 "space": lgb_space, "derived": [], "admissible": [{"product": ["learning_rate", "n_estimators"], "min": 5, "max": 100}],
+                 "types": {"num_leaves": L(True, 31), "n_estimators": L(True, 100)},
+                 "hard_bounds": {"num_leaves": {"min": 2, "max": 8, "integer": True}}, "trees": "n_estimators"},
+                {"family": "logistic", "index": 1, "initial": 3, "expansion": 1, "ceiling": 4,
+                 "template": T({"name": "log_standard"}), "anchor": {"C": 0.5},
+                 "initial_branches": [{"kind": "explicit", "template": T({"name": "log_standard"}),
+                                       "values": [{"C": 0.2}, {"C": 2.0}]}],
+                 "space_template": T({"name": "log_standard"}), "fixed": {}, "space": {"C": [0.2, 0.5, 2.0, 5.0]},
+                 "derived": [], "admissible": [], "types": {"C": L(False, 1.0)},
+                 "hard_bounds": {"C": {"min": 0.01, "max": 100, "integer": False}}, "trees": None}]}
+
+
+def tiny_files(fs, proto):
+    tmp = Path(fs.root)
+    lgb = next(f for f in proto["families"] if f["family"] == "lightgbm")
+    proto = dict(proto, reference_p21_run_id=run_experiments.run_id_of(CTX, list(SPLIT_SEEDS), MANIFEST)(
+        protocol.anchor_recipe(proto, lgb)))  # the tiny H checked against itself
+    fs.files[str(tmp / "protocol.json")] = artifacts.dumps(proto).encode()
+    return [mock.patch.object(runs, "LOG_FILE", tmp / "log.jsonl"), mock.patch.object(runs, "BANK_DIR", tmp / "bank"),
+            mock.patch.object(run_experiments, "BATCH_DIR", tmp / "batches"),
+            mock.patch.object(run_experiments, "PROTOCOL", tmp / "protocol.json")]
+
+
+@check("wave commands in memory: preflight, initialization, H check, run, judge, bootstraps, resume, audit, refit")
+def _():
+    rx, seeds, task = run_experiments, list(SPLIT_SEEDS), "P9.9"
+    with MemFS() as fs, Patches(tiny_files(fs, tiny_protocol())):
+        tmp = Path(fs.root)
+        log_key = str(tmp / "log.jsonl")
+        w1 = rx.plan_wave(CTX, 1, seeds, task, MANIFEST)
+        assert [len(m["recipes"]) for m in w1] == [3, 3]
+        raises(lambda: rx.plan_wave(CTX, 1, [155], task, MANIFEST), ValueError, "exactly the split seeds")
+        # Resume: a manifest saved without its log record is reused and logged once.
+        lines = fs.files[log_key].decode().splitlines()
+        fs.files[log_key] = ("\n".join(lines[:1]) + "\n").encode()
+        rx.plan_wave(CTX, 1, seeds, task, MANIFEST)
+        assert sum(r["record"] == "batch" for r in artifacts.read_experiments(tmp / "log.jsonl")) == 2
+        # Preflight: any mismatch refuses before a fit.
+        spy = mock.Mock(side_effect=AssertionError("fitted before the preflight passed"))
+        with mock.patch.object(runs, "fitted_run", spy):
+            raises(lambda: rx.run_wave(CTX, 1, seeds, task, dict(MANIFEST, manifest_sha256="0" * 64), INV,
+                                       anchors_only=True), ValueError, "preflight")
+            raises(lambda: rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV), ValueError, "initialization is incomplete")
+            raises(lambda: rx.run_wave(CTX, 2, seeds, task, MANIFEST, INV, anchors_only=True), ValueError, "wave 1 only")
+            key = str(tmp / "batches" / Path(w1[0]["run_ids"] and artifacts.read_experiments(tmp / "log.jsonl")[0]["file"]).name)
+            good = fs.files[key]
+            fs.files[key] = good.replace(b'"wave": 1', b'"wave": 1 ')
+            raises(lambda: rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True), ValueError, "preflight")
+            fs.files[key] = good
+        assert not spy.called
+        # Initialization, with the H check, then the search fits.
+        assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)
+        recs = artifacts.read_experiments(tmp / "log.jsonl")
+        assert sum(r["record"] == "run" for r in recs) == 2 and [r["passed"] for r in recs if r["record"] == "h_check"] == [True]
+        assert not any(r["record"] in ("allocation", "batch_start") for r in recs)
+        # An interrupted append: the bank is finalized, its record missing; the rerun recovers it without fitting.
+        h = w1[0]["run_ids"][0]
+        lines = fs.files[log_key].decode().splitlines()
+        fs.files[log_key] = ("\n".join(l for l in lines if f'"run_id": "{w1[1]["run_ids"][0]}"' not in l
+                                       or '"record": "run"' not in l) + "\n").encode()
+        with mock.patch.object(runs, "fitted_run", spy):
+            rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)
+        assert not spy.called
+        assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV)
+        recs = artifacts.read_experiments(tmp / "log.jsonl")
+        runs_ = [r for r in recs if r["record"] == "run"]
+        assert len(runs_) == 6 and len({r["run_id"] for r in runs_}) == 6  # anchors reused, not refitted
+        assert sum(r["record"] == "contribution" for r in recs) == 12 and sum(r["record"] == "allocation" for r in recs) == 2
+        assert sum(r["record"] == "batch_start" for r in recs) == 2
+        ident = [r for r in recs if r["record"] == "contribution" and r["run_id"] == h]
+        assert all(r["identity"] for r in ident)
+        boots = [r for r in recs if r["record"] == "bootstrap"]
+        progress = [r for r in recs if r["record"] == "allocation" and r["progress"]]
+        assert bool(boots) == bool(progress)
+        w2 = rx.plan_wave(CTX, 2, seeds, task, MANIFEST) if progress else []
+        if w2:
+            assert rx.run_wave(CTX, 2, seeds, task, MANIFEST, INV)
+        assert rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+        # The writers stay untouched while every run of the task is refitted and compared.
+        boom = mock.Mock(side_effect=AssertionError("a writer was called during verification"))
+        with mock.patch.object(artifacts, "append_experiment", boom), mock.patch.object(banks, "save_bank_v2", boom):
+            assert rx.verify_task(CTX, task, MANIFEST, INV)
+        with mock.patch.object(rx, "past_cutoff", lambda proto: True):
+            raises(lambda: rx.plan_wave(CTX, 9, seeds, task, MANIFEST), ValueError)
+        # Tampering: an edited manifest, an edited allocation, a missing run are each refused.
+        bkey = str(tmp / "batches" / Path(next(r for r in recs if r["record"] == "batch")["file"]).name)
+        good = fs.files[bkey]
+        fs.files[bkey] = good.replace(b'"C": 0.2', b'"C": 0.3') if b'"C": 0.2' in good else good + b" "
+        assert not rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+        fs.files[bkey] = good
+        log_bytes = fs.files[log_key]
+        fs.files[log_key] = log_bytes.replace(b'"progress": true', b'"progress": false', 1) \
+            if b'"progress": true' in log_bytes else log_bytes.replace(b'"progress": false', b'"progress": true', 1)
+        assert not rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+        lines = log_bytes.decode().splitlines()
+        drop = next(i for i, l in enumerate(lines) if '"record": "run"' in l and h not in l)
+        fs.files[log_key] = ("\n".join(lines[:drop] + lines[drop + 1:]) + "\n").encode()
+        assert not rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+        fs.files[log_key] = log_bytes + log_bytes.splitlines(keepends=True)[-1]
+        raises(lambda: rx.load_log(CTX, task), ValueError, "duplicate")
+        fs.files[log_key] = log_bytes
+        assert rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+    with MemFS() as fs, Patches(tiny_files(fs, tiny_protocol())):
+        assert not rx.verify_task(CTX, task, MANIFEST, INV)  # nothing to verify is not a pass
+        rx.plan_wave(CTX, 1, seeds, task, MANIFEST)
+        with mock.patch.object(rx, "past_cutoff", lambda proto: True):
+            assert not rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)  # the cutoff covers init
+        # Completion before the cutoff (review round 1, F2): manifests only, then anchors only, are incomplete.
+        assert not rx.audit_task(CTX, seeds, task, MANIFEST) and rx.audit_task(CTX, seeds, task, MANIFEST, True)
+        assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)
+        assert not rx.audit_task(CTX, seeds, task, MANIFEST) and rx.audit_task(CTX, seeds, task, MANIFEST, True)
+        assert not rx.verify_task(CTX, task, MANIFEST, INV) and rx.verify_task(CTX, task, MANIFEST, INV, seeds, True)
+        # An interrupted bootstrap (review round 1, F3): the allocation waits for its bootstraps; resume finishes both.
+        calls = {"n": 0}
+        real = rx.paired_cluster_bootstrap
+
+        def flaky(a, b, **k):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise RuntimeError("interrupted at the first bootstrap")
+            return real(a, b, **k)
+        with mock.patch.object(rx, "paired_cluster_bootstrap", flaky), \
+                mock.patch.object(protocol, "witnesses", lambda b, res, log: [
+                    ("clear_standalone", ("run", b["run_ids"][1]), ("run", b["run_ids"][0])),
+                    ("smaller_useful", ("run", b["run_ids"][2]), ("run", b["run_ids"][0]))]):
+            raises(lambda: rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV), RuntimeError, "interrupted")
+            recs = artifacts.read_experiments(Path(fs.root) / "log.jsonl")
+            assert not any(r["record"] == "allocation" for r in recs)
+            assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV)
+            recs = artifacts.read_experiments(Path(fs.root) / "log.jsonl")
+            boot_ids = [r["comparison_id"] for r in recs if r["record"] == "bootstrap"]
+            assert sum(r["record"] == "allocation" for r in recs) == 2 and len(boot_ids) == 4 == len(set(boot_ids))
+            assert rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+            # A lost bootstrap record of a closed batch is finished on resume, not skipped.
+            log_key = str(Path(fs.root) / "log.jsonl")
+            lines = fs.files[log_key].decode().splitlines()
+            drop = max(i for i, l in enumerate(lines) if '"record": "bootstrap"' in l)
+            fs.files[log_key] = ("\n".join(lines[:drop] + lines[drop + 1:]) + "\n").encode()
+            assert not rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+            assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV)
+            assert rx.audit_task(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+    return f"6 runs, 12 contributions, 2 allocations, {len(boots)} bootstraps, wave 2 with {len(w2)} batch(es); " \
+           "preflight refusals before any fit; resume after a lost manifest record and a lost run record; " \
+           "the full refit writes nothing; tampering, a missing run and duplicates refused; the cutoff covers init; " \
+           "completion refused before the cutoff; an interrupted or lost bootstrap finished on resume"
+
+
+@check("H check: H must equal the P2.1 anchor's arrays; a different bank stops the search")
+def _():
+    rx, seeds, task = run_experiments, list(SPLIT_SEEDS), "P9.9"
+    with MemFS() as fs, Patches(tiny_files(fs, tiny_protocol())):
+        rx.plan_wave(CTX, 1, seeds, task, MANIFEST)
+        assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)
+        proto, _ = rx.load_protocol(CTX)
+        logistic_anchor = rx.load_log(CTX, task).batches[1]["run_ids"][0]
+        h = rx.load_log(CTX, task).batches[0]["run_ids"][0]
+        assert not rx.h_check(CTX, dict(proto, reference_p21_run_id=logistic_anchor), h, task)
+    return "a mismatched reference bank fails the check"
+
+
+@check("timing: fit and predict with every scorer disabled; records hold times, never a score")
+def _():
+    boom = mock.Mock(side_effect=AssertionError("a score was computed during timing"))
+    probe = recipe(name="probe_time", params=dict(SMALL_LGBM, n_estimators=10))
+    with MemFS() as fs, mock.patch("sklearn.metrics.roc_auc_score", boom), \
+            mock.patch("songpop.phase2.engine.roc_auc_score", boom), mock.patch("songpop.metrics.roc_auc_score", boom):
+        recs = run_experiments.time_cases(CTX, {"schema": "timing_v1", "cases": [{"case": "light", "recipe": probe}]},
+                                          [1029, 155], "P9.9", MANIFEST, INV, "0" * 64, log_path=Path(fs.root) / "t.jsonl")
+    assert not boom.called and recs[0]["split_seeds"] == [155, 1029] and recs[0]["completed_fits"] == 10
+    assert not [k for k in artifacts.dumps(recs[0]).lower().split('"') if "auc" in k or "score" in k]
+    return f"{recs[0]['elapsed_seconds']} s for 10 fits; no scorer called; seeds canonicalized"
 
 
 @check("nested evaluation: fitting ids stay inside their outer training rows", status="STAGED")

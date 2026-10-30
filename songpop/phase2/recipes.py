@@ -1,13 +1,15 @@
 """Recipes: JSON descriptions of a model, its features and its policies (plan section 4.2)."""
 import json
+import math
 from pathlib import Path
 
 from songpop import artifacts
 
 RECIPE_SCHEMA = "recipe_v1"
-FAMILIES = ("lightgbm", "random_forest", "extra_trees", "xgboost", "hist_gb", "logistic", "catboost", "ebm")
-NEEDS_IMPUTATION = ("logistic",)  # families without native missing-value support
-PREPROCESSING = {"none": set(), "log_standard": set(), "spline": {"n_knots"}}  # name: its parameters
+FAMILIES = ("lightgbm", "random_forest", "extra_trees", "xgboost", "hist_gb", "logistic", "catboost", "ebm", "knn")
+NEEDS_IMPUTATION = ("logistic", "knn")  # families without native missing-value support
+PREPROCESSING = {"none": set(), "log_standard": set(), "spline": {"n_knots"},
+                 "knn_blocks": {"alpha", "category_weight", "normalization"}}  # name: its parameters
 BASES = ("F0", "F1", "F2")
 BLOCKS = ("date_count", "date_te10", "date_te30", "interactions", "cyclic", "era_relative")
 WEIGHTS = ("none", "inverse_group_size")
@@ -29,6 +31,8 @@ def validate_recipe(recipe):
         raise ValueError(f"unknown family {recipe['family']!r}")
     if not isinstance(recipe["params"], dict) or any(isinstance(v, bool) for v in recipe["params"].values()):
         raise ValueError("params must be an object without boolean values")
+    from songpop.phase2.models import validate_model_params  # models does not import recipes
+    validate_model_params(recipe["family"], recipe["params"])
     if recipe["base"] not in BASES:
         raise ValueError(f"unknown base feature set {recipe['base']!r}")
     blocks = recipe["blocks"]
@@ -50,12 +54,26 @@ def validate_recipe(recipe):
         raise ValueError("spline preprocessing needs an integer n_knots of at least 3")
     if recipe["family"] in NEEDS_IMPUTATION and prep["name"] == "none":
         raise ValueError(f"{recipe['family']} has no native missing-value support; it needs a preprocessing that imputes")
+    if (recipe["family"] == "knn") != (prep["name"] == "knn_blocks"):
+        raise ValueError("the knn family uses exactly the knn_blocks preprocessing, and knn_blocks only the knn family")
+    if prep["name"] == "knn_blocks" and not (all(
+            isinstance(prep[k], (int, float)) and not isinstance(prep[k], bool) and math.isfinite(prep[k]) and prep[k] > 0
+            for k in ("alpha", "category_weight")) and prep["normalization"] in ("l1", "l2")):
+        raise ValueError("knn_blocks needs positive finite alpha and category_weight and normalization l1 or l2")
     if recipe["training_weights"] not in WEIGHTS:
         raise ValueError(f"training_weights {recipe['training_weights']!r} not in {WEIGHTS}")
     seeds = recipe["estimator_seeds"]
     if (not isinstance(seeds, list) or not seeds or len(set(seeds)) != len(seeds)
             or not all(isinstance(s, int) and not isinstance(s, bool) and s >= 0 for s in seeds)):
         raise ValueError(f"estimator_seeds {seeds!r} must be distinct non-negative integers")
+    if recipe["family"] == "knn":
+        # Plan section 6.2: on F1, deterministic (one estimator seed), no training weights, no feature blocks.
+        if recipe["base"] != "F1" or recipe["blocks"] or recipe["drop"] or seeds != [0] \
+                or recipe["training_weights"] != "none":
+            raise ValueError("a knn recipe uses base F1, no blocks, no drops, estimator seeds [0], no training weights")
+        from songpop.phase2.models import KNN_METRICS
+        if KNN_METRICS.get(recipe["params"].get("metric")) != prep["normalization"]:
+            raise ValueError("knn metric and knn_blocks normalization must match: euclidean with l2, manhattan with l1")
     if recipe["iterations"] != "fixed":
         raise ValueError("only fixed iteration counts are implemented (plan section 5.2)")
     if recipe["deployment"] != "fold_average":

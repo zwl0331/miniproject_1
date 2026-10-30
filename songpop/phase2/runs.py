@@ -273,6 +273,33 @@ def verify_run(ctx, run_id, manifest, invocation):
     return bad + record_problems(rec, fresh)
 
 
+def audit_run(ctx, run_id):
+    """Without refitting: the bank's bytes against its logged hash, its bank_v2 validation, a blend's arrays against
+    its declared weighted parents, and every field of its log record against the record rebuilt from the stored
+    arrays. Problems as a list; a refit stays the job of verify_run, which needs the run's own sources."""
+    try:
+        bank, sha, rec = load_logged(ctx, run_id)
+    except ValueError as e:
+        return [str(e)]
+    md = bank.metadata
+    if md["prediction_kind"] == "blend":
+        members = []
+        for p in md["parents"]:
+            try:
+                b, s, _ = load_logged(ctx, p["run_id"])
+            except ValueError as e:
+                return [f"parent {p['run_id']}: {e}"]
+            if s != p["bank_sha256"]:
+                return [f"parent {p['run_id']} differs from its recorded hash"]
+            members.append((select_seeds(b, md["config"]["parent_seeds"]), s))
+        rebuilt = blend_banks(members, [p["weight"] for p in md["parents"]])
+        bad = [f for f in ("oof", "test_by_fold", "test_mean", "fold_auc")
+               if not np.allclose(getattr(rebuilt, f), getattr(bank, f), rtol=0, atol=banks.TOL)]
+        if bad:
+            return [f"blend arrays {bad} differ from the declared weighted parents"]
+    return record_problems(rec, run_record(ctx, bank, rec["bank_path"], sha))
+
+
 ROUNDED = ("fold_auc", "repeat_mean_auc", "mean_fold_auc", "pooled_oof_auc", "repeat_averaged_oof_auc")
 UNROUNDED = ("mean_fold_auc_unrounded", "repeat_mean_auc_unrounded")
 VOLATILE = ("timestamp_utc", "elapsed_seconds", "invocation")  # legitimately differ on replay

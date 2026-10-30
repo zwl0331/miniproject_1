@@ -1,0 +1,41 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491.npz",
+  "bank_sha256": "a8d8510a65c2663f7d9940fc8504e2db8d40af20dc2b2d438f4e723df4b3c4e9",
+  "deployment": "within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights",
+  "description": "P2.2 candidate lightgbm_best: lightgbm recipe p22_lightgbm_b3_001_c8427905ee3d, High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights. Mean fold CV AUC 0.8339. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491, file sha256 b35b54e66263c1760aa61ab70f829313de5e993daa297519eee2e5c6e5618058. Purpose: exercise the phase 2 fitting and submission path, and calibrate how the public leaderboard moves with grouped CV (plan sections 10 and 15.6): the complete single P2.2 recipe with the highest unrounded mean fold AUC among those exceeding the anchor's.",
+  "file": "submissions/2026-10-30_p2.2_lightgbm_best.csv",
+  "kaggle_description": "2026-10-30_p2.2_lightgbm_best: grouped 5-fold CV AUC 0.8339; sha256 b35b54e66263",
+  "manifest": "artifacts/phase2/selections/p22_lightgbm_best.json",
+  "manifest_sha256": "febd66713336d24d46373e4aa89e1a8cc3a116b0257f4de8624e8b836847d93a",
+  "mean_fold_auc": 0.8339018945792663,
+  "purpose": "exercise the phase 2 fitting and submission path, and calibrate how the public leaderboard moves with grouped CV (plan sections 10 and 15.6): the complete single P2.2 recipe with the highest unrounded mean fold AUC among those exceeding the anchor's",
+  "run_id": "p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491",
+  "sha256": "b35b54e66263c1760aa61ab70f829313de5e993daa297519eee2e5c6e5618058",
+  "task": "P2.2",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.9858345972672615,
+    "mean": 0.29796000444516835,
+    "member_fold_duplicate_classes": 165,
+    "members": [
+      "p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491"
+    ],
+    "min": 0.005800309795332469,
+    "path": "submissions/2026-10-30_p2.2_lightgbm_best.csv",
+    "quantiles": {
+      "0": 0.0058,
+      "0.01": 0.006893,
+      "0.25": 0.076956,
+      "0.5": 0.217075,
+      "0.75": 0.459473,
+      "0.99": 0.98029,
+      "1": 0.985835
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491",
+    "sha256": "b35b54e66263c1760aa61ab70f829313de5e993daa297519eee2e5c6e5618058",
+    "unique_values": 852
+  }
+}

@@ -1,0 +1,579 @@
+{
+ "batch_id": "logistic_w1_initial_19bf4e9d11d6",
+ "family": "logistic",
+ "kind": "initial",
+ "protocol_sha256": "c850d2cb9dc019d16c90c703d507a0b9fe0c939fac31b182e18f0a0a3ba1f1ae",
+ "recipe_sha256": [
+  "63368312db2f8159441a7962120e9d58598c64bd9e210b9151f1857bfb6f0789",
+  "25896efff243d8520a76378015334289bcbd295c5b79c5885533be9eb16b5a01",
+  "37760ff4bc416de3aec909f092ab39451a2bec563d4f55e7ba2e7e2b949bfb77",
+  "1ffca1309fef0c7ab13f847542cda3e37457cfd7c3c24c9923f6c8f80b1b8a84",
+  "620f40348b5be5c70833dbc455b61c90c3ddf4c071b9f300449f0fb6269c0c56",
+  "6270b2048a448fffe763a1e2445b1a7534318e0308afdebbc95a7cff40cfae74",
+  "afcaa0c008d159851cad718b5e4777dc0363e5c787eb362c83890a5f0c50bd2f",
+  "9ad9232b25498b030b900ead6c77de783a41411a7ba7c2e7b28612998fed37a8",
+  "6f05307c47a010a01c1a38be8827dd6a921b30edbccf5764a0e92bff2820cb3d",
+  "4cb4f68525317b73171cc837a558ec6b8636bcf5ac65397694e45a0c6bd4608f",
+  "1e1bf9308d6874b8834fe3a95de544c016a7a7b05a8d9ba3e5061f77283efb8f",
+  "a76392b4441564aa4fda68d2cd4a05fb1600bef17a86dd3df775a2b28e7525a1",
+  "f4c14a88a4a59e079b1dc95c71a4dab4f69fe6371ddaf483ee597245b712c9a7",
+  "5ee7cda67e795e2b7f67e55f684b23227ea761b520840b37e90415a2e03102cd",
+  "7b6405552515094f66b8e715fc50bdeada3c779ffe7f832f8e7e6fd7e522a5b2",
+  "cea9a2a243cdc119231be629b65cdce0c64fccaab326b38f2ddf56704abd545c",
+  "775e88f4a5bb20f2fd0898098f47f0b178cce216143962c2860f0af42520d0d7",
+  "56adcb44fcee3d9306515081a3b1f616f76ddc77b43fa4bba0e5e0cc9999e94a",
+  "310f391b190636fb8784617f602dd4937c3a5fe825ec0bcf0cdc981eee172639",
+  "23a83911207eac2bd24dc9e1500ce52832ea0f3c97f2c80b05a396092324e91b",
+  "1f84f5c304b40a22c3eb4ba10473429401ed1624c649289efd4271f54bba2a6b",
+  "f13eefa49dd6c7c1e1a0f59f79ae462846a5181fe12948b9b4c7663873cf1c0f",
+  "12ab03a9500dde3edd16e7715f673297cea9d8a234bffd7123c415baeb0b68fd",
+  "839de8b2590489d00b81e2c9d9e8d3adcdd6b9347a50a74d819ca0f3fdf10db3"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_anchor",
+   "params": {
+    "C": 1.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_0_000",
+   "params": {
+    "C": 0.001
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_0_001",
+   "params": {
+    "C": 0.01
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_0_002",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_0_003",
+   "params": {
+    "C": 10.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_0_004",
+   "params": {
+    "C": 100.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_000",
+   "params": {
+    "C": 0.001
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_001",
+   "params": {
+    "C": 0.01
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_002",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_003",
+   "params": {
+    "C": 1.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_004",
+   "params": {
+    "C": 10.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_1_005",
+   "params": {
+    "C": 100.0
+   },
+   "preprocessing": {
+    "name": "log_standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_000",
+   "params": {
+    "C": 0.001
+   },
+   "preprocessing": {
+    "n_knots": 3,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_001",
+   "params": {
+    "C": 0.001
+   },
+   "preprocessing": {
+    "n_knots": 5,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_002",
+   "params": {
+    "C": 0.01
+   },
+   "preprocessing": {
+    "n_knots": 4,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_003",
+   "params": {
+    "C": 0.01
+   },
+   "preprocessing": {
+    "n_knots": 7,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_004",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "n_knots": 5,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_005",
+   "params": {
+    "C": 0.1
+   },
+   "preprocessing": {
+    "n_knots": 10,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_006",
+   "params": {
+    "C": 1.0
+   },
+   "preprocessing": {
+    "n_knots": 7,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_007",
+   "params": {
+    "C": 1.0
+   },
+   "preprocessing": {
+    "n_knots": 3,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_008",
+   "params": {
+    "C": 10.0
+   },
+   "preprocessing": {
+    "n_knots": 10,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_009",
+   "params": {
+    "C": 10.0
+   },
+   "preprocessing": {
+    "n_knots": 4,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_010",
+   "params": {
+    "C": 100.0
+   },
+   "preprocessing": {
+    "n_knots": 3,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F1",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "logistic",
+   "iterations": "fixed",
+   "name": "p22_logistic_b1_2_011",
+   "params": {
+    "C": 100.0
+   },
+   "preprocessing": {
+    "n_knots": 5,
+    "name": "spline"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d",
+  "p2_p22_logistic_b1_0_000_seeds155-2026-1029_2038b91b0180",
+  "p2_p22_logistic_b1_0_001_seeds155-2026-1029_9c038d1e7615",
+  "p2_p22_logistic_b1_0_002_seeds155-2026-1029_e137825984b0",
+  "p2_p22_logistic_b1_0_003_seeds155-2026-1029_a0f81a445350",
+  "p2_p22_logistic_b1_0_004_seeds155-2026-1029_8887cec8e6b4",
+  "p2_p22_logistic_b1_1_000_seeds155-2026-1029_00426715ef92",
+  "p2_p22_logistic_b1_1_001_seeds155-2026-1029_d6677cc233a2",
+  "p2_p22_logistic_b1_1_002_seeds155-2026-1029_a4f176e00038",
+  "p2_p22_logistic_b1_1_003_seeds155-2026-1029_36d2f1037122",
+  "p2_p22_logistic_b1_1_004_seeds155-2026-1029_f7f0053bae40",
+  "p2_p22_logistic_b1_1_005_seeds155-2026-1029_47d22a1b3a43",
+  "p2_p22_logistic_b1_2_000_seeds155-2026-1029_c8f1b002dfe0",
+  "p2_p22_logistic_b1_2_001_seeds155-2026-1029_88b08b3a153e",
+  "p2_p22_logistic_b1_2_002_seeds155-2026-1029_3a9d460cbbee",
+  "p2_p22_logistic_b1_2_003_seeds155-2026-1029_f1fa04cc2973",
+  "p2_p22_logistic_b1_2_004_seeds155-2026-1029_31941416e2ea",
+  "p2_p22_logistic_b1_2_005_seeds155-2026-1029_5d9ff1c857f8",
+  "p2_p22_logistic_b1_2_006_seeds155-2026-1029_55dfb9eae99d",
+  "p2_p22_logistic_b1_2_007_seeds155-2026-1029_6ccc2d3b358d",
+  "p2_p22_logistic_b1_2_008_seeds155-2026-1029_4113c34bba88",
+  "p2_p22_logistic_b1_2_009_seeds155-2026-1029_d54fa1cf0fd7",
+  "p2_p22_logistic_b1_2_010_seeds155-2026-1029_33072690e40e",
+  "p2_p22_logistic_b1_2_011_seeds155-2026-1029_f6a17d0b42fd"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103401
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d"
+  },
+  "incumbent": {
+   "run_id": "p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c",
+   "of_run_id": "p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d"
+  },
+  "reference_h": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  },
+  "strongest": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  }
+ },
+ "task_id": "P2.2",
+ "wave": 1
+}

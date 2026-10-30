@@ -1,0 +1,1475 @@
+{
+ "batch_id": "xgboost_w1_initial_e0373da8b8f2",
+ "family": "xgboost",
+ "kind": "initial",
+ "protocol_sha256": "c850d2cb9dc019d16c90c703d507a0b9fe0c939fac31b182e18f0a0a3ba1f1ae",
+ "recipe_sha256": [
+  "92e260e03fcc7c894e9b3c8f914db91eff54ff0dff4983bc953de28387e20433",
+  "ad3d4bcc411e40a9a07fce5de79f7ffdd753db241d67b2862bf8d982ad4743ec",
+  "57d59fbcc56b7aac25231e28145c82c227fc98d9914d4ca55c7dde0007302eae",
+  "98d77a0efa4af2c840732e85bead387a8a3a7fba23d87c23268febab7d7f687e",
+  "3bacb507805020092ac820a7ebd35cf9fff5e9bf7c0f04f4bda81698dfcb56e4",
+  "6a94a616623ea0c19e374c5c3992de35c1f4bac3889684c545c52bd57e310e49",
+  "897fd9716f2083604d1a51373609286e90b7b4ec26de79a79b3a9425d39c2074",
+  "8d24df0bcf9c6000728cccfa7fc414b9509d2b3c8cd7b6ce380f70fed1d80c83",
+  "05f4200118be313c753c7163203cb6cca65b1cde87d73735e2568edd6957a98e",
+  "02754c9f57ddbbc8473de691105206b21a3521e7343748c80a3c40a63b1d47df",
+  "d53e67420c3fbae0fb1604610eda764338ffe4540b7f78397cfecc28cf370324",
+  "6a1c24c6c60346dfbf3e9b00d840fd55da721d649272fdf2901b6599a94316fa",
+  "fba94252aebbed7d6df45b883abde0f4949aba19566f5da2ade1aa2cff18239f",
+  "742303ec31c8ea18788c47c2d74b8bfa654b9863756c7e0e22e3e3449079ed05",
+  "96904fd367eba47002f132d1f9c5ddbfc92ab30c28b4591242daaedca0a7da53",
+  "b0246132cfe67401ba7695b1cd733fa034c0f21e1fecc40a456d420c1bb5af55",
+  "0dcb07d6a252fc2cd533c797d7738ab444b64cc0fce1de259b87ff82c14997e7",
+  "7b10d1f3c0c58ac13a1a2b93473a9cd35e6bfdc6595270e05209cbb792c8fbef",
+  "0c869b884bc9afe9de5ba1102504d7095804f318e0757a1276d08c901585ada5",
+  "267c761109bafe21ecb71abde2b704f5be2d2cdfa47d906781df0a8fe0565f5d",
+  "18d7964546e1f29565c46e49a0f4fa06c4095f3a646ec79922d89348c9def1f8",
+  "76a4f90f1693995ef5a6ab6f57b228da23fa2dd2fd526b5b299130dbf1ca8c29",
+  "380ca26375e65e984457ff82aa87bd891ddc3be34c0228da2bffeb3ebfa84ed1",
+  "7cf70630dd766ac23200dc37ce16ccc004c4bcb5937a9233194ac62b9f87b415",
+  "f8241f042789f3b940df5f8446de730958e6713b309c1dd85d80e2a65ba2111e",
+  "f319f4d45d70368c2a53fb9beb96f39b2f7a2935f9960d10265b85fb32dcf28a",
+  "05e475a221bb45287f68f6b34da5bdfc6fa9432d91e702b4c29cf70ae182d103",
+  "785f210e7c24e0f9e9392e4de462d758846881f9890097e2174c824ceec55db2",
+  "17795f517bc2f2bbdf083e0bcf04ae3433e6dfe38c5fd72f5967d81cb7184059",
+  "de02752227d467c6898541ef2058db3a19e4074f04eb4b1c9f38c904cf9491bb",
+  "abc4a869ee4474d8a0ddaedb359bdef82c152ed41bacdd7c6a673c39070323f0",
+  "afc767f6008c31d4d1df613633a2de4d115f275b333f4812f13ccfecf4da0d32",
+  "8ceb19aeded7a99259ce5f1b4e7f510d0fd4607f93caadf0cc9568eed00c658e",
+  "6ac7f600ad4b3c71fa36003f2fa934571ecda3ffb2acf415fd09e6be8a479dcd",
+  "979003cf5d6f7de8981f980996d2a3546862855e9e3145dd983b5c4b4ae11010",
+  "97661c95cffdb53b6871a6097dc1ca0a2c2da3406aab32e9871ff3b9f9fce25c",
+  "a54717ead2f257340cb16b8e8576078941d99ed8832be6a229111231b1b0bf9a",
+  "24010aefcb4b691c0cd78b08c93224c7c2a64474eb034c8ece2528b9d214d202",
+  "df14a03093270dfe07cad7343fcbdc343535d71fade87014f3d36c73e06279e0",
+  "d06482e0414b0b9eb907616f3123dac72ee114e2773fb5b3a73b3b0a88803042",
+  "01b23d5d70b41aedf43914ce083356cee2ab95e4bdfcc140c51f81c1afba37dc",
+  "f3975e4462c9d2ede3a268c45651dbd5d82a1c432f4ebd0a362f129135af9b88",
+  "168509700ceaa7f780744851b161c7683d2cc35ee2ef89c6f722ff395a82e68a",
+  "cb315bfab779c8e40f2ead41fa6b2d25a65d2a3c3260f56af1ad85ba527d0527",
+  "227121343baf810f8cbf49c2b10c10cb19ad331f57161a1ec809651674515e27",
+  "f16b66f7e5683d99a27b6e76ff6931fa52af979c2fbb563fe087268fb2784296",
+  "09922aa1156b80e08f34532355f7a37aec27c779f36c4efd263d866c251a0c5b",
+  "1feef14394fb33a83f66c2068f726556736cae05340afc8b7b6fc8a94ab84f04"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_anchor",
+   "params": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.03,
+    "max_depth": 4,
+    "n_estimators": 1000,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_000",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.07,
+    "max_depth": 5,
+    "min_child_weight": 1,
+    "n_estimators": 600,
+    "reg_alpha": 0,
+    "reg_lambda": 100,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_001",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.015,
+    "max_depth": 4,
+    "min_child_weight": 3,
+    "n_estimators": 1600,
+    "reg_alpha": 1,
+    "reg_lambda": 3,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_002",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0,
+    "learning_rate": 0.1,
+    "max_depth": 2,
+    "min_child_weight": 1,
+    "n_estimators": 300,
+    "reg_alpha": 10,
+    "reg_lambda": 30,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_003",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0,
+    "learning_rate": 0.1,
+    "max_depth": 5,
+    "min_child_weight": 30,
+    "n_estimators": 300,
+    "reg_alpha": 0.1,
+    "reg_lambda": 30,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_004",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 1,
+    "learning_rate": 0.05,
+    "max_depth": 4,
+    "min_child_weight": 10,
+    "n_estimators": 300,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_005",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.5,
+    "learning_rate": 0.015,
+    "max_depth": 2,
+    "min_child_weight": 30,
+    "n_estimators": 600,
+    "reg_alpha": 0,
+    "reg_lambda": 30,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_006",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.015,
+    "max_depth": 5,
+    "min_child_weight": 30,
+    "n_estimators": 600,
+    "reg_alpha": 0,
+    "reg_lambda": 3,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_007",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.015,
+    "max_depth": 2,
+    "min_child_weight": 10,
+    "n_estimators": 600,
+    "reg_alpha": 1,
+    "reg_lambda": 3,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_008",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.07,
+    "max_depth": 2,
+    "min_child_weight": 30,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 3,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_009",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.1,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 30,
+    "n_estimators": 1600,
+    "reg_alpha": 1,
+    "reg_lambda": 30,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_010",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 1,
+    "learning_rate": 0.1,
+    "max_depth": 6,
+    "min_child_weight": 1,
+    "n_estimators": 600,
+    "reg_alpha": 1,
+    "reg_lambda": 10,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_011",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 1,
+    "learning_rate": 0.03,
+    "max_depth": 6,
+    "min_child_weight": 30,
+    "n_estimators": 300,
+    "reg_alpha": 0,
+    "reg_lambda": 30,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_012",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 1600,
+    "reg_alpha": 10,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_013",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0,
+    "learning_rate": 0.1,
+    "max_depth": 4,
+    "min_child_weight": 30,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 30,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_014",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_child_weight": 10,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 10,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_015",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.1,
+    "max_depth": 5,
+    "min_child_weight": 10,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 3,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_016",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 1,
+    "learning_rate": 0.03,
+    "max_depth": 6,
+    "min_child_weight": 3,
+    "n_estimators": 600,
+    "reg_alpha": 0,
+    "reg_lambda": 100,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_017",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 10,
+    "n_estimators": 600,
+    "reg_alpha": 0,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_018",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 2,
+    "min_child_weight": 3,
+    "n_estimators": 300,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_019",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.05,
+    "max_depth": 2,
+    "min_child_weight": 3,
+    "n_estimators": 1600,
+    "reg_alpha": 10,
+    "reg_lambda": 1,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_020",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 1,
+    "n_estimators": 600,
+    "reg_alpha": 0.1,
+    "reg_lambda": 100,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_021",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 1,
+    "learning_rate": 0.03,
+    "max_depth": 6,
+    "min_child_weight": 1,
+    "n_estimators": 1600,
+    "reg_alpha": 10,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_022",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 30,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 3,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_023",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.015,
+    "max_depth": 4,
+    "min_child_weight": 1,
+    "n_estimators": 1000,
+    "reg_alpha": 0.1,
+    "reg_lambda": 100,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_024",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0,
+    "learning_rate": 0.015,
+    "max_depth": 6,
+    "min_child_weight": 10,
+    "n_estimators": 600,
+    "reg_alpha": 10,
+    "reg_lambda": 30,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_025",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 1,
+    "n_estimators": 1600,
+    "reg_alpha": 0.1,
+    "reg_lambda": 10,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_026",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.5,
+    "learning_rate": 0.1,
+    "max_depth": 2,
+    "min_child_weight": 1,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 30,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_027",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 1,
+    "learning_rate": 0.1,
+    "max_depth": 5,
+    "min_child_weight": 30,
+    "n_estimators": 600,
+    "reg_alpha": 1,
+    "reg_lambda": 30,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_028",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.1,
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_child_weight": 30,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_029",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 1,
+    "learning_rate": 0.1,
+    "max_depth": 2,
+    "min_child_weight": 3,
+    "n_estimators": 1000,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_030",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 1,
+    "learning_rate": 0.07,
+    "max_depth": 6,
+    "min_child_weight": 30,
+    "n_estimators": 600,
+    "reg_alpha": 10,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_031",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 1,
+    "learning_rate": 0.07,
+    "max_depth": 3,
+    "min_child_weight": 1,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 100,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_032",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 1,
+    "learning_rate": 0.05,
+    "max_depth": 2,
+    "min_child_weight": 30,
+    "n_estimators": 600,
+    "reg_alpha": 1,
+    "reg_lambda": 100,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_033",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.015,
+    "max_depth": 3,
+    "min_child_weight": 3,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 3,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_034",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.1,
+    "max_depth": 6,
+    "min_child_weight": 3,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 100,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_035",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 1,
+    "learning_rate": 0.03,
+    "max_depth": 3,
+    "min_child_weight": 3,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 3,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_036",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.5,
+    "learning_rate": 0.03,
+    "max_depth": 6,
+    "min_child_weight": 30,
+    "n_estimators": 1000,
+    "reg_alpha": 0,
+    "reg_lambda": 3,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_037",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 1600,
+    "reg_alpha": 0,
+    "reg_lambda": 1,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_038",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 10,
+    "n_estimators": 1000,
+    "reg_alpha": 0.1,
+    "reg_lambda": 3,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_039",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.5,
+    "learning_rate": 0.1,
+    "max_depth": 3,
+    "min_child_weight": 3,
+    "n_estimators": 300,
+    "reg_alpha": 0,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_040",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.1,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_child_weight": 3,
+    "n_estimators": 1000,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_041",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0,
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_child_weight": 1,
+    "n_estimators": 300,
+    "reg_alpha": 0.1,
+    "reg_lambda": 10,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_042",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.5,
+    "learning_rate": 0.03,
+    "max_depth": 3,
+    "min_child_weight": 3,
+    "n_estimators": 300,
+    "reg_alpha": 0,
+    "reg_lambda": 100,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_043",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0.5,
+    "learning_rate": 0.07,
+    "max_depth": 2,
+    "min_child_weight": 10,
+    "n_estimators": 1000,
+    "reg_alpha": 10,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_044",
+   "params": {
+    "colsample_bytree": 0.8,
+    "gamma": 0.5,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 3,
+    "n_estimators": 1600,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_045",
+   "params": {
+    "colsample_bytree": 0.65,
+    "gamma": 0,
+    "learning_rate": 0.015,
+    "max_depth": 5,
+    "min_child_weight": 10,
+    "n_estimators": 1600,
+    "reg_alpha": 1,
+    "reg_lambda": 100,
+    "subsample": 0.65
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p22_xgboost_b1_0_046",
+   "params": {
+    "colsample_bytree": 1.0,
+    "gamma": 0.1,
+    "learning_rate": 0.07,
+    "max_depth": 6,
+    "min_child_weight": 10,
+    "n_estimators": 1000,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "subsample": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245",
+  "p2_p22_xgboost_b1_0_000_seeds155-2026-1029_fd2d59d6fa36",
+  "p2_p22_xgboost_b1_0_001_seeds155-2026-1029_c6eadf5ee461",
+  "p2_p22_xgboost_b1_0_002_seeds155-2026-1029_30aca3a8deb7",
+  "p2_p22_xgboost_b1_0_003_seeds155-2026-1029_10e1ecf8fff7",
+  "p2_p22_xgboost_b1_0_004_seeds155-2026-1029_aaad3d8b8471",
+  "p2_p22_xgboost_b1_0_005_seeds155-2026-1029_d0f1530b106c",
+  "p2_p22_xgboost_b1_0_006_seeds155-2026-1029_c892e9abf6f5",
+  "p2_p22_xgboost_b1_0_007_seeds155-2026-1029_04a03642fdde",
+  "p2_p22_xgboost_b1_0_008_seeds155-2026-1029_f757db16faf6",
+  "p2_p22_xgboost_b1_0_009_seeds155-2026-1029_48923a44585d",
+  "p2_p22_xgboost_b1_0_010_seeds155-2026-1029_7f8d0b89dda7",
+  "p2_p22_xgboost_b1_0_011_seeds155-2026-1029_b8dc69540c5d",
+  "p2_p22_xgboost_b1_0_012_seeds155-2026-1029_4f076fc455c2",
+  "p2_p22_xgboost_b1_0_013_seeds155-2026-1029_3faff54bf217",
+  "p2_p22_xgboost_b1_0_014_seeds155-2026-1029_d2fcf11048b5",
+  "p2_p22_xgboost_b1_0_015_seeds155-2026-1029_08218130abc7",
+  "p2_p22_xgboost_b1_0_016_seeds155-2026-1029_a1b0c533de82",
+  "p2_p22_xgboost_b1_0_017_seeds155-2026-1029_a4f1b43e76f0",
+  "p2_p22_xgboost_b1_0_018_seeds155-2026-1029_c033190c4f3e",
+  "p2_p22_xgboost_b1_0_019_seeds155-2026-1029_cd7bc8a36e2c",
+  "p2_p22_xgboost_b1_0_020_seeds155-2026-1029_137391bd7fa6",
+  "p2_p22_xgboost_b1_0_021_seeds155-2026-1029_8cae1451220c",
+  "p2_p22_xgboost_b1_0_022_seeds155-2026-1029_6da567309935",
+  "p2_p22_xgboost_b1_0_023_seeds155-2026-1029_9962325cbf2d",
+  "p2_p22_xgboost_b1_0_024_seeds155-2026-1029_43aadf128afb",
+  "p2_p22_xgboost_b1_0_025_seeds155-2026-1029_ba62903bd47b",
+  "p2_p22_xgboost_b1_0_026_seeds155-2026-1029_27c6e396ba4e",
+  "p2_p22_xgboost_b1_0_027_seeds155-2026-1029_7be44be9fd46",
+  "p2_p22_xgboost_b1_0_028_seeds155-2026-1029_cbd1899d24d7",
+  "p2_p22_xgboost_b1_0_029_seeds155-2026-1029_4914c37b4a7a",
+  "p2_p22_xgboost_b1_0_030_seeds155-2026-1029_bfd2a2e0afeb",
+  "p2_p22_xgboost_b1_0_031_seeds155-2026-1029_8d356f904eff",
+  "p2_p22_xgboost_b1_0_032_seeds155-2026-1029_7511ada67ad3",
+  "p2_p22_xgboost_b1_0_033_seeds155-2026-1029_9b2b82d441b8",
+  "p2_p22_xgboost_b1_0_034_seeds155-2026-1029_22b04fc8245b",
+  "p2_p22_xgboost_b1_0_035_seeds155-2026-1029_3441788637b4",
+  "p2_p22_xgboost_b1_0_036_seeds155-2026-1029_56323a315348",
+  "p2_p22_xgboost_b1_0_037_seeds155-2026-1029_68b54bdedb89",
+  "p2_p22_xgboost_b1_0_038_seeds155-2026-1029_c2887a588216",
+  "p2_p22_xgboost_b1_0_039_seeds155-2026-1029_def22ba42304",
+  "p2_p22_xgboost_b1_0_040_seeds155-2026-1029_1b62d5abfac8",
+  "p2_p22_xgboost_b1_0_041_seeds155-2026-1029_2d72ce139232",
+  "p2_p22_xgboost_b1_0_042_seeds155-2026-1029_d25e8e741815",
+  "p2_p22_xgboost_b1_0_043_seeds155-2026-1029_dfa9a9daa0cb",
+  "p2_p22_xgboost_b1_0_044_seeds155-2026-1029_01b480c8a310",
+  "p2_p22_xgboost_b1_0_045_seeds155-2026-1029_e29f2b5174be",
+  "p2_p22_xgboost_b1_0_046_seeds155-2026-1029_4a228cded076"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "404f23ce1b439f03064840992035b2fecff4d6833b6e4d8559de492a32a67bb5",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103101
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245"
+  },
+  "incumbent": {
+   "run_id": "p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c",
+   "of_run_id": "p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245"
+  },
+  "reference_h": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  },
+  "strongest": {
+   "run_id": "p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c"
+  }
+ },
+ "task_id": "P2.2",
+ "wave": 1
+}
