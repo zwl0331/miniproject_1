@@ -325,8 +325,34 @@ None for the equality, on this machine and environment (LightGBM 4.7.0 with `det
 
 Review status:
 
-`draft`, in the P2.1 review (`../reviews/2026-10-29-p2.1-infrastructure.md`); it becomes `reviewed` when that review converges, and this ledger revision is committed only then.
+`reviewed`, by the P2.1 review (`../reviews/2026-10-29-p2.1-infrastructure.md`), converged after two rounds and committed (719a934). The bank `p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af` is the one that review approved.
 
 Downstream use:
 
 The anchor of phase 2: the comparator of the searches and feature blocks, and of the nested evaluation's fallback (`plans/phase2-models-features.md` sections 5.4 and 8).
+
+## Finding 010: Phase 2 Runtime Measurements
+
+Question:
+
+What does one cross-validated run (15 outer fit positions: three split seeds by five folds) cost per model family on this machine, so that the phase 2 search budgets rest on measurement?
+
+Current conclusion:
+
+On the Apple M5 (10 cores), one process, four model threads, the committed P2.1 engine (719a934), all three split seeds, nothing else running: LightGBM 2.2 to 27.0 s (anchor 7.5 s; with the date count and target encoding 10.4 s; with three estimator seeds, 45 estimator fits, 23.4 s); random forest 8.2 to 26.9 s; Extra Trees 10.7 s; XGBoost with 1,000 trees 6.8 s; HistGB 4.6 s under its four-thread limit; logistic regression 0.4 to 0.6 s; a kNN proxy 0.5 s. These are representative cases, not the most expensive configurations of the phase 2 spaces (for example 63 leaves and 1,600 trees for LightGBM), and the kNN proxy uses eleven standardized columns, not the block-weighted representation of the plan.
+
+Evidence:
+
+`../analysis/phase2_timing.py`, output `../analysis/phase2_timing_output.txt`, which records the data and split hashes, package versions, the source manifest and every case's full recipe. Verification: `.venv/bin/python -B -I analysis/phase2_timing.py .` (timings vary by a few percent between runs). An earlier run of an earlier version of the script, while a Codex review used the machine, took up to twice as long, and HistGB before P2.1's thread limit took 158 s.
+
+Uncertainty:
+
+Wall-clock times depend on machine load and vary between runs. CatBoost, EBM and TabM are not installed and are timed in their tasks. The script also prints each case's mean fold AUC; these are probe exposures, already seen, and select no recipe and allocate no batch.
+
+Review status:
+
+`draft`, in the P2.0b review (`../reviews/2026-10-29-p2.0b-search-amendment.md`); it becomes `reviewed` when that review converges.
+
+Downstream use:
+
+The budgets and reservations of `plans/phase2-models-features.md` sections 5 to 8; each later task re-times its actual configurations before sizing a batch.

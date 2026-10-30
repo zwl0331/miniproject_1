@@ -1,0 +1,496 @@
+seconds  probe AUC  case (15 outer fit positions; estimator fits in the JSON)
+   7.52  0.8315  lightgbm anchor (600 trees, 15 leaves)
+   2.16  0.8254  lightgbm 300 trees, 7 leaves, lr 0.05
+  26.98  0.8289  lightgbm 1200 trees, 31 leaves
+  10.35  0.8337  lightgbm anchor + date_count + date_te10
+  11.39  0.8322  lightgbm anchor + every block
+  23.40  0.8323  lightgbm anchor, 3 estimator seeds
+   8.20  0.8279  random forest 500 trees, leaf 3, sqrt
+  26.90  0.8232  random forest 500 trees, leaf 1, all features
+  10.73  0.8262  extra trees 500 trees, leaf 2, all features
+   6.76  0.8290  xgboost 1000 trees, depth 4, lr 0.03
+   4.63  0.8265  histgb 300 iterations, 31 leaves
+   0.59  0.7864  logistic, spline 7 knots, F1
+   0.36  0.7820  logistic, log_standard, F2
+   0.50  0.7727  knn k=50, distance weights, eleven standardized continuous columns (a proxy: not the block-weighted representation of plan section 6.2)
+   0.53  0.7671  knn k=100, uniform weights, eleven standardized continuous columns (a proxy: not the block-weighted representation of plan section 6.2)
+{
+ "python": "3.12.16",
+ "machine": "arm64",
+ "cpu_count": 10,
+ "threads_per_model": 4,
+ "split_seeds": [
+  155,
+  2026,
+  1029
+ ],
+ "data_hashes": {
+  "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407",
+  "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+  "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8"
+ },
+ "split_sha256": "b2cba98d49b27c7c57e18cb211c3cd4a2a96509a58203a6214a51f2eb22939ee",
+ "packages": {
+  "numpy": "2.5.4",
+  "pandas": "3.1.0",
+  "scikit-learn": "1.9.1",
+  "lightgbm": "4.7.0",
+  "xgboost": "3.4.1",
+  "scipy": "1.18.1",
+  "joblib": "1.6.0",
+  "threadpoolctl": "3.7.0"
+ },
+ "source_manifest": {
+  "files": {
+   "analysis/phase2_timing.py": "5d45699500940446bce2b26a93151d5b189c99b4d15de42e0c37418a41275e52",
+   "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+   "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+   "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+   "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+   "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+   "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+   "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+   "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+   "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+   "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+   "songpop/phase2/engine.py": "347ea276174d573ab02aea8e6e0b42bc8616a939d26b5d2d3c130e5cd32f0174",
+   "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+   "songpop/phase2/features.py": "f0ad3c45d297a551d5c2b65a88b5e981324ee5791bfad059672f995720bb6ffa",
+   "songpop/phase2/models.py": "ea5d4883cfee37b21cba343ebaba21dafdb181d8a5f6cfe5d9352da95b650bda",
+   "songpop/phase2/recipes.py": "e8a2b69c944bebf97e4154532d19ccabb3ca30c57688b6448a4690d697d4e724",
+   "songpop/phase2/runs.py": "9ba3fb9e783e63b78415538d69ed1f55c099d77e0ca10967f72c4986d80922d6",
+   "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+  },
+  "manifest_sha256": "ae89bada2e700f094b9aeffa0834bdb62595370b9e7801c376cf312574cf3ecc"
+ },
+ "note": "probe_auc_exposure values select nothing (Finding 010)",
+ "cases": [
+  {
+   "case": "lightgbm anchor (600 trees, 15 leaves)",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 600,
+     "learning_rate": 0.02,
+     "num_leaves": 15,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 7.52,
+   "probe_auc_exposure": 0.8315
+  },
+  {
+   "case": "lightgbm 300 trees, 7 leaves, lr 0.05",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 300,
+     "learning_rate": 0.05,
+     "num_leaves": 7,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 2.16,
+   "probe_auc_exposure": 0.8254
+  },
+  {
+   "case": "lightgbm 1200 trees, 31 leaves",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 1200,
+     "learning_rate": 0.02,
+     "num_leaves": 31,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 26.98,
+   "probe_auc_exposure": 0.8289
+  },
+  {
+   "case": "lightgbm anchor + date_count + date_te10",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 600,
+     "learning_rate": 0.02,
+     "num_leaves": 15,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te10"
+    ],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 10.35,
+   "probe_auc_exposure": 0.8337
+  },
+  {
+   "case": "lightgbm anchor + every block",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 600,
+     "learning_rate": 0.02,
+     "num_leaves": 15,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te10",
+     "interactions",
+     "cyclic",
+     "era_relative"
+    ],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 11.39,
+   "probe_auc_exposure": 0.8322
+  },
+  {
+   "case": "lightgbm anchor, 3 estimator seeds",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "lightgbm",
+    "params": {
+     "n_estimators": 600,
+     "learning_rate": 0.02,
+     "num_leaves": 15,
+     "min_child_samples": 20,
+     "subsample": 0.8,
+     "subsample_freq": 1,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0,
+     1,
+     2
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 45,
+   "seconds": 23.4,
+   "probe_auc_exposure": 0.8323
+  },
+  {
+   "case": "random forest 500 trees, leaf 3, sqrt",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "random_forest",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 3
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 8.2,
+   "probe_auc_exposure": 0.8279
+  },
+  {
+   "case": "random forest 500 trees, leaf 1, all features",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "random_forest",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 1,
+     "max_features": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 26.9,
+   "probe_auc_exposure": 0.8232
+  },
+  {
+   "case": "extra trees 500 trees, leaf 2, all features",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "extra_trees",
+    "params": {
+     "n_estimators": 500,
+     "min_samples_leaf": 2,
+     "max_features": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 10.73,
+   "probe_auc_exposure": 0.8262
+  },
+  {
+   "case": "xgboost 1000 trees, depth 4, lr 0.03",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "xgboost",
+    "params": {
+     "n_estimators": 1000,
+     "max_depth": 4,
+     "learning_rate": 0.03,
+     "subsample": 0.8,
+     "colsample_bytree": 0.8
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 6.76,
+   "probe_auc_exposure": 0.829
+  },
+  {
+   "case": "histgb 300 iterations, 31 leaves",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "hist_gb",
+    "params": {
+     "max_iter": 300,
+     "max_leaf_nodes": 31,
+     "min_samples_leaf": 20,
+     "learning_rate": 0.05
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 4.63,
+   "probe_auc_exposure": 0.8265
+  },
+  {
+   "case": "logistic, spline 7 knots, F1",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "logistic",
+    "params": {
+     "C": 1.0
+    },
+    "base": "F1",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "spline",
+     "n_knots": 7
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 0.59,
+   "probe_auc_exposure": 0.7864
+  },
+  {
+   "case": "logistic, log_standard, F2",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "lightgbm_F2_anchor",
+    "family": "logistic",
+    "params": {
+     "C": 1.0
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "log_standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   },
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 0.36,
+   "probe_auc_exposure": 0.782
+  },
+  {
+   "case": "knn k=50, distance weights, eleven standardized continuous columns (a proxy: not the block-weighted representation of plan section 6.2)",
+   "recipe": null,
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 0.5,
+   "probe_auc_exposure": 0.7727
+  },
+  {
+   "case": "knn k=100, uniform weights, eleven standardized continuous columns (a proxy: not the block-weighted representation of plan section 6.2)",
+   "recipe": null,
+   "outer_fit_positions": 15,
+   "estimator_fits": 15,
+   "seconds": 0.53,
+   "probe_auc_exposure": 0.7671
+  }
+ ]
+}
