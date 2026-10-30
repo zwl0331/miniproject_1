@@ -1,0 +1,14 @@
+{
+  "schema": "recipe_v1",
+  "name": "p28_lightgbm_F2_date_count",
+  "family": "lightgbm",
+  "params": {"n_estimators": 600, "learning_rate": 0.02, "num_leaves": 15, "min_child_samples": 20, "subsample": 0.8, "subsample_freq": 1, "colsample_bytree": 0.8},
+  "base": "F2",
+  "blocks": ["date_count"],
+  "drop": [],
+  "preprocessing": {"name": "none"},
+  "training_weights": "none",
+  "estimator_seeds": [0],
+  "iterations": "fixed",
+  "deployment": "fold_average"
+}

@@ -1,0 +1,36 @@
+P2.8's H against the P2.1 anchor bank: all ten arrays equal
+part A's H against P2.8's H: all ten arrays equal
+saved state: incumbents lightgbm 0.833902, random_forest 0.828072; strongest standalone 0.833902; previous best blends lightgbm 0.833815, random_forest 0.833807
+B1 p28_lightgbm_F2_date_count - p28_lightgbm_F2_anchor: +0.000810, by repeat +0.001730, -0.000582, +0.001281; 95% [-0.001034, +0.002678], share above zero 0.825, draws 2000/2000
+    challenger 0.832283; blends with H 0.1: 0.831844, 0.25: 0.832272; routes met: none
+B2 p28_lightgbm_F2_date_te10 - p28_lightgbm_F2_anchor: +0.002464, by repeat +0.002268, +0.002995, +0.002130; 95% [-0.001001, +0.006249], share above zero 0.910, draws 2000/2000
+    challenger 0.833938; blends with H 0.1: 0.832599, 0.25: 0.834105; routes met: none
+B3 p28_lightgbm_F2_date_te30 - p28_lightgbm_F2_anchor: +0.001188, by repeat +0.000078, +0.002689, +0.000797; 95% [-0.002113, +0.004837], share above zero 0.743, draws 2000/2000
+    challenger 0.832662; blends with H 0.1: 0.832421, 0.25: 0.833504; routes met: none
+B4 p28_lightgbm_F2_date_count_te10 - p28_lightgbm_F2_anchor: +0.002192, by repeat +0.002899, +0.001330, +0.002345; 95% [-0.001349, +0.005926], share above zero 0.883, draws 2000/2000
+    challenger 0.833666; blends with H 0.1: 0.832556, 0.25: 0.833839; routes met: none
+B5 p28_lightgbm_F2_date_count_te30 - p28_lightgbm_F2_anchor: +0.001242, by repeat +0.001997, +0.000828, +0.000902; 95% [-0.002187, +0.005135], share above zero 0.753, draws 2000/2000
+    challenger 0.832716; blends with H 0.1: 0.832464, 0.25: 0.833587; routes met: none
+B6 p28_lightgbm_F2_interactions - p28_lightgbm_F2_anchor: -0.002415, by repeat -0.000597, -0.003574, -0.003075; 95% [-0.005891, +0.000998], share above zero 0.077, draws 2000/2000
+    challenger 0.829059; blends with H 0.1: 0.831855, 0.25: 0.832190; routes met: none
+B7 p28_lightgbm_F2_cyclic - p28_lightgbm_F2_anchor: -0.001349, by repeat -0.000965, -0.002553, -0.000528; 95% [-0.003577, +0.001102], share above zero 0.132, draws 2000/2000
+    challenger 0.830125; blends with H 0.1: 0.831691, 0.25: 0.831838; routes met: none
+B8 p28_lightgbm_F2_era_relative - p28_lightgbm_F2_anchor: -0.001096, by repeat -0.000999, -0.002101, -0.000189; 95% [-0.002719, +0.000620], share above zero 0.100, draws 2000/2000
+    challenger 0.830378; blends with H 0.1: 0.831608, 0.25: 0.831749; routes met: none
+B9 p28_lightgbm_F2_inverse_weights - p28_lightgbm_F2_anchor: -0.001645, by repeat -0.000228, -0.002088, -0.002619; 95% [-0.003300, +0.000049], share above zero 0.029, draws 2000/2000
+    challenger 0.829829; blends with H 0.1: 0.831538, 0.25: 0.831524; routes met: none
+B10 p28_lightgbm_F2_music - p28_lightgbm_F2_anchor: +0.000314, by repeat -0.000388, +0.001322, +0.000009; 95% [-0.002505, +0.002948], share above zero 0.592, draws 2000/2000
+    challenger 0.831788; blends with H 0.1: 0.831915, 0.25: 0.832460; routes met: none
+B11 p28_random_forest_b1_0_040_date_count - p28_random_forest_b1_0_040: +0.000456, by repeat +0.000924, +0.001425, -0.000982; 95% [-0.001537, +0.002333], share above zero 0.671, draws 2000/2000
+    challenger 0.828527; blends with H 0.1: 0.832627, 0.25: 0.833811; routes met: none
+B12 p28_random_forest_b1_0_040_date_count_te30 - p28_random_forest_b1_0_040: -0.000570, by repeat -0.001581, +0.001385, -0.001514; 95% [-0.004988, +0.004044], share above zero 0.404, draws 2000/2000
+    challenger 0.827502; blends with H 0.1: 0.833176, 0.25: 0.835241; routes met: ['ensemble_contribution']
+B13 p28_lightgbm_b3_001_date_count - p28_lightgbm_b3_001: +0.000431, by repeat -0.000102, +0.001702, -0.000306; 95% [-0.001462, +0.002258], share above zero 0.669, draws 2000/2000
+    challenger 0.834333; blends with H 0.1: 0.832395, 0.25: 0.833529; routes met: none
+B14 p28_lightgbm_b3_001_date_count_te30 - p28_lightgbm_b3_001: +0.001519, by repeat +0.000323, +0.003993, +0.000242; 95% [-0.002082, +0.005176], share above zero 0.785, draws 2000/2000
+    challenger 0.835421; blends with H 0.1: 0.832903, 0.25: 0.834792; routes met: ['smaller_useful', 'competitive_refinement', 'ensemble_contribution']
+routes met by the batch: ['competitive_refinement', 'ensemble_contribution', 'smaller_useful']
+D1 0.75 p28_lightgbm_F2_anchor + 0.25 p28_extra_trees_anchor - p28_lightgbm_F2_anchor: +0.003649, by repeat +0.003237, +0.004162, +0.003548; 95% [+0.002080, +0.005211], share above zero 1.000, draws 2000/2000; blend 0.835123
+D2 0.75 p28_lightgbm_b3_001 + 0.25 p28_extra_trees_anchor - p28_lightgbm_b3_001: +0.001955, by repeat +0.001654, +0.002531, +0.001680; 95% [+0.000503, +0.003308], share above zero 0.998, draws 2000/2000; blend 0.835857
+random forest base refitted with deterministic prediction: 0.8280717040; its logged P2.2 score 0.8280717040 (the allocation state keeps the logged score, section 15.7)
+reference checks: PASSED

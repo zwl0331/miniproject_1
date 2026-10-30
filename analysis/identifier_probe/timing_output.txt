@@ -1,0 +1,10 @@
+  H: 0.48 s for one fold, about 7 s for its 15 fits
+  R: 0.50 s for one fold, about 7 s for its 15 fits
+  I1: 0.89 s for one fold, about 13 s for its 15 fits
+  I2: 0.52 s for one fold, about 8 s for its 15 fits
+  I3: 0.69 s for one fold, about 10 s for its 15 fits
+  I4: 1.14 s for one fold, about 17 s for its 15 fits
+  L: 0.05 s for one fold, about 1 s for its 15 fits
+  I7: 0.48 s for one fold, about 7 s for its 15 fits
+  I8: 0.72 s for one fold, about 11 s for its 15 fits
+menu: about 1.4 minutes of fitting; each comparison's 10000 draws about 4 s, 8 comparisons about 0.6 minutes; controls at most 6 further 15-fit evaluations; a projection, not a bound

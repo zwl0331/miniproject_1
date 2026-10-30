@@ -205,6 +205,29 @@ def thread_limit(family):
         else contextlib.nullcontext()
 
 
+FORESTS = ("random_forest", "extra_trees")
+
+
+@contextlib.contextmanager
+def prediction_threads(family, estimators):
+    """One thread for forest prediction (Finding 013, plan section 16.4): a forest's predict_proba adds its trees'
+    probabilities from parallel threads in a varying order, so predictions tied in exact arithmetic can come out in
+    either order between calls. Every forest, bare or the final step of a pipeline, predicts with n_jobs=1 inside
+    the context; fitting keeps THREADS, and each previous setting is restored on exit. Other families are untouched."""
+    if family not in FORESTS:
+        yield
+        return
+    forests = [e.steps[-1][1] if isinstance(e, Pipeline) else e for e in estimators]
+    saved = [f.n_jobs for f in forests]
+    try:
+        for f in forests:
+            f.n_jobs = 1
+        yield
+    finally:
+        for f, n in zip(forests, saved):
+            f.n_jobs = n
+
+
 def weight_argument(model):
     """The fit keyword that carries training weights to the estimator."""
     return "model__sample_weight" if isinstance(model, Pipeline) else "sample_weight"

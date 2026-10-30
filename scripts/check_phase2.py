@@ -16,8 +16,11 @@ from unittest import mock
 
 import numpy as np
 import pandas as pd
+from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier
 from sklearn.metrics import roc_auc_score
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from songpop import artifacts
 from songpop.data import AUDIO, DATE
@@ -28,7 +31,7 @@ from songpop.phase2.encoders import DateCount, DateTargetEncoder, EraRelative, F
 from songpop.phase2.engine import fit_recipe, run_recipe_cv, training_weights
 from songpop.phase2.ensembles import blend_banks, select_seeds
 from songpop.phase2.features import FeaturePipeline, feature_columns
-from songpop.phase2.models import make_model
+from songpop.phase2.models import THREADS, make_estimator, make_model, prediction_threads
 from songpop.phase2.recipes import load_recipe, recipe_hash, recipe_id, validate_recipe
 from songpop.phase2.submission import members_of, repeated_uri_pairs, validate_candidate, write_candidate
 from songpop.splits import SPLIT_SEEDS
@@ -563,6 +566,68 @@ def _():
         assert describe_matches(f, r)
         out.append(f"{fam} {auc:.3f}")
     return "held-out AUC on one fold: " + ", ".join(out)
+
+
+@check("forest prediction: one thread at prediction, four at fit, restored, bare and in a pipeline (plan section 16.4)")
+def _():
+    tr = np.flatnonzero(CTX.fold_id([155])[0] != 0)
+    sub, y, g = CTX.rows.iloc[tr], CTX.data.y[tr], CTX.groups[tr]
+    seen = []
+    real = {cls: cls.predict_proba for cls in (RandomForestClassifier, ExtraTreesClassifier)}
+
+    def spy(cls):
+        def wrapped(self, X):
+            seen.append((cls.__name__, self.n_jobs))
+            return real[cls](self, X)
+        return wrapped
+    with mock.patch.object(RandomForestClassifier, "predict_proba", spy(RandomForestClassifier)), \
+            mock.patch.object(ExtraTreesClassifier, "predict_proba", spy(ExtraTreesClassifier)):
+        for fam in ("random_forest", "extra_trees"):
+            assert make_estimator(fam, {"n_estimators": 30, "min_samples_leaf": 3}, 0).n_jobs == THREADS
+            f = fit_recipe(recipe(family=fam, params={"n_estimators": 30, "min_samples_leaf": 3}), sub, y, g,
+                           FitContext(155, 0))
+            outs = {f.predict_high(CTX.test_rows).tobytes() for _ in range(10)}
+            assert len(outs) == 1 and f.estimators[0].n_jobs == THREADS, fam
+            assert f.receipt["forest_prediction_threads"] == 1, fam
+    assert seen and all(n == 1 for _, n in seen), seen
+    lg = fit_recipe(recipe(params=SMALL_LGBM), sub, y, g, FitContext(155, 0))
+    assert "forest_prediction_threads" not in lg.receipt
+    with prediction_threads("lightgbm", lg.estimators):
+        assert lg.estimators[0].n_jobs == THREADS  # other families untouched
+    pipe = Pipeline([("prep", StandardScaler()), ("model", ExtraTreesClassifier(n_estimators=20, n_jobs=THREADS,
+                                                                               random_state=0))])
+    pipe.fit(sub.drop(columns=[DATE]).fillna(0.0), y)
+    with prediction_threads("extra_trees", [pipe]):
+        assert pipe.steps[-1][1].n_jobs == 1
+    assert pipe.steps[-1][1].n_jobs == THREADS
+    try:
+        with prediction_threads("extra_trees", [pipe]):
+            raise KeyError("inside")
+    except KeyError:
+        pass
+    assert pipe.steps[-1][1].n_jobs == THREADS  # restored after an error too
+    return f"{len(seen)} forest predictions, all with one thread; 10 repeated predictions identical; pipeline restored"
+
+
+@check("music block: circle-of-fifths key and tempo octave, raw key and tempo kept, lineage (plan section 16.3)")
+def _():
+    rows = frame(["2020-01-01"] * 4, key=[0, 7, 2, 11], tempo=[60.0, 120.0, 240.0, 90.0])
+    r = recipe(blocks=["music"])
+    X = FeaturePipeline(r).fit_transform(rows, np.array([0, 1, 0, 1]), np.arange(4), FitContext(155, 0))
+    assert list(X.columns) == feature_columns(r) and list(X.columns[-4:]) == [
+        "key_fifths_sin", "key_fifths_cos", "tempo_octave_sin", "tempo_octave_cos"]
+    want = 2 * np.pi * np.array([0, 1, 2, 5]) / 12  # (7 key) mod 12 for keys 0, 7, 2, 11
+    assert np.allclose(X["key_fifths_sin"], np.sin(want)) and np.allclose(X["key_fifths_cos"], np.cos(want))
+    assert np.allclose(X.loc[[0, 1, 2], ["tempo_octave_sin", "tempo_octave_cos"]].to_numpy(),
+                       X.loc[[0, 0, 0], ["tempo_octave_sin", "tempo_octave_cos"]].to_numpy(), rtol=0, atol=1e-12)
+    assert not np.allclose(X.loc[3, "tempo_octave_sin"], X.loc[0, "tempo_octave_sin"])
+    assert X["key"].tolist() == [0, 7, 2, 11] and X["tempo"].tolist() == [60.0, 120.0, 240.0, 90.0]
+    pipe = FeaturePipeline(r)
+    pipe.fit_transform(rows, np.array([0, 1, 0, 1]), np.arange(4), FitContext(155, 0))
+    assert pipe.lineage_["key_fifths_cos"] == ["key"] and pipe.lineage_["tempo_octave_sin"] == ["tempo"]
+    full = FeaturePipeline(r).fit_transform(CTX.rows, CTX.data.y, CTX.groups, FitContext("all", "all"))
+    assert np.isfinite(full[["key_fifths_sin", "key_fifths_cos", "tempo_octave_sin", "tempo_octave_cos"]]).all().all()
+    return "fifths mapping, octave equality for 60, 120 and 240, finite on every eligible row"
 
 
 @check("CatBoost runtime: fits F2 with missing values, writes no file, returns P(class 1)", status="STAGED")

@@ -1,0 +1,334 @@
+{
+ "schema": "p28_manifest_v1",
+ "task_id": "P2.8",
+ "plan": "doc/plans/phase2-models-features.md section 16",
+ "saved_before_any_P2.8_score": true,
+ "part_a": {
+  "config": "configs/phase2/p2.8/identifier_probe.json",
+  "config_sha256": "ba8aacc204f84efd5bb2fc1eb2e5292d8c9197e92b30c44805daf57026280a81",
+  "output": "artifacts/p2.8/identifier_probe/",
+  "phase1_references": {
+   "H": {
+    "path": "artifacts/bank/production_lightgbm_F2_9c37e77d549e.npz",
+    "sha256": "37027940c751e46e5137ba096ea08f04c21b85d54d6b2e1827dabc45481e9698"
+   },
+   "R": {
+    "path": "artifacts/bank/production_random_forest_F2_58139012bdde.npz",
+    "sha256": "c2cd120cf89389368bb3d8cc04b2aa940136706999c9f300331ecb19de5a3cc1"
+   }
+  }
+ },
+ "part_b": {
+  "recipes": [
+   {
+    "name": "p28_lightgbm_F2_anchor",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_anchor.json",
+    "recipe_sha256": "08732fab4a5606bf1797465d3186d283e69b1aa90f175ef4d663ef2b9e0b933b"
+   },
+   {
+    "name": "p28_lightgbm_F2_date_count",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_date_count.json",
+    "recipe_sha256": "86ae693c464b6d44d8984a291850d9fa267833910d72b02970636aedae44181b"
+   },
+   {
+    "name": "p28_lightgbm_F2_date_te10",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_date_te10.json",
+    "recipe_sha256": "5513704729e4f62f299a38afc04bd6a232c402c8246c0f20ac6480a25f57ca83"
+   },
+   {
+    "name": "p28_lightgbm_F2_date_te30",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_date_te30.json",
+    "recipe_sha256": "e64e7554b6c43d990381efef8bc19ffa9d28cca297a2c9ef01a4a1ded2355402"
+   },
+   {
+    "name": "p28_lightgbm_F2_date_count_te10",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_date_count_te10.json",
+    "recipe_sha256": "dd9faf3e343fce4ef872b324557f4ce10cc0f86de1d1e2fef3f0ff2461e7822c"
+   },
+   {
+    "name": "p28_lightgbm_F2_date_count_te30",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_date_count_te30.json",
+    "recipe_sha256": "40e490c57af4e160e02b5eef1190c173792a70ecd6b7d6b24baa1bfe7abbf490"
+   },
+   {
+    "name": "p28_lightgbm_F2_interactions",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_interactions.json",
+    "recipe_sha256": "ed3c8f4f9cbee537cc6996055b2e4ec29492853cb785e4f6a1e3382cc0087ff7"
+   },
+   {
+    "name": "p28_lightgbm_F2_cyclic",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_cyclic.json",
+    "recipe_sha256": "082beefb234910f9ebde1272bb3767727de5f92d838ebcd9d63f6729ad9fc128"
+   },
+   {
+    "name": "p28_lightgbm_F2_era_relative",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_era_relative.json",
+    "recipe_sha256": "f8cf30738b6c5210f849f65bd635ea26494d923fdcbd5f82cc70352f37055bff"
+   },
+   {
+    "name": "p28_lightgbm_F2_inverse_weights",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_inverse_weights.json",
+    "recipe_sha256": "ada492035f7573f026e35f3e5a06b74e7e50b86265a568fcc47584e852ef7f57"
+   },
+   {
+    "name": "p28_lightgbm_F2_music",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_F2_music.json",
+    "recipe_sha256": "2232b82cbe89d2c6bc70d18fd3412d3d814ff342d75d66b1b8e0fcf92692840f"
+   },
+   {
+    "name": "p28_random_forest_b1_0_040",
+    "path": "configs/phase2/p2.8/recipes/p28_random_forest_b1_0_040.json",
+    "recipe_sha256": "9c013fb0963027669654ee7e1e541a76266bd2e7daaf07eebfd456050ff5fd36"
+   },
+   {
+    "name": "p28_random_forest_b1_0_040_date_count",
+    "path": "configs/phase2/p2.8/recipes/p28_random_forest_b1_0_040_date_count.json",
+    "recipe_sha256": "ddc5ecf91824909ecd2674b8c52e922db778fb10e03f57dea620ee74df63fa5a"
+   },
+   {
+    "name": "p28_random_forest_b1_0_040_date_count_te30",
+    "path": "configs/phase2/p2.8/recipes/p28_random_forest_b1_0_040_date_count_te30.json",
+    "recipe_sha256": "b05e27d10f626d37fc9675eaed644c484201dbd6fb9b284e523bdcc2560de940"
+   },
+   {
+    "name": "p28_lightgbm_b3_001",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_b3_001.json",
+    "recipe_sha256": "c8427905ee3d4e92df0854563d4a96a2823b3bee8b833f434b9b067cc0d41f37"
+   },
+   {
+    "name": "p28_lightgbm_b3_001_date_count",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_b3_001_date_count.json",
+    "recipe_sha256": "0521ab5381435062e051e0f387591c634b5e4479e51e625615e0c8ebf94fc200"
+   },
+   {
+    "name": "p28_lightgbm_b3_001_date_count_te30",
+    "path": "configs/phase2/p2.8/recipes/p28_lightgbm_b3_001_date_count_te30.json",
+    "recipe_sha256": "3e3a87d0174e3cb4aa6d5cc5921c81728e895b6fb1b63f6358f54b1699dfb9bb"
+   },
+   {
+    "name": "p28_extra_trees_anchor",
+    "path": "configs/phase2/p2.8/recipes/p28_extra_trees_anchor.json",
+    "recipe_sha256": "1a6eea305cac3d112b96b603efc528c2bf77286d34b3abde5abdcc872fd8f099"
+   }
+  ],
+  "comparisons": [
+   {
+    "id": "B1",
+    "challenger": "p28_lightgbm_F2_date_count",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B2",
+    "challenger": "p28_lightgbm_F2_date_te10",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B3",
+    "challenger": "p28_lightgbm_F2_date_te30",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B4",
+    "challenger": "p28_lightgbm_F2_date_count_te10",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B5",
+    "challenger": "p28_lightgbm_F2_date_count_te30",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B6",
+    "challenger": "p28_lightgbm_F2_interactions",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B7",
+    "challenger": "p28_lightgbm_F2_cyclic",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B8",
+    "challenger": "p28_lightgbm_F2_era_relative",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B9",
+    "challenger": "p28_lightgbm_F2_inverse_weights",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B10",
+    "challenger": "p28_lightgbm_F2_music",
+    "comparator": "p28_lightgbm_F2_anchor",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B11",
+    "challenger": "p28_random_forest_b1_0_040_date_count",
+    "comparator": "p28_random_forest_b1_0_040",
+    "family": "random_forest"
+   },
+   {
+    "id": "B12",
+    "challenger": "p28_random_forest_b1_0_040_date_count_te30",
+    "comparator": "p28_random_forest_b1_0_040",
+    "family": "random_forest"
+   },
+   {
+    "id": "B13",
+    "challenger": "p28_lightgbm_b3_001_date_count",
+    "comparator": "p28_lightgbm_b3_001",
+    "family": "lightgbm"
+   },
+   {
+    "id": "B14",
+    "challenger": "p28_lightgbm_b3_001_date_count_te30",
+    "comparator": "p28_lightgbm_b3_001",
+    "family": "lightgbm"
+   }
+  ],
+  "h_must_equal": {
+   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "bank_sha256": "8f7df54fe0184dfdeb1489264f70c3f2e4a5ccec5576c4ad5a3c94cf7f1c23c2",
+   "mean_fold_auc_unrounded": 0.8314739289455241,
+   "repeat_mean_auc_unrounded": [
+    0.8334559624727105,
+    0.8309501561669368,
+    0.8300156681969251
+   ]
+  },
+  "allocation_state": {
+   "H": "p28_lightgbm_F2_anchor",
+   "contribution_weights": [
+    0.1,
+    0.25
+   ],
+   "family_incumbents": {
+    "lightgbm": {
+     "run_id": "p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491",
+     "bank_sha256": "a8d8510a65c2663f7d9940fc8504e2db8d40af20dc2b2d438f4e723df4b3c4e9",
+     "mean_fold_auc_unrounded": 0.8339018945792663,
+     "repeat_mean_auc_unrounded": [
+      0.8363934486789389,
+      0.8325259301453528,
+      0.8327863049135071
+     ]
+    },
+    "random_forest": {
+     "run_id": "p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9",
+     "bank_sha256": "f55bdc8cae345a329cd59523b5f7dbacc988f8723c52b7154c7757a45d969335",
+     "mean_fold_auc_unrounded": 0.8280717040053457,
+     "repeat_mean_auc_unrounded": [
+      0.8298210536545749,
+      0.8260752963738248,
+      0.8283187619876375
+     ]
+    }
+   },
+   "strongest_standalone": {
+    "run_id": "p2_p22_lightgbm_b3_001_seeds155-2026-1029_3c98717cc491",
+    "bank_sha256": "a8d8510a65c2663f7d9940fc8504e2db8d40af20dc2b2d438f4e723df4b3c4e9",
+    "mean_fold_auc_unrounded": 0.8339018945792663,
+    "repeat_mean_auc_unrounded": [
+     0.8363934486789389,
+     0.8325259301453528,
+     0.8327863049135071
+    ]
+   },
+   "previous_best_blends": {
+    "lightgbm": {
+     "run_id": "p2_p22_lightgbm_b3_004_seeds155-2026-1029_9c47f819118c",
+     "weight": 0.25,
+     "bank_sha256": "95d318fdc4489fba33d6ee52d24a69b09433db8754f6e831bd20c4f4f0d31ad4",
+     "mean_fold_auc_unrounded": 0.8338150082441296,
+     "repeat_mean_auc_unrounded": [
+      0.8354644718594069,
+      0.8336237990699737,
+      0.8323567538030083
+     ]
+    },
+    "random_forest": {
+     "run_id": "p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9",
+     "weight": 0.25,
+     "bank_sha256": "f55bdc8cae345a329cd59523b5f7dbacc988f8723c52b7154c7757a45d969335",
+     "mean_fold_auc_unrounded": 0.8338065820316533,
+     "repeat_mean_auc_unrounded": [
+      0.8355183236089141,
+      0.8330848587717121,
+      0.8328165637143339
+     ]
+    }
+   },
+   "source": "P2.2's logged records (plan section 15.7: logged scores, declared tie rules)"
+  },
+  "blend_diagnostics": [
+   {
+    "id": "D1",
+    "members": [
+     [
+      "p28_lightgbm_F2_anchor",
+      0.75
+     ],
+     [
+      "p28_extra_trees_anchor",
+      0.25
+     ]
+    ],
+    "comparator": "p28_lightgbm_F2_anchor"
+   },
+   {
+    "id": "D2",
+    "members": [
+     [
+      "p28_lightgbm_b3_001",
+      0.75
+     ],
+     [
+      "p28_extra_trees_anchor",
+      0.25
+     ]
+    ],
+    "comparator": "p28_lightgbm_b3_001"
+   }
+  ],
+  "bootstrap": {
+   "draws": 2000,
+   "seed": 155001
+  }
+ },
+ "part_c": {
+  "script": "analysis/p28_forest_check.py"
+ },
+ "reserved": {
+  "P2.4": [
+   "P2.3's best CatBoost configuration with and without music",
+   "the same with and without interactions",
+   "P2.3's best EBM configuration with and without music"
+  ],
+  "P2.3": "the earlier project's CatBoost candidate 31 on F2 as one declared configuration of the initial batch (plan section 16.3)"
+ },
+ "expected_fits": {
+  "part_a_menu": 9,
+  "part_a_controls_at_most": 6,
+  "part_b": 18,
+  "part_c": 9
+ },
+ "commands": [
+  "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -I analysis/p28_forest_check.py . > analysis/p28_forest_check_output.txt",
+  "for each recipe of part_b.recipes, in order: PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m scripts.run_experiments --recipe <path> --task P2.8",
+  "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -I analysis/p28_feature_checks.py . > analysis/p28_feature_checks_output.txt",
+  "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -I analysis/identifier_probe/probe.py . run > analysis/identifier_probe/run_output.txt",
+  "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m scripts.run_experiments --verify --task P2.8",
+  "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -I analysis/identifier_probe/probe.py . verify > analysis/identifier_probe/verify_output.txt"
+ ]
+}

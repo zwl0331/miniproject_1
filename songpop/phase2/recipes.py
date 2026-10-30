@@ -11,7 +11,7 @@ NEEDS_IMPUTATION = ("logistic", "knn")  # families without native missing-value 
 PREPROCESSING = {"none": set(), "log_standard": set(), "spline": {"n_knots"},
                  "knn_blocks": {"alpha", "category_weight", "normalization"}}  # name: its parameters
 BASES = ("F0", "F1", "F2")
-BLOCKS = ("date_count", "date_te10", "date_te30", "interactions", "cyclic", "era_relative")
+BLOCKS = ("date_count", "date_te10", "date_te30", "interactions", "cyclic", "era_relative", "music")
 WEIGHTS = ("none", "inverse_group_size")
 KEYS = ("schema", "name", "family", "params", "base", "blocks", "drop", "preprocessing", "training_weights",
         "estimator_seeds", "iterations", "deployment")

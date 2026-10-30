@@ -1,0 +1,30 @@
+{
+  "schema": "p28_identifier_probe_v1",
+  "task_id": "P2.8",
+  "plan": "doc/plans/phase2-models-features.md section 16.2",
+  "population": "the 3,863 eligible training rows, the saved primary folds of split seeds 155, 2026 and 1029, estimator seed 0",
+  "fits": {
+    "H": {"model": "lightgbm", "blocks": []},
+    "R": {"model": "random_forest", "blocks": []},
+    "I1": {"model": "lightgbm", "blocks": ["id_shape_v1"]},
+    "I2": {"model": "lightgbm", "blocks": ["id_frequency_v1"]},
+    "I3": {"model": "lightgbm", "blocks": ["id_frequency_v1", "id_te30_v1"]},
+    "I4": {"model": "random_forest", "blocks": ["id_shape_v1", "id_frequency_v1", "id_te30_v1"]},
+    "L": {"model": "identifier_linear", "blocks": []},
+    "I7": {"model": "lightgbm", "blocks": ["row_position"]},
+    "I8": {"model": "lightgbm", "blocks": ["audio_recurrence"]}
+  },
+  "comparisons": [
+    {"id": "I1", "challenger": "I1", "comparator": "H", "kind": "block"},
+    {"id": "I2", "challenger": "I2", "comparator": "H", "kind": "block"},
+    {"id": "I3", "challenger": "I3", "comparator": "H", "kind": "block"},
+    {"id": "I4", "challenger": "I4", "comparator": "R", "kind": "block"},
+    {"id": "I5", "blend": [["H", 0.9], ["L", 0.1]], "comparator": "H", "kind": "blend"},
+    {"id": "I6", "blend": [["H", 0.75], ["L", 0.25]], "comparator": "H", "kind": "blend"},
+    {"id": "I7", "challenger": "I7", "comparator": "H", "kind": "diagnostic"},
+    {"id": "I8", "challenger": "I8", "comparator": "H", "kind": "block"}
+  ],
+  "thresholds": {"block": 0.001, "blend": 0.0005, "diagnostic": 0.001},
+  "bootstrap": {"draws": 10000, "seed": 155001, "alpha": 0.05, "family_size": 8},
+  "controls": {"max_pipelines": 2, "salts": ["p2.8-control-1", "p2.8-control-2", "p2.8-control-3"], "margin": 0.0005}
+}

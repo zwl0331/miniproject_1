@@ -40,9 +40,20 @@ def _cyclic(rows):
     return pd.DataFrame(out, index=rows.index, dtype="float64")
 
 
+def _music(rows):
+    """The key on the circle of fifths, sin and cos of 2 pi ((7 key) mod 12) / 12, and the tempo octave, sin and
+    cos of 2 pi log2(tempo), so tempo T and 2T coincide (plan section 16.3); raw key and tempo stay in the base."""
+    fifths = 2 * np.pi * np.mod(7 * rows["key"].to_numpy(dtype="float64"), 12) / 12
+    octave = 2 * np.pi * np.log2(rows["tempo"].to_numpy(dtype="float64"))
+    return pd.DataFrame({"key_fifths_sin": np.sin(fifths), "key_fifths_cos": np.cos(fifths),
+                         "tempo_octave_sin": np.sin(octave), "tempo_octave_cos": np.cos(octave)}, index=rows.index)
+
+
 STATELESS = {
     "interactions": (_interactions, {c: src for c, (src, _) in INTERACTIONS.items()}),
     "cyclic": (_cyclic, {f"{n}_{t}": [DATE] for n in ("month", "weekday", "doy") for t in ("sin", "cos")}),
+    "music": (_music, {"key_fifths_sin": ["key"], "key_fifths_cos": ["key"], "tempo_octave_sin": ["tempo"],
+                       "tempo_octave_cos": ["tempo"]}),
 }
 STATEFUL = {"date_count": DateCount, "date_te10": lambda: DateTargetEncoder(10),
             "date_te30": lambda: DateTargetEncoder(30), "era_relative": EraRelative}
@@ -50,6 +61,7 @@ STATEFUL = {"date_count": DateCount, "date_te10": lambda: DateTargetEncoder(10),
 
 BASE_COLUMNS = {"F0": AUDIO, "F1": AUDIO + ["year"], "F2": AUDIO + F2_DATE}
 BLOCK_COLUMNS = {"interactions": list(INTERACTIONS), "cyclic": list(STATELESS["cyclic"][1]),
+                 "music": list(STATELESS["music"][1]),
                  "date_count": DateCount.columns, "date_te10": ["date_te10"], "date_te30": ["date_te30"],
                  "era_relative": EraRelative.columns}
 

@@ -1,0 +1,95 @@
+{
+ "task": "P1.7",
+ "finalists": {
+  "random_forest": {
+   "search_run": "20261028-020732-tune-random_forest-fold5_s51",
+   "candidate": 0,
+   "params": {},
+   "treatment": "baseline",
+   "column": "random_forest",
+   "mean_15": 0.761124
+  },
+  "catboost": {
+   "search_run": "20261028-031226-tune-catboost-fold5_s51",
+   "candidate": 31,
+   "params": {
+    "bagging_temperature": 1.793473187168845,
+    "bootstrap_type": "Bayesian",
+    "depth": 6,
+    "iterations": 1944,
+    "l2_leaf_reg": 4.757135294733201,
+    "learning_rate": 0.009535096982557112,
+    "random_strength": 0.0,
+    "rsm": 0.8880009208730744
+   },
+   "treatment": "music",
+   "column": "treat:20261028-142317-treat-catboost:music",
+   "mean_15": 0.7650952079770416,
+   "selection": [
+    "best adopted single treatment: music (15-fold mean 0.765095)",
+    "combination interactions+music against music: gain +0.002995, repeats up 3, worst repeat +0.000911, not kept",
+    "multiplier music+rounds_x0.75 against music: gain +0.000386, repeats up 1, worst repeat -0.000719, gain test not passed",
+    "multiplier music+rounds_x1.25 against music: gain -0.001568, repeats up 0, worst repeat -0.002365, gain test not passed"
+   ]
+  },
+  "ebm": {
+   "search_run": "20261028-021859-tune-ebm-fold5_s51",
+   "candidate": 20,
+   "params": {
+    "interactions": 20,
+    "learning_rate": 0.030922265194483305,
+    "max_bins": 128,
+    "max_interaction_bins": 32,
+    "max_leaves": 2,
+    "min_samples_leaf": 2
+   },
+   "treatment": "baseline",
+   "column": "ebm",
+   "mean_15": 0.753846
+  },
+  "lightgbm_linear": {
+   "search_run": "20261028-031129-tune-lightgbm_linear-fold5_s51",
+   "candidate": 6,
+   "params": {
+    "learning_rate": 0.056572519352087625,
+    "linear_lambda": 1.7538232373118046,
+    "min_child_samples": 103,
+    "n_estimators": 74,
+    "num_leaves": 30
+   },
+   "treatment": "music",
+   "column": "treat:20261028-142937-treat-lightgbm_linear:music",
+   "mean_15": 0.7589985472890303,
+   "selection": [
+    "best adopted single treatment: music (15-fold mean 0.758999)",
+    "multiplier music+rounds_x0.75 against music: gain -0.000779, repeats up 1, worst repeat -0.003223, gain test not passed",
+    "multiplier music+rounds_x1.25 against music: gain -0.000542, repeats up 2, worst repeat -0.002761, gain test not passed"
+   ]
+  }
+ },
+ "ensemble": {
+  "members": [
+   "random_forest",
+   "catboost",
+   "ebm",
+   "lightgbm_linear"
+  ],
+  "kind": "probability",
+  "grid_step": 0.1,
+  "near_best_margin": 0.003,
+  "weight_rule": "near-best medoid (analysis/ensemble.py near_best_medoid)",
+  "development_weights": {
+   "random_forest": 0.3,
+   "catboost": 0.3,
+   "ebm": 0.2,
+   "lightgbm_linear": 0.2
+  },
+  "development_mean_15": 0.767818,
+  "development_near_best_points": 181,
+  "medoid_mean_15": {
+   "probability": 0.767818,
+   "rank": 0.767613
+  },
+  "source_run": "20261028-142958-ensemble"
+ }
+}

@@ -1,0 +1,184 @@
+{
+ "settings": {
+  "holdout_seed": 20261027,
+  "screen_seed": 3,
+  "tune_seeds": [
+   51,
+   52,
+   53
+  ],
+  "tolerance_units": {
+   "duration_ms": 2000.0,
+   "tempo": 1.0,
+   "loudness": 1.0,
+   "speechiness": 0.02,
+   "danceability": 0.02,
+   "energy": 0.02,
+   "valence": 0.02,
+   "acousticness": 0.02,
+   "liveness": 0.02,
+   "instrumentalness": 0.02
+  },
+  "link_units": 1.0,
+  "chain_units": 2.0
+ },
+ "stats": {
+  "rows": 3863,
+  "high": 1359,
+  "nearest_neighbour_units": {
+   "<=0.5": 4,
+   "<=1": 12,
+   "<=2": 25,
+   "<=3": 34,
+   "<=5": 77,
+   "<=10": 1024,
+   "median": 12.78
+  },
+  "groups_exact": 3629,
+  "groups_expanded": 3624,
+  "largest_group_exact": 4,
+  "largest_group_expanded": 4,
+  "near_duplicate_links": [
+   [
+    1119,
+    2354,
+    0.025
+   ],
+   [
+    994,
+    2866,
+    0.05
+   ],
+   [
+    868,
+    3403,
+    0.5
+   ],
+   [
+    3403,
+    3659,
+    0.5
+   ],
+   [
+    1779,
+    3020,
+    0.6
+   ],
+   [
+    178,
+    1941,
+    0.75
+   ],
+   [
+    178,
+    2182,
+    0.75
+   ]
+  ],
+  "rejected_chain_components": [],
+  "holdout_rows": 773,
+  "holdout_high": 272,
+  "development_rows": 3090,
+  "development_high": 1087,
+  "fold3": [
+   {
+    "fold": 0,
+    "rows": 1031,
+    "high_rate": 0.3521
+   },
+   {
+    "fold": 1,
+    "rows": 1029,
+    "high_rate": 0.3518
+   },
+   {
+    "fold": 2,
+    "rows": 1030,
+    "high_rate": 0.3515
+   }
+  ],
+  "fold5_s51": [
+   {
+    "fold": 0,
+    "rows": 618,
+    "high_rate": 0.3511
+   },
+   {
+    "fold": 1,
+    "rows": 618,
+    "high_rate": 0.3511
+   },
+   {
+    "fold": 2,
+    "rows": 619,
+    "high_rate": 0.3522
+   },
+   {
+    "fold": 3,
+    "rows": 617,
+    "high_rate": 0.3517
+   },
+   {
+    "fold": 4,
+    "rows": 618,
+    "high_rate": 0.3528
+   }
+  ],
+  "fold5_s52": [
+   {
+    "fold": 0,
+    "rows": 619,
+    "high_rate": 0.3522
+   },
+   {
+    "fold": 1,
+    "rows": 618,
+    "high_rate": 0.3511
+   },
+   {
+    "fold": 2,
+    "rows": 617,
+    "high_rate": 0.3517
+   },
+   {
+    "fold": 3,
+    "rows": 618,
+    "high_rate": 0.3528
+   },
+   {
+    "fold": 4,
+    "rows": 618,
+    "high_rate": 0.3511
+   }
+  ],
+  "fold5_s53": [
+   {
+    "fold": 0,
+    "rows": 619,
+    "high_rate": 0.3522
+   },
+   {
+    "fold": 1,
+    "rows": 618,
+    "high_rate": 0.3511
+   },
+   {
+    "fold": 2,
+    "rows": 617,
+    "high_rate": 0.3517
+   },
+   {
+    "fold": 3,
+    "rows": 618,
+    "high_rate": 0.3511
+   },
+   {
+    "fold": 4,
+    "rows": 618,
+    "high_rate": 0.3528
+   }
+  ]
+ },
+ "train_sha256": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407",
+ "manifest_sha256": "4c1b166ff0cc459ed486a3143a978fd1ec99124196ec2d71da77e0c546d1dbe1"
+}

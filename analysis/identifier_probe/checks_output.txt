@@ -1,0 +1,16 @@
+PASS  held-out labels flipped (outer and inner splits fixed) change nothing fitted
+PASS  other test tokens change no fitting or validation input
+PASS  row order: row-local and count blocks of fitting rows follow their row ids
+PASS  row order: held-out transforms are order invariant
+PASS  an unseen token gets zero counts and the fitting prior; an unsupported audio key zero support and deviation
+PASS  group counts by hand: distinct (fragment, group) pairs, own group left out, unseen zero
+PASS  target encoding by hand: cross-fitted with each inner part's prior, other rows by the full population
+PASS  audio deviation by hand: (S - n mu) / (n + m) in each inner part, zero when unsupported
+PASS  pseudotokens: deterministic, format kept, equality preserved, salts differ
+PASS  whole-token identity: zero support on held-out and test rows
+PASS  random forest: ten identical predictions with one thread, four threads restored
+PASS  H's inputs are F2 exactly: the 20 phase 1 columns, no identifier column or placeholder
+PASS  probe banks: byte round trip keeps arrays and metadata; selection-eligible, bank_v1 and unnamed refused
+PASS  the verifier: clean fixture passes (1 control pipeline); a corrupted L score, source manifest, coverage, array, metadata field or missing control bank each fails
+PASS  the declared menu: 9 fits, I1 to I8, at most 2 control pipelines, 3 salts, margin 0.0005, 10,000 draws
+15 passed, 0 failed

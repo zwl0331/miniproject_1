@@ -1,0 +1,16 @@
+repetition, p22_random_forest_anchor: 1 distinct outputs in 20 predictions; n_jobs restored to 4: True
+repetition, p22_extra_trees_b1_0_022: 1 distinct outputs in 20 predictions; n_jobs restored to 4: True
+extra_trees anchor p2_p22_extra_trees_anchor_seeds155-2026-1029_1c69697b51a7: arrays differing from P2.2 ['oof', 'test_by_fold', 'test_mean', 'fold_auc']; largest prediction difference 2.2e-16; fold AUC differences: 10 of 15 folds, largest 7.34e-06, mean fold AUC +4.89e-10; replay under the current code: identical: OK
+    split seed 155, folds 0 to 4, current minus P2.2: +0.00e+00, +0.00e+00, +3.67e-06, -3.67e-06, +0.00e+00
+    split seed 2026, folds 0 to 4, current minus P2.2: -3.68e-06, +3.67e-06, -7.34e-06, +3.68e-06, +3.67e-06
+    split seed 1029, folds 0 to 4, current minus P2.2: +3.68e-06, +0.00e+00, +0.00e+00, +1.11e-16, -3.67e-06
+hist_gb anchor p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115: arrays differing from P2.2 none: OK
+knn anchor p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579: arrays differing from P2.2 none: OK
+lightgbm anchor p2_p22_lightgbm_anchor_seeds155-2026-1029_5a5aabb6cd0c: arrays differing from P2.2 none: OK
+logistic anchor p2_p22_logistic_anchor_seeds155-2026-1029_e45cdb36fd5d: arrays differing from P2.2 none: OK
+random_forest anchor p2_p22_random_forest_anchor_seeds155-2026-1029_11fc60361401: arrays differing from P2.2 ['oof', 'test_by_fold', 'test_mean']; largest prediction difference 2.2e-16; fold AUC differences: 0 of 15 folds, largest 0.00e+00, mean fold AUC +0.00e+00; replay under the current code: identical: OK
+    split seed 155, folds 0 to 4, current minus P2.2: +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00
+    split seed 2026, folds 0 to 4, current minus P2.2: +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00
+    split seed 1029, folds 0 to 4, current minus P2.2: +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00, +0.00e+00
+xgboost anchor p2_p22_xgboost_anchor_seeds155-2026-1029_545f970e5245: arrays differing from P2.2 none: OK
+forest check: PASSED

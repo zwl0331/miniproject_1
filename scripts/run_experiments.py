@@ -7,6 +7,7 @@ From the project root, with PYTHONDONTWRITEBYTECODE=1 and .venv/bin/python -m sc
                                              to those split seeds; by default each member's own)
     --compare RUN_A RUN_B --task P2.x [--seeds 155]    (both banks restricted to those split seeds first)
     --verify --run-id RUN_ID [RUN_ID ...]    (recompute in memory, write nothing, compare)
+    --verify --task P2.x                     (every run and comparison the log records for that task)
     --verify-all                             (every run, comparison, search and submission in the phase 2 log)
 Runs go to artifacts/phase2/bank/ and artifacts/phase2/experiments.jsonl, never to the phase 1 log. A run already
 logged under the same run id is not run again. A verification whose sources differ from the run's exits 1 and
@@ -719,9 +720,15 @@ def main():
             ids = [r["run_id"] for r in runs.logged(ctx)]
             comparisons = runs.logged(ctx, "comparison")
         else:
-            if not args.run_id:
-                ap.error("--verify needs --run-id")
-            ids, comparisons = args.run_id, []
+            if args.run_id:
+                ids, comparisons = args.run_id, []
+            elif args.task:
+                ids = [r["run_id"] for r in runs.logged(ctx) if r.get("task_id") == args.task]
+                if not ids:
+                    ap.error(f"the log records no run of task {args.task}")
+                comparisons = [r for r in runs.logged(ctx, "comparison") if r.get("task_id") == args.task]
+            else:
+                ap.error("--verify needs --run-id or --task")
         ok = verify(ctx, ids, manifest, inv)
         for r in comparisons:
             ok &= compare(ctx, r["a"], r["b"], None, seeds=r["seeds"], verify=True, comparison_id=r["comparison_id"])

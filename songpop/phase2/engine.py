@@ -12,7 +12,7 @@ from songpop.evaluate import N_SPLITS, PredictionBank, validate_bank, validate_c
 from songpop.models import predict_high
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.features import RAW_COLUMNS, FeaturePipeline
-from songpop.phase2.models import make_model, thread_limit, weight_argument
+from songpop.phase2.models import FORESTS, make_model, prediction_threads, thread_limit, weight_argument
 from songpop.phase2.recipes import validate_recipe
 
 TOL = 1e-12  # equal predictions for identical model inputs
@@ -42,9 +42,10 @@ class FittedRecipe:
         return est.named_steps["prep"].transform(X) if isinstance(est, Pipeline) else X.to_numpy(dtype="float64")
 
     def predict_each(self, raw_rows):
-        """The probability of numeric class 1 from each estimator seed, in the recipe's order."""
+        """The probability of numeric class 1 from each estimator seed, in the recipe's order; forests predict with
+        one thread (plan section 16.4)."""
         X = self.features.transform(raw_rows)
-        with thread_limit(self.family):
+        with thread_limit(self.family), prediction_threads(self.family, self.estimators):
             return [predict_high(est, X) for est in self.estimators]
 
     def predict_high(self, raw_rows):
@@ -81,6 +82,8 @@ def fit_recipe(recipe, rows, y, groups, ctx):
     ids = np.asarray(rows.index, dtype=np.int64)
     receipt = {"split_seed": ctx.split_seed, "fold": ctx.fold,
                "fitting_rows_sha256": hashlib.sha256(np.sort(ids).tobytes()).hexdigest(), "inner": features.receipts_}
+    if recipe["family"] in FORESTS:
+        receipt["forest_prediction_threads"] = 1
     return FittedRecipe(features, estimators, receipt, recipe["family"])
 
 

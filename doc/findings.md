@@ -392,7 +392,7 @@ Exploratory: each best configuration was chosen on the same three repeats that s
 
 Review status:
 
-`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+`reviewed`, by the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`): its completion checkpoint converged in round 4 and P2.2 was committed (810d1ce).
 
 Downstream use:
 
@@ -432,7 +432,7 @@ Fixed weights only; the learned ensembles of plan section 7 may weigh members di
 
 Review status:
 
-`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+`reviewed`, by the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`): its completion checkpoint converged in round 4 and P2.2 was committed (810d1ce).
 
 Downstream use:
 
@@ -469,8 +469,158 @@ Three realizations sample the jitter, they do not bound it. The guaranteed range
 
 Review status:
 
-`draft`, in the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`), completion checkpoint.
+`reviewed`, by the P2.2 review (`../reviews/2026-10-29-p2.2-searches.md`): its completion checkpoint converged in round 4 and P2.2 was committed (810d1ce).
 
 Downstream use:
 
 Later rankings of P2.2 forest scores (the comparator of plan section 6.5, the pool rule of section 7.1) take the logged scores with their own tie rules (plan section 15.7). The next task that changes the phase 2 code makes forest predictions deterministic (prediction with one thread, or an equivalent fixed summation order) and re-checks the other families' exact reproduction, before any random forest or Extra Trees configuration enters a frozen menu; the finalists of P2.6b are refitted under their final seed policy anyway.
+
+## Finding 014: Identifier Structure and Deployment Availability
+
+Question:
+
+What do the identifier columns, the file order and the exact audio signatures contain, and what could a model trained on the provided rows legally carry from them to the test rows (plan section 16.2)?
+
+Current conclusion:
+
+- Every `uri` is `spotify:track:` with a 22-character token in the alphabet `0-9A-Za-z` (3,863 eligible training rows, 863 test rows; the incomplete training row has none). Positions 1 to 21 use all 62 characters in each file; the first character is always 0 to 7.
+- `track_href` and `analysis_url` equal their fixed prefix plus the token on every row, and `type` is constant: neither adds information beyond the token.
+- No test token occurs in training. Fragment coverage of test rows by the training tokens: prefixes of length 1 and 2 all covered, length 3 12.17%; suffixes of length 1 all covered, length 2 63.50%, length 3 1.74%. A whole token has support from no other primary group, so whole-token identity carries nothing across groups.
+- Test `ID` is unique and increasing, 2 to 967, with gaps of 1 (769), 2 (83) and 3 (10); it has no counterpart in the training file. Spearman correlation with release year: training row position -0.0186, test `ID` -0.0007.
+- Exact audio signatures: no test row shares audio and date with a training row; 2 test rows share audio only, with 2 distinct training signatures; 8 of the 3,629 training audio signatures are held by more than one primary group.
+
+Evidence:
+
+`../analysis/identifier_probe/probe.py`, mode `audit` (no labels, no fitting), output `../analysis/identifier_probe/audit_output.txt`.
+
+Uncertainty:
+
+Descriptive and exact. It says what the supplied files contain, not how Spotify generates identifiers.
+
+Review status:
+
+`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+
+Downstream use:
+
+The probe design of Finding 015; the strategy's identifier rows (strategy section 5).
+
+## Finding 015: The Identifier and Order Probes
+
+Question:
+
+Do token-derived features, an identifier-only model, the training row position or exact audio recurrence improve the anchor LightGBM or the phase 1 random forest under the production protocol, by the thresholds declared before any probe score (plan section 16.2)?
+
+Current conclusion:
+
+- The probe reproduces its references: H equals the phase 1 LightGBM F2 bank in all ten arrays; R equals the phase 1 random forest bank except for predictions within 2.2e-16 (one-thread prediction), with identical fold AUCs.
+- No test meets its follow-up rule, so no pseudotoken control ran. Mean fold AUC differences against the comparator (split seeds 155, 2026, 1029; 10,000 shared group-bootstrap draws):
+
+| Test | Difference | By repeat | 95% interval | One-sided bounds at 0.05/8 |
+|---|---|---|---|---|
+| I1, H with `id_shape_v1` | -0.013554 | -0.012306, -0.013893, -0.014461 | -0.018787 to -0.008398 | -0.020047, -0.006878 |
+| I2, H with `id_frequency_v1` | -0.001676 | -0.002064, -0.002934, -0.000031 | -0.003683 to +0.000368 | -0.004209, +0.000972 |
+| I3, H with frequency and `id_te30_v1` | -0.004111 | -0.004336, -0.004459, -0.003538 | -0.007293 to -0.000881 | -0.008129, -0.000013 |
+| I4, R with all three blocks | -0.028337 | -0.029023, -0.027114, -0.028875 | -0.034513 to -0.022254 | -0.036316, -0.020615 |
+| I5, 0.9 H + 0.1 L | -0.000289 | -0.000409, -0.000217, -0.000240 | -0.000830 to +0.000246 | -0.000969, +0.000387 |
+| I6, 0.75 H + 0.25 L | -0.001801 | -0.001923, -0.001797, -0.001682 | -0.003267 to -0.000349 | -0.003728, +0.000084 |
+| I7, H with row position (diagnostic) | -0.001171 | -0.000181, -0.002116, -0.001217 | -0.003039 to +0.000692 | -0.003500, +0.001225 |
+| I8, H with audio recurrence | +0.000262 | +0.000785, +0.000000, +0.000000 | -0.000110 to +0.000636 | -0.000211, +0.000736 |
+
+- The identifier-only linear model L alone: mean fold AUC 0.501441, chance level. I3 minus I2, described only: -0.002435.
+- Coverage on held-out rows: two-character prefixes 98.97% to 100% of rows per fold, two-character suffixes 49.87% to 55.83%, three-character fragments at most 11.13%; audio recurrence supported 0 to 6 held-out rows (0 to 5 groups) per fold.
+- I8's score change comes from one of its 15 folds: split seed 155, fold 0, where all 772 held-out predictions differ from H's and the fold AUC rises by 0.003926, a fold with no supported held-out row. In the other 14 folds its held-out predictions equal H's, although 1 to 6 held-out rows per fold had support. The probe does not establish why that fold changed.
+- On the declared grouped folds, these identifier representations did not demonstrate a repeat-stable improvement meeting the practical threshold. This does not establish that every possible identifier transformation is uninformative. The row-position diagnostic found no useful effect on held-out training groups; it says nothing about the test file's order.
+
+Evidence:
+
+`../analysis/identifier_probe/probe.py`, mode `run`, output `../analysis/identifier_probe/run_output.txt`; the menu `../configs/phase2/p2.8/identifier_probe.json`, saved before any probe score; the banks and `results.json` in `../artifacts/p2.8/identifier_probe/`; mode `verify`, output `../analysis/identifier_probe/verify_output.txt`.
+
+Uncertainty:
+
+Bootstrap bounds are conditional on the fitted predictions and exclude retraining variability. I1 and I4 lost AUC under unchanged model settings; why is not established. That the added columns perturb LightGBM's column sampling and the forest's feature sampling is an untested hypothesis: no pseudotoken control or sampling ablation ran, since no test met its follow-up rule. The models were not tuned for the added columns.
+
+Review status:
+
+`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+
+Downstream use:
+
+No identifier block enters the phase 2 engine; the strategy's identifier contents row records the null; the report's account of tested and rejected inputs.
+
+## Finding 016: The Feature Checks Moved from P2.4
+
+Question:
+
+What do the date encodings, the other declared blocks and the `music` block add to the anchor, and the date encodings to P2.2's best random forest and its strongest LightGBM recipe, under the production protocol; which section 5.6 routes do they meet against P2.2's saved state; and do the Extra Trees blends of Finding 012 reproduce under deterministic forest prediction (plan section 16.3)?
+
+Current conclusion:
+
+- P2.8's anchor run equals the P2.1 anchor bank in all ten arrays.
+- Matched differences, each challenger against the identical recipe without its addition (unrounded mean fold AUC; paired cluster bootstrap with 2,000 draws, descriptive):
+
+| Id | Base and addition | Challenger | Difference | By repeat | 95% interval | Routes |
+|---|---|---|---|---|---|---|
+| B1 | H + `date_count` | 0.832283 | +0.000810 | +0.001730, -0.000582, +0.001281 | -0.001034 to +0.002678 | none |
+| B2 | H + `date_te10` | 0.833938 | +0.002464 | +0.002268, +0.002995, +0.002130 | -0.001001 to +0.006249 | none |
+| B3 | H + `date_te30` | 0.832662 | +0.001188 | +0.000078, +0.002689, +0.000797 | -0.002113 to +0.004837 | none |
+| B4 | H + `date_count`, `date_te10` | 0.833666 | +0.002192 | +0.002899, +0.001330, +0.002345 | -0.001349 to +0.005926 | none |
+| B5 | H + `date_count`, `date_te30` | 0.832716 | +0.001242 | +0.001997, +0.000828, +0.000902 | -0.002187 to +0.005135 | none |
+| B6 | H + `interactions` | 0.829059 | -0.002415 | -0.000597, -0.003574, -0.003075 | -0.005891 to +0.000998 | none |
+| B7 | H + `cyclic` | 0.830125 | -0.001349 | -0.000965, -0.002553, -0.000528 | -0.003577 to +0.001102 | none |
+| B8 | H + `era_relative` | 0.830378 | -0.001096 | -0.000999, -0.002101, -0.000189 | -0.002719 to +0.000620 | none |
+| B9 | H + inverse-group-size weights | 0.829829 | -0.001645 | -0.000228, -0.002088, -0.002619 | -0.003300 to +0.000049 | none |
+| B10 | H + `music` | 0.831788 | +0.000314 | -0.000388, +0.001322, +0.000009 | -0.002505 to +0.002948 | none |
+| B11 | Random forest `b1_0_040` + `date_count` | 0.828527 | +0.000456 | +0.000924, +0.001425, -0.000982 | -0.001537 to +0.002333 | none |
+| B12 | Random forest `b1_0_040` + `date_count`, `date_te30` | 0.827502 | -0.000570 | -0.001581, +0.001385, -0.001514 | -0.004988 to +0.004044 | ensemble contribution |
+| B13 | LightGBM `b3_001` + `date_count` | 0.834333 | +0.000431 | -0.000102, +0.001702, -0.000306 | -0.001462 to +0.002258 | none |
+| B14 | LightGBM `b3_001` + `date_count`, `date_te30` | 0.835421 | +0.001519 | +0.000323, +0.003993, +0.000242 | -0.002082 to +0.005176 | smaller useful, competitive refinement, ensemble contribution |
+
+- The exact-date target encodings raise the anchor's mean fold AUC by +0.0012 to +0.0025, positive on every repeat for B2 to B5, with every interval including zero; the date count alone and `music` give smaller differences with a negative repeat, and `interactions`, `cyclic`, `era_relative` and the training weights lower it. On the tuned LightGBM recipe the count with `date_te30` adds +0.0015 (B14), the highest standalone mean fold AUC so far. The batch meets routes through B12 (its 0.25 blend with H, 0.835241) and B14 (against the tuned incumbent 0.833902).
+- Fixed-blend diagnostics with the deterministic Extra Trees anchor: 0.75 H + 0.25 Extra Trees, 0.835123, +0.003649 over H (repeats +0.003237, +0.004162, +0.003548; interval +0.002080 to +0.005211), reproducing Finding 012's best contribution; 0.75 `b3_001` + 0.25 Extra Trees, 0.835857, +0.001955 over `b3_001` (repeats +0.001654, +0.002531, +0.001680; interval +0.000503 to +0.003308).
+- No checked block shows a large omitted signal: the largest gains are of the same order as P2.2's tuning gain, and the Extra Trees blends remain the largest measured improvements.
+
+Evidence:
+
+The P2.8 run records and banks in `../artifacts/phase2/experiments.jsonl` and `../artifacts/phase2/bank/`; the recipes and saved state in `../configs/phase2/p2.8/`; `../analysis/p28_feature_checks.py` and its output `../analysis/p28_feature_checks_output.txt`; `scripts.run_experiments --verify --task P2.8`, output `../artifacts/phase2/verify_task_p28.txt`.
+
+Uncertainty:
+
+Exploratory (plan section 5.7): every interval of the matched comparisons includes zero; the tuned recipe and its base were chosen on the same repeats that score them; bootstrap intervals are conditional on the fixed predictions; routes are allocation heuristics. The earlier audio-only project's music gain (`prior_project/`) did not appear on the anchor with release dates; CatBoost and EBM remain to be checked (P2.4's reserved checks).
+
+Review status:
+
+`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+
+Downstream use:
+
+P2.4 imports B1 to B14 as its first 14 comparisons with their routes (plan section 16.3); the date encodings with the tuned recipes and forests; P2.6b's pool (the Extra Trees contribution); the reserved CatBoost and EBM checks.
+
+## Finding 017: Deterministic Forest Prediction
+
+Question:
+
+Does predicting random forests and Extra Trees with one thread make their outputs repeat exactly, and does P2.8's code change leave every other family unchanged (plan section 16.4)?
+
+Current conclusion:
+
+- One fitted random forest (P2.2's anchor recipe) and one fitted Extra Trees model (the leaf-1 recipe of Finding 013) each gave 1 distinct output in 20 repeated predictions, with four threads restored after prediction.
+- The five non-forest P2.2 family anchors (LightGBM, XGBoost, HistGB, logistic, kNN), refitted under P2.8's code, equal their P2.2 banks in all ten arrays.
+- The forest anchors equal theirs in every array except predictions, within 2.2e-16. The random forest anchor's fold AUCs are identical; the Extra Trees anchor's differ in 10 of 15 folds by at most 7.34e-6, mean fold AUC +4.89e-10, of the size Finding 013 observed for tie breaking. Each forest anchor refitted twice under P2.8's code is identical in all ten arrays.
+- Later forest runs use a fixed prediction summation order; exact replay holds under the recorded environment and execution path.
+
+Evidence:
+
+`../analysis/p28_forest_check.py` and its output `../analysis/p28_forest_check_output.txt` (rerun identical at the verification); the self-check "forest prediction" of `../scripts/check_phase2.py` (a pipeline fixture and a thread spy), output `../artifacts/phase2/check_phase2.txt`.
+
+Uncertainty:
+
+The seven anchor refits are regression coverage, not proof for every recipe path; the self-checks cover the dispatch. Exact replay is shown on this machine, environment and thread setting.
+
+Review status:
+
+`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+
+Downstream use:
+
+Every later random forest and Extra Trees run, including P2.8's (B11, B12, the Extra Trees anchor) and any forest in a frozen menu; Finding 013's follow-up is complete.

@@ -1,0 +1,103 @@
+{
+ "task": "P1.9",
+ "seed": 0,
+ "threads": 8,
+ "members": {
+  "random_forest": {
+   "family": "random_forest",
+   "params": {},
+   "treatment": "baseline",
+   "search_run": "20261028-020732-tune-random_forest-fold5_s51",
+   "candidate": 0
+  },
+  "catboost": {
+   "family": "catboost",
+   "params": {
+    "bagging_temperature": 1.793473187168845,
+    "bootstrap_type": "Bayesian",
+    "depth": 6,
+    "iterations": 1944,
+    "l2_leaf_reg": 4.757135294733201,
+    "learning_rate": 0.009535096982557112,
+    "random_strength": 0.0,
+    "rsm": 0.8880009208730744
+   },
+   "treatment": "music",
+   "search_run": "20261028-031226-tune-catboost-fold5_s51",
+   "candidate": 31
+  },
+  "ebm": {
+   "family": "ebm",
+   "params": {
+    "interactions": 20,
+    "learning_rate": 0.030922265194483305,
+    "max_bins": 128,
+    "max_interaction_bins": 32,
+    "max_leaves": 2,
+    "min_samples_leaf": 2
+   },
+   "treatment": "baseline",
+   "search_run": "20261028-021859-tune-ebm-fold5_s51",
+   "candidate": 20
+  },
+  "lightgbm_linear": {
+   "family": "lightgbm_linear",
+   "params": {
+    "learning_rate": 0.056572519352087625,
+    "linear_lambda": 1.7538232373118046,
+    "min_child_samples": 103,
+    "n_estimators": 74,
+    "num_leaves": 30
+   },
+   "treatment": "music",
+   "search_run": "20261028-031129-tune-lightgbm_linear-fold5_s51",
+   "candidate": 6
+  }
+ },
+ "picks": {
+  "single": {
+   "members": [
+    "catboost"
+   ],
+   "weights": [
+    1.0
+   ],
+   "kind": "probability",
+   "development_auc": 0.7650952079770416,
+   "stage5_auc": 0.7594414382067913,
+   "stage5_procedure": "Stage 5 single-model procedure: inner-CV family selection with compact searches, conditional on prior exploration; not this exact configuration"
+  },
+  "ensemble": {
+   "members": [
+    "random_forest",
+    "catboost",
+    "ebm",
+    "lightgbm_linear"
+   ],
+   "weights": [
+    0.3,
+    0.3,
+    0.2,
+    0.2
+   ],
+   "kind": "probability",
+   "development_auc": 0.767818,
+   "stage5_auc": 0.7626195382917373,
+   "stage5_procedure": "Stage 5 ensemble procedure before the extension: compact tuning and medoid weights from inner scores, conditional on prior exploration",
+   "extension_incumbent_auc": 0.770805673886037,
+   "extension_challenger_auc": 0.7717232758905173,
+   "extension_auc": 0.770805673886037,
+   "extension_procedure": "CatBoost extension (plan v0.7): fixed weights 0.3, 0.3, 0.2, 0.2 on two new partitions, conditional on prior exploration"
+  }
+ },
+ "bootstrap": {
+  "draws": 10000,
+  "seed": 20261101
+ },
+ "sources": {
+  "freeze": "results/p1.7_finalists.json",
+  "nested_combine_run": "20261028-173728-nested-combine",
+  "extension_combine_run": "20261028-175532-extension-combine",
+  "extension_adopted": false
+ }
+}

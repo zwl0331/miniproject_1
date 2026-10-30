@@ -1,129 +1,129 @@
 search probe_spy_527739113b15: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_527739113b15.json
 search probe_spy_b07a8b74540a: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_b07a8b74540a.json
-  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_bd88c945993f on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000
-  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_bd88c945993f on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  already logged
-  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_bd88c945993f on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  equals log
-  lightgbm_w1_initial_d5dcceeb46cb: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_d5dcceeb46cb.json
-  logistic_w1_initial_c76703337b9c: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_c76703337b9c.json
-  lightgbm_w1_initial_d5dcceeb46cb: already planned
-  logistic_w1_initial_c76703337b9c: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_c76703337b9c.json
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 1 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.2 s, 0 warnings)
-  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: all ten arrays equal
-batch logistic_w1_initial_c76703337b9c (initial, 1 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 1 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.2 s, 0 warnings)  already logged
-  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: all ten arrays equal
-batch logistic_w1_initial_c76703337b9c (initial, 1 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)  recovered from its finalized bank
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 2 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.2 s, 0 warnings)  already logged
-  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_a44b68185bcc    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.2 s, 0 warnings)
-  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_c7b48326ce7a    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.2 s, 0 warnings)
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_e057d0eae95e on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_e057d0eae95e on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  already logged
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_e057d0eae95e on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  equals log
+  lightgbm_w1_initial_ec7dcfa346f2: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_ec7dcfa346f2.json
+  logistic_w1_initial_98859054ee47: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_98859054ee47.json
+  lightgbm_w1_initial_ec7dcfa346f2: already planned
+  logistic_w1_initial_98859054ee47: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_98859054ee47.json
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 1 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)
+  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: all ten arrays equal
+batch logistic_w1_initial_98859054ee47 (initial, 1 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 1 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)  already logged
+  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: all ten arrays equal
+batch logistic_w1_initial_98859054ee47 (initial, 1 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)  recovered from its finalized bank
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 2 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)  already logged
+  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_abf8090d8415    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.1 s, 0 warnings)
+  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_389906b4c81c    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.1 s, 0 warnings)
   bootstrap ensemble_contribution: +0.0015 [+0.0007, +0.0023]
   allocation: 2 configurations meet a route; progress True; allowance None -> 2
-batch logistic_w1_initial_c76703337b9c (initial, 2 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)  already logged
-  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_3de94aa0f329    0.7284  repeats [0.729595, 0.729775, 0.725838]  (0.3 s, 0 warnings)
-  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_aede80ddce8d    0.7283  repeats [0.729742, 0.729684, 0.725531]  (0.3 s, 0 warnings)
+batch logistic_w1_initial_98859054ee47 (initial, 2 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)  already logged
+  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_deb98637beb6    0.7284  repeats [0.729595, 0.729775, 0.725838]  (0.2 s, 0 warnings)
+  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_315af2887418    0.7283  repeats [0.729742, 0.729684, 0.725531]  (0.2 s, 0 warnings)
   allocation: 0 configurations meet a route; progress False; allowance None -> 0
-  lightgbm_w2_refinement_05b624c0e15b: 1 configurations, saved in /memfs-check-phase2/batches/lightgbm_w2_refinement_05b624c0e15b.json
-batch lightgbm_w2_refinement_05b624c0e15b (refinement, 1 of 1 configurations to fit)
-  p2_tiny_lightgbm_b2_000_seeds155-2026-1029_e5f4ecbb1b21      0.7357  repeats [0.733822, 0.738345, 0.735062]  (0.2 s, 0 warnings)
+  lightgbm_w2_refinement_be977f3f2693: 1 configurations, saved in /memfs-check-phase2/batches/lightgbm_w2_refinement_be977f3f2693.json
+batch lightgbm_w2_refinement_be977f3f2693 (refinement, 1 of 1 configurations to fit)
+  p2_tiny_lightgbm_b2_000_seeds155-2026-1029_792ed8007d9b      0.7357  repeats [0.733822, 0.738345, 0.735062]  (0.1 s, 0 warnings)
   allocation: 0 configurations meet a route; progress False; allowance 2 -> 1
   wave 1: every manifest equals its file, record and re-planning
   wave 2: every manifest equals its file, record and re-planning
   runs: 7 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 7 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
-  allocation lightgbm_w2_refinement_05b624c0e15b: re-judged equal, bootstraps recomputed
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: equals saved bank and log
-  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_a44b68185bcc: equals saved bank and log
-  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_c7b48326ce7a: equals saved bank and log
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457: equals saved bank and log
-  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_3de94aa0f329: equals saved bank and log
-  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_aede80ddce8d: equals saved bank and log
-  p2_tiny_lightgbm_b2_000_seeds155-2026-1029_e5f4ecbb1b21: equals saved bank and log
-  wave 1: DIFFERS: ValueError: batch lightgbm_w1_initial_d5dcceeb46cb fails its preflight: ['file hash']; nothing was fitted
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w2_refinement_be977f3f2693: re-judged equal, bootstraps recomputed
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: equals saved bank and log
+  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_abf8090d8415: equals saved bank and log
+  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_389906b4c81c: equals saved bank and log
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945: equals saved bank and log
+  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_deb98637beb6: equals saved bank and log
+  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_315af2887418: equals saved bank and log
+  p2_tiny_lightgbm_b2_000_seeds155-2026-1029_792ed8007d9b: equals saved bank and log
+  wave 1: DIFFERS: ValueError: batch lightgbm_w1_initial_ec7dcfa346f2 fails its preflight: ['file hash']; nothing was fitted
   wave 2: every manifest equals its file, record and re-planning
   runs: 7 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 7 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
-  allocation lightgbm_w2_refinement_05b624c0e15b: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w2_refinement_be977f3f2693: re-judged equal, bootstraps recomputed
   wave 1: every manifest equals its file, record and re-planning
   wave 2: every manifest equals its file, record and re-planning
   runs: 7 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 7 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: DIFFERS []
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
-  allocation lightgbm_w2_refinement_05b624c0e15b: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w1_initial_ec7dcfa346f2: DIFFERS []
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w2_refinement_be977f3f2693: re-judged equal, bootstraps recomputed
   wave 1: every manifest equals its file, record and re-planning
   wave 2: every manifest equals its file, record and re-planning
   runs: 6 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 6 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: DIFFERS ['p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457', "KeyError: 'p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457'"]
-  allocation lightgbm_w2_refinement_05b624c0e15b: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: DIFFERS ['p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945', "KeyError: 'p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945'"]
+  allocation lightgbm_w2_refinement_be977f3f2693: re-judged equal, bootstraps recomputed
   wave 1: every manifest equals its file, record and re-planning
   wave 2: every manifest equals its file, record and re-planning
   runs: 7 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 7 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
-  allocation lightgbm_w2_refinement_05b624c0e15b: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w2_refinement_be977f3f2693: re-judged equal, bootstraps recomputed
   P9.9 is not complete: ['no batch is logged']
-  lightgbm_w1_initial_d5dcceeb46cb: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_d5dcceeb46cb.json
-  logistic_w1_initial_c76703337b9c: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_c76703337b9c.json
-  lightgbm_w1_initial_d5dcceeb46cb: anchor not fitted, the cutoff 2100-01-01T00:00:00+00:00 has passed
+  lightgbm_w1_initial_ec7dcfa346f2: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_ec7dcfa346f2.json
+  logistic_w1_initial_98859054ee47: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_98859054ee47.json
+  lightgbm_w1_initial_ec7dcfa346f2: anchor not fitted, the cutoff 2100-01-01T00:00:00+00:00 has passed
   wave 1: every manifest equals its file, record and re-planning
   runs: 0 audited against their banks and records, 0 with problems
   contributions of 0 runs: recomputed equal
-  incomplete: batch lightgbm_w1_initial_d5dcceeb46cb is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
-  incomplete: batch logistic_w1_initial_c76703337b9c is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
+  incomplete: batch lightgbm_w1_initial_ec7dcfa346f2 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
+  incomplete: batch logistic_w1_initial_98859054ee47 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
   wave 1: every manifest equals its file, record and re-planning
   runs: 0 audited against their banks and records, 0 with problems
   contributions of 0 runs: recomputed equal
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 1 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.3 s, 0 warnings)
-  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: all ten arrays equal
-batch logistic_w1_initial_c76703337b9c (initial, 1 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 1 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)
+  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: all ten arrays equal
+batch logistic_w1_initial_98859054ee47 (initial, 1 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)
   wave 1: every manifest equals its file, record and re-planning
   runs: 2 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 2 runs: recomputed equal
-  incomplete: batch lightgbm_w1_initial_d5dcceeb46cb is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
-  incomplete: batch logistic_w1_initial_c76703337b9c is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
+  incomplete: batch lightgbm_w1_initial_ec7dcfa346f2 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
+  incomplete: batch logistic_w1_initial_98859054ee47 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed
   wave 1: every manifest equals its file, record and re-planning
   runs: 2 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 2 runs: recomputed equal
-  P9.9 is not complete: ['batch lightgbm_w1_initial_d5dcceeb46cb is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed', 'batch logistic_w1_initial_c76703337b9c is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed']
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: equals saved bank and log
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457: equals saved bank and log
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 2 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.3 s, 0 warnings)  already logged
-  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_a44b68185bcc    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.3 s, 0 warnings)
-  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_c7b48326ce7a    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.2 s, 0 warnings)
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 2 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.3 s, 0 warnings)  already logged
-  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_a44b68185bcc    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.3 s, 0 warnings)  already logged
-  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_c7b48326ce7a    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.2 s, 0 warnings)  already logged
+  P9.9 is not complete: ['batch lightgbm_w1_initial_ec7dcfa346f2 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed', 'batch logistic_w1_initial_98859054ee47 is unstarted and the cutoff 2100-01-01T00:00:00+00:00 has not passed']
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: equals saved bank and log
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945: equals saved bank and log
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 2 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)  already logged
+  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_abf8090d8415    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.1 s, 0 warnings)
+  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_389906b4c81c    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.1 s, 0 warnings)
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 2 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)  already logged
+  p2_tiny_lightgbm_b1_0_000_seeds155-2026-1029_abf8090d8415    0.7367  repeats [0.736163, 0.739982, 0.733905]  (0.1 s, 0 warnings)  already logged
+  p2_tiny_lightgbm_b1_0_001_seeds155-2026-1029_389906b4c81c    0.7340  repeats [0.733915, 0.735511, 0.732541]  (0.1 s, 0 warnings)  already logged
   bootstrap clear_standalone: +0.0012 [-0.0018, +0.0042]
   bootstrap smaller_useful: -0.0015 [-0.0047, +0.0016]
   allocation: 2 configurations meet a route; progress True; allowance None -> 2
-batch logistic_w1_initial_c76703337b9c (initial, 2 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)  already logged
-  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_3de94aa0f329    0.7284  repeats [0.729595, 0.729775, 0.725838]  (0.4 s, 0 warnings)
-  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_aede80ddce8d    0.7283  repeats [0.729742, 0.729684, 0.725531]  (0.4 s, 0 warnings)
+batch logistic_w1_initial_98859054ee47 (initial, 2 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)  already logged
+  p2_tiny_logistic_b1_0_000_seeds155-2026-1029_deb98637beb6    0.7284  repeats [0.729595, 0.729775, 0.725838]  (0.2 s, 0 warnings)
+  p2_tiny_logistic_b1_0_001_seeds155-2026-1029_315af2887418    0.7283  repeats [0.729742, 0.729684, 0.725531]  (0.2 s, 0 warnings)
   bootstrap clear_standalone: +0.0000 [-0.0004, +0.0005]
   bootstrap smaller_useful: -0.0001 [-0.0004, +0.0002]
   allocation: 0 configurations meet a route; progress False; allowance None -> 0
@@ -131,32 +131,32 @@ batch logistic_w1_initial_c76703337b9c (initial, 2 of 3 configurations to fit)
   runs: 6 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 6 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
   wave 1: every manifest equals its file, record and re-planning
   runs: 6 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 6 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: DIFFERS []
-  lightgbm_w1_initial_d5dcceeb46cb: already judged
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: DIFFERS []
+  lightgbm_w1_initial_ec7dcfa346f2: already judged
   bootstrap smaller_useful: -0.0001 [-0.0004, +0.0002]
-  logistic_w1_initial_c76703337b9c: already judged
+  logistic_w1_initial_98859054ee47: already judged
   wave 1: every manifest equals its file, record and re-planning
   runs: 6 audited against their banks and records, 0 with problems
   H check: recomputed equal
   contributions of 6 runs: recomputed equal
-  allocation lightgbm_w1_initial_d5dcceeb46cb: re-judged equal, bootstraps recomputed
-  allocation logistic_w1_initial_c76703337b9c: re-judged equal, bootstraps recomputed
-  lightgbm_w1_initial_d5dcceeb46cb: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_d5dcceeb46cb.json
-  logistic_w1_initial_c76703337b9c: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_c76703337b9c.json
-batch lightgbm_w1_initial_d5dcceeb46cb (initial, 1 of 3 configurations to fit)
-  p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.3 s, 0 warnings)
-  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3: all ten arrays equal
-batch logistic_w1_initial_c76703337b9c (initial, 1 of 3 configurations to fit)
-  p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.4 s, 0 warnings)
-  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_7ea86b7e93f3 against p2_tiny_logistic_anchor_seeds155-2026-1029_2714c0879457: DIFFERS in ['oof', 'test_by_fold', 'test_mean', 'fold_auc']
-  lightgbm       light               0.35 s  10 fits  0 warnings  probe_time_72f466e77509
+  allocation lightgbm_w1_initial_ec7dcfa346f2: re-judged equal, bootstraps recomputed
+  allocation logistic_w1_initial_98859054ee47: re-judged equal, bootstraps recomputed
+  lightgbm_w1_initial_ec7dcfa346f2: 3 configurations, saved in /memfs-check-phase2/batches/lightgbm_w1_initial_ec7dcfa346f2.json
+  logistic_w1_initial_98859054ee47: 3 configurations, saved in /memfs-check-phase2/batches/logistic_w1_initial_98859054ee47.json
+batch lightgbm_w1_initial_ec7dcfa346f2 (initial, 1 of 3 configurations to fit)
+  p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3      0.7355  repeats [0.736838, 0.738362, 0.731381]  (0.1 s, 0 warnings)
+  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3 against p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3: all ten arrays equal
+batch logistic_w1_initial_98859054ee47 (initial, 1 of 3 configurations to fit)
+  p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945      0.7284  repeats [0.729789, 0.729678, 0.725699]  (0.2 s, 0 warnings)
+  H check: p2_tiny_lightgbm_anchor_seeds155-2026-1029_3c6ca385e4c3 against p2_tiny_logistic_anchor_seeds155-2026-1029_430c9cc0a945: DIFFERS in ['oof', 'test_by_fold', 'test_mean', 'fold_auc']
+  lightgbm       light               0.18 s  10 fits  0 warnings  probe_time_72f466e77509
 PASS    recipes: validation rejects malformed recipes; ids ignore key order
 PASS    searches: anchors first and exact; draws seeded, deduplicated, reproducible
 PASS    searches v2: derived parameters, admissible regions, rejection counts; v1 expansions unchanged
@@ -184,6 +184,10 @@ PASS    threads: HistGB fits and predicts under an OpenMP limit of four; the oth
         OpenMP pools inside the HistGB fit: [4, 4]
 PASS    model factories: every installed family fits F2 with missing values and returns P(class 1)
         held-out AUC on one fold: lightgbm 0.816, random_forest 0.826, extra_trees 0.815, xgboost 0.792, hist_gb 0.817, logistic_spline 0.786, logistic_log_standard 0.773
+PASS    forest prediction: one thread at prediction, four at fit, restored, bare and in a pipeline (plan section 16.4)
+        20 forest predictions, all with one thread; 10 repeated predictions identical; pipeline restored
+PASS    music block: circle-of-fifths key and tempo octave, raw key and tempo kept, lineage (plan section 16.3)
+        fifths mapping, octave equality for 60, 120 and 240, finite on every eligible row
 STAGED  CatBoost runtime: fits F2 with missing values, writes no file, returns P(class 1)
         Built and run in P2.3, after the reviewed installation; an installed package never turns it into a pass.
 STAGED  EBM runtime: fits F2 with missing values, writes no file, returns P(class 1)
@@ -191,7 +195,7 @@ STAGED  EBM runtime: fits F2 with missing values, writes no file, returns P(clas
 PASS    banks: bank_v2 round trip; metadata validation rejects every inconsistency
         11 single contradictions refused; a three-fold bank round-trips with n_splits=3
 PASS    verification: a source mismatch is refused and names the replay commit
-        the phase 1 LightGBM F2 manifest replays at 281a014 (its recorded head is 34247f5)
+        the phase 1 LightGBM F2 manifest replays at 72a822b (its recorded head is 34247f5)
 PASS    blends: identity, member order, weights, identities, recomputed AUCs
         estimator seeds [0, 1, 2] equal the mean of three single-seed runs exactly; a blend keeps recipe weights
 PASS    matched comparisons and declared blends, also on a declared subset of split seeds
@@ -219,7 +223,7 @@ PASS    wave commands in memory: preflight, initialization, H check, run, judge,
 PASS    H check: H must equal the P2.1 anchor's arrays; a different bank stops the search
         a mismatched reference bank fails the check
 PASS    timing: fit and predict with every scorer disabled; records hold times, never a score
-        0.35 s for 10 fits; no scorer called; seeds canonicalized
+        0.18 s for 10 fits; no scorer called; seeds canonicalized
 STAGED  nested evaluation: fitting ids stay inside their outer training rows
         songpop/phase2/nested.py arrives with P2.7, which first uses it; its check arrives with it.
 STAGED  deployment: full-refit artifacts stay apart from fold averages
@@ -228,4 +232,4 @@ STAGED  selection: the frozen rule rejects partial-seed candidates and breaks ti
         songpop/phase2/selection.py arrives with P2.6; partial-seed submissions are already refused above.
 STAGED  neural early stopping: preprocessing fitted on inner training rows only
         The TabM wrapper arrives with P2.5.
-33 passed, 0 failed, 0 skipped, 6 staged
+35 passed, 0 failed, 0 skipped, 6 staged
