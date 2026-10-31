@@ -1,0 +1,8 @@
+{
+  "schema": "selection_v1",
+  "name": "constrained_l0_1",
+  "task_id": "P2.6b",
+  "run_id": "p2_constrained_l0_1_25a573188165",
+  "purpose": "the strongest learned procedure of the frozen menu (constrained weights, lambda 0.1, CV 0.8410): exercise the learned-procedure submission path on a real procedure bank for the first time (the R2 review noted it was tested on synthetic banks only) and see how the public score compares with the equal blend's 0.85377; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "date": "2026-10-31"
+}

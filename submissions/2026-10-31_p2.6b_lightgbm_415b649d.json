@@ -1,0 +1,41 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221.npz",
+  "bank_sha256": "0f0559a7cb3f0c861bb715d023f1b562d7da2ac093cbb7c43a6634e39619c909",
+  "deployment": "within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights",
+  "description": "P2.6b candidate lightgbm_415b649d: lightgbm recipe p26_lightgbm_415b649d_fe7fa5b5448c, High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights. Mean fold CV AUC 0.8364. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221, file sha256 65be98303aa9630a211c8bc3e6a4489af5957caf2484beac10be80be25fce38a. Purpose: the frozen menu's standalone leader (one LightGBM recipe with date_count and date_te3, three estimator seeds, CV 0.8364): a single-model point beside the ensembles, 0.0046 below the equal blend on CV; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation.",
+  "file": "submissions/2026-10-31_p2.6b_lightgbm_415b649d.csv",
+  "kaggle_description": "2026-10-31_p2.6b_lightgbm_415b649d: grouped 5-fold CV AUC 0.8364; sha256 65be98303aa9",
+  "manifest": "artifacts/phase2/selections/p26b_lightgbm_415b649d.json",
+  "manifest_sha256": "9e269fb68e4c4280ea1928eff4e0e77743eae223e1c0d28fb244edf1995d69c3",
+  "mean_fold_auc": 0.8364413023890719,
+  "purpose": "the frozen menu's standalone leader (one LightGBM recipe with date_count and date_te3, three estimator seeds, CV 0.8364): a single-model point beside the ensembles, 0.0046 below the equal blend on CV; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+  "sha256": "65be98303aa9630a211c8bc3e6a4489af5957caf2484beac10be80be25fce38a",
+  "task": "P2.6b",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.9862542002703375,
+    "mean": 0.2971860178439286,
+    "member_fold_duplicate_classes": 165,
+    "members": [
+      "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221"
+    ],
+    "min": 0.005683639164047597,
+    "path": "submissions/2026-10-31_p2.6b_lightgbm_415b649d.csv",
+    "quantiles": {
+      "0": 0.005684,
+      "0.01": 0.006793,
+      "0.25": 0.076474,
+      "0.5": 0.209773,
+      "0.75": 0.468716,
+      "0.99": 0.980268,
+      "1": 0.986254
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+    "sha256": "65be98303aa9630a211c8bc3e6a4489af5957caf2484beac10be80be25fce38a",
+    "unique_values": 852
+  }
+}

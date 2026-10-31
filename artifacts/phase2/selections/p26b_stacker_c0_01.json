@@ -1,0 +1,8 @@
+{
+  "schema": "selection_v1",
+  "name": "stacker_c0_01",
+  "task_id": "P2.6b",
+  "run_id": "p2_stacker_c0_01_b012ce99bd98",
+  "purpose": "the frozen menu's best stacker (C 0.01, CV 0.8408): a second learned procedure through the same path, with a logistic combiner instead of constrained weights; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "date": "2026-10-31"
+}

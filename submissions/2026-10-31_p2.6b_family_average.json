@@ -1,0 +1,48 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_family_average_seeds155-2026-1029_49e6781a1857.npz",
+  "bank_sha256": "5b647dbd2a2440c3548397dd7fb73d2b2cd0c01fcf5abcdebcc7dc2f497ccc2c",
+  "deployment": "within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights",
+  "description": "P2.6b candidate family_average: blend of p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5 (0.333333), p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221 (0.333333), p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d (0.333333), High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights. Mean fold CV AUC 0.8365. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_family_average_seeds155-2026-1029_49e6781a1857, file sha256 5144b3973d8b203702a07ab9ac2ffc57e8a105ec57fa2fbeebb4471fb9d73d7a. Purpose: the frozen menu's within-family average (three LightGBM recipes, CV 0.8365): whether averaging near-identical recipes, which added nothing on CV, adds anything on the public rows; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation.",
+  "file": "submissions/2026-10-31_p2.6b_family_average.csv",
+  "kaggle_description": "2026-10-31_p2.6b_family_average: grouped 5-fold CV AUC 0.8365; sha256 5144b3973d8b",
+  "manifest": "artifacts/phase2/selections/p26b_family_average.json",
+  "manifest_sha256": "3a2295a863a7eb13de56ff58a0023dee2d0f6ad469d0fc27944a60e460234799",
+  "mean_fold_auc": 0.8364592967166024,
+  "purpose": "the frozen menu's within-family average (three LightGBM recipes, CV 0.8365): whether averaging near-identical recipes, which added nothing on CV, adds anything on the public rows; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "run_id": "p2_family_average_seeds155-2026-1029_49e6781a1857",
+  "sha256": "5144b3973d8b203702a07ab9ac2ffc57e8a105ec57fa2fbeebb4471fb9d73d7a",
+  "task": "P2.6b",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.9881564794499813,
+    "mean": 0.2955149002180397,
+    "member_fold_duplicate_classes": 495,
+    "members": [
+      "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+      "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+      "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d"
+    ],
+    "min": 0.005067289053959653,
+    "path": "submissions/2026-10-31_p2.6b_family_average.csv",
+    "quantiles": {
+      "0": 0.005067,
+      "0.01": 0.00604,
+      "0.25": 0.073977,
+      "0.5": 0.207211,
+      "0.75": 0.467818,
+      "0.99": 0.982768,
+      "1": 0.988156
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_family_average_seeds155-2026-1029_49e6781a1857",
+    "sha256": "5144b3973d8b203702a07ab9ac2ffc57e8a105ec57fa2fbeebb4471fb9d73d7a",
+    "unique_values": 852
+  },
+  "weights": {
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": 0.3333333333333333,
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": 0.3333333333333333,
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": 0.3333333333333333
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_stacker_c1_aa3dac90643f.npz",
+  "bank_sha256": "767b44675769fe45f0b875cfebf5edf28fd0ac64ad731a7d917ff31b5a320cb6",
+  "deployment": "each of the 15 fitted procedures (one per fold and split repeat) applies its own combiner, fitted on its outer training part's rebuilt out-of-fold channel predictions, to that fold's channel models' test predictions (estimator seeds averaged inside each recipe, equal averages inside a within-family channel); the submission averages the 15 procedures",
+  "description": "P2.6b candidate stacker_c1: learned procedure stacker_c1 (stacker 1) over channels ch_lightgbm (3 recipes), ch_xgboost (1 recipes), ch_catboost (1 recipes), ch_extra_trees (1 recipes), High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: each of the 15 fitted procedures (one per fold and split repeat) applies its own combiner, fitted on its outer training part's rebuilt out-of-fold channel predictions, to that fold's channel models' test predictions (estimator seeds averaged inside each recipe, equal averages inside a within-family channel); the submission averages the 15 procedures. Mean fold CV AUC 0.8402. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_stacker_c1_aa3dac90643f, file sha256 61136a02c7663160c285d144508444ccdb07d87ecf329c49ca46262f750e9da1. Purpose: the frozen menu's most regularized stacker (C 1, CV 0.8402): the learned procedure whose predictions differ most from the equal blend's among the stackers; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation.",
+  "file": "submissions/2026-10-31_p2.6b_stacker_c1.csv",
+  "kaggle_description": "2026-10-31_p2.6b_stacker_c1: grouped 5-fold CV AUC 0.8402; sha256 61136a02c766",
+  "manifest": "artifacts/phase2/selections/p26b_stacker_c1.json",
+  "manifest_sha256": "dbd3a2564eb380a80e40f40cda60dabd85d9292a1b3e3e863f71b683ae9bf0d5",
+  "mean_fold_auc": 0.8402406027031387,
+  "purpose": "the frozen menu's most regularized stacker (C 1, CV 0.8402): the learned procedure whose predictions differ most from the equal blend's among the stackers; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "run_id": "p2_stacker_c1_aa3dac90643f",
+  "sha256": "61136a02c7663160c285d144508444ccdb07d87ecf329c49ca46262f750e9da1",
+  "task": "P2.6b",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.9927487853743923,
+    "mean": 0.32964987761720227,
+    "member_fold_duplicate_classes": 990,
+    "members": [
+      "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+      "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+      "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+      "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023",
+      "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+      "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4"
+    ],
+    "min": 0.002115489104183031,
+    "path": "submissions/2026-10-31_p2.6b_stacker_c1.csv",
+    "quantiles": {
+      "0": 0.002115,
+      "0.01": 0.004107,
+      "0.25": 0.118664,
+      "0.5": 0.268942,
+      "0.75": 0.501376,
+      "0.99": 0.983376,
+      "1": 0.992749
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_stacker_c1_aa3dac90643f",
+    "sha256": "61136a02c7663160c285d144508444ccdb07d87ecf329c49ca46262f750e9da1",
+    "unique_values": 852
+  }
+}

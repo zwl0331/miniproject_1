@@ -1,0 +1,46 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1.npz",
+  "bank_sha256": "a7c766a7f0ffded6ee6982102a870bbdd5eabc537f7d7e012746489ecfd3805a",
+  "deployment": "within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights",
+  "description": "P2.6b candidate blend_h_extra_trees_25: blend of p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5 (0.75), p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4 (0.25), High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights. Mean fold CV AUC 0.8394. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1, file sha256 f753abe653f56a8edd35962303059982e85906f438288fb5719572d1a498a03e. Purpose: the frozen menu's two-atom contribution blend (0.75 H* + 0.25 Extra Trees with interactions, CV 0.8394), the likely final selection B under plan section 11 (the candidate whose errors differ most from the equal blend's among the competitive ones): exercise its deployment and see how the public score moves against its CV distance of 0.0017 to the equal blend; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation.",
+  "file": "submissions/2026-10-31_p2.6b_blend_h_extra_trees_25.csv",
+  "kaggle_description": "2026-10-31_p2.6b_blend_h_extra_trees_25: grouped 5-fold CV AUC 0.8394; sha256 f753abe653f5",
+  "manifest": "artifacts/phase2/selections/p26b_blend_h_extra_trees_25.json",
+  "manifest_sha256": "b2ba33950946253024babd35286a3419f1767fee6fa74d2a27f872aafb1e0dcb",
+  "mean_fold_auc": 0.8393556642268608,
+  "purpose": "the frozen menu's two-atom contribution blend (0.75 H* + 0.25 Extra Trees with interactions, CV 0.8394), the likely final selection B under plan section 11 (the candidate whose errors differ most from the equal blend's among the competitive ones): exercise its deployment and see how the public score moves against its CV distance of 0.0017 to the equal blend; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "run_id": "p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1",
+  "sha256": "f753abe653f56a8edd35962303059982e85906f438288fb5719572d1a498a03e",
+  "task": "P2.6b",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.989539962902382,
+    "mean": 0.3001476753001028,
+    "member_fold_duplicate_classes": 330,
+    "members": [
+      "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+      "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4"
+    ],
+    "min": 0.004242804223014595,
+    "path": "submissions/2026-10-31_p2.6b_blend_h_extra_trees_25.csv",
+    "quantiles": {
+      "0": 0.004243,
+      "0.01": 0.004726,
+      "0.25": 0.093613,
+      "0.5": 0.223414,
+      "0.75": 0.464489,
+      "0.99": 0.982527,
+      "1": 0.98954
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1",
+    "sha256": "f753abe653f56a8edd35962303059982e85906f438288fb5719572d1a498a03e",
+    "unique_values": 852
+  },
+  "weights": {
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": 0.25,
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": 0.75
+  }
+}

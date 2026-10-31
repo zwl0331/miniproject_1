@@ -1,0 +1,8 @@
+{
+  "schema": "selection_v1",
+  "name": "family_average",
+  "task_id": "P2.6b",
+  "run_id": "p2_family_average_seeds155-2026-1029_49e6781a1857",
+  "purpose": "the frozen menu's within-family average (three LightGBM recipes, CV 0.8365): whether averaging near-identical recipes, which added nothing on CV, adds anything on the public rows; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "date": "2026-10-31"
+}

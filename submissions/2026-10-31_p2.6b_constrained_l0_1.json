@@ -1,0 +1,46 @@
+{
+  "bank_path": "artifacts/phase2/bank/p2_constrained_l0_1_25a573188165.npz",
+  "bank_sha256": "548db4f58ba2cf9c3cb984ed237db57af0132063852376bf6440994bb483ec2d",
+  "deployment": "each of the 15 fitted procedures (one per fold and split repeat) applies its own combiner, fitted on its outer training part's rebuilt out-of-fold channel predictions, to that fold's channel models' test predictions (estimator seeds averaged inside each recipe, equal averages inside a within-family channel); the submission averages the 15 procedures",
+  "description": "P2.6b candidate constrained_l0_1: learned procedure constrained_l0.1 (constrained 0.1) over channels ch_lightgbm (3 recipes), ch_xgboost (1 recipes), ch_catboost (1 recipes), ch_extra_trees (1 recipes), High = 1. Five-fold StratifiedGroupKFold over track groups, split seeds 155, 2026, 1029. Deployment: each of the 15 fitted procedures (one per fold and split repeat) applies its own combiner, fitted on its outer training part's rebuilt out-of-fold channel predictions, to that fold's channel models' test predictions (estimator seeds averaged inside each recipe, equal averages inside a within-family channel); the submission averages the 15 procedures. Mean fold CV AUC 0.8410. Provided training data only; no pretrained models; nothing fitted on test rows. Run p2_constrained_l0_1_25a573188165, file sha256 585426d58f53522de43c16631329fd8651ae8ad335d296f274ff0f42f215bf10. Purpose: the strongest learned procedure of the frozen menu (constrained weights, lambda 0.1, CV 0.8410): exercise the learned-procedure submission path on a real procedure bank for the first time (the R2 review noted it was tested on synthetic banks only) and see how the public score compares with the equal blend's 0.85377; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation.",
+  "file": "submissions/2026-10-31_p2.6b_constrained_l0_1.csv",
+  "kaggle_description": "2026-10-31_p2.6b_constrained_l0_1: grouped 5-fold CV AUC 0.8410; sha256 585426d58f53",
+  "manifest": "artifacts/phase2/selections/p26b_constrained_l0_1.json",
+  "manifest_sha256": "1ad1d07e60d4b36e370c1251d5c83ca13cf886d17cbb61e6daac34c167ff1348",
+  "mean_fold_auc": 0.8410025299050984,
+  "purpose": "the strongest learned procedure of the frozen menu (constrained weights, lambda 0.1, CV 0.8410): exercise the learned-procedure submission path on a real procedure bank for the first time (the R2 review noted it was tested on synthetic banks only) and see how the public score compares with the equal blend's 0.85377; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "run_id": "p2_constrained_l0_1_25a573188165",
+  "sha256": "585426d58f53522de43c16631329fd8651ae8ad335d296f274ff0f42f215bf10",
+  "task": "P2.6b",
+  "validation": {
+    "composite_duplicate_classes": 11,
+    "max": 0.9906782419916821,
+    "mean": 0.30774184096750185,
+    "member_fold_duplicate_classes": 990,
+    "members": [
+      "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+      "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+      "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+      "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023",
+      "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+      "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4"
+    ],
+    "min": 0.0031721049950893887,
+    "path": "submissions/2026-10-31_p2.6b_constrained_l0_1.csv",
+    "quantiles": {
+      "0": 0.003172,
+      "0.01": 0.004542,
+      "0.25": 0.102277,
+      "0.5": 0.240265,
+      "0.75": 0.465368,
+      "0.99": 0.981083,
+      "1": 0.990678
+    },
+    "raw_duplicate_classes": 11,
+    "repeated_uri_pairs_checked": 11,
+    "rows": 863,
+    "run_id": "p2_constrained_l0_1_25a573188165",
+    "sha256": "585426d58f53522de43c16631329fd8651ae8ad335d296f274ff0f42f215bf10",
+    "unique_values": 852
+  }
+}

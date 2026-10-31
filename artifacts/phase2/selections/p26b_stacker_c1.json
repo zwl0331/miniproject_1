@@ -1,0 +1,8 @@
+{
+  "schema": "selection_v1",
+  "name": "stacker_c1",
+  "task_id": "P2.6b",
+  "run_id": "p2_stacker_c1_aa3dac90643f",
+  "purpose": "the frozen menu's most regularized stacker (C 1, CV 0.8402): the learned procedure whose predictions differ most from the equal blend's among the stackers; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "date": "2026-10-31"
+}
