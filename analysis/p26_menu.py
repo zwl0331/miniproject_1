@@ -57,7 +57,7 @@ def reservation(ctx, doc, chosen, by_id):
     """P2.7's projected cost from the measured 15-fit times of the menu's atoms at their final seed policies (C_all)
     and of the atoms inside the learned channels (C_L): the plan's projection 3.2 C_all + 16.2 C_L (section 8) and the
     P2.6a pilot's measured multipliers 3.04 and 14.16, doubled for the empty-cache replay, with a 25% margin, against
-    the eight hours reserved; the path (full or reduced) follows from the larger projection, before any outer score."""
+    the eight hours reserved. The projected path is reported; P2.7 decides the path from its own measurement."""
     elapsed = {r["run_id"]: r["elapsed_seconds"] for r in runs.logged(ctx)}
     atoms = set()
     learned = any(by_id[c]["kind"] == "learned" for c in chosen)
@@ -79,8 +79,10 @@ def reservation(ctx, doc, chosen, by_id):
             "learned_channel_runs": sorted(lruns), "plan_projection_seconds": round(plan, 1),
             "pilot_projection_seconds": round(pilot, 1),
             "build_and_replay_with_margin_hours": round(total / 3600, 2), "reserved_hours": 8,
-            "path": "full" if total <= 8 * 3600 else "reduced",
-            "note": "projections from measured single-process 15-fit times; not runtime bounds"}
+            "projected_path": "full" if total <= 8 * 3600 else "reduced",
+            "note": "projections from the runs' logged 15-fit times, several measured while other fitting jobs ran "
+                    "beside them (P2.4's full refit), so inflated; not runtime bounds. P2.7 decides the path from its "
+                    "own measurement, made without concurrent jobs, before any outer score (plan section 8)"}
 
 
 def evidence(cid, bank):

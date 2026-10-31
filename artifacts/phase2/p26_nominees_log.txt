@@ -1,0 +1,141 @@
+$ .venv/bin/python -B analysis/p26_nominate.py  [00:03:17]
+inventory: 656 distinct complete atomic runs of P2.1, P2.2, P2.8, P2.3, P2.4, P2.5
+R0: p2_p24_rt_0ec2239a_b1_006_seeds155-2026-1029_af202d6f369b (lightgbm) 0.836758
+  catboost       standalone p2_p24_rt_84c35bce_b2_001_seeds155-2026-1029_01a9b40edd28 0.835457; contribution p2_p24_B17_seeds155-2026-1029_b72a53b51edb at 0.25 -> 0.839141
+  ebm            standalone p2_p24_B19_seeds155-2026-1029_39920051ded0 0.816923; contribution p2_p24_B19_seeds155-2026-1029_39920051ded0 at 0.25 -> 0.839002
+  extra_trees    standalone p2_p22_extra_trees_b3_001_seeds155-2026-1029_31eda4a97ddd 0.828889; contribution p2_p24_X2_13_seeds155-2026-1029_773fc61fe55c at 0.25 -> 0.839671
+  hist_gb        standalone p2_p22_hist_gb_anchor_seeds155-2026-1029_994a9dd9e115 0.826511; contribution p2_p22_hist_gb_b1_0_000_seeds155-2026-1029_de73ca3251aa at 0.25 -> 0.838393
+  knn            standalone p2_p24_X3_08_seeds155-2026-1029_bd637827ec60 0.791386; contribution p2_p22_knn_b1_0_011_seeds155-2026-1029_e8f3035506ea at 0.1 -> 0.837684
+  lightgbm       standalone p2_p24_rt_0ec2239a_b1_006_seeds155-2026-1029_af202d6f369b 0.836758; contribution p2_p28_lightgbm_F2_music_seeds155-2026-1029_4884a231b4b5 at 0.25 -> 0.838720
+  logistic       standalone p2_p24_X4_13_seeds155-2026-1029_f4d5a178d25b 0.803197; contribution p2_p24_X3_07_seeds155-2026-1029_dae7f2e27c02 at 0.1 -> 0.837000
+  random_forest  standalone p2_p24_X3_05_seeds155-2026-1029_974ad89c41f9 0.828972; contribution p2_p22_random_forest_b1_0_040_seeds155-2026-1029_a565e050a5d9 at 0.25 -> 0.838164
+  tabm           standalone p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c 0.803396; contribution p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2 at 0.1 -> 0.837786
+  xgboost        standalone p2_p24_X5_15_seeds155-2026-1029_45646884d1ce 0.831930; contribution p2_p24_X3_13_seeds155-2026-1029_c99bc657c97a at 0.25 -> 0.838068
+leading extras: ['p2_p24_B24_seeds155-2026-1029_f17b502ca732', 'p2_p24_rt_0ec2239a_b2_001_seeds155-2026-1029_1605cd995a97']
+nominees: 23
+  p26_lightgbm_a8ce5635              lightgbm      estimator seeds [0, 1, 2]  reference,standalone_winner
+  p26_catboost_cf304bd3              catboost      estimator seeds [0, 1, 2]  standalone_winner
+  p26_catboost_a9a13819              catboost      estimator seeds [0, 1, 2]  contribution_winner
+  p26_ebm_c24e71e3                   ebm           estimator seeds [0, 1, 2]  standalone_winner,contribution_winner
+  p26_extra_trees_1abe05fb           extra_trees   estimator seeds [0, 1, 2]  standalone_winner
+  p26_extra_trees_aafa66ea           extra_trees   estimator seeds [0, 1, 2]  contribution_winner
+  p26_hist_gb_e934a853               hist_gb       estimator seeds [0, 1, 2]  standalone_winner
+  p26_hist_gb_300f8c41               hist_gb       estimator seeds [0, 1, 2]  contribution_winner
+  p26_knn_230fcf76                   knn           estimator seeds [0]        standalone_winner
+  p26_knn_c5b5f01f                   knn           estimator seeds [0]        contribution_winner
+  p26_lightgbm_142597fc              lightgbm      estimator seeds [0, 1, 2]  contribution_winner
+  p26_logistic_3040d97c              logistic      estimator seeds [0, 1, 2]  standalone_winner
+  p26_logistic_b6514dba              logistic      estimator seeds [0, 1, 2]  contribution_winner
+  p26_random_forest_04be4156         random_forest estimator seeds [0, 1, 2]  standalone_winner
+  p26_random_forest_f9ce0118         random_forest estimator seeds [0, 1, 2]  contribution_winner
+  p26_tabm_54f94b43                  tabm          estimator seeds [0]        standalone_winner
+  p26_tabm_f84a691f                  tabm          estimator seeds [0]        contribution_winner
+  p26_xgboost_3aad74aa               xgboost       estimator seeds [0, 1, 2]  standalone_winner
+  p26_xgboost_f90798ae               xgboost       estimator seeds [0, 1, 2]  contribution_winner
+  p26_lightgbm_415b649d              lightgbm      estimator seeds [0, 1, 2]  leading_extra
+  p26_lightgbm_6aefed81              lightgbm      estimator seeds [0, 1, 2]  leading_extra
+  p26_anchor                         lightgbm      anchor, estimator seed 0   anchor
+  p26_anchor_s3                      lightgbm      estimator seeds 0, 1, 2    anchor_three_seeds
+  exit 0 after 91 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_lightgbm_a8ce5635.json --task P2.6b  [00:04:48]
+  p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5     0.8366  repeats [0.838688, 0.83664, 0.834437]  (151.0 s, 0 warnings)
+  exit 0 after 154 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_catboost_cf304bd3.json --task P2.6b  [00:07:22]
+  p2_p26_catboost_cf304bd3_seeds155-2026-1029_c293905d8c54     0.8354  repeats [0.837236, 0.835147, 0.83381]  (53.5 s, 0 warnings)
+  exit 0 after 57 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_catboost_a9a13819.json --task P2.6b  [00:08:19]
+  p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3     0.8321  repeats [0.835389, 0.831905, 0.828881]  (61.9 s, 0 warnings)
+  exit 0 after 65 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_ebm_c24e71e3.json --task P2.6b  [00:09:24]
+  p2_p26_ebm_c24e71e3_seeds155-2026-1029_9b297c552c98          0.8169  repeats [0.81621, 0.817113, 0.817384]  (50.4 s, 1 warnings)
+  exit 0 after 54 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_extra_trees_1abe05fb.json --task P2.6b  [00:10:18]
+  p2_p26_extra_trees_1abe05fb_seeds155-2026-1029_94d57758799e  0.8294  repeats [0.830601, 0.830819, 0.826658]  (29.5 s, 0 warnings)
+  exit 0 after 33 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_extra_trees_aafa66ea.json --task P2.6b  [00:10:51]
+  p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4  0.8291  repeats [0.830019, 0.831635, 0.825738]  (50.6 s, 0 warnings)
+  exit 0 after 54 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_hist_gb_e934a853.json --task P2.6b  [00:11:44]
+  p2_p26_hist_gb_e934a853_seeds155-2026-1029_4733afcf474e      0.8265  repeats [0.827698, 0.823629, 0.828207]  (56.7 s, 0 warnings)
+  exit 0 after 60 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_hist_gb_300f8c41.json --task P2.6b  [00:12:44]
+  p2_p26_hist_gb_300f8c41_seeds155-2026-1029_d716bbd04a7f      0.8242  repeats [0.825087, 0.821708, 0.825689]  (9.5 s, 0 warnings)
+  exit 0 after 13 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_lightgbm_142597fc.json --task P2.6b  [00:12:57]
+  p2_p26_lightgbm_142597fc_seeds155-2026-1029_f665b2f192cc     0.8324  repeats [0.834823, 0.832666, 0.829654]  (46.2 s, 0 warnings)
+  exit 0 after 49 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_logistic_3040d97c.json --task P2.6b  [00:13:46]
+  p2_p26_logistic_3040d97c_seeds155-2026-1029_d2b995aa2c47     0.8032  repeats [0.801056, 0.80586, 0.802675]  (4.8 s, 0 warnings)
+  exit 0 after 8 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_logistic_b6514dba.json --task P2.6b  [00:13:54]
+  p2_p26_logistic_b6514dba_seeds155-2026-1029_44e88010dbb2     0.7957  repeats [0.794147, 0.796106, 0.796785]  (2.3 s, 0 warnings)
+  exit 0 after 5 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_random_forest_04be4156.json --task P2.6b  [00:13:59]
+  p2_p26_random_forest_04be4156_seeds155-2026-1029_7699920b31a9 0.8291  repeats [0.831414, 0.828236, 0.827787]  (67.3 s, 0 warnings)
+  exit 0 after 71 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_random_forest_f9ce0118.json --task P2.6b  [00:15:10]
+  p2_p26_random_forest_f9ce0118_seeds155-2026-1029_e8d3500313e7 0.8286  repeats [0.830219, 0.826857, 0.828704]  (61.6 s, 0 warnings)
+  exit 0 after 65 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_xgboost_3aad74aa.json --task P2.6b  [00:16:15]
+  p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023      0.8325  repeats [0.834038, 0.832715, 0.830811]  (39.6 s, 0 warnings)
+  exit 0 after 43 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_xgboost_f90798ae.json --task P2.6b  [00:16:58]
+  p2_p26_xgboost_f90798ae_seeds155-2026-1029_e74042f0fee0      0.8274  repeats [0.829323, 0.826379, 0.826524]  (38.7 s, 0 warnings)
+  exit 0 after 42 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_lightgbm_415b649d.json --task P2.6b  [00:17:40]
+  p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221     0.8364  repeats [0.837928, 0.836989, 0.834407]  (163.7 s, 0 warnings)
+  exit 0 after 167 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_lightgbm_6aefed81.json --task P2.6b  [00:20:27]
+  p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d     0.8362  repeats [0.837935, 0.83626, 0.834368]  (153.3 s, 0 warnings)
+  exit 0 after 157 s
+$ .venv/bin/python -m scripts.run_experiments --recipe configs/phase2/p2.6/recipes/p26_anchor_s3.json --task P2.6b  [00:23:03]
+  p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd             0.8323  repeats [0.834939, 0.831878, 0.830202]  (37.4 s, 0 warnings)
+  exit 0 after 41 s
+$ .venv/bin/python -B analysis/p26_pool.py  [00:23:44]
+H*: p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5 (lightgbm) 0.836588
+pool (8 atoms):
+  p26_lightgbm_a8ce5635          lightgbm      0.836588  standalone representative
+  p26_catboost_cf304bd3          catboost      0.835398  standalone representative
+  p26_xgboost_3aad74aa           xgboost       0.832521  standalone representative
+  p26_extra_trees_aafa66ea       extra_trees   0.829131  contribution to H* at weight 0.25
+  p26_catboost_a9a13819          catboost      0.832058  contribution to H* at weight 0.25
+  p26_anchor                     lightgbm      0.831474  anchor
+  p26_lightgbm_415b649d          lightgbm      0.836441  leading-family configuration
+  p26_lightgbm_6aefed81          lightgbm      0.836188  leading-family configuration
+channels: [('ch_lightgbm', 3), ('ch_xgboost', 1), ('ch_catboost', 1), ('ch_extra_trees', 1)]
+33 candidates (24 procedures):
+   0 atom_p26_anchor                              atomic   atoms 1 supervised 0 learned 0
+   1 atom_p26_anchor_s3                           atomic   atoms 1 supervised 0 learned 0
+   2 atom_p26_catboost_a9a13819                   atomic   atoms 1 supervised 0 learned 0
+   3 atom_p26_extra_trees_aafa66ea                atomic   atoms 1 supervised 0 learned 0
+   4 atom_p26_catboost_cf304bd3                   atomic   atoms 1 supervised 1 learned 0
+   5 atom_p26_lightgbm_415b649d                   atomic   atoms 1 supervised 1 learned 0
+   6 atom_p26_lightgbm_6aefed81                   atomic   atoms 1 supervised 1 learned 0
+   7 atom_p26_lightgbm_a8ce5635                   atomic   atoms 1 supervised 1 learned 0
+   8 atom_p26_xgboost_3aad74aa                    atomic   atoms 1 supervised 1 learned 0
+   9 blend_h_p26_anchor_10                        blend    atoms 2 supervised 1 learned 0
+  10 blend_h_p26_anchor_25                        blend    atoms 2 supervised 1 learned 0
+  11 blend_h_p26_catboost_a9a13819_10             blend    atoms 2 supervised 1 learned 0
+  12 blend_h_p26_catboost_a9a13819_25             blend    atoms 2 supervised 1 learned 0
+  13 blend_h_p26_catboost_cf304bd3_10             blend    atoms 2 supervised 1 learned 0
+  14 blend_h_p26_catboost_cf304bd3_25             blend    atoms 2 supervised 1 learned 0
+  15 blend_h_p26_extra_trees_aafa66ea_10          blend    atoms 2 supervised 1 learned 0
+  16 blend_h_p26_extra_trees_aafa66ea_25          blend    atoms 2 supervised 1 learned 0
+  17 blend_h_p26_lightgbm_415b649d_10             blend    atoms 2 supervised 1 learned 0
+  18 blend_h_p26_lightgbm_415b649d_25             blend    atoms 2 supervised 1 learned 0
+  19 blend_h_p26_lightgbm_6aefed81_10             blend    atoms 2 supervised 1 learned 0
+  20 blend_h_p26_lightgbm_6aefed81_25             blend    atoms 2 supervised 1 learned 0
+  21 blend_h_p26_xgboost_3aad74aa_10              blend    atoms 2 supervised 1 learned 0
+  22 blend_h_p26_xgboost_3aad74aa_25              blend    atoms 2 supervised 1 learned 0
+  23 family_average                               blend    atoms 3 supervised 1 learned 0
+  24 blend_eq2                                    blend    atoms 4 supervised 1 learned 0
+  25 blend_eq3                                    blend    atoms 5 supervised 1 learned 0
+  26 blend_eq_all                                 blend    atoms 6 supervised 1 learned 0
+  27 constrained_l0.1                             learned  atoms 6 supervised 1 learned 1
+  28 constrained_l0.01                            learned  atoms 6 supervised 1 learned 1
+  29 constrained_l0                               learned  atoms 6 supervised 1 learned 1
+  30 stacker_c0.01                                learned  atoms 6 supervised 1 learned 1
+  31 stacker_c0.1                                 learned  atoms 6 supervised 1 learned 1
+  32 stacker_c1                                   learned  atoms 6 supervised 1 learned 1
+  exit 0 after 8 s
+exit 0

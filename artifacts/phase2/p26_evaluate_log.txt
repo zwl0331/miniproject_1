@@ -1,0 +1,64 @@
+$ .venv/bin/python -m scripts.run_experiments --blend family_average --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.3333333333333333 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.3333333333333333 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.3333333333333333 --task P2.6b  [00:24:37]
+  p2_family_average_seeds155-2026-1029_49e6781a1857            0.8365  repeats [0.838112, 0.836775, 0.834491]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq2 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.16666666666666666 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.16666666666666666 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.16666666666666666 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.5 --task P2.6b  [00:24:41]
+  p2_blend_eq2_seeds155-2026-1029_865e0abbf216                 0.8362  repeats [0.837709, 0.836466, 0.834458]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq3 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.1111111111111111 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.1111111111111111 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.1111111111111111 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.3333333333333333 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.3333333333333333 --task P2.6b  [00:24:45]
+  p2_blend_eq3_seeds155-2026-1029_fb083513074d                 0.8388  repeats [0.840704, 0.838816, 0.836751]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq_all --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.08333333333333333 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.08333333333333333 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.08333333333333333 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.25 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.25 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.25 --task P2.6b  [00:24:49]
+  p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9              0.8411  repeats [0.842493, 0.841728, 0.838964]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_cf304bd3_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_catboost_cf304bd3_seeds155-2026-1029_c293905d8c54:0.1 --task P2.6b  [00:24:53]
+  p2_blend_h_p26_catboost_cf304bd3_10_seeds155-2026-1029_8eff3d335155 0.8371  repeats [0.839217, 0.836988, 0.835113]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_cf304bd3_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_catboost_cf304bd3_seeds155-2026-1029_c293905d8c54:0.25 --task P2.6b  [00:24:56]
+  p2_blend_h_p26_catboost_cf304bd3_25_seeds155-2026-1029_860cf47e2e10 0.8377  repeats [0.839631, 0.837763, 0.835848]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_xgboost_3aad74aa_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.1 --task P2.6b  [00:25:00]
+  p2_blend_h_p26_xgboost_3aad74aa_10_seeds155-2026-1029_d58d0381c179 0.8368  repeats [0.838688, 0.836756, 0.834857]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_xgboost_3aad74aa_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.25 --task P2.6b  [00:25:04]
+  p2_blend_h_p26_xgboost_3aad74aa_25_seeds155-2026-1029_30adc3f6823f 0.8369  repeats [0.838642, 0.836982, 0.835068]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_extra_trees_aafa66ea_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.1 --task P2.6b  [00:25:07]
+  p2_blend_h_p26_extra_trees_aafa66ea_10_seeds155-2026-1029_45d2f0647f26 0.8380  repeats [0.839824, 0.838243, 0.836043]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_extra_trees_aafa66ea_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.25 --task P2.6b  [00:25:11]
+  p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1 0.8394  repeats [0.840871, 0.839985, 0.837212]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_a9a13819_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.1 --task P2.6b  [00:25:15]
+  p2_blend_h_p26_catboost_a9a13819_10_seeds155-2026-1029_ba5fcfc61adb 0.8378  repeats [0.839929, 0.837667, 0.835698]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_a9a13819_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.25 --task P2.6b  [00:25:18]
+  p2_blend_h_p26_catboost_a9a13819_25_seeds155-2026-1029_21cbb28b5f4a 0.8389  repeats [0.841351, 0.838607, 0.836742]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_anchor_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af:0.1 --task P2.6b  [00:25:22]
+  p2_blend_h_p26_anchor_10_seeds155-2026-1029_f784c5b802ba     0.8372  repeats [0.839349, 0.837117, 0.835202]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_anchor_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af:0.25 --task P2.6b  [00:25:25]
+  p2_blend_h_p26_anchor_25_seeds155-2026-1029_b0352fc44ef5     0.8377  repeats [0.839698, 0.837548, 0.835817]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_415b649d_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.1 --task P2.6b  [00:25:29]
+  p2_blend_h_p26_lightgbm_415b649d_10_seeds155-2026-1029_5fbc13313157 0.8366  repeats [0.838674, 0.836697, 0.834424]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_415b649d_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.25 --task P2.6b  [00:25:32]
+  p2_blend_h_p26_lightgbm_415b649d_25_seeds155-2026-1029_4cac090d8c37 0.8366  repeats [0.838606, 0.836757, 0.83442]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_6aefed81_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.1 --task P2.6b  [00:25:35]
+  p2_blend_h_p26_lightgbm_6aefed81_10_seeds155-2026-1029_6fa3e41abef1 0.8366  repeats [0.838641, 0.836634, 0.834465]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_6aefed81_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.25 --task P2.6b  [00:25:38]
+  p2_blend_h_p26_lightgbm_6aefed81_25_seeds155-2026-1029_37586cfe51fc 0.8365  repeats [0.838555, 0.836522, 0.834401]  (0.0 s, 0 warnings)
+  exit 0 after 3 s
+$ .venv/bin/python -m scripts.run_experiments --run-learned configs/phase2/p2.6/procedures.json --task P2.6b  [00:25:41]
+  p2_constrained_l0_1_080c588497a4                     0.8410  repeats [0.842426, 0.841618, 0.838964]
+  p2_constrained_l0_01_12fcc295f977                    0.8406  repeats [0.841808, 0.84128, 0.838635]
+  p2_constrained_l0_296fe8d31084                       0.8400  repeats [0.840903, 0.841047, 0.837974]
+  p2_stacker_c0_01_acf0240d8737                        0.8408  repeats [0.842479, 0.841319, 0.838499]
+  p2_stacker_c0_1_764d93836bd8                         0.8405  repeats [0.841852, 0.841365, 0.838396]
+  p2_stacker_c1_3f3f3a871aa2                           0.8402  repeats [0.841322, 0.841347, 0.838052]
+  cache p26b-89ee9d3b1c62: 0 hits, 90 misses; 3102.1 s
+  exit 0 after 3107 s
+$ .venv/bin/python -m scripts.run_experiments --verify-learned configs/phase2/p2.6/procedures.json  [01:17:29]

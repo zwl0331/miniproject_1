@@ -1,0 +1,778 @@
+{
+ "schema": "menu_v1",
+ "frozen_by": "P2.6b",
+ "procedures_sha256": "8aa2561a8db3347eb9aaa0f015e06c72f06c540558c270a7825bd1e77f51a897",
+ "nominations_sha256": "a2fb226c6b2c2cbe28669aef5647cd80ac69235acad689ff92eeb8e45e27cbe8",
+ "channels": [
+  {
+   "id": "ch_lightgbm",
+   "family": "lightgbm",
+   "run_ids": [
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d"
+   ],
+   "atoms": [
+    {
+     "base": "F2",
+     "blocks": [
+      "date_count",
+      "date_te3"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "lightgbm",
+     "iterations": "fixed",
+     "name": "p26_lightgbm_a8ce5635",
+     "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    {
+     "base": "F2",
+     "blocks": [
+      "date_count",
+      "date_te3"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "lightgbm",
+     "iterations": "fixed",
+     "name": "p26_lightgbm_415b649d",
+     "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 1,
+      "subsample": 0.7,
+      "subsample_freq": 1
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    {
+     "base": "F2",
+     "blocks": [
+      "date_count",
+      "date_te3"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "lightgbm",
+     "iterations": "fixed",
+     "name": "p26_lightgbm_6aefed81",
+     "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0652,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    }
+   ]
+  },
+  {
+   "id": "ch_xgboost",
+   "family": "xgboost",
+   "run_ids": [
+    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"
+   ],
+   "atoms": [
+    {
+     "base": "F2",
+     "blocks": [
+      "date_te3"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "xgboost",
+     "iterations": "fixed",
+     "name": "p26_xgboost_3aad74aa",
+     "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.03,
+      "max_depth": 4,
+      "n_estimators": 1000,
+      "subsample": 0.8
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    }
+   ]
+  },
+  {
+   "id": "ch_catboost",
+   "family": "catboost",
+   "run_ids": [
+    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3"
+   ],
+   "atoms": [
+    {
+     "base": "F2",
+     "blocks": [
+      "music"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "catboost",
+     "iterations": "fixed",
+     "name": "p26_catboost_a9a13819",
+     "params": {
+      "boosting_type": "Plain",
+      "depth": 6,
+      "iterations": 1000,
+      "l2_leaf_reg": 3.0,
+      "learning_rate": 0.0168,
+      "random_strength": 1.0
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    }
+   ]
+  },
+  {
+   "id": "ch_extra_trees",
+   "family": "extra_trees",
+   "run_ids": [
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4"
+   ],
+   "atoms": [
+    {
+     "base": "F2",
+     "blocks": [
+      "interactions"
+     ],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0,
+      1,
+      2
+     ],
+     "family": "extra_trees",
+     "iterations": "fixed",
+     "name": "p26_extra_trees_aafa66ea",
+     "params": {
+      "max_features": 1.0,
+      "min_samples_leaf": 2,
+      "n_estimators": 500
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    }
+   ]
+  }
+ ],
+ "learned_channels": [
+  "ch_lightgbm",
+  "ch_xgboost",
+  "ch_catboost",
+  "ch_extra_trees"
+ ],
+ "learned_channel_exclusions": [],
+ "meta_protocol": {
+  "folds": 5,
+  "seed": "coordinate_seed('meta-v1', 'production', split seed, fold)",
+  "clip": 1e-06,
+  "slsqp": {
+   "ftol": 1e-12,
+   "maxiter": 2000
+  },
+  "weight_cleanup": 1e-09,
+  "stacker": {
+   "solver": "lbfgs",
+   "tol": 1e-10,
+   "max_iter": 5000
+  }
+ },
+ "candidates": [
+  {
+   "id": "atom_p26_anchor",
+   "kind": "atomic",
+   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "recipe": {
+    "base": "F2",
+    "blocks": [],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "lightgbm",
+    "iterations": "fixed",
+    "name": "lightgbm_F2_anchor",
+    "params": {
+     "colsample_bytree": 0.8,
+     "learning_rate": 0.02,
+     "min_child_samples": 20,
+     "n_estimators": 600,
+     "num_leaves": 15,
+     "subsample": 0.8,
+     "subsample_freq": 1
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   },
+   "atomic_recipes": 1,
+   "supervised_transformations": 0,
+   "learned_combiners": 0,
+   "complexity_rank": 0,
+   "bank_sha256": "8f7df54fe0184dfdeb1489264f70c3f2e4a5ccec5576c4ad5a3c94cf7f1c23c2",
+   "reason": "the anchor",
+   "exploratory_mean_fold_auc": 0.8314739289455241,
+   "exploratory_repeat_means": [
+    0.8334559624727105,
+    0.8309501561669368,
+    0.8300156681969251
+   ]
+  },
+  {
+   "id": "atom_p26_anchor_s3",
+   "kind": "atomic",
+   "run_id": "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd",
+   "recipe": {
+    "base": "F2",
+    "blocks": [],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0,
+     1,
+     2
+    ],
+    "family": "lightgbm",
+    "iterations": "fixed",
+    "name": "p26_anchor_s3",
+    "params": {
+     "colsample_bytree": 0.8,
+     "learning_rate": 0.02,
+     "min_child_samples": 20,
+     "n_estimators": 600,
+     "num_leaves": 15,
+     "subsample": 0.8,
+     "subsample_freq": 1
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   },
+   "atomic_recipes": 1,
+   "supervised_transformations": 0,
+   "learned_combiners": 0,
+   "complexity_rank": 1,
+   "bank_sha256": "657a4aedef05c255d94909b5bd4902ec3ecd0a30a3da848f932eb68b34bc0273",
+   "reason": "the anchor's three-seed version",
+   "exploratory_mean_fold_auc": 0.8323396324527705,
+   "exploratory_repeat_means": [
+    0.8349385607014753,
+    0.8318784432220863,
+    0.8302018934347497
+   ]
+  },
+  {
+   "id": "atom_p26_lightgbm_415b649d",
+   "kind": "atomic",
+   "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te3"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0,
+     1,
+     2
+    ],
+    "family": "lightgbm",
+    "iterations": "fixed",
+    "name": "p26_lightgbm_415b649d",
+    "params": {
+     "colsample_bytree": 0.7,
+     "learning_rate": 0.01,
+     "min_child_samples": 10,
+     "n_estimators": 600,
+     "num_leaves": 63,
+     "reg_alpha": 0.0714,
+     "reg_lambda": 1,
+     "subsample": 0.7,
+     "subsample_freq": 1
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   },
+   "atomic_recipes": 1,
+   "supervised_transformations": 1,
+   "learned_combiners": 0,
+   "complexity_rank": 5,
+   "bank_sha256": "0f0559a7cb3f0c861bb715d023f1b562d7da2ac093cbb7c43a6634e39619c909",
+   "reason": "the standalone leader",
+   "exploratory_mean_fold_auc": 0.8364413023890719,
+   "exploratory_repeat_means": [
+    0.8379279074150375,
+    0.83698916965288,
+    0.8344068300992978
+   ]
+  },
+  {
+   "id": "family_average",
+   "kind": "blend",
+   "members": [
+    {
+     "run_id": "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+     "weight": 0.3333333333333333
+    },
+    {
+     "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+     "weight": 0.3333333333333333
+    },
+    {
+     "run_id": "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+     "weight": 0.3333333333333333
+    }
+   ],
+   "channels": [
+    {
+     "id": "ch_lightgbm",
+     "weight": 1.0
+    }
+   ],
+   "atomic_recipes": 3,
+   "supervised_transformations": 1,
+   "learned_combiners": 0,
+   "complexity_rank": 23,
+   "run_id": "p2_family_average_seeds155-2026-1029_49e6781a1857",
+   "bank_sha256": "5b647dbd2a2440c3548397dd7fb73d2b2cd0c01fcf5abcdebcc7dc2f497ccc2c",
+   "reason": "the within-family average",
+   "exploratory_mean_fold_auc": 0.8364592967166024,
+   "exploratory_repeat_means": [
+    0.8381118587656464,
+    0.8367746380367116,
+    0.8344913933474487
+   ]
+  },
+  {
+   "id": "blend_eq_all",
+   "kind": "blend",
+   "members": [
+    {
+     "run_id": "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+     "weight": 0.08333333333333333
+    },
+    {
+     "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+     "weight": 0.08333333333333333
+    },
+    {
+     "run_id": "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+     "weight": 0.08333333333333333
+    },
+    {
+     "run_id": "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023",
+     "weight": 0.25
+    },
+    {
+     "run_id": "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+     "weight": 0.25
+    },
+    {
+     "run_id": "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
+     "weight": 0.25
+    }
+   ],
+   "channels": [
+    {
+     "id": "ch_lightgbm",
+     "weight": 0.25
+    },
+    {
+     "id": "ch_xgboost",
+     "weight": 0.25
+    },
+    {
+     "id": "ch_catboost",
+     "weight": 0.25
+    },
+    {
+     "id": "ch_extra_trees",
+     "weight": 0.25
+    }
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 0,
+   "complexity_rank": 26,
+   "run_id": "p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9",
+   "bank_sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2",
+   "reason": "the best fixed blend",
+   "exploratory_mean_fold_auc": 0.8410616054303375,
+   "exploratory_repeat_means": [
+    0.842493211157455,
+    0.841727883131068,
+    0.8389637220024895
+   ]
+  },
+  {
+   "id": "constrained_l0.1",
+   "kind": "learned",
+   "setting": [
+    "constrained",
+    0.1
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 27,
+   "run_id": "p2_constrained_l0_1_080c588497a4",
+   "bank_sha256": "8d96f1622ef7bd513cb88459ed3c621e9e1db1f15fb5982aa5429e15cd0d1287",
+   "reason": "the best constrained-weight procedure",
+   "exploratory_mean_fold_auc": 0.8410025299050984,
+   "exploratory_repeat_means": [
+    0.8424258498956071,
+    0.8416178733264965,
+    0.838963866493191
+   ]
+  },
+  {
+   "id": "stacker_c0.01",
+   "kind": "learned",
+   "setting": [
+    "stacker",
+    0.01
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 30,
+   "run_id": "p2_stacker_c0_01_acf0240d8737",
+   "bank_sha256": "5f8ee12a066ab5742507fc724a937d886c024226f5f76778247ec4c890eb39c5",
+   "reason": "the best stacker",
+   "exploratory_mean_fold_auc": 0.8407656561090973,
+   "exploratory_repeat_means": [
+    0.842478764372709,
+    0.8413188544010307,
+    0.838499349553552
+   ]
+  },
+  {
+   "id": "constrained_l0.01",
+   "kind": "learned",
+   "setting": [
+    "constrained",
+    0.01
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 28,
+   "run_id": "p2_constrained_l0_01_12fcc295f977",
+   "bank_sha256": "44b18add1f96c71a7ec6d10b1326f12c7bd30a4d24339feee76caffca8d6a0db",
+   "reason": "filled by the selection rule",
+   "exploratory_mean_fold_auc": 0.8405742718888973,
+   "exploratory_repeat_means": [
+    0.841807552823591,
+    0.8412802017410804,
+    0.8386350611020198
+   ]
+  },
+  {
+   "id": "constrained_l0",
+   "kind": "learned",
+   "setting": [
+    "constrained",
+    0.0
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 29,
+   "run_id": "p2_constrained_l0_296fe8d31084",
+   "bank_sha256": "d0e4a87ca1acf0f3eca8e62be83f7a4487a85714f4789e80c12c5358edcc0cc5",
+   "reason": "filled by the selection rule",
+   "exploratory_mean_fold_auc": 0.8399744468519008,
+   "exploratory_repeat_means": [
+    0.8409025417907403,
+    0.8410468124311394,
+    0.8379739863338225
+   ]
+  },
+  {
+   "id": "stacker_c0.1",
+   "kind": "learned",
+   "setting": [
+    "stacker",
+    0.1
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 31,
+   "run_id": "p2_stacker_c0_1_764d93836bd8",
+   "bank_sha256": "0457bd5d59d79a51858cd4aeb037a01f6cc799708bfff3200a83998f9b54509d",
+   "reason": "filled by the selection rule",
+   "exploratory_mean_fold_auc": 0.8405374097005324,
+   "exploratory_repeat_means": [
+    0.8418519456853601,
+    0.8413645780719872,
+    0.8383957053442497
+   ]
+  },
+  {
+   "id": "blend_h_p26_extra_trees_aafa66ea_25",
+   "kind": "blend",
+   "members": [
+    {
+     "run_id": "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+     "weight": 0.75
+    },
+    {
+     "run_id": "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
+     "weight": 0.25
+    }
+   ],
+   "channels": [
+    {
+     "id": "H*",
+     "weight": 0.75
+    },
+    {
+     "id": "p26_extra_trees_aafa66ea",
+     "weight": 0.25
+    }
+   ],
+   "atomic_recipes": 2,
+   "supervised_transformations": 1,
+   "learned_combiners": 0,
+   "complexity_rank": 16,
+   "run_id": "p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1",
+   "bank_sha256": "a7c766a7f0ffded6ee6982102a870bbdd5eabc537f7d7e012746489ecfd3805a",
+   "reason": "filled by the selection rule",
+   "exploratory_mean_fold_auc": 0.8393556642268608,
+   "exploratory_repeat_means": [
+    0.8408705013025826,
+    0.8399847099809497,
+    0.8372117813970498
+   ]
+  },
+  {
+   "id": "stacker_c1",
+   "kind": "learned",
+   "setting": [
+    "stacker",
+    1.0
+   ],
+   "atomic_recipes": 6,
+   "supervised_transformations": 1,
+   "learned_combiners": 1,
+   "complexity_rank": 32,
+   "run_id": "p2_stacker_c1_3f3f3a871aa2",
+   "bank_sha256": "a8c1d12ac953130c145968be13eac70133cf947efbe16132dbe756f1bb7a1441",
+   "reason": "filled by the selection rule",
+   "exploratory_mean_fold_auc": 0.8402406027031387,
+   "exploratory_repeat_means": [
+    0.8413219818773566,
+    0.8413474083415544,
+    0.8380524178905052
+   ]
+  }
+ ],
+ "selection_rule": {
+  "rank": "unrounded mean fold AUC over the 15 production folds",
+  "tie_band": 0.001,
+  "tie_keys": [
+   "atomic_recipes",
+   "supervised_transformations",
+   "learned_combiners",
+   "complexity_rank",
+   "candidate id"
+  ],
+  "implementation": "songpop/phase2/selection.py select_candidate"
+ },
+ "production_selection": {
+  "selected": "blend_eq_all",
+  "maximum": 0.8410616054303375,
+  "means": {
+   "atom_p26_anchor": 0.8314739289455241,
+   "atom_p26_anchor_s3": 0.8323396324527705,
+   "atom_p26_lightgbm_415b649d": 0.8364413023890719,
+   "family_average": 0.8364592967166024,
+   "blend_eq_all": 0.8410616054303375,
+   "constrained_l0.1": 0.8410025299050984,
+   "stacker_c0.01": 0.8407656561090973,
+   "constrained_l0.01": 0.8405742718888973,
+   "constrained_l0": 0.8399744468519008,
+   "stacker_c0.1": 0.8405374097005324,
+   "blend_h_p26_extra_trees_aafa66ea_25": 0.8393556642268608,
+   "stacker_c1": 0.8402406027031387
+  },
+  "tied": [
+   "blend_eq_all",
+   "constrained_l0.01",
+   "constrained_l0.1",
+   "stacker_c0.01",
+   "stacker_c0.1",
+   "stacker_c1"
+  ],
+  "tie_keys": {
+   "blend_eq_all": [
+    6,
+    1,
+    0,
+    26,
+    "blend_eq_all"
+   ],
+   "constrained_l0.01": [
+    6,
+    1,
+    1,
+    28,
+    "constrained_l0.01"
+   ],
+   "constrained_l0.1": [
+    6,
+    1,
+    1,
+    27,
+    "constrained_l0.1"
+   ],
+   "stacker_c0.01": [
+    6,
+    1,
+    1,
+    30,
+    "stacker_c0.01"
+   ],
+   "stacker_c0.1": [
+    6,
+    1,
+    1,
+    31,
+    "stacker_c0.1"
+   ],
+   "stacker_c1": [
+    6,
+    1,
+    1,
+    32,
+    "stacker_c1"
+   ]
+  }
+ },
+ "nested_protocol": {
+  "outer_seed": 20261101,
+  "outer_folds": 3,
+  "inner_seeds": [
+   155,
+   2026,
+   1029
+  ],
+  "inner_folds": 5,
+  "meta_folds": 5,
+  "fallback": 0.003,
+  "refit_gain": 0.003,
+  "anchor": "atom_p26_anchor",
+  "implementation": "songpop/phase2/nested.py run and decide",
+  "reduced_path": "if the measured projection of build plus empty-cache replay exceeds eight hours, the fixed-candidate check: the production selection and the anchor each refitted in the three outer training parts; no fallback or deployment decision"
+ },
+ "deployment_default": "the equal average of the 15 fold models, or of the 15 fitted procedures",
+ "p27_reservation": {
+  "c_all_seconds": 665.1,
+  "c_l_seconds": 620.1,
+  "menu_atom_runs": [
+   "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd",
+   "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+   "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
+   "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+   "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+   "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+   "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"
+  ],
+  "learned_channel_runs": [
+   "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+   "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
+   "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+   "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+   "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+   "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"
+  ],
+  "plan_projection_seconds": 12173.9,
+  "pilot_projection_seconds": 10802.5,
+  "build_and_replay_with_margin_hours": 8.45,
+  "reserved_hours": 8,
+  "projected_path": "reduced",
+  "note": "projections from the runs' logged 15-fit times, several measured while other fitting jobs ran beside them (P2.4's full refit), so inflated; not runtime bounds. P2.7 decides the path from its own measurement, made without concurrent jobs, before any outer score (plan section 8)"
+ }
+}

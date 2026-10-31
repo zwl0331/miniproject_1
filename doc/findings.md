@@ -889,3 +889,63 @@ Review status:
 Downstream use:
 
 P2.6b's production evaluation of learned procedures, the P2.7 reservation in `../configs/phase2/menu.json`, and P2.7.
+
+## Finding 027: P2.6b Nominations, Final Seed Policies, H* and the Pool
+
+Question:
+
+Which recipes enter P2.6b's ensembles under the frozen nomination and pool rules, and what do the final seed policies change (plan sections 7.1 and 20.2 to 20.3)?
+
+Current conclusion:
+
+- The discovery inventory holds 656 distinct complete atomic runs of P2.1, P2.2, P2.8, P2.3, P2.4 and P2.5. Its reference R0 is P2.4's re-tuned LightGBM with `date_count` and `date_te3` (0.8368 with estimator seed 0). Against this one R0, each of the ten families' standalone and contribution winners, R0's family's two further configurations within 0.002, and the anchor with its three-seed version give 23 nominees.
+- Under the final seed policies (estimator seeds 0, 1 and 2, except kNN and TabM with seed 0), R0's recipe scores 0.8366: 0.0002 below its seed-0 score, a small sign that choosing on seed 0 was slightly optimistic. It remains the strongest, so H\* is that recipe (`p26_lightgbm_a8ce5635`). The next are the two leading-family LightGBM configurations (0.8364, 0.8362), CatBoost with `date_count` and `date_te3` (0.8354) and XGBoost with `date_te3` (0.8325). The anchor's three-seed version is 0.8323 against the anchor's 0.8315.
+- Contributions against H\*: the best blends are 0.75 H\* + 0.25 Extra Trees with interactions (0.8394), with CatBoost with `music` (0.8389), and with EBM (0.8387). Weight 0.25 beats 0.1 throughout.
+- The pool (eight atoms): the three strongest family representatives (LightGBM H\*, CatBoost, XGBoost); the two best contribution recipes not already in it (Extra Trees with interactions; CatBoost with `music`, a second CatBoost configuration, as section 20.3 allows); the anchor; the two leading-family LightGBM configurations, which form the within-family average with H\*. EBM, random forest, HistGB, logistic regression, kNN and TabM did not enter. The four learned channels are the within-family average, XGBoost, CatBoost with `music` and Extra Trees with interactions. TabM is not a channel, so no cost decision about it was needed.
+- The frozen manifest has 33 candidates: 9 atomic and 24 procedures (3 equal averages over channels, 14 contribution blends with H\*, the within-family average, 3 constrained-weight settings, 3 stacker settings), committed at ae4dd90 before any procedure was scored.
+
+Evidence:
+
+`../analysis/p26_nominate.py`, `../analysis/p26_pool.py`, `../configs/phase2/p2.6/nominations.json`, `../configs/phase2/p2.6/procedures.json`; the 18 P2.6b final-policy runs in `../artifacts/phase2/experiments.jsonl`; the execution log `../artifacts/phase2/p26_nominees_log.txt`.
+
+Uncertainty:
+
+All scores are exploratory matched evaluations on the folds that also chose them. The nomination rule takes one discovery reference, so contributions measured against other references in earlier tasks were not compared. Final-policy scores are a fresh evaluation of the same recipes, not an independent confirmation.
+
+Review status:
+
+`draft`, part of the R2 review of the P2.6b freeze.
+
+Downstream use:
+
+The procedure evaluation, the menu (Finding 028) and P2.7.
+
+## Finding 028: The P2.6b Procedures and the Frozen Menu
+
+Question:
+
+How do the frozen procedures score on the 15 production folds, and what menu and production selection does the frozen rule give (plan sections 7, 11 and 20.4)?
+
+Current conclusion:
+
+- The equal average of the four channels (the within-family average of three LightGBM recipes, XGBoost, CatBoost with `music`, Extra Trees with interactions) is the strongest procedure: 0.8411 (0.8425, 0.8417, 0.8390 by repeat), 0.0045 above H\* (0.8366) and 0.0096 above the anchor (0.8315). The learned procedures, each evaluated as a whole on held-out groups with its combiner refitted inside every outer training part, score 0.8400 to 0.8410: constrained weights 0.8410 (lambda 0.1), 0.8406 (0.01), 0.8400 (0); the stacker 0.8408 (C 0.01), 0.8405 (0.1), 0.8402 (1). Stronger regularization did as well or better in both kinds, so learning the weights added nothing over equal weights.
+- Fixed blends: the equal average of the three strongest channels 0.8388, of the two strongest 0.8362; the best contribution blends with H\* are 0.25 Extra Trees with interactions (0.8394) and 0.25 CatBoost with `music` (0.8389). The within-family average of three LightGBM recipes, 0.8365, is no better than H\* alone: averaging near-identical recipes adds little, while different families do.
+- The menu (12 candidates, `configs/phase2/menu.json`): the anchor (0.8315), its three-seed version (0.8323), the standalone leader (LightGBM `p26_lightgbm_415b649d`, 0.8364), the within-family average (0.8365), the best fixed blend (the equal average of all channels, 0.8411), the best constrained-weight procedure (lambda 0.1, 0.8410), the best stacker (C 0.01, 0.8408), then by the rule the other four learned settings and the 0.25 Extra Trees contribution blend.
+- Production selection by the frozen rule: the equal average of all channels. Its tie set within 0.001 of the maximum holds it and five learned settings; all have six atomic recipes and one supervised transformation (`date_te3`), and it wins on having no learned combiner. The standalone leader is `p26_lightgbm_415b649d` rather than H\* (0.8366): they are within 0.001 with equal structural counts, and the complexity rank, which orders equal structures by candidate id, decides.
+- P2.7's projected cost from the logged run times (C_all 665 s, C_L 620 s): 12,174 s by the plan's formula, 10,803 s by the pilot's multipliers, 8.45 hours for build and empty-cache replay with a 25% margin, above the eight reserved; those times were measured partly beside other fitting jobs, so P2.7 decides the path from its own measurement before any outer score.
+
+Evidence:
+
+`../analysis/p26_menu.py` and its output `../analysis/p26_menu_output.txt`; `../configs/phase2/menu.json`; the P2.6b blend runs and procedure records in `../artifacts/phase2/experiments.jsonl` with their banks; `--verify-learned` (the empty-cache replay of the six learned procedures; its result is recorded in `../artifacts/phase2/verify_learned_p26.txt`); the execution log `../artifacts/phase2/p26_evaluate_log.txt`.
+
+Uncertainty:
+
+Exploratory: every procedure was scored on the folds that also chose its ingredients, and the gaps among the top candidates (0.0001 to 0.001) are well inside the repeat-to-repeat spread; the restricted nested evaluation (P2.7, not run) is the declared check of the selection procedure. The public leaderboard plays no part.
+
+Review status:
+
+`draft`, in the R2 review of the P2.6b freeze (`../reviews/2026-10-31-p2.6b-menu.md`).
+
+Downstream use:
+
+P2.7 and phase 3's two final selections (Sam's decision).
