@@ -3,29 +3,31 @@
 Stages, each a separate process from the project root, in this order:
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py smoke
         (a) the real recursion with real fits on a 300-row population, every iteration count shrunk to 20, both
-        paths, shapes and coverage checked; (b) one full-size learned procedure on the real outer fold 0 training
-        part: every frozen combiner setting learned on rebuilt meta predictions, one learned full refit, a disk
-        cache round trip in a fresh cache object with equal predictions. Numbers are neither shown nor kept.
+        paths, shapes and coverage checked (nested.decide runs on these smoke populations, the one place outside the
+        decide stage that scores outer predictions; they are not the evaluation and nothing is kept); (b) one
+        full-size learned procedure on the real outer fold 0 training part with a disk cache round trip
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py measure
         with nothing else running: the outer assignment saved; the 8 menu atoms cross-fitted on the 15 production
-        folds and timed, each compared with its logged bank; C_all and C_L; the projection by the plan's formula
-        and the pilot's multipliers; the path decided and recorded in artifacts/phase2/p27/measure.json before any
-        outer score exists
+        folds and timed, each compared with its logged bank; the projection and the path, validated before they
+        are recorded in artifacts/phase2/p27/measure.json, before any outer score exists
+    PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py preflight
+        the recorded measurement and the saved assignment re-validated against the menu, the population and the
+        log, without fitting anything
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py run
         nested.run on the eligible rows with the saved assignment and the recorded path, through the on-disk
-        namespace artifacts/phase2/cache/p27_build (an interrupted build resumes from it; entries are published by
-        atomic rename); the result saved with its provenance; no outer score computed or printed
+        namespace artifacts/phase2/cache/p27_build (resumable; entries published by atomic rename); the result
+        saved with its provenance; no outer score computed or printed
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py replay
-        the same in a new process from the fresh, empty namespace artifacts/phase2/cache/p27_replay; compared with
-        the build (arrays and inner means within 1e-12, selections and tie sets exactly) and against the number of
-        fresh cross-fits the menu requires
+        the same in a new process from the fresh, empty namespace artifacts/phase2/cache/p27_replay; then both
+        results are validated and compared, the fresh cross-fits counted, and a verification receipt written
+        (artifacts/phase2/p27/verification.json) that binds both result files by hash to their log records
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p27_execute.py decide
-        only after a verified replay: nested.decide on the build result (and on the replay result, which must agree),
-        the outer report of plan section 8 and a group bootstrap; artifacts/phase2/p27/decision.json
+        only with a passing receipt whose hashes still match the files: nested.decide on the build result and on
+        the replay result (which must agree), the outer report of plan section 8 and a group bootstrap;
+        artifacts/phase2/p27/decision.json, bound to the receipt
 
-Outer labels are read for scoring in the decide stage only: by nested.decide, and by this driver's pooled AUC and
-bootstrap, which need row-level predictions and labels that decide() does not return. No other stage scores
-outer predictions.
+Outer labels of the evaluation are read for scoring in the decide stage only: by nested.decide, and by this
+driver's pooled AUC and bootstrap, which need row-level predictions and labels that decide() does not return.
 """
 import json
 import os
@@ -45,6 +47,7 @@ from sklearn.metrics import roc_auc_score  # noqa: E402
 from songpop import artifacts  # noqa: E402
 from songpop.metrics import BOOTSTRAP_SEED  # noqa: E402
 from songpop.phase2 import banks, nested, procedures as P, runs  # noqa: E402
+from songpop.phase2.selection import TIE_BAND, TIE_KEYS  # noqa: E402
 from songpop.splits import SPLIT_SEEDS  # noqa: E402
 
 MENU = Path("configs/phase2/menu.json")
@@ -52,7 +55,9 @@ OUT = Path("artifacts/phase2/p27")
 SPLIT = Path("artifacts/phase2/splits/nested_outer_v1.csv")
 CACHE = Path("artifacts/phase2/cache")
 LOG = Path("artifacts/phase2/experiments.jsonl")
+DRIVER = "analysis/p27_execute.py"
 SCHEMA = "p27_nested_v1"
+RECEIPT_SCHEMA = "p27_verification_v1"
 PLAN = (3.2, 16.2)  # fit-equivalents of C_all and C_L (plan section 8)
 PILOT = (3.04, 14.16)  # the cost pilot's measured multipliers (Finding 026), a cross-check
 MARGIN = 1.25
@@ -60,6 +65,15 @@ TOL = 1e-12
 BOOT = 2000
 SMOKE_ROWS = 300
 SMOKE_ITERATIONS = 20
+STABLE = ("path", "menu_sha256", "executable_sha256", "split_sha256", "measure_sha256")
+CAVEATS = [
+    "exploratory: the menu was informed by earlier exploration on the same production folds (plan section 5.7), "
+    "which the nested evaluation does not remove",
+    "the inner and third-level fits use smaller populations with thinner date support than production CV, so part "
+    "of any decline against the production scores comes from smaller training sets",
+    "once the fallback or the deployment rule has used the outer results, they are no longer an untouched estimate "
+    "of what they chose",
+]
 
 
 def now():
@@ -109,6 +123,16 @@ def population(ctx):
     return P.Population(ctx.rows, ctx.data.y, ctx.groups, "production")
 
 
+def executable(menu):
+    ex = nested.executable_menu(menu)
+    return ex, artifacts.sha256_bytes(artifacts.dumps(ex).encode())
+
+
+def candidate_keys(ex):
+    """Each candidate's tie-break key, as the selector forms it."""
+    return {c["id"]: tuple(c[k] for k in TIE_KEYS) + (c["id"],) for c in ex["candidates"]}
+
+
 def assignment_text(pop, fold):
     return pd.DataFrame({"train_row_id": pop.row_ids, "outer_fold": fold}).to_csv(index=False)
 
@@ -155,22 +179,36 @@ def decide_path(plan_seconds, reserved_hours):
 
 def other_project_processes():
     me = os.getpid()
-    out = subprocess.run(["ps", "-axo", "pid=,command="], capture_output=True, text=True).stdout.splitlines()
-    root = str(Path(".").resolve())
-    return [line.strip() for line in out
-            if root in line and ".venv/bin/python" in line and int(line.split()[0]) != me]
+    out = subprocess.run(["ps", "-axo", "pid=,command="], capture_output=True, text=True, check=True).stdout.splitlines()
+    marks = (".venv/bin/python", "p27_execute", "run_experiments", "p26_execute", "p26_verify_learned")
+    return [line.strip() for line in out if any(m in line for m in marks) and int(line.split()[0]) != me]
 
 
 def log(record):
     artifacts.append_experiment(LOG, dict(record, timestamp_utc=now()))
 
 
+def records(kind):
+    return [json.loads(l) for l in LOG.read_text().splitlines() if json.loads(l).get("record") == kind]
+
+
 def write_once(path, data):
+    """Published by a temporary file and an atomic rename; never overwritten."""
     if path.exists():
         raise FileExistsError(f"{path} exists; P2.7 results are never overwritten")
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(data)
+    tmp = path.with_name(path.name + f".tmp-{os.getpid()}")
+    with open(tmp, "xb") as f:
+        f.write(data)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
     return artifacts.sha256_bytes(data)
+
+
+def file_hashes(stem):
+    return {"npz_sha256": artifacts.sha256_bytes(Path(f"{stem}.npz").read_bytes()),
+            "json_sha256": artifacts.sha256_bytes(Path(f"{stem}.json").read_bytes())}
 
 
 def save_result(result, stem, provenance):
@@ -210,15 +248,64 @@ def load_result(stem):
             "folds": folds, "provenance": meta["provenance"]}
 
 
+def validate_result(result, pop, fold, keys, reduced_id, stable):
+    """A loaded result against the population, the saved assignment, the menu's candidates and the expected stable
+    provenance: folds 0, 1, 2 in order holding their saved rows; on the full path each selection complete and
+    self-consistent (the selected id, the means over exactly the menu, the maximum, the tie set within TIE_BAND and
+    the tie-break winner all recomputed); on the reduced path the fixed candidate and no selection."""
+    nested.check_result(result, pop)
+    if not np.array_equal(np.asarray(result["outer_fold"]), fold):
+        raise ValueError("the result's outer assignment differs from the saved one")
+    if [r["fold"] for r in result["folds"]] != list(range(nested.OUTER_FOLDS)):
+        raise ValueError("the result's folds are not 0, 1, 2 in order")
+    prov = result["provenance"]
+    for k, v in stable.items():
+        if prov.get(k) != v:
+            raise ValueError(f"the result's provenance {k} is {prov.get(k)!r}, expected {v!r}")
+    if result["reduced"] != (stable["path"] == "reduced"):
+        raise ValueError("the result's path flag contradicts the recorded path")
+    for r in result["folds"]:
+        if not np.array_equal(np.asarray(r["validation_row_ids"]), pop.row_ids[fold == r["fold"]]):
+            raise ValueError(f"outer fold {r['fold']} does not hold its saved validation rows")
+        if r["selected"] not in keys:
+            raise ValueError(f"outer fold {r['fold']} selected {r['selected']!r}, not a menu candidate")
+        s = r["selection"]
+        if result["reduced"]:
+            if s is not None or r["selected"] != reduced_id or "fold_average" in r:
+                raise ValueError(f"outer fold {r['fold']}: a reduced result must fix {reduced_id} without a selection")
+            continue
+        if s is None or s["selected"] != r["selected"] or set(s["means"]) != set(keys):
+            raise ValueError(f"outer fold {r['fold']}: the selection is missing, inconsistent or not over the menu")
+        top = max(s["means"].values())
+        tied = sorted(c for c, m in s["means"].items() if top - m <= TIE_BAND)
+        if abs(s["maximum"] - top) > TOL or s["tied"] != tied or set(s["tie_keys"]) != set(tied):
+            raise ValueError(f"outer fold {r['fold']}: the maximum or the tie set does not follow from the means")
+        if min(tied, key=lambda c: keys[c]) != r["selected"]:
+            raise ValueError(f"outer fold {r['fold']}: the tie-break winner is not the selected candidate")
+        for c in tied:
+            if list(s["tie_keys"][c]) != list(keys[c]):
+                raise ValueError(f"outer fold {r['fold']}: the tie keys of {c} differ from the menu's")
+
+
 def compare_results(a, b):
-    """Build against replay: assignment and rows exactly; per fold the selected id, the tie set and the tie keys
+    """Build against replay: assignment, rows and fold ids exactly; the stable provenance exactly; the engine
+    sources exactly (every manifest entry but this driver); per fold the selected id, the tie set and the tie keys
     exactly, the inner means and maximum within TOL, every prediction array within TOL."""
     lines, ok = [], True
     same = bool(np.array_equal(a["outer_fold"], b["outer_fold"]) and np.array_equal(a["row_ids"], b["row_ids"]))
-    ok &= same and a["reduced"] == b["reduced"] and len(a["folds"]) == len(b["folds"])
-    lines.append(f"assignment and rows {'equal' if same else 'DIFFERENT'}; path {'equal' if a['reduced'] == b['reduced'] else 'DIFFERENT'}")
+    same_path = a["reduced"] == b["reduced"] and len(a["folds"]) == len(b["folds"])
+    pa, pb = a["provenance"], b["provenance"]
+    stable = all(pa.get(k) == pb.get(k) for k in STABLE)
+    fa = {p: h for p, h in pa["source_manifest"]["files"].items() if p != DRIVER}
+    fb = {p: h for p, h in pb["source_manifest"]["files"].items() if p != DRIVER}
+    engine = fa == fb
+    ok &= same and same_path and stable and engine
+    lines.append(f"assignment and rows {'equal' if same else 'DIFFERENT'}; path {'equal' if same_path else 'DIFFERENT'}; "
+                 f"stable provenance {'equal' if stable else 'DIFFERENT'}; engine sources {'equal' if engine else 'DIFFERENT'} "
+                 f"(driver {pa['source_manifest']['files'].get(DRIVER, '?')[:12]} in the build, "
+                 f"{pb['source_manifest']['files'].get(DRIVER, '?')[:12]} in the replay)")
     for ra, rb in zip(a["folds"], b["folds"]):
-        parts = {"selected": ra["selected"] == rb["selected"]}
+        parts = {"fold id": ra["fold"] == rb["fold"], "selected": ra["selected"] == rb["selected"]}
         sa, sb = ra["selection"], rb["selection"]
         if (sa is None) != (sb is None):
             parts["selection"] = False
@@ -241,35 +328,61 @@ def compare_results(a, b):
 def expected_fresh_cross_fits(ex, result):
     """A cold full run of this menu: every distinct atom once per outer fold on the inner folds; every learned-channel
     atom once per inner training part at the third level; the learned-channel atoms again on the whole outer
-    training part for each fold whose selected candidate is learned (its full refit's meta stage). Full-refit
-    atom fits bypass the cache. The reduced path cross-fits nothing."""
-    if result["reduced"]:
-        return 0
-    atoms = {P.recipe_hash(a) for c in ex["candidates"] for a in nested.atoms_of(c)}
+    training part for each fold whose selected candidate is learned (its full refit's meta stage). Full-refit atom
+    fits bypass the cache. The reduced path of this menu, whose fixed candidate is a fixed blend, cross-fits
+    nothing; a learned fixed candidate would need its meta stage per fold."""
     learned = [c for c in ex["candidates"] if c["kind"] == "learned"]
     learned_atoms = {P.recipe_hash(a) for c in learned for ch in c["channels"] for a in ch["atoms"]}
     learned_ids = {c["id"] for c in learned}
+    if result["reduced"]:
+        fixed = result["folds"][0]["selected"] if result["folds"] else None
+        return nested.OUTER_FOLDS * len(learned_atoms) if fixed in learned_ids else 0
+    atoms = {P.recipe_hash(a) for c in ex["candidates"] for a in nested.atoms_of(c)}
     per_fold = len(atoms) + nested.INNER_FOLDS * len(nested.INNER_SEEDS) * len(learned_atoms)
     refits = sum(len(learned_atoms) for r in result["folds"] if r["selected"] in learned_ids)
     return nested.OUTER_FOLDS * per_fold + refits
 
 
-def require_replay_verified():
-    path = OUT / "replay.txt"
-    if not path.exists() or "replay: every array within" not in path.read_text():
-        raise RuntimeError("the decide stage needs a verified replay (artifacts/phase2/p27/replay.txt)")
+def validate_measure_record(rec, menu):
+    """Problems with a measurement record against the menu: the atom sets, finite positive timings, every atom equal
+    to its logged bank, the sums, both projections, the margin, the reservation, the path and the reduced candidate
+    all recomputed."""
+    res, problems = menu["p27_reservation"], []
+    atoms, learned = set(res["menu_atom_runs"]), set(res["learned_channel_runs"])
+    if set(rec["atom_seconds"]) != atoms or set(rec["atoms_equal_logged_banks"]) != atoms:
+        problems.append("the timed atoms are not exactly the menu's atom runs")
+    if not learned <= atoms:
+        problems.append("the learned-channel runs are not among the menu's atom runs")
+    t = rec["atom_seconds"]
+    if not all(isinstance(v, float) and np.isfinite(v) and v > 0 for v in t.values()):
+        problems.append("a timing is missing, non-finite or not positive")
+    if not all(rec["atoms_equal_logged_banks"].values()):
+        problems.append("an atom did not reproduce its logged bank")
+    c_all, c_l = sum(t.values()), sum(t[r] for r in learned if r in t)
+    plan_s, pilot_s = PLAN[0] * c_all + PLAN[1] * c_l, PILOT[0] * c_all + PILOT[1] * c_l
+    path, hours = decide_path(plan_s, res["reserved_hours"])
+    for name, want, got, tol in (("c_all_seconds", c_all, rec["c_all_seconds"], 1e-9),
+                                 ("c_l_seconds", c_l, rec["c_l_seconds"], 1e-9),
+                                 ("plan_projection_seconds", plan_s, rec["plan_projection_seconds"], 1e-6),
+                                 ("pilot_projection_seconds", pilot_s, rec["pilot_projection_seconds"], 1e-6),
+                                 ("build_and_replay_with_margin_hours", hours, rec["build_and_replay_with_margin_hours"], 1e-9)):
+        if abs(want - got) > tol:
+            problems.append(f"{name} {got} does not follow from the timings ({want})")
+    if list(rec["plan_multipliers"]) != list(PLAN) or list(rec["pilot_multipliers"]) != list(PILOT) or rec["margin"] != MARGIN:
+        problems.append("the multipliers or the margin differ from the driver's")
+    if rec["reserved_hours"] != res["reserved_hours"]:
+        problems.append("the reservation differs from the menu's")
+    if rec["path"] != path:
+        problems.append(f"the recorded path {rec['path']} does not follow from the projection ({path})")
+    want_reduced = menu["production_selection"]["selected"] if path == "reduced" else None
+    if rec["reduced_candidate"] != want_reduced:
+        problems.append(f"the reduced candidate must be {want_reduced!r}")
+    return problems
 
 
-def print_selections(result):
-    """Inner evidence only: the selected candidate per outer fold, its tie set and their inner means."""
-    for r in result["folds"]:
-        if r["selection"] is None:
-            print(f"  outer fold {r['fold']}: fixed candidate {r['selected']} (reduced path)")
-            continue
-        s = r["selection"]
-        tied = ", ".join(f"{c} {s['means'][c]:.4f}" for c in s["tied"])
-        print(f"  outer fold {r['fold']}: selected {r['selected']} (inner mean {s['means'][r['selected']]:.4f}; "
-              f"inner maximum {s['maximum']:.4f}); tie set: {tied}")
+def peak_memory_gb():
+    r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss  # bytes on macOS, kilobytes on Linux
+    return r / (1024 ** 3) if sys.platform == "darwin" else r / (1024 ** 2)
 
 
 def shrink(recipe):
@@ -292,15 +405,10 @@ def shrink_candidate(cand):
     return c
 
 
-def peak_memory_gb():
-    r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss  # bytes on macOS, kilobytes on Linux
-    return r / (1024 ** 3) if sys.platform == "darwin" else r / (1024 ** 2)
-
-
 def smoke():
     ctx = runs.Context.load(Path("."))
     menu, _ = load_menu()
-    ex = nested.executable_menu(menu)
+    ex, _ = executable(menu)
     small = {"candidates": [shrink_candidate(c) for c in ex["candidates"]]}
     nested.check_menu(small)
     pop = P.Population(ctx.rows.iloc[:SMOKE_ROWS], ctx.data.y[:SMOKE_ROWS].copy(), ctx.groups[:SMOKE_ROWS].copy(),
@@ -310,7 +418,7 @@ def smoke():
     cache = P.Cache()
     full = nested.run(small, pop, cache, "p27-smoke", runs.packages_for, anchor)
     nested.check_result(full, pop)
-    d = nested.decide(full, pop)
+    d = nested.decide(full, pop)  # smoke populations only: not the evaluation; nothing is kept
     assert d["path"] == "full" and d["decision"] and len(d["fold_average"]) == nested.OUTER_FOLDS
     assert cache.misses == expected_fresh_cross_fits(small, full), (cache.misses, expected_fresh_cross_fits(small, full))
     t1 = time.time()
@@ -320,7 +428,6 @@ def smoke():
     print(f"smoke (a): the real recursion on {len(pop.y)} rows with iteration counts {SMOKE_ITERATIONS}: full path "
           f"{t1 - t0:.0f} s ({cache.misses} atomic cross-fits as expected for this menu, {cache.hits} cache hits), "
           f"reduced path {time.time() - t1:.0f} s; results checked, decisions computed and not shown", flush=True)
-    # (b) one full-size learned procedure on the real outer fold 0 training part
     prod = population(ctx)
     fold = nested.outer_folds(prod)
     O = prod.subset(np.flatnonzero(fold != 0), "outer0")
@@ -338,7 +445,7 @@ def smoke():
     assert set(states) == set(settings)
     q1 = nested.refit_predict(learned, O, V.rows, cache, "p27-smoke", runs.packages_for, tag)
     t3 = time.time()
-    fresh = AtomicCache(ns)  # a new cache object: the meta predictions come back from disk
+    fresh = AtomicCache(ns)
     q2 = nested.refit_predict(learned, O, V.rows, fresh, "p27-smoke", runs.packages_for, tag)
     assert q1.shape == (len(V.y),) and np.isfinite(q1).all() and q1.min() >= 0 and q1.max() <= 1
     assert np.allclose(q1, q2, rtol=0, atol=TOL) and fresh.misses == 0 and fresh.hits > 0
@@ -384,24 +491,27 @@ def measure():
     path, hours = decide_path(plan_s, res["reserved_hours"])
     rec = {"record": "nested_measure", "task_id": "P2.7", "menu_sha256": msha, "split_sha256": ssha,
            "split_file": str(SPLIT), "atom_seconds": times, "atoms_equal_logged_banks": equal,
-           "c_all_seconds": c_all, "c_l_seconds": c_l, "plan_multipliers": PLAN, "pilot_multipliers": PILOT,
+           "c_all_seconds": c_all, "c_l_seconds": c_l, "plan_multipliers": list(PLAN), "pilot_multipliers": list(PILOT),
            "margin": MARGIN, "plan_projection_seconds": plan_s, "pilot_projection_seconds": pilot_s,
            "build_and_replay_with_margin_hours": hours, "reserved_hours": res["reserved_hours"], "path": path,
            "reduced_candidate": menu["production_selection"]["selected"] if path == "reduced" else None,
            "load_average_before": load_before, "load_average_after": load_after, "other_project_processes": busy,
            "threads": env["threads"], "threadpools": env["threadpools"], "cpu_count": env["cpu_count"],
            "started_utc": started, "decided_before_any_outer_score": True, "decided_at_utc": now()}
+    problems = validate_measure_record(rec, menu)
+    print(f"C_all {c_all:.1f} s, C_L {c_l:.1f} s; plan projection {plan_s:.0f} s, pilot projection {pilot_s:.0f} s; "
+          f"build and replay with margin {hours:.2f} h against {res['reserved_hours']} reserved: path {path}")
+    if problems:
+        print("measurement NOT recorded:\n  " + "\n  ".join(problems))
+        sys.exit(1)
     OUT.mkdir(parents=True, exist_ok=True)
     write_once(OUT / "measure.json", (json.dumps(rec, indent=2, sort_keys=True) + "\n").encode())
     log(rec)
-    print(f"C_all {c_all:.1f} s, C_L {c_l:.1f} s; plan projection {plan_s:.0f} s, pilot projection {pilot_s:.0f} s; "
-          f"build and replay with margin {hours:.2f} h against {res['reserved_hours']} reserved: path {path}")
-    if not all(equal.values()):
-        sys.exit(1)
 
 
 def gate():
-    """The recorded path decision, bound to this menu and this outer assignment."""
+    """The recorded path decision, re-validated: bound to this menu and this outer assignment, internally consistent,
+    and equal to exactly one measurement record in the log."""
     raw = (OUT / "measure.json").read_bytes()
     meas = json.loads(raw)
     ctx = runs.Context.load(Path("."))
@@ -410,7 +520,28 @@ def gate():
     fold, ssha = outer_assignment(pop)
     if meas["menu_sha256"] != msha or meas["split_sha256"] != ssha:
         raise AssertionError("measure.json was recorded for another menu or outer assignment")
+    problems = validate_measure_record(meas, menu)
+    if problems:
+        raise AssertionError("measure.json is not a valid measurement: " + "; ".join(problems))
+    logged = [r for r in records("nested_measure")
+              if artifacts.dumps({k: v for k, v in r.items() if k != "timestamp_utc"}) == artifacts.dumps(meas)]
+    if len(logged) != 1:
+        raise AssertionError(f"{len(logged)} log records equal measure.json; exactly one is required")
     return ctx, pop, menu, msha, fold, ssha, meas, artifacts.sha256_bytes(raw)
+
+
+def preflight():
+    ctx, pop, menu, msha, fold, ssha, meas, measure_sha = gate()
+    ex, xsha = executable(menu)
+    print(f"preflight: measure.json valid (path {meas['path']}, {meas['build_and_replay_with_margin_hours']:.2f} h against "
+          f"{meas['reserved_hours']}), bound to menu {msha[:12]} and assignment {ssha[:12]} ({len(fold)} rows, folds "
+          f"{[int((fold == k).sum()) for k in range(nested.OUTER_FOLDS)]}); executable menu {xsha[:12]} with "
+          f"{len(ex['candidates'])} candidates; exactly one matching log record")
+
+
+def stable_provenance(meas, msha, xsha, ssha, measure_sha):
+    return {"path": meas["path"], "menu_sha256": msha, "executable_sha256": xsha, "split_sha256": ssha,
+            "measure_sha256": measure_sha}
 
 
 def evaluate(replay):
@@ -421,7 +552,7 @@ def evaluate(replay):
     if replay and before:
         raise RuntimeError(f"{ns} holds {len(before)} entries; the replay needs a fresh, empty namespace")
     ns.mkdir(parents=True, exist_ok=True)
-    ex = nested.executable_menu(menu)
+    ex, xsha = executable(menu)
     anchor = menu["nested_protocol"]["anchor"]
     reduced = meas["reduced_candidate"] if meas["path"] == "reduced" else None
     assert (reduced is None) == (meas["path"] == "full")
@@ -435,65 +566,141 @@ def evaluate(replay):
                         fold=fold)
     nested.check_result(result, pop)
     elapsed = time.time() - t0
-    provenance = {"stage": stage, "path": meas["path"], "menu_sha256": msha,
-                  "executable_sha256": artifacts.sha256_bytes(artifacts.dumps(ex).encode()), "split_sha256": ssha,
-                  "measure_sha256": measure_sha, "source_manifest": manifest, "environment": env,
-                  "invocation": sys.argv, "started_utc": started, "finished_utc": now(), "elapsed_seconds": elapsed,
-                  "cache_namespace": str(ns), "cache_entries_at_start": len(before),
-                  "cache_entries_at_end": len(entries(ns)), "cache_hits": cache.hits, "cache_misses": cache.misses,
+    if banks.source_manifest(ctx.root) != manifest:
+        raise AssertionError("the sources changed while the stage ran; the result is not saved")
+    provenance = {"stage": stage, **stable_provenance(meas, msha, xsha, ssha, measure_sha),
+                  "source_manifest": manifest, "environment": env,
+                  "packages_by_atom": {P.recipe_hash(a): runs.packages_for(a) for c in ex["candidates"] for a in nested.atoms_of(c)},
+                  "data_hashes": getattr(ctx.data, "hashes", None), "invocation": sys.argv, "started_utc": started,
+                  "finished_utc": now(), "elapsed_seconds": elapsed, "cache_namespace": str(ns),
+                  "cache_entries_at_start": len(before), "cache_entries_at_end": len(entries(ns)),
+                  "cache_hits": cache.hits, "cache_misses": cache.misses,
                   "expected_fresh_cross_fits_cold": expected_fresh_cross_fits(ex, result)}
+    result["provenance"] = provenance
+    validate_result(result, pop, fold, candidate_keys(ex), reduced, stable_provenance(meas, msha, xsha, ssha, measure_sha))
     hashes = save_result(result, OUT / f"result_{stage}", provenance)
-    log({"record": f"nested_{stage}", "task_id": "P2.7", **{k: v for k, v in provenance.items() if k != "environment"},
+    log({"record": f"nested_{stage}", "task_id": "P2.7",
+         **{k: v for k, v in provenance.items() if k not in ("environment", "packages_by_atom", "source_manifest")},
+         "source_manifest_sha256": manifest["manifest_sha256"], "driver_sha256": manifest["files"].get(DRIVER),
          "selected": [r["selected"] for r in result["folds"]], **hashes})
-    print_selections(result)
+    for r in result["folds"]:
+        if r["selection"] is None:
+            print(f"  outer fold {r['fold']}: fixed candidate {r['selected']} (reduced path)")
+        else:
+            s = r["selection"]
+            tied = ", ".join(f"{c} {s['means'][c]:.4f}" for c in s["tied"])
+            print(f"  outer fold {r['fold']}: selected {r['selected']} (inner mean {s['means'][r['selected']]:.4f}; "
+                  f"inner maximum {s['maximum']:.4f}); tie set: {tied}")
     print(f"{stage}: done in {elapsed / 3600:.2f} h; {cache.misses} atomic cross-fits computed, {cache.hits} cache hits "
           f"(a cold run of this menu needs {provenance['expected_fresh_cross_fits_cold']}); peak memory {peak_memory_gb():.2f} GB",
           flush=True)
     if replay:
-        a, b = load_result(OUT / "result_build"), load_result(OUT / "result_replay")
-        ok, lines = compare_results(a, b)
-        fresh = len(before) == 0 and cache.misses == provenance["expected_fresh_cross_fits_cold"]
-        lines.append(f"freshness: namespace empty at start {len(before) == 0}; {cache.misses} cross-fits computed against "
-                     f"{provenance['expected_fresh_cross_fits_cold']} expected for a cold run: {'equal' if fresh else 'DIFFERENT'}")
-        ok &= fresh
-        verdict = "replay: every array within 1e-12, every selection equal, every cross-fit fresh" if ok else "replay: DIFFERENCES FOUND"
-        text = "\n".join(lines + [verdict]) + "\n"
-        write_once(OUT / "replay.txt", text.encode())
-        print(text)
-        if not ok:
-            sys.exit(1)
+        verify()
 
 
-def fold_auc_table(result, pop, keys, fold):
-    y = pop.y
-    return {k: [float(roc_auc_score(y[fold == r["fold"]], r[k])) for r in result["folds"]] for k in keys}
+def unique_record(kind, hashes):
+    found = [r for r in records(kind) if r.get("npz_sha256") == hashes["npz_sha256"] and r.get("json_sha256") == hashes["json_sha256"]]
+    if len(found) != 1:
+        raise AssertionError(f"{len(found)} {kind} records carry the hashes of the saved result; exactly one is required")
+    return found[0]
+
+
+def verify():
+    """Both saved results validated, compared and bound to their log records; the replay's freshness checked; a
+    receipt written that the decide stage requires."""
+    ctx, pop, menu, msha, fold, ssha, meas, measure_sha = gate()
+    ex, xsha = executable(menu)
+    keys, reduced = candidate_keys(ex), (meas["reduced_candidate"] if meas["path"] == "reduced" else None)
+    stable = stable_provenance(meas, msha, xsha, ssha, measure_sha)
+    stems = {"build": OUT / "result_build", "replay": OUT / "result_replay"}
+    hashes = {k: file_hashes(v) for k, v in stems.items()}
+    recs = {k: unique_record(f"nested_{k}", hashes[k]) for k in stems}
+    results = {k: load_result(v) for k, v in stems.items()}
+    for k, r in results.items():
+        validate_result(r, pop, fold, keys, reduced, stable)
+    ok, lines = compare_results(results["build"], results["replay"])
+    rp = results["replay"]["provenance"]
+    expected = expected_fresh_cross_fits(ex, results["replay"])
+    fresh = rp["cache_entries_at_start"] == 0 and rp["cache_misses"] == expected \
+        and recs["replay"]["cache_entries_at_start"] == 0 and recs["replay"]["cache_misses"] == expected
+    lines.append(f"freshness: the replay namespace held {rp['cache_entries_at_start']} entries at start and "
+                 f"{rp['cache_misses']} cross-fits were computed against {expected} expected for a cold run: "
+                 f"{'equal' if fresh else 'DIFFERENT'}")
+    ok &= fresh
+    verdict = "replay: every array within 1e-12, every selection equal, every cross-fit fresh" if ok else "replay: DIFFERENCES FOUND"
+    receipt = {"schema": RECEIPT_SCHEMA, "ok": ok, "verdict": verdict, "lines": lines, **stable,
+               "files": {k: {"npz": f"{v}.npz", "json": f"{v}.json", **hashes[k]} for k, v in stems.items()},
+               "records": {k: {"timestamp_utc": recs[k]["timestamp_utc"], "driver_sha256": recs[k].get("driver_sha256")}
+                           for k in stems},
+               "selected_per_fold": [r["selected"] for r in results["build"]["folds"]],
+               "freshness": {"replay_entries_at_start": rp["cache_entries_at_start"], "replay_cross_fits": rp["cache_misses"],
+                             "expected_cold": expected},
+               "engine_sources_equal": bool(lines and "engine sources equal" in lines[0]),
+               "verifier_source_manifest_sha256": banks.source_manifest(ctx.root)["manifest_sha256"],
+               "verified_at_utc": now()}
+    data = (json.dumps(receipt, indent=2, sort_keys=True) + "\n").encode()
+    sha = write_once(OUT / "verification.json", data)
+    write_once(OUT / "replay.txt", ("\n".join(lines + [verdict]) + "\n").encode())
+    log({"record": "nested_verification", "task_id": "P2.7", "ok": ok, "receipt_sha256": sha, **stable,
+         "selected_per_fold": receipt["selected_per_fold"], "freshness": receipt["freshness"]})
+    print("\n".join(lines + [verdict]))
+    if not ok:
+        sys.exit(1)
+
+
+def require_receipt(stable):
+    """The passing receipt, whose hashes must still match the files and whose identity must match the current gate."""
+    path = OUT / "verification.json"
+    if not path.exists():
+        raise RuntimeError("the decide stage needs a verification receipt (artifacts/phase2/p27/verification.json)")
+    raw = path.read_bytes()
+    receipt = json.loads(raw)
+    if receipt.get("schema") != RECEIPT_SCHEMA or not receipt.get("ok"):
+        raise RuntimeError("the verification receipt is not a passing receipt")
+    for k, v in stable.items():
+        if receipt.get(k) != v:
+            raise RuntimeError(f"the receipt's {k} does not match the current gate")
+    for k, f in receipt["files"].items():
+        want = {"npz_sha256": f["npz_sha256"], "json_sha256": f["json_sha256"]}
+        if file_hashes(OUT / f"result_{k}") != want:
+            raise RuntimeError(f"the {k} result files no longer match the receipt")
+        unique_record(f"nested_{k}", want)
+    return receipt, artifacts.sha256_bytes(raw)
 
 
 def decide():
-    require_replay_verified()
     ctx, pop, menu, msha, fold, ssha, meas, measure_sha = gate()
-    result = load_result(OUT / "result_build")
-    other = load_result(OUT / "result_replay")
-    d = nested.decide(result, pop)
-    d2 = nested.decide(other, pop)
-    keys = ("full_refit", "anchor") if result["reduced"] else ("fold_average", "full_refit", "anchor")
-    agree = d["decision"] == d2["decision"] and all(np.allclose(d[k], d2[k], rtol=0, atol=TOL) for k in keys)
+    ex, xsha = executable(menu)
+    stable = stable_provenance(meas, msha, xsha, ssha, measure_sha)
+    receipt, receipt_sha = require_receipt(stable)
+    keys, reduced = candidate_keys(ex), (meas["reduced_candidate"] if meas["path"] == "reduced" else None)
+    result, other = load_result(OUT / "result_build"), load_result(OUT / "result_replay")
+    for r in (result, other):
+        validate_result(r, pop, fold, keys, reduced, stable)
+    ok, _ = compare_results(result, other)
+    if not ok:
+        raise AssertionError("the build and the replay no longer compare equal")
+    d, d2 = nested.decide(result, pop), nested.decide(other, pop)
+    keys_auc = ("full_refit", "anchor") if result["reduced"] else ("fold_average", "full_refit", "anchor")
+    agree = (d["decision"] == d2["decision"] and d["path"] == d2["path"]
+             and [r["selected"] for r in result["folds"]] == [r["selected"] for r in other["folds"]]
+             and all(np.allclose(d[k], d2[k], rtol=0, atol=TOL) for k in keys_auc))
     if not agree:
-        raise AssertionError("the replay's decision or outer fold AUCs differ from the build's")
+        raise AssertionError("the replay's decision, selections or outer fold AUCs differ from the build's")
     N = len(pop.y)
-    pooled = {k: np.full(N, np.nan) for k in keys}
+    pooled = {k: np.full(N, np.nan) for k in keys_auc}
     for r in result["folds"]:
         pos = np.flatnonzero(fold == r["fold"])
         assert np.array_equal(pop.row_ids[pos], r["validation_row_ids"])
-        for k in keys:
+        for k in keys_auc:
             pooled[k][pos] = r[k]
     assert all(np.isfinite(v).all() for v in pooled.values())
-    report = {"path": d["path"], "decision": d["decision"], "outer_fold_auc": {k: d[k] for k in keys},
-              "outer_mean_auc": {k: float(np.mean(d[k])) for k in keys},
-              "pooled_outer_auc": {k: float(roc_auc_score(pop.y, pooled[k])) for k in keys},
+    report = {"path": d["path"], "decision": d["decision"], "outer_fold_auc": {k: d[k] for k in keys_auc},
+              "outer_mean_auc": {k: float(np.mean(d[k])) for k in keys_auc},
+              "pooled_outer_auc": {k: float(roc_auc_score(pop.y, pooled[k])) for k in keys_auc},
               "selected_per_fold": [r["selected"] for r in result["folds"]],
               "tie_sets_per_fold": [None if r["selection"] is None else r["selection"]["tied"] for r in result["folds"]],
-              "replay_decision_agrees": agree}
+              "replay_agrees": agree}
     pairs = ({"selected_minus_anchor": ("fold_average", "anchor"), "refit_minus_fold_average": ("full_refit", "fold_average")}
              if not result["reduced"] else {"fixed_refit_minus_anchor_refit": ("full_refit", "anchor")})
     for name, (ka, kb) in pairs.items():
@@ -504,15 +711,13 @@ def decide():
     draws, invalid = {name: [] for name in pairs}, 0
     for _ in range(BOOT):
         rows = np.concatenate([members[g] for g in rng.integers(0, len(uniq), len(uniq))])
-        per = {name: [] for name in pairs}
-        bad = False
+        per, bad = {name: [] for name in pairs}, False
         for o in range(nested.OUTER_FOLDS):
             sel = rows[fold[rows] == o]
-            yb = pop.y[sel]
-            if yb.min() == yb.max():
+            if len(sel) == 0 or pop.y[sel].min() == pop.y[sel].max():
                 bad = True
                 break
-            auc = {k: roc_auc_score(yb, pooled[k][sel]) for k in keys}
+            auc = {k: roc_auc_score(pop.y[sel], pooled[k][sel]) for k in keys_auc}
             for name, (ka, kb) in pairs.items():
                 per[name].append(auc[ka] - auc[kb])
         if bad:
@@ -520,26 +725,32 @@ def decide():
             continue
         for name in pairs:
             draws[name].append(float(np.mean(per[name])))
+    if any(len(v) == 0 for v in draws.values()):
+        raise RuntimeError(f"no valid bootstrap resample among {BOOT}; the intervals are unusable")
     report["group_bootstrap"] = {name: {"observed_mean_difference": float(np.mean(report[name])), "valid": len(v),
                                         "invalid": invalid, "mean": float(np.mean(v)),
                                         "interval_95": [float(np.quantile(v, 0.025)), float(np.quantile(v, 0.975))],
                                         "share_positive": float(np.mean(np.array(v) > 0))} for name, v in draws.items()}
-    report["bootstrap_method"] = (f"{BOOT} resamples of the primary groups with replacement, seed {BOOTSTRAP_SEED}; the "
-                                  "three outer folds kept and the mean of their paired AUC differences taken per "
-                                  "resample; a resample with a single-class fold is invalid as a whole")
+    report["bootstrap_method"] = (f"{BOOT} resamples of the primary groups with replacement (numpy default_rng, seed "
+                                  f"{BOOTSTRAP_SEED}; the project's helper is not reused, so the draws differ from its "
+                                  "stream); the three outer folds kept and the mean of their paired AUC differences "
+                                  "taken per resample; a resample with an empty or single-class fold is invalid as a whole")
     report["bootstrap_caveat"] = ("conditional on the fixed outer predictions and the realized per-fold selections; it "
                                   "excludes retraining and selection variability and does not rerun the selection")
-    report.update({"menu_sha256": msha, "split_sha256": ssha, "measure_sha256": measure_sha,
+    report["caveats"] = CAVEATS
+    report.update({**stable, "receipt_sha256": receipt_sha, "verified_at_utc": receipt["verified_at_utc"],
+                   "reporting_source_manifest_sha256": banks.source_manifest(ctx.root)["manifest_sha256"],
                    "measure": {k: meas[k] for k in ("c_all_seconds", "c_l_seconds", "plan_projection_seconds",
                                                      "build_and_replay_with_margin_hours", "path")},
                    "decided_at_utc": now()})
-    write_once(OUT / "decision.json", (json.dumps(report, indent=2, sort_keys=True) + "\n").encode())
-    log(dict(record="nested_decision", task_id="P2.7", **{k: report[k] for k in
+    data = (json.dumps(report, indent=2, sort_keys=True) + "\n").encode()
+    dsha = write_once(OUT / "decision.json", data)
+    log(dict(record="nested_decision", task_id="P2.7", decision_sha256=dsha, **{k: report[k] for k in
              ("path", "decision", "outer_fold_auc", "outer_mean_auc", "pooled_outer_auc", "selected_per_fold",
-              "replay_decision_agrees", "menu_sha256", "split_sha256", "measure_sha256")}))
+              "replay_agrees", "receipt_sha256", "menu_sha256", "split_sha256", "measure_sha256")}))
     print(json.dumps(report, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":
-    {"smoke": smoke, "measure": measure, "run": lambda: evaluate(False), "replay": lambda: evaluate(True),
-     "decide": decide}[sys.argv[1]]()
+    {"smoke": smoke, "measure": measure, "preflight": preflight, "run": lambda: evaluate(False),
+     "replay": lambda: evaluate(True), "verify": verify, "decide": decide}[sys.argv[1]]()
