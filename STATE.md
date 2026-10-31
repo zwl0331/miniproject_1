@@ -66,3 +66,5 @@ Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"). Nothing runs. For Sa
 2. Sam's decisions on the brainstorm's three questions (open questions above). The primary agent's recommendation: report the singleton score as a diagnostic only, do not reopen the frozen pool, no transductive use of the test file.
 
 Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7).
+
+After the close: Sam asks (2026-10-31) for a read of the class's public Colab notebooks, posted in public Piazza notes from Tuesday 2026-11-03, against the rules (external data, lookups by identifier, code written for this dataset, pretrained models if the staff rule them out) and against each team's numbers on the private board; factual observations for Sam, who decides what to do with them; nothing from those notebooks enters the project's models or report beyond the Challenges discussion.
