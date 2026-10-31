@@ -1,0 +1,8 @@
+{
+  "schema": "selection_v1",
+  "name": "blend_eq_all",
+  "task_id": "P2.6b",
+  "run_id": "p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9",
+  "purpose": "exercise the ensemble deployment path with the candidate the frozen selection rule ranks first on the R2-approved menu (plan section 10): the equal average of the four channels (the within-family average of three LightGBM recipes, XGBoost, CatBoost with music, Extra Trees with interactions); recorded before any public score, which is a check only",
+  "date": "2026-10-31"
+}

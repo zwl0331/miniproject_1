@@ -884,7 +884,7 @@ The isolation checks use the first project training rows and tiny LightGBM recip
 
 Review status:
 
-`draft`, provisional; part of the R2 review of the P2.6b freeze.
+`reviewed`: R2 review of the P2.6b freeze `APPROVED` at fd48199 in round 2 (`../reviews/2026-10-31-p2.6b-menu.md`); provisional results until they feed the final selection (R1).
 
 Downstream use:
 
@@ -914,7 +914,7 @@ All scores are exploratory matched evaluations on the folds that also chose them
 
 Review status:
 
-`draft`, part of the R2 review of the P2.6b freeze.
+`reviewed`: R2 review of the P2.6b freeze `APPROVED` at fd48199 in round 2 (`../reviews/2026-10-31-p2.6b-menu.md`); provisional results until they feed the final selection (R1).
 
 Downstream use:
 
@@ -944,7 +944,7 @@ Exploratory: every procedure was scored on the folds that also chose its ingredi
 
 Review status:
 
-`draft`, in the R2 review of the P2.6b freeze (`../reviews/2026-10-31-p2.6b-menu.md`).
+`reviewed`: R2 review of the P2.6b freeze `APPROVED` at fd48199 in round 2 (`../reviews/2026-10-31-p2.6b-menu.md`); provisional results until they feed the final selection (R1).
 
 Downstream use:
 
