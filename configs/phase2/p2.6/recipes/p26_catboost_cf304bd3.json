@@ -1,0 +1,30 @@
+{
+ "base": "F2",
+ "blocks": [
+  "date_count",
+  "date_te3"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "catboost",
+ "iterations": "fixed",
+ "name": "p26_catboost_cf304bd3",
+ "params": {
+  "boosting_type": "Plain",
+  "depth": 6,
+  "iterations": 843,
+  "l2_leaf_reg": 3.0,
+  "learning_rate": 0.0168,
+  "random_strength": 1.0
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

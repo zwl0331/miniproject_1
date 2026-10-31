@@ -1,0 +1,28 @@
+{
+ "base": "F2",
+ "blocks": [
+  "date_te3"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "random_forest",
+ "iterations": "fixed",
+ "name": "p26_random_forest_04be4156",
+ "params": {
+  "max_depth": 24,
+  "max_features": 0.5,
+  "max_samples": 1.0,
+  "min_samples_leaf": 2,
+  "n_estimators": 500
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

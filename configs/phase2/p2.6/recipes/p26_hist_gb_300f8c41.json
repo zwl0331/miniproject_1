@@ -1,0 +1,26 @@
+{
+ "base": "F2",
+ "blocks": [],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "hist_gb",
+ "iterations": "fixed",
+ "name": "p26_hist_gb_300f8c41",
+ "params": {
+  "l2_regularization": 0,
+  "learning_rate": 0.1,
+  "max_iter": 300,
+  "max_leaf_nodes": 7,
+  "min_samples_leaf": 10
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

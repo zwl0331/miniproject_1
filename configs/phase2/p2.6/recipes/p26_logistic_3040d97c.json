@@ -1,0 +1,26 @@
+{
+ "base": "F2",
+ "blocks": [
+  "date_count",
+  "date_te10"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "logistic",
+ "iterations": "fixed",
+ "name": "p26_logistic_3040d97c",
+ "params": {
+  "C": 0.0531
+ },
+ "preprocessing": {
+  "n_knots": 8,
+  "name": "spline_calendar"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

@@ -1,0 +1,29 @@
+{
+ "base": "F2",
+ "blocks": [
+  "music"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "catboost",
+ "iterations": "fixed",
+ "name": "p26_catboost_a9a13819",
+ "params": {
+  "boosting_type": "Plain",
+  "depth": 6,
+  "iterations": 1000,
+  "l2_leaf_reg": 3.0,
+  "learning_rate": 0.0168,
+  "random_strength": 1.0
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

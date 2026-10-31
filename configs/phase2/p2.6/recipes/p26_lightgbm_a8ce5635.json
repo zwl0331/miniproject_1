@@ -1,0 +1,33 @@
+{
+ "base": "F2",
+ "blocks": [
+  "date_count",
+  "date_te3"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "lightgbm",
+ "iterations": "fixed",
+ "name": "p26_lightgbm_a8ce5635",
+ "params": {
+  "colsample_bytree": 0.7,
+  "learning_rate": 0.01,
+  "min_child_samples": 10,
+  "n_estimators": 600,
+  "num_leaves": 63,
+  "reg_alpha": 0.0714,
+  "reg_lambda": 0.53,
+  "subsample": 0.7,
+  "subsample_freq": 1
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

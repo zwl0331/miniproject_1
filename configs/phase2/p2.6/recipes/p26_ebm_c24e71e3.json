@@ -1,0 +1,26 @@
+{
+ "base": "F2",
+ "blocks": [
+  "music"
+ ],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "ebm",
+ "iterations": "fixed",
+ "name": "p26_ebm_c24e71e3",
+ "params": {
+  "interactions": "declared3",
+  "learning_rate": 0.01,
+  "max_rounds": 603
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

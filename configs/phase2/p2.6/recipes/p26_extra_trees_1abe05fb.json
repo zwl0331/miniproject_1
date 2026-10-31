@@ -1,0 +1,25 @@
+{
+ "base": "F2",
+ "blocks": [],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0,
+  1,
+  2
+ ],
+ "family": "extra_trees",
+ "iterations": "fixed",
+ "name": "p26_extra_trees_1abe05fb",
+ "params": {
+  "max_depth": 24,
+  "max_features": 0.4,
+  "min_samples_leaf": 2,
+  "n_estimators": 500
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}
