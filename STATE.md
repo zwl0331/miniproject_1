@@ -1,13 +1,13 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, 02:55 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-31, 03:05 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
 - Objective: the strongest well-validated probability model for high popularity; two final Kaggle selections chosen on grouped cross-validation; a report and Colab demo that explain what was tried, why, how models were selected, and which features matter in which direction.
 - Constraints: the course rules and Sam's decisions in `AGENTS.md`; folds grouped by track (Finding 002); the public leaderboard is a check only.
 - Success criteria: two final selections by Monday 2026-11-02, 5:00 PM PST; report PDF and public Colab link on Gradescope by Tuesday 2026-11-03, 11:59 PM PST.
-- Next milestone: P2.6b's frozen menu (`configs/phase2/menu.json`) with its R2 review; then a pause (Sam, 2026-10-30: finish P2.4, P2.5 and P2.6, then pause; P2.7 is not launched).
+- Next milestone: paused after P2.6 (Sam, 2026-10-30). Next, on Sam's go-ahead: P2.7 (the restricted nested evaluation of the frozen menu), then phase 3 (two final selections by Monday 17:00 PST).
 - Choices that could invalidate later work: the candidate freeze and the final selection rule (phase 2 plan, P2.6 and phase 3) need an R2 review before the selection is made.
 
 ## Decisions in force
@@ -30,8 +30,9 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.3 | CatBoost best 0.8306, EBM best 0.8162, both below the anchor | reviewed | Findings 018 to 020 | dca38c6 |
 | P2.4 | 96 feature comparisons, 128 re-tuning configurations; best standalone 0.8368 (LightGBM, `date_count`, `date_te3`); best blend with H 0.8371 | provisional; audit passes; full refit exact (220 runs, 82 comparisons) | Findings 021 to 023 (draft) | 4dfd0c8 |
 | P2.5 | TabM: 8 configurations, best 0.8034 (H 0.8315); best blend with H 0.8320; no allocation progress; full refit exact | provisional | Findings 024, 025 (draft) | 80a2635 |
-| P2.6a | Learned-procedure engine, cache, selector, nested evaluator; isolation checks; cost pilot within the plan's formulas | provisional | Finding 026 (draft); `scripts/check_phase2.py` "(P2.6a)" | 58f0787 |
-| P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | provisional; R2 round 1 changes requested (F1 to F4), fixed; round 2 running; every P2.6b run and the learned procedures replay exactly | Findings 027, 028 (draft); `reviews/2026-10-31-p2.6b-menu.md` | fd48199 |
+| P2.6a | Learned-procedure engine, cache, selector, nested evaluator (with `executable_menu`); isolation checks; cost pilot within the plan's formulas | reviewed with the P2.6b freeze | Finding 026 (reviewed); `scripts/check_phase2.py` "(P2.6a)" | fd48199 |
+| P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | reviewed (R2 `APPROVED` at fd48199, round 2); every P2.6b run and the learned procedures replay exactly | Findings 026 to 028 (reviewed); `reviews/2026-10-31-p2.6b-menu.md` | fd48199 |
+| P2.6b | Submission file `2026-10-31_p2.6b_blend_eq_all.csv` (the frozen rule's first, CV 0.8411; sha256 d2b5c461…) | reviewed (R1 `APPROVED` at fe70fc4); awaiting Sam's upload | `reviews/2026-10-31-p2.6b-submission.md`; `submissions/README.md` | fe70fc4 |
 | Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30) | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
 
 Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 passed, 0 failed, 0 staged (`artifacts/phase2/check_phase2.txt`). Codex consultation rounds S to V adopted (`doc/llm_usage/2026-10-30-p2.5-consultation/`, `-p2.6-consultation/`). A rehearsal of P2.6b's evaluate stage with seed-0 stand-ins ran without error; its outputs were discarded and its scores are not used.
@@ -52,14 +53,15 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| R2 review of the P2.6b freeze, round 2 (Codex gpt-6-astra xhigh, thread 01a1910a-d18c-7da2-a5d6-9c4764811900) | background shell bz6087see | `.review_logs/r2_p26b_round2.out` | 2026-10-31 02:50 PDT |
+| none | | | |
 
 ## Next action
 
-1. Done: nominations (23), final-policy runs, H* (`p26_lightgbm_a8ce5635`, 0.8366), pool of 8 atoms, 4 channels (TabM not in the pool), 24 procedures; the manifest frozen at ae4dd90 before evaluation.
-2. Done: R2 round 1 (F1 executable menu, F2 complete replay, F3 every nominee rerun under the final sources, F4 plan text); manifest frozen again at 7e404e4; the same menu and production selection (`blend_eq_all`, 0.8411).
-3. R2 round 2 running at fd48199. If approved: quote the verdict to Sam. If changes: answer, fix, recheck.
-4. Then at most one submission: `blend_eq_all` (the frozen rule's first) through `scripts/prepare_candidate.py` with a selection manifest, its R1 review (a separate record), then the path and description to Sam, who uploads.
-5. Then pause; P2.7 is not launched (prepared: `nested.executable_menu`, the menu's reservation; P2.7 measures its own cost before choosing the full or reduced path).
+Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"). Nothing runs. For Sam:
 
-Scratchpad (`/private/tmp/claude-501/-Users-zwl0331-Desktop-Mini-project-1/c06b0ee0-23ee-47b0-8274-723d2960347b/scratchpad/`): worktrees `wt` and `wt26` (branches merged; removable); `r2_request_draft.md`; `merge_log.py`.
+1. Optional upload of `submissions/2026-10-31_p2.6b_blend_eq_all.csv` (R1-approved; Kaggle description in `submissions/README.md`), then report the public score; it is a check only.
+2. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). It must first measure its cost without concurrent jobs and choose the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision). Then phase 3.
+
+Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7).
+
+Scratchpad (`/private/tmp/claude-501/-Users-zwl0331-Desktop-Mini-project-1/c06b0ee0-23ee-47b0-8274-723d2960347b/scratchpad/`):  `r2_request_draft.md`; `merge_log.py`.
