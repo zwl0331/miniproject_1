@@ -10,3 +10,5 @@ __pycache__/
 .DS_Store
 # agent workflow
 .review/
+# P2.6 content-addressed prediction cache (replays start from an empty namespace)
+artifacts/phase2/cache/

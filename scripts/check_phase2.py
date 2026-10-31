@@ -2542,6 +2542,66 @@ def _():
     return f"pool {names}; {len(procs)} candidates"
 
 
+@check("learned-procedure submissions (P2.6b): a procedure bank's every fold is rebuilt from its atoms' banks and its "
+       "stored combiner states; a corrupted fold, a corrupted state or a member that differs from its recorded hash is "
+       "refused, even when two members' corruptions cancel inside a channel average")
+def _():
+    from types import SimpleNamespace
+    from songpop.phase2 import procedures as P, submission as S
+    rng = np.random.default_rng(9)
+    n, T = 300, 6
+    y, g = rng.integers(0, 2, n), np.arange(n)
+    F = np.vstack([P.population_folds(y, g, g, 5, s_) for s_ in (155, 2026, 1029)])
+    seeds = np.array([155, 2026, 1029])
+
+    def atom(name):
+        oof = np.clip(0.5 * y + rng.uniform(0, 0.5, (3, n)), 0.01, 0.99)
+        test = rng.uniform(0.05, 0.95, (3, 5, T))
+        auc = np.array([[roc_auc_score(y[F[r] == k], oof[r, F[r] == k]) for k in range(5)] for r in range(3)])
+        return PredictionBank(g, y, g, seeds, F, oof, np.arange(T), test, test.mean(axis=(0, 1)), auc,
+                              {"run_id": name, "prediction_kind": "fitted"})
+    atoms = {k: atom(k) for k in ("a1", "a2", "b")}
+    chans = [{"id": "ca", "run_ids": ["a1", "a2"], "bank_sha256": ["h_a1", "h_a2"]},
+             {"id": "cb", "run_ids": ["b"], "bank_sha256": ["h_b"]}]
+    oof_c = [np.mean([atoms[r].oof for r in c["run_ids"]], axis=0) for c in chans]
+    test_c = [np.mean([atoms[r].test_by_fold for r in c["run_ids"]], axis=0) for c in chans]
+    arrays, states = {"oof": np.zeros((3, n)), "test": np.zeros((3, 5, T))}, []
+    for r in range(3):
+        for k in range(5):
+            tr, va = F[r] != k, F[r] == k
+            st = P.fit_combiner(("stacker", 0.1), np.column_stack([c[r, tr] for c in oof_c]), y[tr])
+            arrays["oof"][r, va] = P.apply_combiner(st, np.column_stack([c[r, va] for c in oof_c]))
+            arrays["test"][r, k] = P.apply_combiner(st, np.column_stack([c[r, k] for c in test_c]))
+            states.append(dict(st, split_seed=str(seeds[r]), fold=k))
+    meta = {"run_id": "proc", "task_id": "P9.6", "procedure": {"id": "stacker_c0.1", "setting": ["stacker", 0.1]},
+            "identity": {}, "states": states, "meta_receipts": [{"split_seed": str(s_), "fold": k} for s_ in seeds
+                                                                 for k in range(5)],
+            "source_manifest": {}, "environment": {}, "split_seeds": [155, 2026, 1029], "selection_eligible": True,
+            "channel_runs": chans, "prediction_kind": "learned_procedure"}
+    bank = P.procedure_bank(arrays, y, g, g, F, [155, 2026, 1029], np.arange(T), meta)
+    ctx = SimpleNamespace(data=SimpleNamespace(row_ids=g, y=y, test_id=np.arange(T)), groups=g,
+                          fold_id=lambda seeds_: F)
+    load = lambda r: (atoms[r], f"h_{r}")  # noqa: E731
+    members = S.procedure_members(ctx, bank, load)
+    S.check_procedure(ctx, bank, members)
+    from dataclasses import replace
+    tb = bank.test_by_fold.copy()
+    tb[1, 2, 0] += 1e-6  # with a consistent test mean, so only the rebuild can see it
+    bad = replace(bank, test_by_fold=tb, test_mean=tb.mean(axis=(0, 1)))
+    raises(lambda: S.check_procedure(ctx, bad, members), ValueError, "differ")
+    bs = replace(bank, metadata=dict(bank.metadata, states=[dict(st, coef=[c_ * 1.01 for c_ in st["coef"]])
+                                                           if i == 4 else st for i, st in enumerate(states)]))
+    raises(lambda: S.check_procedure(ctx, bs, members), ValueError, "differ")
+    # two members corrupted in opposite directions: their channel average is unchanged, so the rebuild alone would
+    # pass; their banks no longer match the hashes the procedure recorded, so they are refused as members
+    a1, a2 = replace(atoms["a1"], test_by_fold=atoms["a1"].test_by_fold + 0.01), replace(
+        atoms["a2"], test_by_fold=atoms["a2"].test_by_fold - 0.01)
+    S.check_procedure(ctx, bank, [(a1, "x"), (a2, "y"), (atoms["b"], "h_b")])
+    raises(lambda: S.procedure_members(ctx, bank, lambda r: {"a1": (a1, "changed"), "a2": (a2, "changed2"),
+                                                             "b": (atoms["b"], "h_b")}[r]), ValueError, "hash")
+    return "rebuild exact; a corrupted fold, state or member refused"
+
+
 @check("deployment (P2.6a): a learned procedure's bank is its own schema, refused as a fitted bank; its test mean "
        "is the average of its fold procedures' test predictions")
 def _():
