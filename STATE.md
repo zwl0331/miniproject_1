@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, 01:25 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-31, 02:55 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
@@ -28,10 +28,10 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.2 | Calibration file `2026-10-30_p2.2_lightgbm_best.csv`: public 0.84343 (CV 0.8339; a check only) | released (Sam uploaded it, 2026-10-30) | `submissions/README.md` | f96870a |
 | P2.8 | Best standalone 0.8354 (tuned LightGBM, date count, `date_te30`); best blend 0.8359; identifier probes negative | reviewed | Findings 014 to 017 | 5e2d5a0 |
 | P2.3 | CatBoost best 0.8306, EBM best 0.8162, both below the anchor | reviewed | Findings 018 to 020 | dca38c6 |
-| P2.4 | 96 feature comparisons, 128 re-tuning configurations; best standalone 0.8368 (LightGBM, `date_count`, `date_te3`); best blend with H 0.8371 | provisional; audit passes; full refit running | Findings 021 to 023 (draft) | 9731e7f |
+| P2.4 | 96 feature comparisons, 128 re-tuning configurations; best standalone 0.8368 (LightGBM, `date_count`, `date_te3`); best blend with H 0.8371 | provisional; audit passes; full refit exact (220 runs, 82 comparisons) | Findings 021 to 023 (draft) | 4dfd0c8 |
 | P2.5 | TabM: 8 configurations, best 0.8034 (H 0.8315); best blend with H 0.8320; no allocation progress; full refit exact | provisional | Findings 024, 025 (draft) | 80a2635 |
 | P2.6a | Learned-procedure engine, cache, selector, nested evaluator; isolation checks; cost pilot within the plan's formulas | provisional | Finding 026 (draft); `scripts/check_phase2.py` "(P2.6a)" | 58f0787 |
-| P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | provisional; R2 review round 1 running | Findings 027, 028 (draft); `reviews/2026-10-31-p2.6b-menu.md` | 7016142 |
+| P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | provisional; R2 round 1 changes requested (F1 to F4), fixed; round 2 running; every P2.6b run and the learned procedures replay exactly | Findings 027, 028 (draft); `reviews/2026-10-31-p2.6b-menu.md` | fd48199 |
 | Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30) | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
 
 Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 passed, 0 failed, 0 staged (`artifacts/phase2/check_phase2.txt`). Codex consultation rounds S to V adopted (`doc/llm_usage/2026-10-30-p2.5-consultation/`, `-p2.6-consultation/`). A rehearsal of P2.6b's evaluate stage with seed-0 stand-ins ran without error; its outputs were discarded and its scores are not used.
@@ -52,16 +52,14 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| P2.4 full refit (`--verify --task P2.4`, worktree `scratchpad/wt_p24v` at 9731e7f) | background shell b67m7gk93 | `scratchpad/p24_verify.log` | 2026-10-31 00:05 PDT |
-| P2.6b empty-cache replay (`--verify-learned`) | background shell b1g9e48xc | `.review_logs/p26_evaluate.log` | 2026-10-31 01:17 PDT |
-| R2 review of the P2.6b freeze, round 1 (Codex gpt-6-astra xhigh) | background shell bhdr9gk7d | `.review_logs/r2_p26b_round1.out` | 2026-10-31 01:19 PDT |
+| R2 review of the P2.6b freeze, round 2 (Codex gpt-6-astra xhigh, thread 01a1910a-d18c-7da2-a5d6-9c4764811900) | background shell bz6087see | `.review_logs/r2_p26b_round2.out` | 2026-10-31 02:50 PDT |
 
 ## Next action
 
 1. Done: nominations (23), final-policy runs, H* (`p26_lightgbm_a8ce5635`, 0.8366), pool of 8 atoms, 4 channels (TabM not in the pool), 24 procedures; the manifest frozen at ae4dd90 before evaluation.
-2. Done: blends, learned procedures, the menu (7016142), Findings 027 and 028. The replay from an empty cache is running; record its result in `artifacts/phase2/verify_learned_p26.txt`.
-3. R2 review running (round 1 at 7016142). Answer every finding (FIXED, REBUTTED, DEFERRED for non-blocking), recheck in the same thread until APPROVED; quote the verdict to Sam.
-4. After R2 converges, at most one submission: the candidate the frozen rule ranks first (now the equal blend `blend_eq_all`; `scripts/prepare_candidate.py` with a selection manifest), its R1 review, then the path and description to Sam.
-5. P2.4's refit result into `artifacts/phase2/verify_task_p24.txt`. Then pause; P2.7 is not launched.
+2. Done: R2 round 1 (F1 executable menu, F2 complete replay, F3 every nominee rerun under the final sources, F4 plan text); manifest frozen again at 7e404e4; the same menu and production selection (`blend_eq_all`, 0.8411).
+3. R2 round 2 running at fd48199. If approved: quote the verdict to Sam. If changes: answer, fix, recheck.
+4. Then at most one submission: `blend_eq_all` (the frozen rule's first) through `scripts/prepare_candidate.py` with a selection manifest, its R1 review (a separate record), then the path and description to Sam, who uploads.
+5. Then pause; P2.7 is not launched (prepared: `nested.executable_menu`, the menu's reservation; P2.7 measures its own cost before choosing the full or reduced path).
 
-Scratchpad (`/private/tmp/claude-501/-Users-zwl0331-Desktop-Mini-project-1/c06b0ee0-23ee-47b0-8274-723d2960347b/scratchpad/`): worktrees `wt` (branch p25-p26-dev, merged), `wt26` (branch p26-submission, merged), `wt_p24v` (P2.4 refit); `r2_request_draft.md`; `merge_log.py`.
+Scratchpad (`/private/tmp/claude-501/-Users-zwl0331-Desktop-Mini-project-1/c06b0ee0-23ee-47b0-8274-723d2960347b/scratchpad/`): worktrees `wt` and `wt26` (branches merged; removable); `r2_request_draft.md`; `merge_log.py`.
