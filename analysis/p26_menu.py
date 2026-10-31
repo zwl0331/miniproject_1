@@ -103,7 +103,7 @@ def main():
     chosen, why = [], {}
 
     def take(cid, reason):
-        if cid and cid not in chosen and len(chosen) < MAX_MENU:
+        if cid and cid in by_id and cid not in chosen and len(chosen) < MAX_MENU:
             chosen.append(cid)
             why[cid] = reason
     take(anchor, "the anchor")
