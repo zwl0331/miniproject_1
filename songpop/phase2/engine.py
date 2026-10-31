@@ -40,6 +40,8 @@ class FittedRecipe:
         preprocessing, which is deterministic and identical for every estimator seed."""
         X = self.features.transform(raw_rows)
         est = self.estimators[0]
+        if self.family == "tabm":  # TabM's own preprocessing (plan section 5.5)
+            return est.transform_inputs(X)
         return est.named_steps["prep"].transform(X) if isinstance(est, Pipeline) else X.to_numpy(dtype="float64")
 
     def predict_each(self, raw_rows):
@@ -78,13 +80,18 @@ def fit_recipe(recipe, rows, y, groups, ctx):
     for seed in recipe["estimator_seeds"]:
         est = make_model(recipe, seed, X.columns)
         with thread_limit(recipe["family"]):
-            est.fit(X, y, **({} if w is None else {weight_argument(est): w}))
+            if recipe["family"] == "tabm":  # its inner stopping split keeps the fitting rows' groups whole
+                est.fit(X, y, groups=groups, context=ctx)
+            else:
+                est.fit(X, y, **({} if w is None else {weight_argument(est): w}))
         estimators.append(est)
     ids = np.asarray(rows.index, dtype=np.int64)
     receipt = {"split_seed": ctx.split_seed, "fold": ctx.fold,
                "fitting_rows_sha256": hashlib.sha256(np.sort(ids).tobytes()).hexdigest(), "inner": features.receipts_}
     if recipe["family"] in FORESTS:
         receipt["forest_prediction_threads"] = 1
+    if recipe["family"] == "tabm":
+        receipt["tabm"] = [est.receipt_ for est in estimators]  # one stopping receipt per estimator seed
     return FittedRecipe(features, estimators, receipt, recipe["family"])
 
 
@@ -95,10 +102,13 @@ def raw_rows(frame, index):
     return out
 
 
-def run_recipe_cv(recipe, rows, y, row_ids, groups, fold_id, seeds, test_rows, test_id, n_splits=N_SPLITS):
+def run_recipe_cv(recipe, rows, y, row_ids, groups, fold_id, seeds, test_rows, test_id, n_splits=N_SPLITS,
+                  contexts=None):
     """Fit the recipe on each training part and predict the held-out part and the test rows. rows and
     test_rows hold exactly RAW_COLUMNS; rows is indexed by row_ids; fold_id is (R, N). The inputs are validated
-    as songpop.evaluate.run_cv validates them, before anything is fitted."""
+    as songpop.evaluate.run_cv validates them, before anything is fitted. contexts(r, k) gives each fit's
+    FitContext (P2.6a: fits inside an internal population carry their place in the protocol); by default
+    FitContext(seeds[r], k), as every production run."""
     validate_recipe(recipe)
     validate_cv_inputs(rows, y, row_ids, groups, fold_id, seeds, test_rows, test_id, n_splits)
     y, groups, fold_id = np.asarray(y), np.asarray(groups), np.asarray(fold_id)
@@ -114,7 +124,8 @@ def run_recipe_cv(recipe, rows, y, row_ids, groups, fold_id, seeds, test_rows, t
             tr = np.flatnonzero(fold_id[r] != k)
             with warnings.catch_warnings(record=True) as w:
                 warnings.simplefilter("always")
-                fitted = fit_recipe(recipe, rows.iloc[tr], y[tr], groups[tr], FitContext(int(seeds[r]), k))
+                ctx = contexts(r, k) if contexts is not None else FitContext(int(seeds[r]), k)
+                fitted = fit_recipe(recipe, rows.iloc[tr], y[tr], groups[tr], ctx)
                 p = fitted.predict_high(rows.iloc[va])
                 each = fitted.predict_each(test_rows)
                 classes = input_classes(fitted.model_inputs(test_rows))

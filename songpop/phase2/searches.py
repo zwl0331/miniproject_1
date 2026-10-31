@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 from songpop import artifacts
-from songpop.phase2.recipes import RECIPE_SCHEMA, recipe_hash, validate_recipe
+from songpop.phase2.recipes import RECIPE_SCHEMA, iteration_policy, recipe_hash, validate_recipe
 
 SEARCH_SCHEMA = "search_v1"
 SEARCH_SCHEMA_V2 = "search_v2"  # adds declarative derived parameters and admissible regions (P2.2)
@@ -65,7 +65,8 @@ def _recipe(spec, i, values):
                             "params": params, "base": spec["base"], "blocks": list(spec["blocks"]),
                             "drop": list(spec["drop"]),
                             "preprocessing": prep, "training_weights": spec["training_weights"],
-                            "estimator_seeds": list(spec["estimator_seeds"]), "iterations": "fixed",
+                            "estimator_seeds": list(spec["estimator_seeds"]),
+                            "iterations": iteration_policy(spec["family"]),
                             "deployment": "fold_average"})
 
 

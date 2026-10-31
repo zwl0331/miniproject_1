@@ -1,0 +1,68 @@
+{
+ "batch_id": "lightgbm_w1_initial_4f4c5be33ab7",
+ "family": "lightgbm",
+ "kind": "initial",
+ "protocol_sha256": "77e3d87dbb350c17323d54e0004f8bfdb136240c59e1e7ea0292b67515e5b4c5",
+ "recipe_sha256": [
+  "08732fab4a5606bf1797465d3186d283e69b1aa90f175ef4d663ef2b9e0b933b"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p25_lightgbm_anchor",
+   "params": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.02,
+    "min_child_samples": 20,
+    "n_estimators": 600,
+    "num_leaves": 15,
+    "subsample": 0.8,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "47231e2920c69ec8380086048d8200b6521b2338a497af19d3c0c0be1c221c2b",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103101
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  },
+  "incumbent": {
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5",
+   "of_run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  },
+  "reference_h": {
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  },
+  "strongest": {
+   "prior_run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  }
+ },
+ "task_id": "P2.5",
+ "wave": 1
+}

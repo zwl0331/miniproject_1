@@ -13,6 +13,7 @@ import io
 import itertools
 import json
 import math
+import pickle
 import sys
 from pathlib import Path
 from unittest import mock
@@ -35,6 +36,7 @@ from songpop.phase2.engine import fit_recipe, run_recipe_cv, training_weights
 from songpop.phase2.ensembles import blend_banks, select_seeds
 from songpop.phase2.features import FeaturePipeline, feature_columns
 from songpop.phase2.models import (EBM_FIXED, EBM_PAIRS, THREADS, ebm_pairs, make_estimator, make_model,
+                                   make_preprocessing,
                                    prediction_threads)
 from songpop.phase2.recipes import load_recipe, recipe_hash, recipe_id, validate_recipe
 from songpop.phase2.submission import members_of, repeated_uri_pairs, validate_candidate, write_candidate
@@ -2205,24 +2207,542 @@ def _():
     return f"{recs[0]['elapsed_seconds']} s for 10 fits; no scorer called; seeds canonicalized"
 
 
-@check("nested evaluation: fitting ids stay inside their outer training rows", status="STAGED")
+def _evidence(cid, y, g, F, oof):
+    from songpop.phase2.selection import Evidence
+    auc = np.array([[roc_auc_score(y[F[r] == k], oof[r, F[r] == k]) for k in range(5)] for r in range(len(F))])
+    return Evidence(cid, np.arange(len(y)), y, g, (155, 2026, 1029)[:len(F)], F, oof, auc)
+
+
+@check("selection (P2.6a): exactly the menu's candidates, complete on three repeats of five folds, on one population "
+       "and its folds, fold AUCs recomputed; the tie set is measured from the single maximum, not chained; ties go "
+       "to fewer atomic recipes, then supervised transformations, learned combiners, complexity rank, id")
 def _():
-    """songpop/phase2/nested.py arrives with P2.7, which first uses it; its check arrives with it."""
+    from songpop.phase2 import procedures as P
+    from songpop.phase2.selection import select_candidate
+    rng = np.random.default_rng(0)
+    n = 600
+    y, g = rng.integers(0, 2, n), np.arange(n) // 2
+    F = np.vstack([P.population_folds(y, g, np.arange(n), 5, s) for s in (155, 2026, 1029)])
+    pool = [(1.0 + 0.002 * i) * y + rng.normal(0, 1.6, (3, n)) for i in range(40)]
+    ev = [_evidence(f"c{i:02d}", y, g, F, 1 / (1 + np.exp(-o))) for i, o in enumerate(pool)]
+    m = {e.candidate_id: float(e.fold_auc.mean()) for e in ev}
+    # a chain a > b > c: b within 0.001 of a, c within 0.001 of b but more than 0.001 below a
+    trip = next((a, b, c) for a in ev for b in ev for c in ev
+                if 0 < m[a.candidate_id] - m[b.candidate_id] < 0.001 and 0 < m[b.candidate_id] - m[c.candidate_id] < 0.001
+                and m[a.candidate_id] - m[c.candidate_id] > 0.001)
+    a, b, c = trip
+    top = max(ev, key=lambda e: m[e.candidate_id])
+    chosen = [top] if top.candidate_id not in (a.candidate_id, b.candidate_id, c.candidate_id) else []
+    evs = {e.candidate_id: e for e in [a, b, c]}
+    menu = {"candidates": [{"id": a.candidate_id, "atomic_recipes": 3, "supervised_transformations": 0,
+                            "learned_combiners": 0, "complexity_rank": 1},
+                           {"id": b.candidate_id, "atomic_recipes": 2, "supervised_transformations": 1,
+                            "learned_combiners": 1, "complexity_rank": 9},
+                           {"id": c.candidate_id, "atomic_recipes": 1, "supervised_transformations": 0,
+                            "learned_combiners": 0, "complexity_rank": 0}]}
+    sel = select_candidate(evs, menu)
+    assert sel["tied"] == sorted([a.candidate_id, b.candidate_id]) and sel["selected"] == b.candidate_id, sel
+    menu2 = {"candidates": [dict(x, atomic_recipes=2) for x in menu["candidates"]]}
+    assert select_candidate(evs, menu2)["selected"] == a.candidate_id  # equal atoms: a has fewer transformations
+    menu3 = {"candidates": [dict(x, atomic_recipes=2, supervised_transformations=0, learned_combiners=0,
+                                 complexity_rank=5) for x in menu["candidates"]]}
+    assert select_candidate(evs, menu3)["selected"] == min(a.candidate_id, b.candidate_id)  # then the id
+    # refusals: a partial bank, forged fold AUCs, other folds, a menu mismatch
+    # each tie key decides on its own when the earlier ones are equal
+    flat = {"atomic_recipes": 1, "supervised_transformations": 0, "learned_combiners": 0, "complexity_rank": 0}
+    for key in ("atomic_recipes", "supervised_transformations", "learned_combiners", "complexity_rank"):
+        m4 = {"candidates": [dict(flat, id=a.candidate_id, **{key: 2}), dict(flat, id=b.candidate_id, **{key: 1}),
+                             dict(flat, id=c.candidate_id)]}
+        assert select_candidate(evs, m4)["selected"] == b.candidate_id, key
+    # refusals: a partial bank, forged fold AUCs, other folds, a menu mismatch, a key filed under another id, a group
+    # split across folds, a sixth fold
+    from dataclasses import replace
+    part = evs[a.candidate_id]
+    bad = {**evs, a.candidate_id: replace(part, fold_id=F[:2], oof=part.oof[:2], fold_auc=part.fold_auc[:2],
+                                          split_seeds=(155, 2026))}
+    raises(lambda: select_candidate(bad, menu), ValueError, "complete")
+    forged = {**evs, a.candidate_id: replace(part, fold_auc=part.fold_auc + 0.01)}
+    raises(lambda: select_candidate(forged, menu), ValueError, "fold AUCs")
+    other = {**evs, a.candidate_id: _evidence(a.candidate_id, y, g, F[::-1].copy(), part.oof)}
+    raises(lambda: select_candidate(other, menu), ValueError, "population")
+    raises(lambda: select_candidate({k: v for k, v in evs.items() if k != c.candidate_id}, menu), ValueError, "menu")
+    raises(lambda: select_candidate({**evs, a.candidate_id: replace(part, candidate_id="x")}, menu), ValueError, "filed")
+    split = F.copy()
+    split[:, 0] = (split[:, 1] + 1) % 5  # rows 0 and 1 share group 0
+    first = menu["candidates"][0]["id"]
+    sp = {k: _evidence(k, y, g, split, v.oof) for k, v in evs.items()}
+    raises(lambda: select_candidate(sp, menu), ValueError, "split across")
+    six = F.copy()
+    six[:, g == g[-1]] = 5
+    raises(lambda: select_candidate({k: replace(v, fold_id=six) for k, v in evs.items()}, menu), ValueError, "folds")
+    return f"chain {m[a.candidate_id]:.5f} > {m[b.candidate_id]:.5f} > {m[c.candidate_id]:.5f}: tie set of two"
 
 
-@check("deployment: full-refit artifacts stay apart from fold averages", status="STAGED")
+@check("procedures (P2.6a): grouped population folds cover each row once with whole groups; constrained weights are "
+       "nonnegative, sum to one and fail without falling back; the stacker refuses a convergence warning; the cache "
+       "refuses an entry for another request")
 def _():
-    """Full-refit deployment artifacts arrive with P2.7."""
+    from songpop.phase2 import procedures as P
+    rng = np.random.default_rng(1)
+    n = 500
+    y, g = rng.integers(0, 2, n), np.arange(n) // 3
+    f = P.population_folds(y, g, np.arange(n) * 7, 5, 11)
+    P.check_folds(y, g, f, 5)
+    assert all(len(set(f[g == k])) == 1 for k in np.unique(g))
+    broken = f.copy()
+    broken[0] = (broken[0] + 1) % 5  # row 0's group now spans two folds
+    raises(lambda: P.check_folds(y, g, broken, 5), ValueError, "split across")
+    good = np.clip(0.8 * y + 0.1 + rng.normal(0, 0.05, n), 0.01, 0.99)
+    noise = rng.uniform(0.01, 0.99, n)
+    Z = np.column_stack([good, noise])
+    st = P.fit_weights(Z, y, 0.0)
+    w = np.asarray(st["weights"])
+    assert (w >= 0).all() and abs(w.sum() - 1) < 1e-12 and w[0] > 0.9 and st["loss"] <= st["equal_weight_loss"]
+    heavy = np.asarray(P.fit_weights(Z, y, 1e6)["weights"])
+    assert np.allclose(heavy, 0.5, atol=1e-3)
+    assert np.array_equal(P.apply_combiner(st, np.array([[1.0, 1.0]])), np.array([1.0]))  # the combination, unclipped
+    from types import SimpleNamespace
+    with mock.patch.object(P, "minimize", lambda *a, **k: SimpleNamespace(success=False, x=np.array([0.5, 0.5]),
+                                                                           message="forced", nit=0)):
+        raises(lambda: P.fit_weights(Z, y, 0.0), ValueError, "failed")
+    # round V: a point on the clipping boundary must not pass as converged when a feasible move improves the loss
+    edge = P.fit_weights(np.array([[0.0, 2e-6], [0.5, 0.5]]), np.array([1, 0]), 0.0)
+    assert edge["loss"] < 7.25, edge
+    raises(lambda: P.fit_combiner(("misspelled", 0.1), Z, y), ValueError, "undeclared")
+    raises(lambda: P.fit_weights(np.column_stack([good, noise * 2]), y, 0.0), ValueError, "probabilities")
+    raises(lambda: P.check_channels([{"id": "a", "atoms": [recipe()]}, {"id": "a", "atoms": [recipe()]}]),
+           ValueError, "distinct")
+    s2 = P.fit_stacker(Z, y, 0.1)
+    assert s2["coef"][0] > 0 and len(s2["mean"]) == 2
+    import warnings
+    from sklearn.exceptions import ConvergenceWarning
+    real = P.LogisticRegression.fit
+
+    def warn_fit(self, X, yy):
+        warnings.warn("forced", ConvergenceWarning)
+        return real(self, X, yy)
+    with mock.patch.object(P.LogisticRegression, "fit", warn_fit):
+        raises(lambda: P.fit_stacker(Z, y, 0.1), ConvergenceWarning)
+    cache = P.Cache()
+    base = {"fitting": {"rows": 3}, "folds_shape": [1, 3], "n_folds": 2, "prediction": {"rows": 1}}
+    ra, rb = dict(base, x=1), dict(base, x=2)
+    cache.put(ra, np.full((1, 3), 0.5), np.full((1, 2, 1), 0.5))
+    assert cache.get(rb) is None and cache.get(ra) is not None
+    got = cache.get(ra)[0]
+    got[:] = 0.9  # a returned array is a copy: mutating it changes nothing stored
+    assert (cache.get(ra)[0] == 0.5).all()
+    raises(lambda: cache.put(ra, np.full((1, 3), 0.4), np.full((1, 2, 1), 0.5)), ValueError, "other predictions")
+    raises(lambda: cache.put(rb, np.full((1, 3), 2.0), np.full((1, 2, 1), 0.5)), ValueError, "malformed")
+    raises(lambda: cache.put(rb, np.full((1, 3), 0.5), np.full((1,), np.nan)), ValueError, "malformed")
+    cache.memory[P.Cache.key(rb)] = cache.memory[P.Cache.key(ra)]  # an entry filed under another request's key
+    raises(lambda: cache.get(rb), ValueError, "another request")
+    import pandas as pd_
+    assert P.frame_digest(pd_.DataFrame({"d": [None]}, index=[1])) != P.frame_digest(pd_.DataFrame({"d": ["NA"]}, index=[1]))
+    return f"weights {np.round(w, 4).tolist()}; heavy lambda {np.round(heavy, 4).tolist()}"
 
 
-@check("selection: the frozen rule rejects partial-seed candidates and breaks ties as declared", status="STAGED")
+def _tiny_population(n=480):
+    from songpop.phase2 import procedures as P
+    idx = np.arange(n)
+    return P.Population(CTX.rows.iloc[idx], CTX.data.y[idx].copy(), CTX.groups[idx].copy(), "tiny")
+
+
+TINY_LGBM = dict(SMALL_LGBM, n_estimators=15, num_leaves=5)
+
+
+@check("learned procedures (P2.6a): every fit inside an outer fold uses only that fold's training rows; changing the "
+       "labels of a fold's held-out rows changes none of its predictions; a meta-held-out group's base predictions "
+       "ignore its own labels (positive control: others change); all six settings share one set of base fits")
 def _():
-    """songpop/phase2/selection.py arrives with P2.6; partial-seed submissions are already refused above."""
+    from songpop.phase2 import procedures as P
+    pop = _tiny_population()
+    F = P.population_folds(pop.y, pop.groups, pop.row_ids, 5, 155)[None, :]
+    chans = [{"id": "a", "atoms": [recipe(name="pa", params=TINY_LGBM, blocks=["date_te30"])]},  # target-encoded
+             {"id": "b", "atoms": [recipe(name="pb", params=dict(TINY_LGBM, num_leaves=3))]}]
+    pk = lambda r: {}  # noqa: E731
+    seen, fits = [], []
+    real = P.run_recipe_cv
+    import songpop.phase2.engine as E
+    real_fit = E.fit_recipe
+
+    def spy(rec, rows, *a, **k):
+        seen.append(set(np.asarray(rows.index).tolist()))
+        return real(rec, rows, *a, **k)
+
+    def spy_fit(rec, rows, yy, gg, ctx):
+        fits.append((str(ctx.split_seed), ctx.fold, frozenset(np.asarray(rows.index).tolist())))
+        return real_fit(rec, rows, yy, gg, ctx)
+
+    def run(pp, cache):
+        outer = {ch["id"]: P.channel_cv(ch, pp, F, ["prod"], pp.rows.iloc[:5], cache, "m", pk) for ch in chans}
+        sets = [("constrained", l) for l in P.LAMBDAS] + [("stacker", c) for c in P.CS]
+        return P.evaluate_learned(chans, sets, outer, pp, F, [155], cache, "m", pk)
+    cache = P.Cache()
+    with mock.patch.object(P, "run_recipe_cv", spy), mock.patch.object(E, "fit_recipe", spy_fit):
+        got, rcpt = run(pop, cache)
+    ids = pop.row_ids
+    assert sum(1 for s_ in seen if s_ != set(ids.tolist())) == 2 * 5, "one base cross-fit per channel and outer fold"
+    # every innermost fit, by its context: a meta fit of outer fold k and meta fold j saw exactly D_k minus meta fold j
+    n_meta = 0
+    for name, j, rows in fits:
+        if name.startswith(f"{P.META_PROTOCOL}:tiny:155:"):
+            k = int(name.rsplit(":", 1)[1])
+            D = pop.subset(np.flatnonzero(F[0] != k), "D")
+            meta = P.population_folds(D.y, D.groups, D.row_ids, 5, P.coordinate_seed(P.META_PROTOCOL, "tiny", 155, k))
+            assert rows == frozenset(D.row_ids[meta != j].tolist()), (name, j)
+            n_meta += 1
+        else:
+            assert name == "prod" and rows == frozenset(ids[F[0] != j].tolist()), (name, j)  # the outer fits
+    assert n_meta == 2 * 5 * 5, n_meta
+    # flip the labels of outer fold 0's held-out rows: fold 0's predictions are unchanged, others move
+    y2 = pop.y.copy()
+    y2[F[0] == 0] = 1 - y2[F[0] == 0]
+    got2, _ = run(P.Population(pop.rows, y2, pop.groups, "tiny"), P.Cache())
+    s0 = ("stacker", 0.1)
+    assert np.array_equal(got[s0]["oof"][0, F[0] == 0], got2[s0]["oof"][0, F[0] == 0])
+    assert np.array_equal(got[s0]["test"][0, 0], got2[s0]["test"][0, 0])
+    assert not np.array_equal(got[s0]["test"][0, 1], got2[s0]["test"][0, 1])
+    # meta level: inside D (fold 0's training part), flipping one meta-held-out group's labels leaves its base
+    # predictions unchanged and moves other rows'
+    D = pop.subset(np.flatnonzero(F[0] != 0), "D")
+    meta = P.population_folds(D.y, D.groups, D.row_ids, 5, 3)
+    o1, _ = P.atomic_cv(chans[0]["atoms"][0], D, meta[None, :], ["m0"], D.rows.iloc[:1], P.Cache(), "m", {})
+    yd = D.y.copy()
+    yd[meta == 2] = 1 - yd[meta == 2]
+    o2, _ = P.atomic_cv(chans[0]["atoms"][0], P.Population(D.rows, yd, D.groups, "D"), meta[None, :], ["m0"],
+                        D.rows.iloc[:1], P.Cache(), "m", {})
+    assert np.array_equal(o1[0, meta == 2], o2[0, meta == 2]) and not np.array_equal(o1[0, meta != 2], o2[0, meta != 2])
+    assert all(r["meta_rows"] == int((F[0] != r["fold"]).sum()) for r in rcpt)
+    return f"{len(seen)} cross-fits for 6 settings; cache hits {cache.hits}"
 
 
-@check("neural early stopping: preprocessing fitted on inner training rows only", status="STAGED")
+@check("nested evaluation (P2.6a): every fit stays inside its outer training rows; changing the outer validation "
+       "labels changes no evidence, selection or prediction of that fold; the decision function applies the fallback "
+       "before the deployment rule; the reduced path decides nothing")
 def _():
-    """The TabM wrapper arrives with P2.5."""
+    from songpop.phase2 import nested as Nn, procedures as P
+    pop = _tiny_population(360)
+    a1 = recipe(name="na", params=TINY_LGBM)
+    a2 = recipe(name="nb", params=dict(TINY_LGBM, num_leaves=3))
+    chans = [{"id": "ca", "atoms": [a1]}, {"id": "cb", "atoms": [a2]}]
+    menu = {"candidates": [
+        {"id": "anchor", "kind": "atomic", "recipe": a1, "atomic_recipes": 1, "supervised_transformations": 0,
+         "learned_combiners": 0, "complexity_rank": 0},
+        {"id": "other", "kind": "atomic", "recipe": a2, "atomic_recipes": 1, "supervised_transformations": 0,
+         "learned_combiners": 0, "complexity_rank": 1},
+        {"id": "blend", "kind": "blend", "members": [{"channel": chans[0], "weight": 0.5},
+                                                     {"channel": chans[1], "weight": 0.5}],
+         "atomic_recipes": 2, "supervised_transformations": 0, "learned_combiners": 0, "complexity_rank": 2},
+        {"id": "stack", "kind": "learned", "channels": chans, "setting": ["stacker", 0.1], "atomic_recipes": 2,
+         "supervised_transformations": 0, "learned_combiners": 1, "complexity_rank": 3}]}
+    pk = lambda r: {}  # noqa: E731
+    seen = []
+    real = P.run_recipe_cv
+    real_fit = Nn.fit_recipe
+
+    def spy(rec, rows, *a, **k):
+        seen.append(set(np.asarray(rows.index).tolist()))
+        return real(rec, rows, *a, **k)
+
+    def spy_fit(rec, rows, *a, **k):
+        seen.append(set(np.asarray(rows.index).tolist()))
+        return real_fit(rec, rows, *a, **k)
+    fold = Nn.outer_folds(pop)  # the outer split stratifies on labels, so the isolation test holds it fixed
+    with mock.patch.object(P, "run_recipe_cv", spy), mock.patch.object(Nn, "fit_recipe", spy_fit):
+        res = Nn.run(menu, pop, P.Cache(), "m", pk, "anchor", fold=fold)
+    trains = [set(pop.row_ids[fold != o].tolist()) for o in range(3)]
+    assert all(any(s_ <= t for t in trains) for s_ in seen), "a fit used rows outside every outer training part"
+    y2 = pop.y.copy()
+    y2[fold == 0] = 1 - y2[fold == 0]
+    res2 = Nn.run(menu, P.Population(pop.rows, y2, pop.groups, "tiny"), P.Cache(), "m", pk, "anchor", fold=fold)
+    f0, g0 = res["folds"][0], res2["folds"][0]
+    assert f0["selected"] == g0["selected"] and f0["selection"]["means"] == g0["selection"]["means"]
+    for key in ("fold_average", "full_refit", "anchor"):
+        assert np.array_equal(f0[key], g0[key]), key
+    dec = Nn.decide(res, pop)
+    assert dec["path"] == "full" and len(dec["fold_average"]) == 3
+    # an incomplete, duplicated or substituted outer evaluation is refused before any decision
+    raises(lambda: Nn.decide(dict(res, folds=res["folds"][:1]), pop), ValueError, "exactly once")
+    raises(lambda: Nn.decide(dict(res, folds=[res["folds"][0]] * 3), pop), ValueError, "exactly once")
+    swapped = [dict(res["folds"][0], validation_row_ids=res["folds"][1]["validation_row_ids"])] + res["folds"][1:]
+    raises(lambda: Nn.decide(dict(res, folds=swapped), pop), ValueError, "saved validation rows")
+    raises(lambda: Nn.run(dict(menu, candidates=menu["candidates"] + [dict(menu["candidates"][1], id="dup",
+                                                                                kind="mystery")]), pop, P.Cache(), "m",
+                          pk, "anchor", fold=fold), ValueError, "unknown candidate kind")
+    fake = dict(res, folds=[dict(r) for r in res["folds"]])
+    for r in fake["folds"]:  # the selection far worse than the anchor, and its refit better: the fallback wins
+        r["fold_average"], r["full_refit"] = 1 - r["anchor"], r["anchor"]
+    assert Nn.decide(fake, pop)["decision"].startswith("fallback")
+    red = Nn.run(menu, pop, P.Cache(), "m", pk, "anchor", reduced="blend")
+    assert Nn.decide(red, pop)["decision"] is None and all(r["selection"] is None for r in red["folds"])
+    return f"selected per fold {dec['selected']}; {len(seen)} fits, all inside their outer training parts"
+
+
+@check("P2.6b pool rule on synthetic banks: H* the strongest; three family representatives, two contribution recipes "
+       "(another configuration of a represented family allowed), the anchor, leading-family configurations within 0.002, "
+       "at most eight atoms; one channel per family with the within-family average for H*'s family; at most 32 "
+       "procedures; complexity ranks by kind, atoms, transformations, regularization, id; a family left out of learned "
+       "channels keeps its fixed blends")
+def _():
+    sys.path.insert(0, str(ROOT / "analysis"))
+    import p26_pool as Pp
+    from songpop.phase2 import procedures as P
+    rng = np.random.default_rng(5)
+    n = 300
+    y, g = rng.integers(0, 2, n), np.arange(n)
+    F = np.vstack([P.population_folds(y, g, g, 5, s_) for s_ in (155, 2026, 1029)])
+    base = rng.normal(0, 1, (3, n))
+
+    near = rng.normal(0, 1, (3, n))
+
+    def entry(name, family, strength, own, roles=(), blocks=(), like=None):
+        z = strength * y + 0.6 * base + (own * near + 0.02 * rng.normal(0, 1, (3, n)) if like else
+                                         own * rng.normal(0, 1, (3, n)))
+        oof = 1 / (1 + np.exp(-z))
+        auc = np.array([[roc_auc_score(y[F[r] == k], oof[r, F[r] == k]) for k in range(5)] for r in range(3)])
+        b = PredictionBank(g, y, g, np.array([155, 2026, 1029]), F, oof, np.arange(4), np.full((3, 5, 4), 0.5),
+                           np.full(4, 0.5), auc, {"run_id": f"run_{name}"})
+        rec = recipe(name=name, params=dict(TINY_LGBM, num_leaves=3 + sum(map(ord, name)) % 50), blocks=list(blocks))
+        return {"name": name, "run_id": f"run_{name}", "family": family, "roles": list(roles),
+                "atom_id": name, "recipe": rec, "recipe_id": f"{name}_x", "bank_sha256": name,
+                "mean": float(auc.mean()), "bank": b}
+    fin = [entry("h", "lightgbm", 1.3, 0.3, ("reference",), ("date_te30",), like=True),
+           entry("l2", "lightgbm", 1.3, 0.3, (), ("date_te10",), like=True), entry("l3", "lightgbm", 1.3, 0.3, like=True),
+           entry("lmusic", "lightgbm", 1.0, 1.2),
+           entry("anchor", "lightgbm", 1.1, 0.3, ("anchor",)), entry("anchor_s3", "lightgbm", 1.1, 0.3,
+                                                                   ("anchor_three_seeds",)),
+           entry("cb", "catboost", 1.2, 0.6), entry("xg", "xgboost", 1.15, 0.6), entry("et", "extra_trees", 1.0, 1.4),
+           entry("ebm", "ebm", 0.9, 1.5), entry("knn", "knn", 0.6, 1.6)]
+    hstar, contrib, rep, cwin, pool, why, fam_avg, anc, a3 = Pp.build(fin)
+    m = {e["name"]: e["mean"] for e in fin}
+    assert hstar["name"] == max((e for e in fin if "anchor" not in e["name"]), key=lambda e: e["mean"])["name"]
+    names = [e["name"] for e in pool]
+    assert len(names) <= 8 and len({e["atom_id"] for e in pool}) == len(names) and "anchor" in names
+    reps3 = sorted(rep.values(), key=lambda e: (-e["mean"], e["recipe_id"]))[:3]
+    assert names[:3] == [e["name"] for e in reps3]
+    assert all(why[e["run_id"]].startswith("contribution") for e in pool[3:5] if e["name"] != "anchor")
+    assert all(hstar["mean"] - e["mean"] <= 0.002 for e in fam_avg) and fam_avg[0] is hstar and len(fam_avg) > 1
+    chans = Pp.channels_of(pool, rep, cwin, hstar, fam_avg, anc)
+    fams = [c["family"] for c in chans]
+    assert len(set(fams)) == len(fams) and "anchor" not in [r for c in chans for r in c["run_ids"]]
+    lead = next(c for c in chans if c["family"] == "lightgbm")
+    assert lead["run_ids"] == [e["run_id"] for e in fam_avg]
+    procs = Pp.procedures(pool, chans, hstar, fam_avg, anc, a3, [c for c in chans if c["family"] != "catboost"])
+    learned = [p for p in procs if p["kind"] == "learned"]
+    assert sum(p["kind"] != "atomic" for p in procs) <= 32 and len(learned) == 6
+    assert all(p["atomic_recipes"] == sum(len(c["run_ids"]) for c in chans if c["family"] != "catboost") for p in learned)
+    ranks = sorted(procs, key=lambda p: p["complexity_rank"])
+    kinds = [Pp.KIND_ORDER[p["kind"] if p["kind"] != "learned" else p["setting"][0]] for p in ranks]
+    assert kinds == sorted(kinds) and [p["id"] for p in ranks if p["kind"] == "learned"][:3] == [
+        "constrained_l0.1", "constrained_l0.01", "constrained_l0"]
+    assert any(p["kind"] == "blend" and any(mm["run_id"] == "run_cb" for mm in p["members"]) for p in procs)
+    fa = next(p for p in procs if p["id"] == "family_average")
+    assert fa["supervised_transformations"] == len({b_ for e in fam_avg for b_ in e["recipe"]["blocks"]
+                                                    if b_.startswith("date_te")})
+    return f"pool {names}; {len(procs)} candidates"
+
+
+@check("deployment (P2.6a): a learned procedure's bank is its own schema, refused as a fitted bank; its test mean "
+       "is the average of its fold procedures' test predictions")
+def _():
+    from songpop.phase2 import procedures as P
+    pop = _tiny_population(300)
+    F = P.population_folds(pop.y, pop.groups, pop.row_ids, 5, 155)[None, :]
+    arrays = {"oof": np.clip(pop.y * 0.6 + 0.2, 0, 1)[None, :].astype(float), "test": np.full((1, 5, 4), 0.3)}
+    arrays["test"][0, 2] = 0.5
+    b = P.procedure_bank(arrays, pop.y, pop.row_ids, pop.groups, F, [155], np.arange(4), {"run_id": "x"})
+    assert b.metadata["schema"] == P.PROCEDURE_SCHEMA and np.allclose(b.test_mean, 0.34)
+    raises(lambda: banks.validate_v2_metadata(b), Exception)
+    raises(lambda: P.save_procedure_bank(b, Path("/nonexistent/x.npz")), ValueError, "missing")  # no identity, states
+    return "procedure banks stay apart from fitted banks and are refused without their identity and states"
+
+
+TABM_TINY = {"n_blocks": 2, "d_block": 32, "dropout": 0.1, "learning_rate": 0.003, "weight_decay": 1e-4,
+             "batch_size": 64}
+
+
+def tabm_recipe(**over):
+    base = dict(recipe(), name="probe_tabm", family="tabm", params=dict(TABM_TINY), base="F2",
+                preprocessing={"name": "tabm_numeric", "scaler": "standard"}, iterations="early_stop_refit_v1")
+    return validate_recipe(dict(base, **over))
+
+
+TABM_CHILD = """
+import json, pickle, sys
+from unittest import mock
+import numpy as np
+from songpop.phase2 import tabm as T
+X, y, g, p, seeds = pickle.load(sys.stdin.buffer)
+assert not {"lightgbm", "xgboost"} & set(sys.modules)
+seen, trained, nets = [], [], []
+real_fit, real_train, real_network = T.TabMPreprocessor.fit, T.train, T.network
+def spy_fit(self, Xf):
+    seen.append(sorted(int(i) for i in Xf.index))
+    return real_fit(self, Xf)
+def spy_train(torch, q, Z, yy, epochs, init_seed, batch_seed, Zv=None, yv=None):
+    trained.append([len(Z), None if Zv is None else len(Zv), epochs, init_seed, batch_seed])
+    return real_train(torch, q, Z, yy, epochs, init_seed, batch_seed, Zv, yv)
+def spy_network(torch, q, d_in, init_seed):
+    net = real_network(torch, q, d_in, init_seed)
+    nets.append(id(net))
+    return net
+with mock.patch.object(T.TabMPreprocessor, "fit", spy_fit), mock.patch.object(T, "train", spy_train), \\
+        mock.patch.object(T, "network", spy_network):
+    got = T.fit_state(p, X, y, g, seeds)
+with T.torch_settings(4) as torch:
+    torch.rand(1000)  # unrelated random numbers consumed before a repeat
+    again = T.fit_state(p, X, y, g, seeds)
+    net = T.network(torch, p, got["d_in"], 0)
+    net.load_state_dict({k: torch.from_numpy(v) for k, v in got["state"].items()})
+    Z = got["prep"].transform(X)
+    z = T.logits(torch, net, Z).numpy()
+q = T.predict_state(p, got["state"], got["d_in"], Z)
+dup = np.vstack([Z[:300], Z[:1]])  # row 0 again at position 300, in another prediction batch
+qd = T.predict_state(p, got["state"], got["d_in"], dup)
+print(json.dumps({"seen": seen, "trained": trained, "fresh_networks": len(set(nets)) == 2, "receipt": got["receipt"],
+                  "repeat": bool(np.array_equal(q, T.predict_state(p, again["state"], again["d_in"], Z))),
+                  "mean_prob": bool(np.allclose(q, (1 / (1 + np.exp(-z))).mean(axis=1), rtol=0, atol=1e-12)),
+                  "mean_logit": bool(np.allclose(q, 1 / (1 + np.exp(-z.mean(axis=1))), rtol=0, atol=1e-6)),
+                  "duplicate": bool(qd[0] == qd[300] == q[0]), "digest": q.tobytes().hex()}))
+"""
+
+
+@check("neural early stopping (P2.5): preprocessing fitted on inner training rows only, then on all fitting rows; "
+       "the inner split keeps groups whole; the stopping stage trains on inner training rows and validates on the "
+       "rest; a new network trains for the chosen epoch on all fitting rows; members' probabilities averaged; "
+       "repeatable after unrelated random draws and across prediction batches; torch only in the worker; the stop "
+       "rule by hand; outer labels never reach a fit; unseen categories all zero; weights, missing groups, fitted "
+       "blocks and foreign preprocessing refused")
+def _():
+    import subprocess
+    from songpop.phase2 import tabm as T
+    from songpop.models import LOG100
+    from songpop.phase2.models import CATEGORICAL
+    assert T.LOG100 == list(LOG100) and T.CATEGORICAL == list(CATEGORICAL)
+    idx = np.arange(400)  # positions among the eligible rows
+    rows, y, g = CTX.rows.iloc[idx], CTX.data.y[idx], CTX.groups[idx]
+    X = FeaturePipeline(tabm_recipe()).fit_transform(rows, y, g, FitContext(155, 0))
+    est = T.TabMClassifier(**TABM_TINY, scaler="standard", random_state=0, max_epochs=12, patience=3)
+    seeds = T.stage_seeds(FitContext(155, 0), 0)
+    out = subprocess.run([sys.executable, "-c", TABM_CHILD], cwd=ROOT,
+                         input=pickle.dumps((X, y, g, est.get_params(), seeds)), capture_output=True, check=True)
+    c = json.loads(out.stdout.decode().strip().splitlines()[-1])
+    tr, va = T.inner_split(y, g, 5, seeds["inner_split"])
+    ids = np.asarray(X.index)
+    assert set(g[tr]).isdisjoint(g[va]) and len(tr) + len(va) == len(y)
+    assert c["seen"][0] == sorted(int(i) for i in ids[tr]), "stopping preprocessing saw rows outside the inner training part"
+    assert c["seen"][1] == sorted(int(i) for i in ids) and len(c["seen"]) == 2
+    rc = c["receipt"]
+    assert c["trained"] == [[len(tr), len(va), 12, seeds["stop_init"], seeds["stop_batches"]],
+                            [len(y), None, rc["chosen_epoch"], seeds["final_init"], seeds["final_batches"]]]
+    assert c["fresh_networks"] and c["repeat"] and c["duplicate"]
+    assert c["mean_prob"] and not c["mean_logit"], "members' logits averaged instead of their probabilities"
+    assert T.stop_rule(rc["validation_losses"], 1e-6, 3)[1] == rc["chosen_epoch"]
+    assert rc["epochs_evaluated"] == len(rc["validation_losses"]) and rc["stopped_by"] in ("patience", "max_epochs")
+    assert rc["stopping_preprocessing_rows_sha256"] == T.rows_sha256(ids, tr) == rc["inner_train_rows_sha256"]
+    assert rc["final_preprocessing_rows_sha256"] == T.rows_sha256(ids, np.arange(len(ids)))
+    # The stop rule by hand: patience counts epochs since an improvement larger than the tolerance; the chosen epoch
+    # is the earliest within the tolerance of the lowest.
+    assert T.stop_rule([0.5, 0.4, 0.4000005, 0.3999995, 0.41], 1e-6, 20) == (False, 2)
+    assert T.stop_rule([0.5, 0.4, 0.4000005, 0.3999985, 0.41], 1e-6, 20) == (False, 4)
+    assert T.stop_rule([0.5, 0.4, 0.3999995, 0.3999991, 0.41], 1e-6, 3) == (True, 2)  # 0.4 is within 1e-6 of the lowest
+    raises(lambda: T.stop_rule([0.5, float("nan")], 1e-6, 3), ValueError, "non-finite")
+    # Through the persistent worker from this process (LightGBM loaded): torch never loaded here; the same fit in
+    # this process equals the child's; another estimator seed differs.
+    assert "lightgbm" in sys.modules and "torch" not in sys.modules
+    a = T.TabMClassifier(**TABM_TINY, scaler="standard", random_state=0, max_epochs=12, patience=3).fit(
+        X, y, groups=g, context=FitContext(155, 0))
+    o = T.TabMClassifier(**TABM_TINY, scaler="standard", random_state=1, max_epochs=12, patience=3).fit(
+        X, y, groups=g, context=FitContext(155, 0))
+    assert {k: v for k, v in a.receipt_.items() if k != "estimator_seed"} == rc and "torch" not in sys.modules
+    pa = a.predict_proba(X)[:, 1]
+    assert pa.tobytes().hex() == c["digest"], "the worker's predictions differ from the child's"
+    assert not np.array_equal(pa, o.predict_proba(X)[:, 1])
+    T.Worker.close()  # after a restart the same state predicts the same bytes
+    assert np.array_equal(a.predict_proba(X)[:, 1], pa) and T.Worker.hello["source_sha256"] == T.source_digest()
+    # a failed exchange discards the worker: a timeout, and a reply to another request
+    with mock.patch.object(T, "read_frame", side_effect=TimeoutError("stalled")):
+        raises(lambda: a.predict_proba(X.iloc[:3]), TimeoutError)
+    assert T.Worker.proc is None
+    real_read = T.read_frame
+    with mock.patch.object(T, "read_frame", lambda fd, dl: dict(real_read(fd, dl), id="someone-else")):
+        T.Worker.start() if T.Worker.proc is None else None
+        raises(lambda: a.predict_proba(X.iloc[:3]), RuntimeError, "answered")
+    assert T.Worker.proc is None and np.array_equal(a.predict_proba(X)[:, 1], pa)
+    # the submission path rebuilds the same inputs from the recipe's preprocessing
+    rebuilt = make_preprocessing({"name": "tabm_numeric", "scaler": "standard"}, list(X.columns)).fit(X, y)
+    assert np.array_equal(rebuilt.transform(X).astype("float64"), a.transform_inputs(X))
+    # Unseen categories are all zero; the indicator columns come from the recipe's columns, not from the fold.
+    pre = T.TabMPreprocessor("standard").fit(X)
+    Xu = X.iloc[:3].copy()
+    Xu["key"] = 99.0
+    cols = pre.output_columns()
+    Zu = pre.transform(Xu)
+    assert (Zu[:, [k for k, c_ in enumerate(cols) if c_.startswith("key=")]] == 0).all()
+    assert [c_ for c_ in cols if c_.startswith("missing_")] == [f"missing_{c_}" for c_ in T.MISSING_FLAGS]
+    qpre = T.TabMPreprocessor("quantile").fit(X)
+    assert qpre.quant_ == [c_ for c_ in X.columns if c_ in T.AUDIO_CONTINUOUS] and len(qpre.quant_) == 10
+    raises(lambda: T.TabMClassifier(**TABM_TINY, scaler="standard", random_state=0).fit(X, y), ValueError, "groups")
+    raises(lambda: T.TabMClassifier(**TABM_TINY, scaler="standard", random_state=0).fit(
+        X, y, groups=g, context=FitContext(155, 0), sample_weight=np.ones(len(y))), ValueError, "weights")
+    raises(lambda: tabm_recipe(preprocessing={"name": "none"}), ValueError, "tabm_numeric")
+    raises(lambda: tabm_recipe(training_weights="inverse_group_size"), ValueError)
+    raises(lambda: tabm_recipe(blocks=["date_te30"]), ValueError, "leak")
+    raises(lambda: tabm_recipe(iterations="fixed"), ValueError, "early_stop_refit_v1")
+    assert tabm_recipe(blocks=["cyclic", "music"])  # stateless blocks are allowed
+    raises(lambda: recipe(preprocessing={"name": "tabm_numeric", "scaler": "standard"}), ValueError, "tabm_numeric")
+    raises(lambda: make_model(tabm_recipe(params={k_: v for k_, v in TABM_TINY.items() if k_ != "dropout"}), 0,
+                              X.columns), ValueError, "exactly")
+    return (f"stopped by {rc['stopped_by']} at {rc['epochs_evaluated']} of 12 epochs, chosen {rc['chosen_epoch']}; "
+            f"inner {len(tr)}/{len(va)} rows, groups disjoint")
+
+
+@check("P2.5 budget: no wave after the first is planned when the search runs so far plus the wave at its slowest "
+       "run would exceed the allowance; H and the reference family are not counted; protocols without a budget "
+       "are unchanged")
+def _():
+    from types import SimpleNamespace
+    rx = run_experiments
+    proto = {"task_id": "P2.5", "budget": {"fitting_seconds": 1000},
+             "families": [{"family": "lightgbm", "ceiling": 1}, {"family": "tabm", "ceiling": 16}]}
+    runs_ = {"h": {"task_id": "P2.5", "family": "lightgbm", "elapsed_seconds": 5000.0},
+             "a": {"task_id": "P2.5", "family": "tabm", "elapsed_seconds": 300.0},
+             "b": {"task_id": "P2.5", "family": "tabm", "elapsed_seconds": 200.0},
+             "x": {"task_id": "P2.3", "family": "tabm", "elapsed_seconds": 9000.0}}
+    log = SimpleNamespace(runs=runs_)
+    wave = [{"run_ids": ["c", "d"]}]
+    over = rx.budget_exceeded(proto, log, wave, 2)
+    assert over == {"spent_seconds": 500.0, "slowest_run_seconds": 300.0, "projected_seconds": 600.0,
+                    "allowance_seconds": 1000}
+    assert rx.budget_exceeded(proto, log, [{"run_ids": ["c"]}], 2) is None  # 500 + 300 <= 1000
+    assert rx.budget_exceeded(proto, log, wave, 1) is None  # the first wave is fixed by the timing
+    assert rx.budget_exceeded({k: v for k, v in proto.items() if k != "budget"}, log, wave, 2) is None
+    return "500 s spent + 2 x 300 s projected > 1000 s: stop"
+
+
+@check("TabM through the engine (P2.5): fold receipts carry the stopping record; a bit-identical repeat; changing "
+       "the labels of each fold's held-out rows changes none of that fold's predictions")
+def _():
+    from songpop.phase2 import models as M
+    idx = np.arange(600)
+    rows, y, g = CTX.rows.iloc[idx], CTX.data.y[idx], CTX.groups[idx]
+    fold = CTX.fold_id([155])[:, idx]
+    test = CTX.test_rows.iloc[:40]
+    rec = tabm_recipe()
+    with mock.patch.dict(M.TABM_FIXED, {"max_epochs": 6, "patience": 2}):
+        b1 = run_recipe_cv(rec, rows, y, CTX.data.row_ids[idx], g, fold, [155], test, CTX.data.test_id[:40])
+        b2 = run_recipe_cv(rec, rows, y, CTX.data.row_ids[idx], g, fold, [155], test, CTX.data.test_id[:40])
+        k = 0  # fold 0's held-out labels flipped: its fit sees the same rows and labels, so its predictions agree
+        y2 = y.copy()
+        y2[fold[0] == k] = 1 - y2[fold[0] == k]
+        b3 = run_recipe_cv(rec, rows, y2, CTX.data.row_ids[idx], g, fold, [155], test, CTX.data.test_id[:40])
+    assert np.array_equal(b1.oof, b2.oof) and np.array_equal(b1.test_by_fold, b2.test_by_fold)
+    assert np.array_equal(b1.oof[0, fold[0] == k], b3.oof[0, fold[0] == k])
+    assert np.array_equal(b1.test_by_fold[0, k], b3.test_by_fold[0, k])
+    assert not np.array_equal(b1.test_by_fold[0, 1], b3.test_by_fold[0, 1])  # positive control: other folds see them
+    rcs = b1.metadata["fit_receipts"]
+    assert len(rcs) == 5 and all(len(r["tabm"]) == 1 and 1 <= r["tabm"][0]["chosen_epoch"] <= 6 for r in rcs)
+    return f"chosen epochs {[r['tabm'][0]['chosen_epoch'] for r in rcs]}"
 
 
 def main():

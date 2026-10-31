@@ -1,0 +1,92 @@
+{
+ "schema": "timing_v1",
+ "cases": [
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p25_time_tabm_light",
+    "family": "tabm",
+    "params": {
+     "n_blocks": 2,
+     "d_block": 64,
+     "dropout": 0.1,
+     "learning_rate": 0.003,
+     "weight_decay": 0.0001,
+     "batch_size": 256
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "tabm_numeric",
+     "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "early_stop_refit_v1",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p25_time_tabm_representative",
+    "family": "tabm",
+    "params": {
+     "n_blocks": 2,
+     "d_block": 128,
+     "dropout": 0.1,
+     "learning_rate": 0.001,
+     "weight_decay": 0.0001,
+     "batch_size": 256
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "tabm_numeric",
+     "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "early_stop_refit_v1",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p25_time_tabm_expensive",
+    "family": "tabm",
+    "params": {
+     "n_blocks": 3,
+     "d_block": 256,
+     "dropout": 0.2,
+     "learning_rate": 0.0003,
+     "weight_decay": 0.0001,
+     "batch_size": 128
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "tabm_numeric",
+     "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "early_stop_refit_v1",
+    "deployment": "fold_average"
+   }
+  }
+ ]
+}

@@ -6,12 +6,23 @@ from pathlib import Path
 from songpop import artifacts
 
 RECIPE_SCHEMA = "recipe_v1"
-FAMILIES = ("lightgbm", "random_forest", "extra_trees", "xgboost", "hist_gb", "logistic", "catboost", "ebm", "knn")
+FAMILIES = ("lightgbm", "random_forest", "extra_trees", "xgboost", "hist_gb", "logistic", "catboost", "ebm", "knn",
+            "tabm")
 NEEDS_IMPUTATION = ("logistic", "knn")  # families without native missing-value support
 PREPROCESSING = {"none": set(), "log_standard": set(), "spline": {"n_knots"},
                  "knn_blocks": {"alpha", "category_weight", "normalization"},
                  "spline_calendar": {"n_knots"},  # P2.4: splines on the core columns only, calendar fields linear
-                 "knn_blocks_v2": {"alpha", "category_weight", "normalization", "audio_scaler"}}  # name: its parameters
+                 "knn_blocks_v2": {"alpha", "category_weight", "normalization", "audio_scaler"},
+                 "tabm_numeric": {"scaler"}}  # name: its parameters; tabm_numeric (P2.5) is built by the TabM estimator
+# Blocks fitted on the whole fitting population: TabM's inner stopping split sees their output, so they would leak
+# across it (plan section 19); TabM takes only the stateless blocks.
+STATEFUL_BLOCKS = ("date_count", "date_te3", "date_te10", "date_te30", "date_te100", "era_relative")
+
+
+def iteration_policy(family):
+    """Fixed iteration counts (plan section 5.2), except TabM's early stopping on an inner split and refit."""
+    return "early_stop_refit_v1" if family == "tabm" else "fixed"
+
 KNN_PREPROCESSING = ("knn_blocks", "knn_blocks_v2")
 BASES = ("F0", "F1", "F2")
 BLOCKS = ("date_count", "date_te3", "date_te10", "date_te30", "date_te100", "interactions", "cyclic", "era_relative",
@@ -69,6 +80,18 @@ def validate_recipe(recipe):
             isinstance(prep[k], (int, float)) and not isinstance(prep[k], bool) and math.isfinite(prep[k]) and prep[k] > 0
             for k in ("alpha", "category_weight")) and prep["normalization"] in ("l1", "l2")):
         raise ValueError("knn_blocks needs positive finite alpha and category_weight and normalization l1 or l2")
+    if (recipe["family"] == "tabm") != (prep["name"] == "tabm_numeric"):
+        raise ValueError("the tabm family uses exactly the tabm_numeric preprocessing, and it only the tabm family")
+    if recipe["family"] == "tabm":
+        if prep["scaler"] not in ("standard", "quantile"):
+            raise ValueError("tabm_numeric needs scaler standard or quantile")
+        if recipe["base"] != "F2":
+            raise ValueError("tabm recipes use base F2 (the preprocessing is defined for its columns)")
+        if recipe["training_weights"] != "none":
+            raise ValueError("tabm recipes take no training weights (plan section 5.5)")
+        if set(recipe["blocks"]) & set(STATEFUL_BLOCKS):
+            raise ValueError(f"tabm recipes take no fitted blocks {STATEFUL_BLOCKS}: they would leak across the inner "
+                             f"stopping split")
     if recipe["training_weights"] not in WEIGHTS:
         raise ValueError(f"training_weights {recipe['training_weights']!r} not in {WEIGHTS}")
     seeds = recipe["estimator_seeds"]
@@ -83,8 +106,8 @@ def validate_recipe(recipe):
         from songpop.phase2.models import KNN_METRICS
         if KNN_METRICS.get(recipe["params"].get("metric")) != prep["normalization"]:
             raise ValueError("knn metric and knn_blocks normalization must match: euclidean with l2, manhattan with l1")
-    if recipe["iterations"] != "fixed":
-        raise ValueError("only fixed iteration counts are implemented (plan section 5.2)")
+    if recipe["iterations"] != iteration_policy(recipe["family"]):
+        raise ValueError(f"{recipe['family']} recipes use iterations {iteration_policy(recipe['family'])!r}")
     if recipe["deployment"] != "fold_average":
         raise ValueError("only fold-average deployment is implemented; full refits arrive with P2.7")
     return recipe

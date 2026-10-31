@@ -1,0 +1,6 @@
+# analysis/p26_cost_pilot.py at worktree commit 1dafabb, 2026-10-30 ~21:20 PDT, while P2.4 and the full self-check also ran (times are inflated by that load)
+anchor 15-fit run (three repeats, from one): 20.9 s
+learned stage, one outer fold: anchor channel 6.8 s, logistic channel 0.2 s, six combiners 0.01 s
+  ratio of one outer fold's meta stage to the anchor's 15-fit run: 0.327 (15 outer folds: 4.91 x C_L; the plan assumes 6 C_L with its overhead)
+nested, one outer fold, atomic anchor: 15 inner fits 19.8 s, full refit 1.4 s; three outer folds 63.7 s = 3.04 x C_all
+nested third level, one inner training part, anchor channel: 6.6 s; per learned channel atom 296.6 s = 14.16 x C_L

@@ -1,0 +1,356 @@
+{
+ "schema": "protocol_v1",
+ "task_id": "P2.5",
+ "name": "p25",
+ "reference": "H: the LightGBM reference family's anchor, the phase 1 recipe with estimator seed 0, fitted under P2.5's sources and checked equal to the P2.1 anchor bank; the reference family has no space and no search",
+ "reference_p21_run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+ "split_seeds": [
+  155,
+  2026,
+  1029
+ ],
+ "seed_base": 2026103100,
+ "cutoff_utc": "2026-10-31T15:00:00+00:00",
+ "refinement": {
+  "families": 1,
+  "by_standalone": 1,
+  "batch": 4,
+  "broad": 1,
+  "local": [
+   [
+    2,
+    1
+   ],
+   [
+    1,
+    2
+   ]
+  ],
+  "max_dimensions": 2,
+  "max_per_family": 8
+ },
+ "prior_strongest": {
+  "run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+  "task_id": "P2.8",
+  "recipe": {
+   "base": "F2",
+   "blocks": [
+    "date_count",
+    "date_te30"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p28_lightgbm_b3_001_date_count_te30",
+   "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 1,
+    "subsample": 0.7,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "bank_sha256": "83e5cbf1056cf618b5e4f8fc930defcf669d99a9f338ad692bc6d7ed539d2414"
+ },
+ "budget": {
+  "fitting_seconds": 10800
+ },
+ "families": [
+  {
+   "family": "lightgbm",
+   "index": 0,
+   "initial": 1,
+   "expansion": 1,
+   "ceiling": 1,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "num_leaves": 15,
+    "min_child_samples": 20,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8
+   },
+   "initial_branches": [],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {},
+   "derived": [],
+   "admissible": [],
+   "types": {},
+   "hard_bounds": {},
+   "trees": null
+  },
+  {
+   "family": "tabm",
+   "index": 1,
+   "initial": 8,
+   "expansion": 4,
+   "ceiling": 16,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "tabm_numeric",
+     "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_blocks": 2,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 256,
+    "preprocessing.scaler": "standard"
+   },
+   "initial_branches": [
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "tabm_numeric",
+       "scaler": "standard"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "n_blocks": 2,
+       "d_block": 64,
+       "dropout": 0.1,
+       "learning_rate": 0.001,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 2,
+       "d_block": 256,
+       "dropout": 0.1,
+       "learning_rate": 0.001,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 3,
+       "d_block": 128,
+       "dropout": 0.1,
+       "learning_rate": 0.001,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 2,
+       "d_block": 128,
+       "dropout": 0.1,
+       "learning_rate": 0.0003,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 2,
+       "d_block": 128,
+       "dropout": 0.1,
+       "learning_rate": 0.003,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 2,
+       "d_block": 128,
+       "dropout": 0.2,
+       "learning_rate": 0.001,
+       "weight_decay": 0.01,
+       "batch_size": 128,
+       "preprocessing.scaler": "standard"
+      },
+      {
+       "n_blocks": 2,
+       "d_block": 128,
+       "dropout": 0.1,
+       "learning_rate": 0.001,
+       "weight_decay": 0.0001,
+       "batch_size": 256,
+       "preprocessing.scaler": "quantile"
+      }
+     ]
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "tabm_numeric",
+     "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "n_blocks": [
+     2,
+     3
+    ],
+    "d_block": [
+     64,
+     128,
+     256
+    ],
+    "dropout": [
+     0.0,
+     0.1,
+     0.2
+    ],
+    "learning_rate": [
+     0.0003,
+     0.0005,
+     0.001,
+     0.002,
+     0.003
+    ],
+    "weight_decay": [
+     1e-06,
+     1e-05,
+     0.0001,
+     0.001,
+     0.01
+    ],
+    "batch_size": [
+     128,
+     256
+    ],
+    "preprocessing.scaler": [
+     "standard",
+     "quantile"
+    ]
+   },
+   "derived": [],
+   "admissible": [],
+   "types": {
+    "n_blocks": {
+     "type": "ordinal",
+     "values": [
+      2,
+      3
+     ],
+     "default": 2
+    },
+    "d_block": {
+     "type": "ordinal",
+     "values": [
+      64,
+      128,
+      256
+     ],
+     "default": 128
+    },
+    "dropout": {
+     "type": "ordinal",
+     "values": [
+      0.0,
+      0.1,
+      0.2
+     ],
+     "default": 0.1
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.001
+    },
+    "weight_decay": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.0001
+    },
+    "batch_size": {
+     "type": "ordinal",
+     "values": [
+      128,
+      256
+     ],
+     "default": 256
+    },
+    "preprocessing.scaler": {
+     "type": "categorical",
+     "values": [
+      "standard",
+      "quantile"
+     ],
+     "default": "standard"
+    }
+   },
+   "hard_bounds": {
+    "learning_rate": {
+     "min": 0.0003,
+     "max": 0.003,
+     "integer": false
+    },
+    "weight_decay": {
+     "min": 1e-06,
+     "max": 0.01,
+     "integer": false
+    }
+   },
+   "trees": null
+  }
+ ]
+}
