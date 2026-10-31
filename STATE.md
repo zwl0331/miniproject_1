@@ -12,7 +12,7 @@ Updated 2026-10-31, 00:20 PDT. Keep this file under 80 lines. It is a snapshot a
 
 ## Decisions in force
 
-Pointers into `decisions.md`: the workflow and its R1 review of every Kaggle submission file (2026-10-30); P2.4 fixes F2 and runs provisionally (2026-10-30); no pretrained models (2026-10-29); report and Colab only after development ends (2026-10-29); Sam uploads every submission (2026-10-29); a thorough search with budgets from measured runtimes (2026-10-29); test, don't assume (2026-10-29); consult Codex in depth before each task (2026-10-29); no dependence on the earlier audio-only project, whose evidence is in `doc/prior_project/` (2026-10-30); finish P2.4, then P2.5 and P2.6, then pause (2026-10-30); the reviewer is Claude Fable 5.1 at xhigh, read-only in plan mode (2026-10-30).
+Pointers into `decisions.md`: the workflow and its R1 review of every Kaggle submission file (2026-10-30); P2.4 fixes F2 and runs provisionally (2026-10-30); no pretrained models (2026-10-29); report and Colab only after development ends (2026-10-29); Sam uploads every submission (2026-10-29); a thorough search with budgets from measured runtimes (2026-10-29); test, don't assume (2026-10-29); consult Codex in depth before each task (2026-10-29); no dependence on the earlier audio-only project, whose evidence is in `doc/prior_project/` (2026-10-30); finish P2.4, then P2.5 and P2.6, then pause (2026-10-30); the reviewer is Codex gpt-6-astra at xhigh again (2026-10-31; Fable 5.1 was set on 2026-10-30).
 
 ## Results
 
@@ -31,7 +31,7 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.4 | 96 feature comparisons, 128 re-tuning configurations; best standalone 0.8368 (LightGBM, `date_count`, `date_te3`); best blend with H 0.8371 | provisional; audit passes; full refit running | Findings 021 to 023 (draft) | 9731e7f |
 | P2.5 | TabM: 8 configurations, best 0.8034 (H 0.8315); best blend with H 0.8320; no allocation progress; full refit exact | provisional | Findings 024, 025 (draft) | 80a2635 |
 | P2.6a | Learned-procedure engine, cache, selector, nested evaluator; isolation checks; cost pilot within the plan's formulas | provisional | Finding 026 (draft); `scripts/check_phase2.py` "(P2.6a)" | 58f0787 |
-| Workflow | agent-workflow v1, homework profile; reviewer Claude Fable 5.1 xhigh from 2026-10-30 | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | 1f4ef7e |
+| Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30) | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
 
 Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 passed, 0 failed, 0 staged (`artifacts/phase2/check_phase2.txt`). Codex consultation rounds S to V adopted (`doc/llm_usage/2026-10-30-p2.5-consultation/`, `-p2.6-consultation/`). A rehearsal of P2.6b's evaluate stage with seed-0 stand-ins ran without error; its outputs were discarded and its scores are not used.
 
@@ -52,13 +52,13 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
 | P2.4 full refit (`--verify --task P2.4`, worktree `scratchpad/wt_p24v` at 9731e7f) | background shell b67m7gk93 | `scratchpad/p24_verify.log` | 2026-10-31 00:05 PDT |
-| P2.6b nominees stage (`analysis/p26_execute.py nominees`) | background shell bd59cp3xv | `.review_logs/p26_nominees.log` | 2026-10-31 00:08 PDT |
+| P2.6b evaluate stage (`analysis/p26_execute.py evaluate`: blends, learned procedures, empty-cache replay, menu) | background shell b1g9e48xc | `.review_logs/p26_evaluate.log` | 2026-10-31 00:25 PDT |
 
 ## Next action
 
-1. When the nominees stage ends: check `configs/phase2/p2.6/nominations.json` and `procedures.json` (if TabM is a learned channel, decide from its measured cost; `p26_pool.py --no-learned-channel tabm "reason"` before any procedure score), commit the manifest (it is frozen before evaluation).
-2. `analysis/p26_execute.py evaluate` (blends, `--run-learned`, `--verify-learned` from an empty cache, `p26_menu.py`); Findings 027 (nominations, H*, pool) and 028 (procedures and the menu) as draft; commit.
-3. R2 review of the freeze and the selection rule: request from `scratchpad/r2_request_draft.md` into `reviews/2026-10-31-p2.6b-menu.md`, `review.sh run` (Fable 5.1, read-only). Address findings.
+1. Done: nominations (23), final-policy runs, H* (`p26_lightgbm_a8ce5635`, 0.8366), pool of 8 atoms, 4 channels (TabM not in the pool), 24 procedures; the manifest frozen at ae4dd90 before evaluation.
+2. Running: `analysis/p26_execute.py evaluate` (blends, `--run-learned`, `--verify-learned` from an empty cache, `p26_menu.py`); Findings 027 (nominations, H*, pool) and 028 (procedures and the menu) as draft; commit.
+3. R2 review of the freeze and the selection rule: request from `scratchpad/r2_request_draft.md` into `reviews/2026-10-31-p2.6b-menu.md`, `review.sh run` (Codex gpt-6-astra, xhigh). Address findings.
 4. At most one submission: the candidate the frozen rule ranks first (`scripts/prepare_candidate.py`, procedures supported), R1 review, then the path and description to Sam.
 5. P2.4's refit result into `artifacts/phase2/verify_task_p24.txt`. Then pause; P2.7 is not launched.
 
