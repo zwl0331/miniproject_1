@@ -29,3 +29,4 @@ Rows dated before 2026-10-30's migration were copied on that day from the record
 | 2026-10-30 | "Not now", the answer to: "Start P2.4 now: fix F2, then run the feature stage provisionally?" (P2.4 stays paused) | chat |
 | 2026-10-30 | "continue the work finish P2.5 and 2.6 then pause." Then "Finished 2.4 before doing" (read as: finish P2.4 first, then P2.5 and P2.6, then pause) | chat |
 | 2026-10-30 | "Can you set the review model of this project to fable 5.1 xhigh?" (`.agent/review.conf`: REVIEWER=claude, CLAUDE_MODEL=claude-fable-5-1, CLAUDE_EFFORT=xhigh; the Codex consultation before each task is unchanged) | chat |
+| 2026-10-30 | "Keep read-only (Recommended)", the answer to: "Should the Fable reviewer be allowed to run code, which means changing your global cross-review skill's runner?" (the Claude reviewer runs in plan mode; review requests list the checks run, with committed output) | chat |
