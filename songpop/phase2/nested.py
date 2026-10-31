@@ -50,6 +50,41 @@ def check_menu(menu):
         check_candidate(c)
 
 
+def selection_keys():
+    return ("atomic_recipes", "supervised_transformations", "learned_combiners", "complexity_rank")
+
+
+def executable_menu(menu):
+    """The frozen menu (configs/phase2/menu.json) as executable candidate specifications (R2 review round 1, F1):
+    an atomic candidate keeps its recipe, checked against the menu's recipe of its run; a fixed blend becomes one
+    one-atom channel per member run with the member's weight (a within-family channel's atoms already carry their
+    share of its weight, so the blend is the same linear combination); a learned candidate takes the menu's learned
+    channels in their frozen order with their atoms. Structural counts and complexity ranks are copied; the result
+    passes check_menu."""
+    recipes = menu["atom_recipes"]
+    chans = {c["id"]: c for c in menu["channels"]}
+    keys = ("id", "atomic_recipes", "supervised_transformations", "learned_combiners", "complexity_rank")
+    out = []
+    for c in menu["candidates"]:
+        base = {k: c[k] for k in keys}
+        if c["kind"] == "atomic":
+            if P.recipe_hash(c["recipe"]) != P.recipe_hash(recipes[c["run_id"]]):
+                raise ValueError(f"{c['id']}: its recipe differs from its run's")
+            out.append(dict(base, kind="atomic", recipe=c["recipe"]))
+        elif c["kind"] == "blend":
+            out.append(dict(base, kind="blend", members=[
+                {"channel": {"id": m["run_id"], "atoms": [recipes[m["run_id"]]]}, "weight": m["weight"]}
+                for m in c["members"]]))
+        elif c["kind"] == "learned":
+            out.append(dict(base, kind="learned", setting=list(c["setting"]),
+                            channels=[{"id": i, "atoms": chans[i]["atoms"]} for i in menu["learned_channels"]]))
+        else:
+            raise ValueError(f"{c['id']}: unknown candidate kind {c['kind']!r}")
+    m = {"candidates": out}
+    check_menu(m)
+    return m
+
+
 def channels_of(cand):
     """The channels of a candidate: an atomic recipe is one channel of one atom."""
     if cand["kind"] == "atomic":

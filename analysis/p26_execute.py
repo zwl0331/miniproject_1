@@ -3,8 +3,10 @@
         the nominations, every nominee's final-policy run, then the pool and the procedure manifest
         (commit configs/phase2/p2.6/procedures.json before the next stage: the manifest is frozen before evaluation)
     PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p26_execute.py evaluate
-        every fixed blend (the within-family average first), the learned procedures, their replay from an empty cache,
-        then the menu"""
+        every fixed blend (the within-family average first), the learned procedures, then the menu
+    PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p26_execute.py verify
+        the complete replay of the learned procedures (analysis/p26_verify_learned.py: every channel atom refitted,
+        every meta-fold fit redone from an empty cache) and the refit of every P2.6b fitted run (--verify)"""
 import json
 import os
 import subprocess
@@ -43,9 +45,21 @@ def evaluate():
         run(RX + ["--blend", p["id"].replace(".", "_"), "--members"]
             + [f"{m['run_id']}:{m['weight']!r}" for m in p["members"]] + ["--task", "P2.6b"])
     run(RX + ["--run-learned", str(OUT / "procedures.json"), "--task", "P2.6b"])
-    run(RX + ["--verify-learned", str(OUT / "procedures.json")])
     run([PY, "-B", "analysis/p26_menu.py"])
 
 
+def verify():
+    with open("artifacts/phase2/verify_learned_p26.txt", "w") as f:
+        code = subprocess.run([PY, "-B", "analysis/p26_verify_learned.py"], env=ENV, stdout=f).returncode
+    print(f"  replay exit {code}", flush=True)
+    fitted = sorted({r["run_id"] for r in map(json.loads, open("artifacts/phase2/experiments.jsonl"))
+                     if r.get("record") == "run" and r.get("task_id") == "P2.6b"
+                     and r.get("prediction_kind") in ("fitted", "seed_average")})
+    with open("artifacts/phase2/verify_p26b_runs.txt", "w") as f:
+        code2 = subprocess.run(RX + ["--verify", "--run-id"] + fitted, env=ENV, stdout=f).returncode
+    print(f"  refit of {len(fitted)} P2.6b runs exit {code2}", flush=True)
+    sys.exit(code or code2)
+
+
 if __name__ == "__main__":
-    {"nominees": nominees, "evaluate": evaluate}[sys.argv[1]]()
+    {"nominees": nominees, "evaluate": evaluate, "verify": verify}[sys.argv[1]]()

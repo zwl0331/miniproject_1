@@ -1,8 +1,246 @@
 {
  "schema": "menu_v1",
  "frozen_by": "P2.6b",
- "procedures_sha256": "8aa2561a8db3347eb9aaa0f015e06c72f06c540558c270a7825bd1e77f51a897",
- "nominations_sha256": "a2fb226c6b2c2cbe28669aef5647cd80ac69235acad689ff92eeb8e45e27cbe8",
+ "procedures_sha256": "be4fd6c698c1a6bfbf0efe40ff67f9c8e666b1a3f2673886a52bf4d4a6c16868",
+ "atom_recipes": {
+  "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd": {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p26_anchor_s3",
+   "params": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.02,
+    "min_child_samples": 20,
+    "n_estimators": 600,
+    "num_leaves": 15,
+    "subsample": 0.8,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4": {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p26_anchor",
+   "params": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.02,
+    "min_child_samples": 20,
+    "n_estimators": 600,
+    "num_leaves": 15,
+    "subsample": 0.8,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3": {
+   "base": "F2",
+   "blocks": [
+    "music"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p26_catboost_a9a13819",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 1000,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.0168,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": {
+   "base": "F2",
+   "blocks": [
+    "interactions"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "extra_trees",
+   "iterations": "fixed",
+   "name": "p26_extra_trees_aafa66ea",
+   "params": {
+    "max_features": 1.0,
+    "min_samples_leaf": 2,
+    "n_estimators": 500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": {
+   "base": "F2",
+   "blocks": [
+    "date_count",
+    "date_te3"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p26_lightgbm_415b649d",
+   "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 1,
+    "subsample": 0.7,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": {
+   "base": "F2",
+   "blocks": [
+    "date_count",
+    "date_te3"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p26_lightgbm_6aefed81",
+   "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0652,
+    "reg_lambda": 0.53,
+    "subsample": 0.7,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": {
+   "base": "F2",
+   "blocks": [
+    "date_count",
+    "date_te3"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "lightgbm",
+   "iterations": "fixed",
+   "name": "p26_lightgbm_a8ce5635",
+   "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 0.53,
+    "subsample": 0.7,
+    "subsample_freq": 1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023": {
+   "base": "F2",
+   "blocks": [
+    "date_te3"
+   ],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0,
+    1,
+    2
+   ],
+   "family": "xgboost",
+   "iterations": "fixed",
+   "name": "p26_xgboost_3aad74aa",
+   "params": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.03,
+    "max_depth": 4,
+    "n_estimators": 1000,
+    "subsample": 0.8
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ },
+ "nominations_sha256": "fc8cb005b0a762748df6627050218f8140a76366d06b8f0c00d020531a56819e",
  "channels": [
   {
    "id": "ch_lightgbm",
@@ -251,7 +489,7 @@
   {
    "id": "atom_p26_anchor",
    "kind": "atomic",
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
    "recipe": {
     "base": "F2",
     "blocks": [],
@@ -262,7 +500,7 @@
     ],
     "family": "lightgbm",
     "iterations": "fixed",
-    "name": "lightgbm_F2_anchor",
+    "name": "p26_anchor",
     "params": {
      "colsample_bytree": 0.8,
      "learning_rate": 0.02,
@@ -282,7 +520,7 @@
    "supervised_transformations": 0,
    "learned_combiners": 0,
    "complexity_rank": 0,
-   "bank_sha256": "8f7df54fe0184dfdeb1489264f70c3f2e4a5ccec5576c4ad5a3c94cf7f1c23c2",
+   "bank_sha256": "a15575d7f9a4f4fd781352a983d673f3bfc77e2cac2991b4d7c24f2cd0f02864",
    "reason": "the anchor",
    "exploratory_mean_fold_auc": 0.8314739289455241,
    "exploratory_repeat_means": [
@@ -495,8 +733,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 27,
-   "run_id": "p2_constrained_l0_1_080c588497a4",
-   "bank_sha256": "8d96f1622ef7bd513cb88459ed3c621e9e1db1f15fb5982aa5429e15cd0d1287",
+   "run_id": "p2_constrained_l0_1_25a573188165",
+   "bank_sha256": "548db4f58ba2cf9c3cb984ed237db57af0132063852376bf6440994bb483ec2d",
    "reason": "the best constrained-weight procedure",
    "exploratory_mean_fold_auc": 0.8410025299050984,
    "exploratory_repeat_means": [
@@ -516,8 +754,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 30,
-   "run_id": "p2_stacker_c0_01_acf0240d8737",
-   "bank_sha256": "5f8ee12a066ab5742507fc724a937d886c024226f5f76778247ec4c890eb39c5",
+   "run_id": "p2_stacker_c0_01_b012ce99bd98",
+   "bank_sha256": "58e98c1a9c51c21ae11786eee7923f83049dd2d93fef327dfa94ffaee6d3ac4b",
    "reason": "the best stacker",
    "exploratory_mean_fold_auc": 0.8407656561090973,
    "exploratory_repeat_means": [
@@ -537,8 +775,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 28,
-   "run_id": "p2_constrained_l0_01_12fcc295f977",
-   "bank_sha256": "44b18add1f96c71a7ec6d10b1326f12c7bd30a4d24339feee76caffca8d6a0db",
+   "run_id": "p2_constrained_l0_01_c87df08fa11b",
+   "bank_sha256": "bdd21022b35c641c721b4b53644c56cefa9ec4294699712ae59580e36a2837aa",
    "reason": "filled by the selection rule",
    "exploratory_mean_fold_auc": 0.8405742718888973,
    "exploratory_repeat_means": [
@@ -558,8 +796,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 29,
-   "run_id": "p2_constrained_l0_296fe8d31084",
-   "bank_sha256": "d0e4a87ca1acf0f3eca8e62be83f7a4487a85714f4789e80c12c5358edcc0cc5",
+   "run_id": "p2_constrained_l0_ab9467a1616a",
+   "bank_sha256": "db23f2e7f33459731fc381eb89acfd9ad66a0a0599faa531f1f8e4ba55f8822d",
    "reason": "filled by the selection rule",
    "exploratory_mean_fold_auc": 0.8399744468519008,
    "exploratory_repeat_means": [
@@ -579,8 +817,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 31,
-   "run_id": "p2_stacker_c0_1_764d93836bd8",
-   "bank_sha256": "0457bd5d59d79a51858cd4aeb037a01f6cc799708bfff3200a83998f9b54509d",
+   "run_id": "p2_stacker_c0_1_c40538ea7748",
+   "bank_sha256": "be2c156459a79c519414e0f6ef512445e14c2613aac1b446231e97587db09aac",
    "reason": "filled by the selection rule",
    "exploratory_mean_fold_auc": 0.8405374097005324,
    "exploratory_repeat_means": [
@@ -637,8 +875,8 @@
    "supervised_transformations": 1,
    "learned_combiners": 1,
    "complexity_rank": 32,
-   "run_id": "p2_stacker_c1_3f3f3a871aa2",
-   "bank_sha256": "a8c1d12ac953130c145968be13eac70133cf947efbe16132dbe756f1bb7a1441",
+   "run_id": "p2_stacker_c1_aa3dac90643f",
+   "bank_sha256": "767b44675769fe45f0b875cfebf5edf28fd0ac64ad731a7d917ff31b5a320cb6",
    "reason": "filled by the selection rule",
    "exploratory_mean_fold_auc": 0.8402406027031387,
    "exploratory_repeat_means": [
@@ -748,11 +986,11 @@
  },
  "deployment_default": "the equal average of the 15 fold models, or of the 15 fitted procedures",
  "p27_reservation": {
-  "c_all_seconds": 665.1,
+  "c_all_seconds": 676.5,
   "c_l_seconds": 620.1,
   "menu_atom_runs": [
-   "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
    "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd",
+   "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
@@ -768,9 +1006,9 @@
    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"
   ],
-  "plan_projection_seconds": 12173.9,
-  "pilot_projection_seconds": 10802.5,
-  "build_and_replay_with_margin_hours": 8.45,
+  "plan_projection_seconds": 12210.4,
+  "pilot_projection_seconds": 10837.2,
+  "build_and_replay_with_margin_hours": 8.48,
   "reserved_hours": 8,
   "projected_path": "reduced",
   "note": "projections from the runs' logged 15-fit times, several measured while other fitting jobs ran beside them (P2.4's full refit), so inflated; not runtime bounds. P2.7 decides the path from its own measurement, made without concurrent jobs, before any outer score (plan section 8)"

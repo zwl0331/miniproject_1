@@ -2602,6 +2602,62 @@ def _():
     return "rebuild exact; a corrupted fold, state or member refused"
 
 
+@check("the frozen menu (R2 review round 1, F1): configs/phase2/menu.json becomes executable candidate specifications "
+       "that keep every recipe, member weight and channel order; each blend's members rebuild its logged bank exactly; "
+       "the nested evaluator runs the actual menu on both its full and its reduced path (fits replaced by a fast "
+       "deterministic stand-in, so only the plumbing is tested)")
+def _():
+    from songpop.phase2 import nested as Nn, procedures as P
+    path = ROOT / "configs/phase2/menu.json"
+    if not path.exists():
+        raise Skip("no frozen menu yet")
+    menu = json.loads(path.read_text())
+    ex = Nn.executable_menu(menu)
+    by = {c["id"]: c for c in menu["candidates"]}
+    assert [c["id"] for c in ex["candidates"]] == [c["id"] for c in menu["candidates"]]
+    for c in ex["candidates"]:
+        m = by[c["id"]]
+        assert all(c[k] == m[k] for k in Nn.selection_keys())
+        if c["kind"] == "blend":
+            parts = [(runs.load_logged(CTX, mm["run_id"])[:2], mm["weight"]) for mm in m["members"]]
+            rebuilt = blend_banks([b for b, _ in parts], [w for _, w in parts])
+            logged = runs.load_logged(CTX, m["run_id"])[0]
+            assert np.allclose(rebuilt.oof, logged.oof, rtol=0, atol=1e-12) and \
+                np.allclose(rebuilt.test_mean, logged.test_mean, rtol=0, atol=1e-12), c["id"]
+            assert [recipe_hash(x["channel"]["atoms"][0]) for x in c["members"]] == \
+                [recipe_hash(menu["atom_recipes"][mm["run_id"]]) for mm in m["members"]]
+        if c["kind"] == "learned":
+            assert [x["id"] for x in c["channels"]] == menu["learned_channels"]
+    raises(lambda: Nn.executable_menu(dict(menu, candidates=[dict(menu["candidates"][0], kind="mystery")])),
+           ValueError, "unknown")
+
+    def fake_cv(recipe, pop, fold_id, names, pred_rows, cache, msha, pk):
+        rng = np.random.default_rng(int(recipe_hash(recipe)[:8], 16) + len(pop.y))
+        F = np.atleast_2d(fold_id)
+        return rng.uniform(0.05, 0.95, F.shape), rng.uniform(0.05, 0.95, (len(F), int(F.max()) + 1, len(pred_rows)))
+
+    class FakeFit:
+        def __init__(self, recipe):
+            self.h = int(recipe_hash(recipe)[:8], 16)
+
+        def predict_high(self, rows):
+            return np.random.default_rng(self.h).uniform(0.05, 0.95, len(rows))
+
+        def predict_each(self, rows):
+            return [self.predict_high(rows)]
+
+        def model_inputs(self, rows):
+            return np.arange(len(rows), dtype=float)[:, None]
+    pop = P.Population(CTX.rows.iloc[:240], CTX.data.y[:240].copy(), CTX.groups[:240].copy(), "menu-plumbing")
+    with mock.patch.object(P, "atomic_cv", fake_cv), \
+            mock.patch.object(Nn, "fit_recipe", lambda rec, rows, y, g, ctx: FakeFit(rec)):
+        full = Nn.run(ex, pop, P.Cache(), "m", lambda r: {}, menu["nested_protocol"]["anchor"])
+        red = Nn.run(ex, pop, P.Cache(), "m", lambda r: {}, menu["nested_protocol"]["anchor"],
+                     reduced=menu["production_selection"]["selected"])
+    assert Nn.decide(full, pop)["path"] == "full" and Nn.decide(red, pop)["decision"] is None
+    return f"{len(ex['candidates'])} candidates executable; full and reduced paths run"
+
+
 @check("deployment (P2.6a): a learned procedure's bank is its own schema, refused as a fitted bank; its test mean "
        "is the average of its fold procedures' test predictions")
 def _():

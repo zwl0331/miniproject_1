@@ -124,7 +124,12 @@ def main():
         take(c, "filled by the selection rule")
         rest.remove(c)
     sel = select_candidate({i: ev[i] for i in chosen}, rule_menu(chosen))
+    atom_runs = sorted({r for c in chosen for r in ([by_id[c]["run_id"]] if by_id[c]["kind"] == "atomic" else
+                                                    [m["run_id"] for m in by_id[c].get("members", [])])}
+                       | {r for ch in doc["channels"] for r in ch["run_ids"]})
+    atom_recipes = {r: runs.load_logged(ctx, r)[0].metadata["recipe"] for r in atom_runs}
     menu = {"schema": "menu_v1", "frozen_by": "P2.6b", "procedures_sha256": artifacts.sha256_bytes(raw),
+            "atom_recipes": atom_recipes,
             "nominations_sha256": doc["nominations_sha256"], "channels": doc["channels"],
             "learned_channels": doc["learned_channels"],
             "learned_channel_exclusions": doc["learned_channel_exclusions"],
@@ -148,6 +153,7 @@ def main():
                                                 "fallback or deployment decision"},
             "deployment_default": "the equal average of the 15 fold models, or of the 15 fitted procedures",
             "p27_reservation": reservation(ctx, doc, chosen, by_id)}
+    nested.executable_menu(menu)  # the frozen menu must be executable by the nested evaluator (R2 round 1, F1)
     MENU.write_text(json.dumps(menu, indent=1) + "\n")
     print(f"menu: {len(chosen)} candidates; production selection {sel['selected']} (maximum {sel['maximum']:.6f}, "
           f"tied {sel['tied']})")

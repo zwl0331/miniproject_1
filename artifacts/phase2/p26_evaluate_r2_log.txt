@@ -1,0 +1,79 @@
+$ .venv/bin/python -m scripts.run_experiments --blend family_average --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.3333333333333333 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.3333333333333333 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.3333333333333333 --task P2.6b  [01:44:25]
+  p2_family_average_seeds155-2026-1029_49e6781a1857 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq2 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.16666666666666666 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.16666666666666666 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.16666666666666666 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.5 --task P2.6b  [01:44:29]
+  p2_blend_eq2_seeds155-2026-1029_865e0abbf216 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq3 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.1111111111111111 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.1111111111111111 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.1111111111111111 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.3333333333333333 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.3333333333333333 --task P2.6b  [01:44:33]
+  p2_blend_eq3_seeds155-2026-1029_fb083513074d already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_eq_all --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.08333333333333333 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.08333333333333333 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.08333333333333333 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.25 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.25 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.25 --task P2.6b  [01:44:37]
+  p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_cf304bd3_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_catboost_cf304bd3_seeds155-2026-1029_c293905d8c54:0.1 --task P2.6b  [01:44:41]
+  p2_blend_h_p26_catboost_cf304bd3_10_seeds155-2026-1029_8eff3d335155 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_cf304bd3_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_catboost_cf304bd3_seeds155-2026-1029_c293905d8c54:0.25 --task P2.6b  [01:44:45]
+  p2_blend_h_p26_catboost_cf304bd3_25_seeds155-2026-1029_860cf47e2e10 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_xgboost_3aad74aa_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.1 --task P2.6b  [01:44:49]
+  p2_blend_h_p26_xgboost_3aad74aa_10_seeds155-2026-1029_d58d0381c179 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_xgboost_3aad74aa_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023:0.25 --task P2.6b  [01:44:52]
+  p2_blend_h_p26_xgboost_3aad74aa_25_seeds155-2026-1029_30adc3f6823f already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_extra_trees_aafa66ea_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.1 --task P2.6b  [01:44:56]
+  p2_blend_h_p26_extra_trees_aafa66ea_10_seeds155-2026-1029_45d2f0647f26 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_extra_trees_aafa66ea_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4:0.25 --task P2.6b  [01:45:00]
+  p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_a9a13819_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.1 --task P2.6b  [01:45:04]
+  p2_blend_h_p26_catboost_a9a13819_10_seeds155-2026-1029_ba5fcfc61adb already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_catboost_a9a13819_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3:0.25 --task P2.6b  [01:45:08]
+  p2_blend_h_p26_catboost_a9a13819_25_seeds155-2026-1029_21cbb28b5f4a already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_anchor_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4:0.1 --task P2.6b  [01:45:13]
+  p2_blend_h_p26_anchor_10_seeds155-2026-1029_8ab9c3f2c7db     0.8372  repeats [0.839349, 0.837117, 0.835202]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_anchor_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4:0.25 --task P2.6b  [01:45:16]
+  p2_blend_h_p26_anchor_25_seeds155-2026-1029_ece1b8143788     0.8377  repeats [0.839698, 0.837548, 0.835817]  (0.0 s, 0 warnings)
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_415b649d_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.1 --task P2.6b  [01:45:21]
+  p2_blend_h_p26_lightgbm_415b649d_10_seeds155-2026-1029_5fbc13313157 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_415b649d_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221:0.25 --task P2.6b  [01:45:24]
+  p2_blend_h_p26_lightgbm_415b649d_25_seeds155-2026-1029_4cac090d8c37 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_6aefed81_10 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.9 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.1 --task P2.6b  [01:45:28]
+  p2_blend_h_p26_lightgbm_6aefed81_10_seeds155-2026-1029_6fa3e41abef1 already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --blend blend_h_p26_lightgbm_6aefed81_25 --members p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5:0.75 p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d:0.25 --task P2.6b  [01:45:32]
+  p2_blend_h_p26_lightgbm_6aefed81_25_seeds155-2026-1029_37586cfe51fc already logged
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --run-learned configs/phase2/p2.6/procedures.json --task P2.6b  [01:45:36]
+  p2_constrained_l0_1_25a573188165                     0.8410  repeats [0.842426, 0.841618, 0.838964]
+  p2_constrained_l0_01_c87df08fa11b                    0.8406  repeats [0.841808, 0.84128, 0.838635]
+  p2_constrained_l0_ab9467a1616a                       0.8400  repeats [0.840903, 0.841047, 0.837974]
+  p2_stacker_c0_01_b012ce99bd98                        0.8408  repeats [0.842479, 0.841319, 0.838499]
+  p2_stacker_c0_1_c40538ea7748                         0.8405  repeats [0.841852, 0.841365, 0.838396]
+  p2_stacker_c1_aa3dac90643f                           0.8402  repeats [0.841322, 0.841347, 0.838052]
+  cache p26b-89ee9d3b1c62: 90 hits, 0 misses; 4.8 s
+  exit 0 after 11 s
+$ .venv/bin/python -B analysis/p26_menu.py  [01:45:47]
+menu: 12 candidates; production selection blend_eq_all (maximum 0.841062, tied ['blend_eq_all', 'constrained_l0.01', 'constrained_l0.1', 'stacker_c0.01', 'stacker_c0.1', 'stacker_c1'])
+P2.7 reservation: {"c_all_seconds": 676.5, "c_l_seconds": 620.1, "menu_atom_runs": ["p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd", "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4", "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3", "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4", "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221", "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d", "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5", "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"], "learned_channel_runs": ["p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3", "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4", "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221", "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d", "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5", "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"], "plan_projection_seconds": 12210.4, "pilot_projection_seconds": 10837.2, "build_and_replay_with_margin_hours": 8.48, "reserved_hours": 8, "projected_path": "reduced", "note": "projections from the runs' logged 15-fit times, several measured while other fitting jobs ran beside them (P2.4's full refit), so inflated; not runtime bounds. P2.7 decides the path from its own measurement, made without concurrent jobs, before any outer score (plan section 8)"}
+  atom_p26_anchor                              0.831474 [0.833456, 0.83095, 0.830016]  the anchor
+  atom_p26_anchor_s3                           0.832340 [0.834939, 0.831878, 0.830202]  the anchor's three-seed version
+  atom_p26_lightgbm_415b649d                   0.836441 [0.837928, 0.836989, 0.834407]  the standalone leader
+  family_average                               0.836459 [0.838112, 0.836775, 0.834491]  the within-family average
+  blend_eq_all                                 0.841062 [0.842493, 0.841728, 0.838964]  the best fixed blend
+  constrained_l0.1                             0.841003 [0.842426, 0.841618, 0.838964]  the best constrained-weight procedure
+  stacker_c0.01                                0.840766 [0.842479, 0.841319, 0.838499]  the best stacker
+  constrained_l0.01                            0.840574 [0.841808, 0.84128, 0.838635]  filled by the selection rule
+  constrained_l0                               0.839974 [0.840903, 0.841047, 0.837974]  filled by the selection rule
+  stacker_c0.1                                 0.840537 [0.841852, 0.841365, 0.838396]  filled by the selection rule
+  blend_h_p26_extra_trees_aafa66ea_25          0.839356 [0.840871, 0.839985, 0.837212]  filled by the selection rule
+  stacker_c1                                   0.840241 [0.841322, 0.841347, 0.838052]  filled by the selection rule
+  exit 0 after 8 s
