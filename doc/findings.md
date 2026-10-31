@@ -803,3 +803,89 @@ Review status:
 Downstream use:
 
 P2.6b's discovery inventory and nominations (plan section 20.2).
+
+## Finding 024: TabM Installation, Process Isolation, Repeatability and Cost
+
+Question:
+
+Can TabM run inside the phase 2 engine on this machine without changing any classical computation, does it repeat exactly, and what does it cost (plan sections 5.5 and 19)?
+
+Current conclusion:
+
+- Installation: torch 2.14.1 and tabm 0.0.3 (with rtdl-num-embeddings 0.0.12 and their dependencies) were installed from the hash-pinned lock reviewed in P2.1 (`../configs/phase2/install/tabm.txt`); `install_locks check-before tabm` and `check-after tabm` passed (the after-inventory equals the before-inventory plus exactly the lock). No installed version changed; the package identity of classical runs (`songpop.artifacts.packages`) is unchanged.
+- Process isolation: in a process that has loaded LightGBM or XGBoost, torch's first matrix product crashes the process (exit 139, a segmentation fault); CatBoost, interpret and scikit-learn do not trigger it, and torch loaded first does not crash. LightGBM and XGBoost link Homebrew's OpenMP runtime and torch bundles its own. Every torch computation therefore runs in one persistent worker process that imports neither, and the fitting process never imports torch, so classical runs keep their exact runtime.
+- Repeatability: the representative configuration fitted through the worker on one production training part (split seed 155, fold 0) in two separate fitting processes gave byte-identical validation and test predictions and the same chosen epoch (67 of 87 evaluated, stopped by patience). The self-checks also show byte-identical predictions within one process, after unrelated random draws, across prediction batches and after a worker restart. Verification therefore keeps the classical criterion (1e-12).
+- Cost, score-free, one 15-fit run on all three split seeds with four threads, measured while P2.4 and a full self-check ran beside it: the light case (two blocks, width 64, learning rate 3e-3) 101.7 s; the representative case (the anchor N0) 155.7 s; the expensive case (three blocks, width 256, learning rate 3e-4, batch 128, dropout 0.2) 759.2 s. The reservation projects 45.2 minutes for the initial eight configurations and 90.4 minutes at the ceiling of sixteen, within section 5.5's three hours; nothing is screened on one split seed.
+
+Evidence:
+
+`../analysis/p25_runtime_pilot.py` and its output `../analysis/p25_runtime_pilot_output.txt`; the installation inventories `../artifacts/phase2/install/inventory_before_tabm.json` and `inventory_after_tabm.json`; the P2.5 timing records and reservation in `../artifacts/phase2/experiments.jsonl`; the checks "neural early stopping (P2.5)", "TabM through the engine (P2.5)" and "P2.5 budget" in `../scripts/check_phase2.py`.
+
+Uncertainty:
+
+Repeatability is shown on this machine, with these package versions and four threads; it is not claimed across machines or library versions. The pilot's times were measured while P2.4 and a full self-check ran beside it, so they are inflated by load. The crash's cause is inferred from the libraries' linked runtimes and the import-order pattern, not traced in the runtimes themselves.
+
+Review status:
+
+`draft`, provisional under agent-workflow v1; reviewed with the results that feed the final selection (R1).
+
+Downstream use:
+
+P2.5's search and every TabM run of P2.6b.
+
+## Finding 025: The TabM Search
+
+Question:
+
+How strong is TabM on F2 under the stopping-and-refit protocol, alone and blended with H, and does quantile scaling help it (plan sections 5.5 and 19.2)?
+
+Current conclusion:
+
+- TabM is far below the tree models: the eight initial configurations score 0.8007 to 0.8034 mean fold AUC (best: two blocks, width 128, dropout 0.2, weight decay 1e-2, batch 128), against 0.8315 for H, the phase 1 recipe, on every repeat (best minus H by repeat -0.0251, -0.0274, -0.0318), and 0.0320 below G's prior member (P2.8's leader, 0.8354).
+- Its blends with H barely move H: the best, 0.9 H + 0.1 TabM (learning rate 3e-3), is 0.8320 against H's 0.8315 (+0.0007, +0.0005, +0.0004 by repeat); the 0.25 blends are smaller. No configuration met an allocation route (section 5.6), so the family stopped after its initial batch: 8 configurations, 34.8 minutes of fitting, well within the three-hour allowance.
+- The matched preprocessing comparison: quantile scaling of the audio columns against standardization, everything else equal, is -0.0009 mean fold AUC (-0.0017, -0.0034, +0.0026 by repeat): no consistent effect.
+- Stopping behaved as declared: every one of the 120 fits stopped by patience, none at the 300-epoch cap; chosen epochs range from 14 (learning rate 3e-3) to 255 (width 64), medians 26 to 164.
+
+Evidence:
+
+`../analysis/p25_summary.py` and its output `../analysis/p25_summary_output.txt` (with every configuration's stopping receipts and the handoff to P2.6b); the P2.5 records in `../artifacts/phase2/experiments.jsonl` (`--audit-task P2.5` passes; `--verify-task P2.5` reproduces all 9 runs exactly, `../artifacts/phase2/verify_task_p25.txt`); the protocol `../configs/phase2/p2.5/protocol.json`.
+
+Uncertainty:
+
+Exploratory in the sense of section 15.6: matched evaluations on the repeats that also chose them. Eight configurations explore a small part of the space; a wider search, numerical embeddings or longer training were not tried, so this establishes TabM's level under this protocol and budget, not its ceiling. TabM saw only F2 with stateless preprocessing: the date encodings that help the trees were refused to it to keep the stopping split clean (section 19.1).
+
+Review status:
+
+`draft`, provisional; reviewed with the results that feed the final selection (R1).
+
+Downstream use:
+
+P2.6b's nominations (TabM's standalone and contribution winners against the discovery reference) and its seed policy (estimator seed 0, section 19.3).
+
+## Finding 026: The Learned-Procedure Engine, Its Isolation Checks and Its Cost
+
+Question:
+
+Does the P2.6a engine evaluate learned procedures and the nested selection without any label crossing its permitted population, and what do its levels cost relative to an ordinary 15-fit run (plan sections 7.2, 8 and 20.1)?
+
+Current conclusion:
+
+- Isolation, by self-checks that fail on the plausible shortcuts: every innermost meta fit, identified by its fit context, saw exactly its outer training part minus its meta fold (a target-encoded channel included); flipping the labels of an outer fold's held-out rows changed none of that fold's procedure predictions while other folds' moved; flipping one meta-held-out group's labels left its own base predictions unchanged while other rows' moved; in the nested evaluator every fit stayed inside its own outer training part, and flipping an outer validation fold's labels (assignment held fixed) changed none of that fold's evidence, selection, fold-average or full-refit predictions. All six learned settings share one set of base fits (12 cross-fits for 2 channels and 6 settings on 5 outer folds).
+- Validation boundaries: the selector refuses incomplete evidence, forged fold AUCs, other folds, split groups, a sixth fold, a key filed under another candidate and a menu mismatch, and its tie set is measured from the single maximum; the cache refuses an entry for another request, malformed arrays and a second insertion with other predictions, and returns copies; the optimizer refuses a reported success where a feasible move still improves the loss (Codex round V's example); procedure banks without their identity and per-fold states are refused, as are incomplete nested results.
+- Cost, score-free, measured while P2.4 and a full self-check also ran: one outer fold's meta stage for the anchor channel is 0.327 of the anchor's 15-fit run, so the production evaluation of a learned procedure is about 4.9 C_L (the plan assumed 6 C_L with overhead); the nested evaluation of an atomic candidate is about 3.04 C_all (plan: 3.2); the third level for a learned channel atom about 14.2 C_L (plan: 16.2). The plan's formulas are therefore slightly conservative and are used for the reservation, cross-checked by these multipliers.
+
+Evidence:
+
+`../songpop/phase2/procedures.py`, `selection.py`, `nested.py`; the checks marked "(P2.6a)" and "P2.6b pool rule" in `../scripts/check_phase2.py`; `../analysis/p26_cost_pilot.py` and its output `../analysis/p26_cost_pilot_output.txt`; Codex rounds U and V in `../doc/llm_usage/2026-10-30-p2.6-consultation/`.
+
+Uncertainty:
+
+The isolation checks use the first project training rows and tiny LightGBM recipes, not every menu family; TabM inside learned procedures is covered by its own label-isolation check through the engine. The pilot's times are inflated by concurrent load, and its multipliers come from the anchor alone.
+
+Review status:
+
+`draft`, provisional; part of the R2 review of the P2.6b freeze.
+
+Downstream use:
+
+P2.6b's production evaluation of learned procedures, the P2.7 reservation in `../configs/phase2/menu.json`, and P2.7.
