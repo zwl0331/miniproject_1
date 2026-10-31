@@ -53,6 +53,36 @@ def candidate_banks(ctx, doc):
     return out
 
 
+def reservation(ctx, doc, chosen, by_id):
+    """P2.7's projected cost from the measured 15-fit times of the menu's atoms at their final seed policies (C_all)
+    and of the atoms inside the learned channels (C_L): the plan's projection 3.2 C_all + 16.2 C_L (section 8) and the
+    P2.6a pilot's measured multipliers 3.04 and 14.16, doubled for the empty-cache replay, with a 25% margin, against
+    the eight hours reserved; the path (full or reduced) follows from the larger projection, before any outer score."""
+    elapsed = {r["run_id"]: r["elapsed_seconds"] for r in runs.logged(ctx)}
+    atoms = set()
+    learned = any(by_id[c]["kind"] == "learned" for c in chosen)
+    for c in chosen:
+        p = by_id[c]
+        if p["kind"] == "atomic":
+            atoms.add(p["run_id"])
+        elif p["kind"] == "blend":
+            atoms |= {m["run_id"] for m in p["members"]}
+    lch = [ch for ch in doc["channels"] if ch["id"] in doc["learned_channels"]] if learned else []
+    lruns = {r for ch in lch for r in ch["run_ids"]}
+    atoms |= lruns
+    c_all = sum(elapsed[r] for r in atoms)
+    c_l = sum(elapsed[r] for r in lruns)
+    plan = 3.2 * c_all + 16.2 * c_l
+    pilot = 3.04 * c_all + 14.16 * c_l
+    total = 1.25 * 2 * max(plan, pilot)
+    return {"c_all_seconds": round(c_all, 1), "c_l_seconds": round(c_l, 1), "menu_atom_runs": sorted(atoms),
+            "learned_channel_runs": sorted(lruns), "plan_projection_seconds": round(plan, 1),
+            "pilot_projection_seconds": round(pilot, 1),
+            "build_and_replay_with_margin_hours": round(total / 3600, 2), "reserved_hours": 8,
+            "path": "full" if total <= 8 * 3600 else "reduced",
+            "note": "projections from measured single-process 15-fit times; not runtime bounds"}
+
+
 def evidence(cid, bank):
     return Evidence(cid, bank.train_row_id, bank.y, bank.group_id, tuple(int(s) for s in bank.split_seeds),
                     bank.fold_id, bank.oof, bank.fold_auc)
@@ -114,10 +144,12 @@ def main():
                                                 "eight hours, the fixed-candidate check: the production selection and "
                                                 "the anchor each refitted in the three outer training parts; no "
                                                 "fallback or deployment decision"},
-            "deployment_default": "the equal average of the 15 fold models, or of the 15 fitted procedures"}
+            "deployment_default": "the equal average of the 15 fold models, or of the 15 fitted procedures",
+            "p27_reservation": reservation(ctx, doc, chosen, by_id)}
     MENU.write_text(json.dumps(menu, indent=1) + "\n")
     print(f"menu: {len(chosen)} candidates; production selection {sel['selected']} (maximum {sel['maximum']:.6f}, "
           f"tied {sel['tied']})")
+    print(f"P2.7 reservation: {json.dumps(menu['p27_reservation'])}")
     for c in chosen:
         b = cb[c][2]
         print(f"  {c:44s} {b.fold_auc.mean():.6f} {np.round(b.fold_auc.mean(axis=1), 6).tolist()}  {why[c]}")
