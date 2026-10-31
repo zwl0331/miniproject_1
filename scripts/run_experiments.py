@@ -1587,7 +1587,10 @@ def run_learned(ctx, path, task, manifest, inv, verify=False):
                  "source_manifest_sha256": manifest["manifest_sha256"], "python": env["python"],
                  "packages": artifacts.packages()}
         rid = f"p2_{p['id'].replace('.', '_')}_{artifacts.config_hash(ident)[:12]}"
+        channel_runs = [{"id": c["id"], "run_ids": c["run_ids"],
+                         "bank_sha256": [runs.load_logged(ctx, r)[1] for r in c["run_ids"]]} for c in doc["channels"]]
         meta = {"run_id": rid, "task_id": task, "procedure": p, "identity": ident, "states": got[st]["states"],
+                "channel_runs": channel_runs, "prediction_kind": "learned_procedure",
                 "meta_receipts": receipts, "source_manifest": manifest, "environment": env, "invocation": inv,
                 "cache": {"namespace": space, "hits": cache.hits, "misses": cache.misses}, "elapsed_seconds": elapsed,
                 "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS)}

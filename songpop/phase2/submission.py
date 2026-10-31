@@ -12,7 +12,8 @@ import pandas as pd
 
 from songpop import artifacts
 from songpop.data import AUDIO, DATE
-from songpop.phase2 import banks
+from songpop.evaluate import validate_bank
+from songpop.phase2 import banks, procedures
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.engine import input_classes
 from songpop.phase2.ensembles import blend_banks
@@ -84,20 +85,62 @@ def members_of(ctx, bank, load):
     return out
 
 
+def procedure_members(ctx, bank, load):
+    """[(fitted bank, sha256)] of a learned procedure's atoms, channel by channel, each matched to its recorded hash."""
+    out = []
+    for ch in bank.metadata["channel_runs"]:
+        for rid, sha in zip(ch["run_ids"], ch["bank_sha256"]):
+            b, got = load(rid)
+            if got != sha or b.metadata["prediction_kind"] == "blend":
+                raise ValueError(f"procedure member {rid} differs from its recorded hash or is a blend")
+            out.append((b, got))
+    return out
+
+
+def check_procedure(ctx, bank, members):
+    """A learned procedure's bank (P2.6b): its metadata complete; the production rows, labels, groups, test ids and
+    folds; every fold's out-of-fold and test predictions rebuilt from its channels' atom banks (equal averages inside
+    a channel) and that fold's stored combiner state."""
+    validate_bank(bank, n_splits=bank.fold_auc.shape[1])
+    procedures.validate_procedure_metadata(bank)
+    seeds = [int(s) for s in bank.split_seeds]
+    if not (np.array_equal(bank.train_row_id, ctx.data.row_ids) and np.array_equal(bank.y, ctx.data.y)
+            and np.array_equal(bank.group_id, ctx.groups) and np.array_equal(bank.test_id, ctx.data.test_id)
+            and np.array_equal(bank.fold_id, ctx.fold_id(seeds))):
+        raise ValueError("the procedure bank differs from the production protocol")
+    by_run = {b.metadata["run_id"]: b for b, _ in members}
+    chans = bank.metadata["channel_runs"]
+    oof = [np.mean([by_run[r].oof for r in ch["run_ids"]], axis=0) for ch in chans]
+    test = [np.mean([by_run[r].test_by_fold for r in ch["run_ids"]], axis=0) for ch in chans]
+    states = {(str(s["split_seed"]), s["fold"]): s for s in bank.metadata["states"]}
+    for r, seed in enumerate(bank.split_seeds):
+        for k in range(bank.fold_auc.shape[1]):
+            st = states[(str(seed), k)]
+            va = bank.fold_id[r] == k
+            o = procedures.apply_combiner(st, np.column_stack([c[r, va] for c in oof]))
+            t = procedures.apply_combiner(st, np.column_stack([c[r, k] for c in test]))
+            if not (np.allclose(o, bank.oof[r, va], rtol=0, atol=TOL) and np.allclose(t, bank.test_by_fold[r, k],
+                                                                                    rtol=0, atol=TOL)):
+                raise ValueError(f"repeat {r} fold {k}: the procedure's predictions differ from its channels and state")
+
+
 def validate_candidate(content, ctx, bank, members):
     """Check submission bytes against the sample, the candidate bank and its fitted members. Raises ValueError
     (or runs.SourceMismatch) on the first failure; returns a report."""
     data = ctx.data
-    banks.validate_v2(bank)
+    if bank.metadata.get("schema") == procedures.PROCEDURE_SCHEMA:
+        check_procedure(ctx, bank, members)
+    else:
+        banks.validate_v2(bank)
+        check_production(ctx, bank)
     if not bank.metadata["selection_eligible"] or [int(s) for s in bank.split_seeds] != [155, 2026, 1029]:
         raise ValueError("a candidate needs the complete three-repeat bank")
-    check_production(ctx, bank)
     for b, _ in members:
         banks.validate_v2(b)
         if not b.metadata["selection_eligible"] or [int(s) for s in b.split_seeds] != [155, 2026, 1029]:
             raise ValueError(f"member {b.metadata['run_id']} lacks the complete three-repeat bank")
         check_production(ctx, b)
-    if bank.metadata["prediction_kind"] == "blend":
+    if bank.metadata.get("prediction_kind") == "blend":
         rebuilt = blend_banks(members, [p["weight"] for p in bank.metadata["parents"]])
         for f in ("oof", "test_by_fold", "test_mean", "fold_auc"):
             if not np.allclose(getattr(rebuilt, f), getattr(bank, f), rtol=0, atol=TOL):
