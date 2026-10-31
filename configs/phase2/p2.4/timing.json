@@ -1,0 +1,183 @@
+{
+ "schema": "timing_v1",
+ "cases": [
+  {
+   "case": "representative",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te30"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "lightgbm",
+    "iterations": "fixed",
+    "name": "p24_time_lightgbm_dates",
+    "params": {
+     "colsample_bytree": 0.7,
+     "learning_rate": 0.01,
+     "min_child_samples": 10,
+     "n_estimators": 600,
+     "num_leaves": 63,
+     "reg_alpha": 0.0714,
+     "reg_lambda": 1,
+     "subsample": 0.7,
+     "subsample_freq": 1
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te30"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "catboost",
+    "iterations": "fixed",
+    "name": "p24_time_catboost_dates",
+    "params": {
+     "boosting_type": "Plain",
+     "depth": 6,
+     "iterations": 1000,
+     "l2_leaf_reg": 3.0,
+     "learning_rate": 0.0168,
+     "random_strength": 1.0
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "date_count"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "logistic",
+    "iterations": "fixed",
+    "name": "p24_time_logistic_calendar",
+    "params": {
+     "C": 0.0531
+    },
+    "preprocessing": {
+     "n_knots": 8,
+     "name": "spline_calendar"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "base": "F1",
+    "blocks": [],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "knn",
+    "iterations": "fixed",
+    "name": "p24_time_knn_robust",
+    "params": {
+     "metric": "euclidean",
+     "n_neighbors": 60,
+     "weights": "distance"
+    },
+    "preprocessing": {
+     "alpha": 1.0,
+     "category_weight": 0.5,
+     "normalization": "l2",
+     "name": "knn_blocks_v2",
+     "audio_scaler": "robust"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "date_count",
+     "date_te30"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "catboost",
+    "iterations": "fixed",
+    "name": "p24_time_catboost_corner",
+    "params": {
+     "boosting_type": "Ordered",
+     "depth": 7,
+     "iterations": 2000,
+     "l2_leaf_reg": 3.0,
+     "learning_rate": 0.05,
+     "random_strength": 1.0
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "base": "F2",
+    "blocks": [
+     "music"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+     0
+    ],
+    "family": "ebm",
+    "iterations": "fixed",
+    "name": "p24_time_ebm_music",
+    "params": {
+     "interactions": "declared3",
+     "learning_rate": 0.01,
+     "max_rounds": 603
+    },
+    "preprocessing": {
+     "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+   }
+  }
+ ]
+}

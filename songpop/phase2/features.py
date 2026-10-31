@@ -55,14 +55,16 @@ STATELESS = {
     "music": (_music, {"key_fifths_sin": ["key"], "key_fifths_cos": ["key"], "tempo_octave_sin": ["tempo"],
                        "tempo_octave_cos": ["tempo"]}),
 }
-STATEFUL = {"date_count": DateCount, "date_te10": lambda: DateTargetEncoder(10),
-            "date_te30": lambda: DateTargetEncoder(30), "era_relative": EraRelative}
+STATEFUL = {"date_count": DateCount, "date_te3": lambda: DateTargetEncoder(3), "date_te10": lambda: DateTargetEncoder(10),
+            "date_te30": lambda: DateTargetEncoder(30), "date_te100": lambda: DateTargetEncoder(100),
+            "era_relative": EraRelative}  # date_te3 and date_te100: the smoothing values of plan section 6.1 (P2.4)
 
 
 BASE_COLUMNS = {"F0": AUDIO, "F1": AUDIO + ["year"], "F2": AUDIO + F2_DATE}
 BLOCK_COLUMNS = {"interactions": list(INTERACTIONS), "cyclic": list(STATELESS["cyclic"][1]),
                  "music": list(STATELESS["music"][1]),
-                 "date_count": DateCount.columns, "date_te10": ["date_te10"], "date_te30": ["date_te30"],
+                 "date_count": DateCount.columns, "date_te3": ["date_te3"], "date_te10": ["date_te10"],
+                 "date_te30": ["date_te30"], "date_te100": ["date_te100"],
                  "era_relative": EraRelative.columns}
 
 

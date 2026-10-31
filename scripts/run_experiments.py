@@ -14,6 +14,7 @@ logged under the same run id is not run again. A verification whose sources diff
 names the commit at which it replays.
 """
 import argparse
+import copy
 import os
 import platform
 import sys
@@ -26,7 +27,7 @@ import numpy as np
 
 from songpop import artifacts
 from songpop.metrics import BOOTSTRAP_SEED, paired_cluster_bootstrap
-from songpop.phase2 import allocation, banks, batches, protocol, runs, searches
+from songpop.phase2 import allocation, banks, batches, feature_stage, protocol, runs, searches
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.engine import fit_recipe
 from songpop.phase2.ensembles import blend_banks, select_seeds
@@ -643,6 +644,821 @@ def verify_task(ctx, task, manifest, inv, seeds=SPLIT_SEEDS, allow_incomplete=Fa
     return verify(ctx, ids, manifest, inv)
 
 
+# ---- the P2.4 feature stage (plan section 18) -----------------------------------------------------------------
+
+FEATURE_PROTOCOLS = {"P2.4": Path("configs/phase2/p2.4/protocol.json")}
+FEATURE_RECORDS = ("feature_batch", "feature_allocation", "feature_stop", "batch_start", "run", "contribution",
+                   "comparison", "bootstrap", "h_check", "run_failure", "timing")
+_ENTRIES = {}  # validated entries of this invocation, by (run id, bank hash, H bank hash)
+
+
+def load_feature_protocol(ctx, task):
+    if task not in FEATURE_PROTOCOLS:
+        raise ValueError(f"task {task} has no feature protocol (known: {sorted(FEATURE_PROTOCOLS)})")
+    raw = (ctx.root / FEATURE_PROTOCOLS[task]).read_bytes()
+    proto = feature_stage.load_protocol(strict_loads(raw.decode()))
+    if proto["task_id"] != task:
+        raise ValueError(f"the feature protocol of {task} belongs to task {proto['task_id']}")
+    return proto, artifacts.sha256_bytes(raw)
+
+
+def pool_entry(ctx, run_id, h_bank, h_sha, expect_sha=None):
+    """A run as the feature stage sees it, read from its validated bank (plan section 18.3): the bank's bytes against
+    its logged hash (and the expected hash, if given), its record against the bank (runs.audit_run); recipe,
+    features, task and scores taken from the bank; its two contribution blends with H recomputed."""
+    bank, sha, rec = runs.load_logged(ctx, run_id)
+    if expect_sha is not None and sha != expect_sha:
+        raise ValueError(f"run {run_id}: bank hash {sha} differs from the expected {expect_sha}")
+    key = (run_id, sha, h_sha)
+    if key in _ENTRIES:
+        return _ENTRIES[key]
+    problems = runs.audit_run(ctx, run_id)
+    if problems:
+        raise ValueError(f"run {run_id} fails its audit: {problems}")
+    md = bank.metadata
+    if not (md["selection_eligible"] and [int(s) for s in bank.split_seeds] == list(SPLIT_SEEDS)
+            and len(bank.y) == feature_stage.N_ROWS and md["prediction_kind"] == "fitted"):
+        raise ValueError(f"run {run_id} is not a complete fitted run on the eligible rows and official seeds")
+    repeats = allocation.repeat_means(bank).tolist()
+    blends = {}
+    for w in allocation.CONTRIBUTION_WEIGHTS:
+        if sha == h_sha:  # H blended with itself is H (an identity, as in contributions())
+            blends[w] = {"mean": float(bank.fold_auc.mean()), "repeats": repeats}
+            continue
+        c = allocation.contribution(h_bank, h_sha, bank, sha, w)
+        blends[w] = {"mean": c["mean_fold_auc"], "repeats": c["repeat_mean_auc"]}
+    e = {"run_id": run_id, "task_id": md["task_id"], "family": md["recipe"]["family"], "recipe": md["recipe"],
+         "recipe_id": md["recipe_id"], "recipe_hash": md["recipe_sha256"], "bank_sha256": sha,
+         "features": list(md["features"]), "mean": float(bank.fold_auc.mean()), "repeats": repeats, "blends": blends}
+    _ENTRIES[key] = e
+    return e
+
+
+class FeatureLog:
+    """The P2.4 records of the phase 2 log, checked: one feature_batch record per (stage, index) and per batch id,
+    at most one allocation, start and stop record per batch, no start or allocation without its batch. extra are
+    records not yet appended, checked as if they were (a command validates its record before writing it)."""
+
+    def __init__(self, ctx, task, extra=()):
+        recs = artifacts.read_experiments(ctx.root / runs.LOG_FILE) + list(extra)
+        mine = [r for r in recs if r.get("task_id") == task]
+        self._pos = {id(r): i for i, r in enumerate(mine)}
+        self.batches = sorted((r for r in mine if r.get("record") == "feature_batch"),
+                              key=lambda r: (r["stage"] != "features", r["index"]))
+        keys = [(b["stage"], b["index"]) for b in self.batches]
+        ids = [b["batch_id"] for b in self.batches]
+        if len(set(keys)) != len(keys) or len(set(ids)) != len(ids):
+            raise ValueError("duplicate feature batch records")
+
+        def one(kind):
+            out = {}
+            for r in mine:
+                if r.get("record") == kind:
+                    if r["batch_id"] in out:
+                        raise ValueError(f"duplicate {kind} records for {r['batch_id']}")
+                    if r["batch_id"] not in ids:
+                        raise ValueError(f"a {kind} record names an unknown batch {r['batch_id']}")
+                    out[r["batch_id"]] = r
+            return out
+        self.allocations, self.starts_rec = one("feature_allocation"), one("batch_start")
+        self.starts = set(self.starts_rec)
+        stops = [r for r in mine if r.get("record") == "feature_stop"]
+        if len(stops) > 1:
+            raise ValueError("more than one feature_stop record")
+        self.stop = stops[0] if stops else None
+        if self.stop is not None:
+            feats = [b for b in self.batches if b["stage"] == "features"]
+            st = self.stop
+            if not isinstance(st.get("reason"), str) or not st["reason"].strip() or not feats \
+                    or st.get("batch_id") != feats[-1]["batch_id"] or st["batch_id"] not in self.allocations \
+                    or mine.index(st) < mine.index(self.allocations[st["batch_id"]]) \
+                    or any(b["stage"] == "retune" and mine.index(b) < mine.index(st) for b in self.batches):
+                raise ValueError("the feature_stop record must give a reason, follow the last feature batch's "
+                                 "allocation, name that batch, and precede every re-tuning round")
+        self.manifests = {b["batch_id"]: read_manifest(ctx, b["file"]) for b in self.batches}
+        self.records = mine
+
+    def of(self, stage):
+        return [b for b in self.batches if b["stage"] == stage]
+
+    def judged(self, stage):
+        return [self.allocations[b["batch_id"]]["judgment"] for b in self.of(stage) if b["batch_id"] in self.allocations]
+
+    def position(self, r):
+        """A record's position among the task's records, in log order."""
+        return self._pos[id(r)]
+
+    def upto(self, pos):
+        """The log as it stood before the task's record at position pos: only the records logged before it."""
+        view = copy.copy(self)
+        kept = lambda r: self._pos[id(r)] < pos  # noqa: E731
+        view.records = self.records[:pos]
+        view.batches = [b for b in self.batches if kept(b)]
+        view.allocations = {k: v for k, v in self.allocations.items() if kept(v)}
+        view.starts_rec = {k: v for k, v in self.starts_rec.items() if kept(v)}
+        view.starts = set(view.starts_rec)
+        view.stop = self.stop if self.stop is not None and kept(self.stop) else None
+        return view
+
+    def before(self, stage, index):
+        """The log as it stood when (stage, index) was planned: the records logged before its feature_batch record
+        (all of them when it is not logged), and of their batches only those before it (feature batches come before
+        every re-tuning round), with their allocations and starts. Re-planning from this view is how a batch record
+        logged before an allocation its manifest uses fails its preflight."""
+        rec = next((b for b in self.batches if (b["stage"], b["index"]) == (stage, index)), None)
+        view = self.upto(self.position(rec) if rec is not None else len(self.records))
+        key = (stage != "features", index)
+        view.batches = [b for b in view.batches if (b["stage"] != "features", b["index"]) < key]
+        ids = {b["batch_id"] for b in view.batches}
+        view.allocations = {k: v for k, v in view.allocations.items() if k in ids}
+        view.starts_rec = {k: v for k, v in view.starts_rec.items() if k in ids}
+        view.starts = set(view.starts_rec)
+        return view
+
+
+def reference_bank(ctx, proto):
+    bank, sha, _ = runs.load_logged(ctx, proto["reference_p21_run_id"])
+    return bank, sha
+
+
+def feature_pool(ctx, proto, flog):
+    """The reference pool (plan section 18.3): the protocol's frozen reference inventory, each run validated against
+    its bank and expected hash, and the runs of the log's judged P2.4 batches; blends with H from the P2.1 anchor
+    bank, whose ten arrays every H check requires H to equal. Later runs of the reference tasks never enter."""
+    hb, hs = reference_bank(ctx, proto)
+    out = [pool_entry(ctx, e["run_id"], hb, hs, e["bank_sha256"]) for e in proto["reference_inventory"]]
+    have = {e["run_id"] for e in out}
+    for b in flog.batches:
+        if b["batch_id"] in flog.allocations:
+            for r in b["run_ids"]:
+                if r not in have:
+                    have.add(r)
+                    out.append(pool_entry(ctx, r, hb, hs))
+    return out
+
+
+def validate_imports(ctx, proto):
+    """Plan section 18.2: P2.8's 14 comparisons enter with their original definitions and decisions. The receipt's
+    files must have their hashes; each entry must be the hashed P2.8 manifest's comparison of that id (family,
+    challenger and comparator recipe names and recipe hashes), its runs P2.8 runs of exactly those recipes with
+    banks matching their hashes and records; its H the manifest's named H, audited; and every route flag must
+    recompute from P2.8's own frozen allocation state with that H. Returns the receipt's comparisons."""
+    imp = proto["imports"]
+    for k in ("manifest", "judge", "output"):
+        if artifacts.sha256_bytes((ctx.root / imp[k]).read_bytes()) != imp[f"{k}_sha256"]:
+            raise ValueError(f"the import receipt's {k} {imp[k]} differs from its hash")
+    pb = read_manifest(ctx, imp["manifest"])["part_b"]
+    defs = {c["id"]: c for c in pb["comparisons"]}
+    rhash = {r["name"]: r["recipe_sha256"] for r in pb["recipes"]}
+    st = pb["allocation_state"]
+    hb, hs, hrec = runs.load_logged(ctx, imp["h_run_id"])
+    if hb.metadata["recipe"]["name"] != st["H"] or hb.metadata["recipe_sha256"] != rhash[st["H"]] \
+            or hrec["task_id"] != imp["task"] or runs.audit_run(ctx, imp["h_run_id"]):
+        raise ValueError("the import receipt's H is not P2.8's named H, or fails its audit")
+    if sorted(defs) != sorted(c["id"] for c in imp["comparisons"]):
+        raise ValueError("the receipt's comparisons are not exactly the P2.8 manifest's")
+    for c in imp["comparisons"]:
+        d = defs[c["id"]]
+        if c["family"] != d["family"]:
+            raise ValueError(f"imported comparison {c['id']}: family")
+        for side in ("comparator", "challenger"):
+            bank, sha, rec = runs.load_logged(ctx, c[f"{side}_run_id"])
+            md = bank.metadata
+            if c[f"{side}_recipe"]["name"] != d[side] or md["recipe"]["name"] != d[side] \
+                    or md["recipe_sha256"] != rhash[d[side]] \
+                    or searches.recipe_hash(c[f"{side}_recipe"]) != rhash[d[side]] \
+                    or sha != c[f"{side}_bank_sha256"] or rec["task_id"] != imp["task"] \
+                    or runs.audit_run(ctx, c[f"{side}_run_id"]):
+                raise ValueError(f"imported comparison {c['id']}: the {side} is not the P2.8 manifest's, or fails "
+                                 f"its bank or audit")
+        if c["challenger_recipe_sha256"] != rhash[d["challenger"]]:
+            raise ValueError(f"imported comparison {c['id']}: challenger hash")
+        e = pool_entry(ctx, c["challenger_run_id"], hb, hs)
+        f = c["family"]
+        rts = allocation.routes({"standalone": e["repeats"], "blends": [e["blends"][w]["repeats"]
+                                                                      for w in allocation.CONTRIBUTION_WEIGHTS]},
+                                st["family_incumbents"][f]["repeat_mean_auc_unrounded"],
+                                st["strongest_standalone"]["repeat_mean_auc_unrounded"],
+                                hrec["repeat_mean_auc_unrounded"],
+                                st["previous_best_blends"][f]["repeat_mean_auc_unrounded"])
+        if rts != c["routes"]:
+            raise ValueError(f"imported comparison {c['id']}: routes {rts} recompute differently from {c['routes']}")
+    return imp["comparisons"]
+
+
+def validate_handoff(ctx, proto):
+    """Plan section 18.4: the CatBoost and EBM aliases come from P2.3's converged handoff. The handoff file must have
+    its hash; an available family's alias must be its best standalone run; an unavailable family's alias must be
+    the declared fallback (C) or a declared omission (M). A protocol without a handoff path (a test) passes."""
+    h = proto["p23_handoff"]
+    if h["path"] is None:
+        return
+    text = (ctx.root / h["path"]).read_text()
+    if artifacts.sha256_bytes(text.encode()) != h["sha256"]:
+        raise ValueError(f"P2.3's handoff {h['path']} differs from its hash")
+    data = strict_loads(text[text.index("Handoff to P2.4"):].split("\n", 1)[1])
+    for alias, fam in (("C", "catboost"), ("M", "ebm")):
+        v, a = data["families"][fam], proto["aliases"][alias]
+        ok = (a["run_id"] == v["best_standalone"]["run_id"]) if v["available"] else \
+            (("used_fallback" in a["rule"]) if alias == "C" else a["run_id"] is None)
+        if not ok:
+            raise ValueError(f"alias {alias} does not follow P2.3's handoff for {fam}")
+
+
+def used_comparisons(proto, flog):
+    return len(proto["imports"]["comparisons"]) + sum(
+        len(flog.manifests[b["batch_id"]]["comparisons"]) + len(flog.manifests[b["batch_id"]]["omitted"])
+        for b in flog.of("features"))
+
+
+def feature_closed(proto, flog):
+    """Why the feature stage takes no further expansion, or None: a recorded stop, the counter at zero, or the
+    comparison ceiling (an exhausted queue shows as an expansion that plans nothing)."""
+    judged = flog.judged("features")
+    if not judged or len(judged) != len(flog.of("features")):
+        return None
+    if flog.stop is not None:
+        return "stopped"
+    if judged[-1]["allowance_after"] <= 0:
+        return "allowance"
+    return "ceiling" if used_comparisons(proto, flog) >= proto["expansion"]["max_comparisons"] else None
+
+
+def plan_feature_batch(ctx, proto, flog, stage, index, run_id_of_, planned_at):
+    """The manifest of a feature batch (stage "features") or a re-tuning round (stage "retune"), a pure function of
+    the protocol, the log before it, the validated banks and planned_at (the planning time, which only re-tuning's
+    admission uses); None when nothing is due."""
+    imports = proto["imports"]["comparisons"]
+    flog = flog.before(stage, index)
+    unjudged = [b["batch_id"] for b in flog.batches if b["batch_id"] not in flog.allocations]
+    if unjudged:
+        raise ValueError(f"{stage} {index} needs every earlier batch judged first: {unjudged}")
+    pool = feature_pool(ctx, proto, flog)
+    hb, hs = reference_bank(ctx, proto)
+    h_entry = pool_entry(ctx, proto["reference_p21_run_id"], hb, hs)
+    h = {"recipe": proto["h_recipe"], "run_id": run_id_of_(proto["h_recipe"])}
+    aliases = feature_stage.resolve_aliases(proto, pool)
+    prior = [flog.manifests[b["batch_id"]] for b in flog.of("features")]
+    out = {"schema": feature_stage.BATCH_SCHEMA, "task_id": proto["task_id"], "stage": stage, "index": index, "h": h,
+           "aliases": {k: (v["run_id"] if v else None) for k, v in aliases.items()},
+           "prior_batches": [{"batch_id": b["batch_id"], "file_sha256": b["file_sha256"],
+                              "allocation_sha256": artifacts.sha256_bytes(artifacts.dumps(
+                                  flog.allocations[b["batch_id"]]["judgment"]).encode())} for b in flog.batches]}
+    if stage == "features":
+        if index == 1:
+            comps, omitted = feature_stage.initial_comparisons(proto, aliases)
+            kind, before = "initial", None
+        else:
+            judged = flog.judged("features")
+            if len(judged) != index - 1 or len(prior) != index - 1:
+                raise ValueError(f"feature batch {index} needs batches 1 to {index - 1} judged")
+            if feature_closed(proto, flog):
+                return None
+            comps = feature_stage.plan_expansion(proto, pool, aliases, prior, judged, imports, index)
+            omitted, kind, before = [], "expansion", judged[-1]["allowance_after"]
+            if not comps:
+                return None
+        for c in comps:
+            c["comparator_run_id"], c["challenger_run_id"] = run_id_of_(c["comparator"]), run_id_of_(c["challenger"])
+        out.update({"kind": kind, "comparisons": comps, "omitted": omitted,
+                    "state": feature_stage.state(pool, h_entry, {c["family"] for c in comps}, before)})
+        return out
+    # Re-tuning round index (1 or 2): round 1 chooses the units once the feature stage is closed; round 2 gives each
+    # round 1 unit its second batch (plan section 18.6). Units are admitted in order while their projected fitting
+    # and replay, from the parents' measured times, end before the protocol's re-tuning budget end.
+    rp = proto["retune"]
+    if index > rp["max_batches"] or len(flog.judged("features")) != len(flog.of("features")):
+        return None
+    if index == 1:
+        recipes = {i["id"]: i["challenger_recipe"] for i in imports}
+        for m in prior:
+            recipes.update({c["id"]: c["challenger"] for c in m["comparisons"]})
+        routes = feature_stage.met_routes(flog.judged("features"), imports)
+        units = [v["unit"] for v in feature_stage.choose_units(proto, pool, routes, recipes)]
+    else:
+        rounds = flog.of("retune")
+        if len(rounds) != index - 1 or rounds[-1]["batch_id"] not in flog.allocations:
+            return None
+        last = flog.manifests[rounds[-1]["batch_id"]]
+        units = [u["unit"] for u in last["units"]]
+    budget = (datetime.fromisoformat(proto["retune_budget_end_utc"]) - datetime.fromisoformat(planned_at)).total_seconds()
+    planned, omitted, spent = [], [], 0.0
+    for k, u in enumerate(units):
+        parents, exclude = feature_stage.retune_parents(proto, u, pool)
+        recs_by_id = {r["run_id"]: r for r in runs_by_id(ctx, [p["run_id"] for p in parents])}
+        cost = 2 * rp["batch"] * max(recs_by_id[p["run_id"]]["elapsed_seconds"] for p in parents)
+        if spent + cost > budget:
+            omitted.append({"unit_id": u["unit_id"], "reason": f"projected {cost:.0f} s of fitting and replay would "
+                                                              f"end after {proto['retune_budget_end_utc']}"})
+            continue
+        spent += cost
+        seed = rp["seed_base"] + 100 * k + index
+        recs, info = feature_stage.plan_retune(proto, u, [p["recipe"] for p in parents], exclude, index, seed)
+        planned.append({"unit": u, "parents": [p["run_id"] for p in parents], "recipes": recs,
+                        "run_ids": [run_id_of_(r) for r in recs], "rejected": info, "sampler_seed": seed,
+                        "projected_seconds": cost})
+    if not planned and not omitted:
+        return None
+    out.update({"kind": "retune", "units": planned, "omitted_units": omitted, "planned_at_utc": planned_at,
+                "state": feature_stage.state(pool, h_entry, {u["unit"]["family"] for u in planned} or {"lightgbm"},
+                                             None)})
+    return out
+
+
+def runs_by_id(ctx, ids):
+    recs = {r["run_id"]: r for r in runs.logged(ctx)}
+    return [recs[i] for i in ids]
+
+
+def feature_run_ids(m):
+    ids = [m["h"]["run_id"]]
+    for c in m.get("comparisons", []):
+        ids += [c["comparator_run_id"], c["challenger_run_id"]]
+    for u in m.get("units", []):
+        ids += u["run_ids"]
+    return list(dict.fromkeys(ids))
+
+
+def feature_text(m, psha, manifest):
+    return artifacts.dumps(dict(m, protocol_sha256=psha, source_manifest_sha256=manifest["manifest_sha256"]))
+
+
+def feature_batch_id(m, text):
+    return f"p24_{m['stage']}_{m['index']}_{artifacts.sha256_bytes(text.encode())[:12]}"
+
+
+def feature_record(m, text, task, psha, planned_at):
+    bid = feature_batch_id(m, text)
+    return {"record": "feature_batch", "task_id": task, "batch_id": bid, "stage": m["stage"], "index": m["index"],
+            "kind": m["kind"], "file": str(BATCH_DIR / f"{bid}.json"),
+            "file_sha256": artifacts.sha256_bytes(text.encode()), "run_ids": feature_run_ids(m),
+            "protocol_sha256": psha, "planned_at_utc": planned_at}
+
+
+def write_once(ctx, rel, text):
+    target = ctx.root / rel
+    if target.exists():
+        if target.read_text() != text:
+            raise ValueError(f"{rel} exists with other content")
+        return
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with open(target, "x") as f:
+        f.write(text)
+
+
+def plan_features(ctx, stage, index, seeds, task, manifest):
+    """Save and log a feature batch or re-tuning round before any of its fits (plan section 18). Resumable: an
+    existing record is re-planned with its own planning time and must equal the re-planning before anything is
+    written."""
+    if index < 1:
+        raise ValueError("batch indices start at 1")
+    proto, psha = load_feature_protocol(ctx, task)
+    protocol_seeds(proto, seeds)
+    validate_imports(ctx, proto)
+    validate_handoff(ctx, proto)
+    flog = FeatureLog(ctx, task)
+    logged = [b for b in flog.batches if b["stage"] == stage and b["index"] == index]
+    if not logged:
+        if past_cutoff(proto):
+            raise ValueError(f"the {task} cutoff {proto['cutoff_utc']} has passed: no new batch")
+        prev = flog.of(stage)
+        if len(prev) != index - 1 or (prev and prev[-1]["batch_id"] not in flog.allocations):
+            raise ValueError(f"{stage} {index} needs {stage} 1 to {index - 1} planned and judged")
+    if stage == "features" and flog.stop is not None and not logged:
+        raise ValueError("the feature stage is stopped (feature_stop record)")
+    if stage == "retune" and not logged:
+        if not flog.of("features") or flog.of("features")[-1]["batch_id"] not in flog.allocations:
+            raise ValueError("re-tuning starts after the last feature batch is judged")
+        nxt = len(flog.of("features")) + 1
+        if not feature_closed(proto, flog) and plan_feature_batch(
+                ctx, proto, flog, "features", nxt, run_id_of(ctx, seeds, manifest), now()) is not None:
+            raise ValueError("the feature stage still has an expansion due; re-tuning waits (or log a feature_stop)")
+    planned_at = logged[0]["planned_at_utc"] if logged else now()
+    m = plan_feature_batch(ctx, proto, flog, stage, index, run_id_of(ctx, seeds, manifest), planned_at)
+    if m is None:
+        if logged:
+            raise ValueError(f"the logged {stage} {index} no longer re-plans")
+        print(f"  {stage} {index}: nothing is due ({feature_closed(proto, flog) or 'no candidates or units'})")
+        return None
+    text = feature_text(m, psha, manifest)
+    rec = feature_record(m, text, task, psha, planned_at)
+    if logged:
+        if any(artifacts.dumps(logged[0].get(k)) != artifacts.dumps(v) for k, v in rec.items()):
+            raise ValueError(f"the logged {stage} {index} differs from its re-planning; nothing was written")
+        write_once(ctx, rec["file"], text)  # restores a lost manifest file; an existing one must be identical
+        print(f"  {rec['batch_id']}: already planned")
+        return m
+    write_once(ctx, rec["file"], text)
+    artifacts.append_experiment(ctx.root / runs.LOG_FILE, dict(rec, timestamp_utc=now()))
+    n = len(m.get("comparisons", [])) or sum(len(u["recipes"]) for u in m["units"])
+    print(f"  {rec['batch_id']}: {m['kind']}, {n} {'comparisons' if stage == 'features' else 'configurations'}"
+          f"{', omitted ' + str(m.get('omitted') or m.get('omitted_units')) if m.get('omitted') or m.get('omitted_units') else ''}"
+          f"; saved in {rec['file']}")
+    return m
+
+
+def stop_features(ctx, task, reason, seeds, manifest):
+    """Plan section 18.9: a recorded stop of the feature expansions (the cut order's first items), after the last
+    feature batch is judged: the reason, the last batch, and the expansion it omits (re-planned, not run). The record
+    is checked as part of the log before it is appended, so a refused stop writes nothing."""
+    reason = reason.strip() if isinstance(reason, str) else ""
+    if not reason:
+        raise ValueError("a feature stop needs a reason")
+    proto, _ = load_feature_protocol(ctx, task)
+    flog = FeatureLog(ctx, task)
+    if flog.stop is not None:
+        raise ValueError("the feature stage is already stopped")
+    if not flog.of("features") or flog.of("features")[-1]["batch_id"] not in flog.allocations:
+        raise ValueError("a stop follows a judged feature batch")
+    nxt = len(flog.of("features")) + 1
+    due = plan_feature_batch(ctx, proto, flog, "features", nxt, run_id_of(ctx, seeds, manifest), now())
+    rec = {"record": "feature_stop", "task_id": task, "batch_id": flog.of("features")[-1]["batch_id"],
+           "reason": reason, "omitted_expansion": [c["id"] for c in due["comparisons"]] if due else [],
+           "timestamp_utc": now()}
+    FeatureLog(ctx, task, extra=[rec])  # raises, before anything is written, on a record the log would refuse
+    artifacts.append_experiment(ctx.root / runs.LOG_FILE, rec)
+    print(f"  feature stage stopped after {rec['batch_id']}: {reason}; omitted {len(rec['omitted_expansion'])}")
+
+
+def feature_preflight(ctx, proto, psha, flog, b, seeds, manifest):
+    text = (ctx.root / b["file"]).read_text()
+    m = strict_loads(text)
+    replanned = plan_feature_batch(ctx, proto, flog, b["stage"], b["index"], run_id_of(ctx, seeds, manifest),
+                                   b["planned_at_utc"])
+    rtext = feature_text(replanned, psha, manifest) if replanned is not None else None
+    problems = [k for k, ok in {
+        "file hash": artifacts.sha256_bytes(text.encode()) == b["file_sha256"],
+        "batch id": rtext is not None and feature_batch_id(m, text) == b["batch_id"],
+        "stage and index": (m["stage"], m["index"], m["kind"]) == (b["stage"], b["index"], b["kind"]),
+        "protocol": m["protocol_sha256"] == psha == b["protocol_sha256"],
+        "sources": m["source_manifest_sha256"] == manifest["manifest_sha256"],
+        "run ids": feature_run_ids(m) == b["run_ids"],
+        "re-planning": rtext == text}.items() if not ok]
+    if problems:
+        raise ValueError(f"{b['batch_id']} fails its preflight: {problems}; nothing was fitted")
+    return m
+
+
+def feature_entries(ctx, m):
+    hb, hs, _ = runs.load_logged(ctx, m["h"]["run_id"])
+    return {r: pool_entry(ctx, r, hb, hs) for r in feature_run_ids(m)}
+
+
+def feature_bootstraps(ctx, b, m, judgment, entries, task, verify=False):
+    """The paired cluster bootstraps of the comparisons behind a batch's allocation (feature_stage.witnesses), 2,000
+    draws, logged before the allocation; descriptive, never a gate. With verify, every one must be logged and
+    recompute equal."""
+    h = m["h"]["run_id"]
+    have = {r["comparison_id"]: r for r in runs.logged(ctx, "bootstrap")}
+    ok = True
+    for route, family, a, c in feature_stage.witnesses(m, judgment, entries):
+        (ba, ia), (bb, ib) = virtual(ctx, a, h), virtual(ctx, c, h)
+        ident = {"batch_id": b["batch_id"], "route": route, "family": family, "a": list(a), "b": list(c),
+                 "a_ident": ia, "b_ident": ib, "n_boot": 2000, "seed": BOOTSTRAP_SEED}
+        cid = artifacts.config_hash(ident)[:16]
+        out = paired_cluster_bootstrap(ba, bb, n_boot=2000, seed=BOOTSTRAP_SEED)
+        rec = {"record": "bootstrap", "task_id": task, "comparison_id": cid, **ident, **out,
+               "repeat_differences": (ba.fold_auc.mean(axis=1) - bb.fold_auc.mean(axis=1)).tolist()}
+        if verify:
+            ok &= cid in have and same_record(have[cid], rec)
+        elif cid not in have:
+            artifacts.append_experiment(ctx.root / runs.LOG_FILE, dict(rec, timestamp_utc=now()))
+    return ok
+
+
+def execution_evidence(records, b, m, first):
+    """Positions (in the task's records) of everything a batch's execution logs: the runs it declares first, H's
+    check when H is among them, the contributions and matched comparisons of its challengers and configurations,
+    its witness bootstraps and run failures."""
+    bid = b["batch_id"]
+    mine = set(first)
+    need = {c["challenger_run_id"] for c in m.get("comparisons", [])} | {r for u in m.get("units", [])
+                                                                         for r in u["run_ids"]}
+    pairs = {(c["challenger_run_id"], c["comparator_run_id"]) for c in m.get("comparisons", [])}
+    out = []
+    for i, r in enumerate(records):
+        k = r.get("record")
+        if (k == "run" and r["run_id"] in mine) or (k == "h_check" and r["h_run_id"] in mine) \
+                or (k == "contribution" and r["run_id"] in need and r["h_run_id"] == m["h"]["run_id"]) \
+                or (k == "comparison" and (r["a"], r["b"]) in pairs) \
+                or (k in ("bootstrap", "run_failure") and r.get("batch_id") == bid):
+            out.append((i, k))
+    return out
+
+
+def evidence_order(flog, b, evidence):
+    """A batch with any execution evidence needs a start; the batch record precedes the start, the start precedes
+    every piece of evidence, and an allocation follows all of it (plan section 18.10)."""
+    bid, recs = b["batch_id"], flog.records
+    where = lambda kind: next((i for i, r in enumerate(recs) if r.get("record") == kind  # noqa: E731
+                               and r.get("batch_id") == bid), None)
+    bpos, spos, apos = where("feature_batch"), where("batch_start"), where("feature_allocation")
+    out = []
+    if (evidence or apos is not None) and spos is None:
+        return [f"{bid}: execution evidence or an allocation without a batch_start record"]
+    if spos is not None and not bpos < spos:
+        out.append(f"{bid}: its start precedes its batch record")
+    late = [k for i, k in evidence if spos is not None and i < spos]
+    if late:
+        out.append(f"{bid}: {sorted(set(late))} logged before its start")
+    if apos is not None:
+        after = [k for i, k in evidence if i > apos]
+        if after or not spos < apos:
+            out.append(f"{bid}: {sorted(set(after)) or 'its start'} logged after its allocation")
+    return out
+
+
+def batch_order(flog):
+    """Every batch record follows the batch record and the allocation of every batch before it, the allocations its
+    manifest's prior_batches name: a batch is planned only from allocations already logged (plan section 18.10)."""
+    out = []
+    for k, b in enumerate(flog.batches):
+        p = flog.position(b)
+        for e in flog.batches[:k]:
+            a = flog.allocations.get(e["batch_id"])
+            if flog.position(e) > p:
+                out.append(f"{b['batch_id']}: logged before the earlier batch {e['batch_id']}")
+            elif a is None or flog.position(a) > p:
+                out.append(f"{b['batch_id']}: logged before {e['batch_id']} was judged")
+    return out
+
+
+def h_order(records, m, first, evidence):
+    """Plan section 18.3: in the batch that first declares H, H's run (when this task logged it, not reused it)
+    precedes its check, and the check precedes every other fit and record of the batch's execution (H's own failures
+    aside)."""
+    h = m["h"]["run_id"]
+    if h not in first:
+        return []
+    own = lambda r: (r["record"] == "run" and r["run_id"] == h) or r["record"] == "h_check" \
+        or (r["record"] == "run_failure" and r["planned_run_id"] == h)  # noqa: E731
+    run_pos = next((i for i, k in evidence if k == "run" and records[i]["run_id"] == h), None)
+    check_pos = next((i for i, k in evidence if k == "h_check"), None)
+    others = [i for i, k in evidence if not own(records[i])]
+    out = []
+    if check_pos is not None and run_pos is not None and run_pos > check_pos:
+        out.append(f"{m['stage']} {m['index']}: H's check is not preceded by H's run")
+    if others and (check_pos is None or check_pos > min(others)):
+        out.append(f"{m['stage']} {m['index']}: fits or records logged before H's check")
+    return out
+
+
+def derived_order(records, m, evidence):
+    """Each contribution and matched comparison follows the task's run records of the runs it is computed from, and
+    the batch closes with its witnesses' bootstraps: they follow every other record of its execution (plan section
+    18.10)."""
+    run_at = {r["run_id"]: i for i, r in enumerate(records) if r["record"] == "run"}
+    boots = [i for i, k in evidence if k == "bootstrap"]
+    out = set()
+    for i, k in evidence:
+        r = records[i]
+        uses = [r["run_id"], r["h_run_id"]] if k == "contribution" else [r["a"], r["b"]] if k == "comparison" else []
+        if any(run_at.get(u, -1) > i for u in uses):
+            out.add(f"{m['stage']} {m['index']}: a {k} logged before a run it uses")
+        if boots and k != "bootstrap" and i > boots[0]:
+            out.add(f"{m['stage']} {m['index']}: a {k} logged after the batch's first witness")
+    return sorted(out)
+
+
+def same_record(old, new):
+    """Every field of a recomputed record equals the logged one: numbers within TOL, lists elementwise, the rest
+    exactly; the timestamp aside."""
+    if set(old) - {"timestamp_utc"} != set(new):
+        return False
+    for k, v in new.items():
+        o = old[k]
+        if isinstance(v, float) or isinstance(o, float):
+            if not (isinstance(o, (int, float)) and abs(o - v) <= TOL):
+                return False
+        elif isinstance(v, list) and v and all(isinstance(x, (int, float)) for x in v):
+            if not (isinstance(o, list) and len(o) == len(v) and np.allclose(o, v, rtol=0, atol=TOL)):
+                return False
+        elif artifacts.dumps(o) != artifacts.dumps(v):
+            return False
+    return True
+
+
+def witness_ids(ctx, b, m, judgment, entries):
+    """The comparison ids of a batch's witness bootstraps, derived exactly as feature_bootstraps derives them."""
+    h = m["h"]["run_id"]
+    out = set()
+    for route, family, a, c in feature_stage.witnesses(m, judgment, entries):
+        ia, ib = virtual(ctx, a, h)[1], virtual(ctx, c, h)[1]
+        out.add(artifacts.config_hash({"batch_id": b["batch_id"], "route": route, "family": family, "a": list(a),
+                                       "b": list(c), "a_ident": ia, "b_ident": ib, "n_boot": 2000,
+                                       "seed": BOOTSTRAP_SEED})[:16])
+    return out
+
+
+def checked_run(ctx, recipe, rid, seeds, task, manifest, inv, bid):
+    try:
+        rec = run_one(ctx, recipe, seeds, task, manifest, inv, search_id=bid)
+    except Exception as e:
+        artifacts.append_experiment(ctx.root / runs.LOG_FILE, {
+            "record": "run_failure", "task_id": task, "batch_id": bid, "planned_run_id": rid,
+            "recipe_sha256": searches.recipe_hash(recipe), "error": f"{type(e).__name__}: {e}", "timestamp_utc": now()})
+        raise
+    if rec["run_id"] != rid:
+        raise AssertionError(f"run id {rec['run_id']} differs from the planned {rid}")
+    return rec
+
+
+def run_features(ctx, stage, index, seeds, task, manifest, inv):
+    """Run a logged feature batch or re-tuning round after its preflight: H (and its check), then each comparison's
+    comparator and challenger (or each configuration), contributions with H and the matched comparisons; then the
+    witnesses' bootstraps and the judgment, logged as a feature_allocation record. Resumable."""
+    proto, psha = load_feature_protocol(ctx, task)
+    validate_imports(ctx, proto)
+    validate_handoff(ctx, proto)
+    flog = FeatureLog(ctx, task)
+    b = next((x for x in flog.batches if x["stage"] == stage and x["index"] == index), None)
+    if b is None:
+        raise ValueError(f"{stage} {index} is not planned")
+    m = feature_preflight(ctx, proto, psha, flog, b, seeds, manifest)
+    if b["batch_id"] in flog.allocations:
+        print(f"  {b['batch_id']}: already judged")
+        return True
+    if b["batch_id"] not in flog.starts:
+        if past_cutoff(proto):
+            print(f"  {b['batch_id']}: not started, the cutoff {proto['cutoff_utc']} has passed")
+            return False
+        artifacts.append_experiment(ctx.root / runs.LOG_FILE, {
+            "record": "batch_start", "task_id": task, "batch_id": b["batch_id"], "timestamp_utc": now()})
+    h = m["h"]["run_id"]
+    checked_run(ctx, m["h"]["recipe"], h, seeds, task, manifest, inv, b["batch_id"])
+    if not h_check(ctx, proto, h, task):
+        raise AssertionError(f"H differs from the P2.1 anchor bank; {task} stops (plan section 18)")
+    todo = [(c["comparator"], c["comparator_run_id"]) for c in m.get("comparisons", [])] + \
+        [(c["challenger"], c["challenger_run_id"]) for c in m.get("comparisons", [])] + \
+        [(r, rid) for u in m.get("units", []) for r, rid in zip(u["recipes"], u["run_ids"])]
+    for recipe, rid in dict.fromkeys((artifacts.dumps(r), rid) for r, rid in todo):
+        checked_run(ctx, strict_loads(recipe), rid, seeds, task, manifest, inv, b["batch_id"])
+    for c in m.get("comparisons", []):
+        contributions(ctx, c["challenger_run_id"], h, task)
+        compare(ctx, c["challenger_run_id"], c["comparator_run_id"], task)
+    for u in m.get("units", []):
+        for rid in u["run_ids"]:
+            contributions(ctx, rid, h, task)
+    entries = feature_entries(ctx, m)
+    judgment = feature_stage.judge(m, entries, proto["imports"]["comparisons"]) if stage == "features" \
+        else feature_stage.judge_retune(m, entries)
+    feature_bootstraps(ctx, b, m, judgment, entries, task)  # persisted before the allocation closes the batch
+    artifacts.append_experiment(ctx.root / runs.LOG_FILE, {
+        "record": "feature_allocation", "task_id": task, "batch_id": b["batch_id"], "stage": stage, "index": index,
+        "judgment": judgment, "timestamp_utc": now()})
+    met = sum(1 for v in (judgment.get("comparisons") or {}).values() if v["routes"])
+    print(f"  {b['batch_id']}: judged; progress {judgment['progress']}"
+          + (f", {met} comparisons meeting a route, allowance -> {judgment['allowance_after']}" if stage == "features"
+             else ""))
+    return True
+
+
+def expected_comparison_id(ctx, a, c):
+    sa, sb = runs.load_logged(ctx, a)[1], runs.load_logged(ctx, c)[1]
+    ident = {"a": a, "b": c, "a_sha256": sa, "b_sha256": sb, "seeds": list(SPLIT_SEEDS), "n_boot": 2000,
+             "seed": BOOTSTRAP_SEED}
+    return artifacts.config_hash(ident)[:16]
+
+
+def audit_features(ctx, seeds, task, manifest, allow_incomplete=False):
+    """Without refitting (plan section 18.10): the import receipt and P2.3's handoff; the log's structure (one
+    initial batch, contiguous indices, re-tuning after the features, a valid stop record whose omitted expansion
+    re-plans, at most one allocation, start and stop per batch); every batch's file, record and re-planning from the
+    log as it stood; for every judged batch its start, every declared run logged and audited against its bank, every
+    matched comparison, contribution pair, witness bootstrap and its H check present and recomputed in every field,
+    the judgment re-derived, and the order batch record, start, first fits, allocation; every batch record after the
+    batch records and allocations of the batches before it; H's run, then its check, before the other fits of the
+    batch that first declares H; contributions and comparisons after the runs they use, and the witnesses after the
+    rest of their batch; no P2.4 run, comparison, contribution, bootstrap, H check or failure record outside
+    the declared work, and none duplicated. Completion also requires the initial batch judged, no started batch
+    unjudged, and nothing still due before the cutoff. Run at the sources the runs were made with."""
+    proto, psha = load_feature_protocol(ctx, task)
+    ok, problems = True, []
+    try:
+        validate_imports(ctx, proto)
+        validate_handoff(ctx, proto)
+        print("  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases "
+              "follow P2.3's handoff")
+    except (ValueError, KeyError) as e:
+        print(f"  imports: DIFFERS: {e}")
+        ok = False
+    try:
+        flog = FeatureLog(ctx, task)
+    except ValueError as e:
+        print(f"  log: {e}")
+        return False
+    for stage in ("features", "retune"):
+        idx = [b["index"] for b in flog.of(stage)]
+        if idx != list(range(1, len(idx) + 1)):
+            problems.append(f"{stage} indices {idx} are not 1, 2, ...")
+    if flog.of("retune") and not flog.of("features"):
+        problems.append("re-tuning without a feature batch")
+    problems += batch_order(flog)
+    rid_of = run_id_of(ctx, seeds, manifest)
+    if flog.stop is not None:
+        n = len(flog.of("features")) + 1
+        due = plan_feature_batch(ctx, proto, flog.upto(flog.position(flog.stop)), "features", n, rid_of,
+                                 flog.stop["timestamp_utc"])
+        omitted = [c["id"] for c in due["comparisons"]] if due else []
+        if omitted != flog.stop["omitted_expansion"]:
+            problems.append("the feature_stop record's omitted expansion differs from its re-planning")
+    logged_runs = {r["run_id"]: r for r in runs.logged(ctx)}
+    planned, hs, evidence = [], set(), {}
+    want_comp, want_contrib, want_boot = set(), set(), set()
+    for b in flog.batches:
+        try:
+            m = feature_preflight(ctx, proto, psha, flog, b, seeds, manifest)
+        except (ValueError, KeyError) as e:
+            print(f"  {b['batch_id']}: DIFFERS: {e}")
+            ok = False
+            continue
+        print(f"  {b['batch_id']}: equals its file, record and re-planning")
+        first = [r for r in b["run_ids"] if r not in planned]
+        planned += first
+        bid = b["batch_id"]
+        evidence[bid] = execution_evidence(flog.records, b, m, first)
+        problems += evidence_order(flog, b, evidence[bid]) + h_order(flog.records, m, first, evidence[bid]) \
+            + derived_order(flog.records, m, evidence[bid])
+        if bid not in flog.allocations:
+            continue
+        hs.add(m["h"]["run_id"])
+        missing = [r for r in b["run_ids"] if r not in logged_runs]
+        if missing:
+            problems.append(f"{bid}: judged with runs missing {missing}")
+            continue
+        entries = feature_entries(ctx, m)
+        j = feature_stage.judge(m, entries, proto["imports"]["comparisons"]) if b["stage"] == "features" \
+            else feature_stage.judge_retune(m, entries)
+        good = artifacts.dumps(j) == artifacts.dumps(flog.allocations[bid]["judgment"])
+        good &= feature_bootstraps(ctx, b, m, j, entries, task, verify=True)
+        want_boot |= witness_ids(ctx, b, m, j, entries)
+        for c in m.get("comparisons", []):
+            want_comp.add(expected_comparison_id(ctx, c["challenger_run_id"], c["comparator_run_id"]))
+        need = [c["challenger_run_id"] for c in m.get("comparisons", [])] + [r for u in m.get("units", [])
+                                                                            for r in u["run_ids"]]
+        for rid in need:
+            want_contrib |= {(rid, m["h"]["run_id"], w) for w in allocation.CONTRIBUTION_WEIGHTS}
+            if not contributions(ctx, rid, m["h"]["run_id"], task, verify=True):
+                problems.append(f"{bid}: contributions of {rid} missing or differ")
+        print(f"  allocation {bid}: {'re-judged equal, witnesses recomputed' if good else 'DIFFERS'}")
+        ok &= good
+    mine = flog.records
+    task_runs = [r["run_id"] for r in mine if r.get("record") == "run"]
+    stray = sorted(set(task_runs) - set(planned))
+    if stray or len(task_runs) != len(set(task_runs)):
+        problems.append(f"runs of {task} outside every manifest or duplicated: {stray}")
+    comps = [r for r in mine if r.get("record") == "comparison"]
+    cids = [r["comparison_id"] for r in comps]
+    if set(cids) - want_comp or len(cids) != len(set(cids)) or want_comp - set(cids):
+        problems.append(f"matched comparisons: orphan {sorted(set(cids) - want_comp)}, missing "
+                        f"{sorted(want_comp - set(cids))}, duplicated {len(cids) != len(set(cids))}")
+    contribs = [(r["run_id"], r["h_run_id"], r["weight"]) for r in mine if r.get("record") == "contribution"]
+    if set(contribs) - want_contrib or len(contribs) != len(set(contribs)):
+        problems.append(f"contributions outside the declared work or duplicated: {sorted(set(contribs) - want_contrib)}")
+    boots = [r["comparison_id"] for r in mine if r.get("record") == "bootstrap"]
+    if set(boots) - want_boot or len(boots) != len(set(boots)) or want_boot - set(boots):
+        problems.append(f"witness bootstraps: orphan {sorted(set(boots) - want_boot)}, missing "
+                        f"{sorted(want_boot - set(boots))}, duplicated {len(boots) != len(set(boots))}")
+    checks = [r["h_run_id"] for r in mine if r.get("record") == "h_check"]
+    if sorted(checks) != sorted(hs):
+        problems.append(f"H checks {sorted(checks)} do not match the judged batches' H runs {sorted(hs)}")
+    ids = {b["batch_id"] for b in flog.batches}
+    if any(r.get("batch_id") not in ids for r in mine if r.get("record") == "run_failure"):
+        problems.append("a run_failure record names no batch")
+    bad = {r: v for r in task_runs if (v := runs.audit_run(ctx, r))}
+    print(f"  runs: {len(task_runs)} audited against their banks and records, {len(bad)} with problems")
+    ok &= not bad
+    for h in sorted(hs):
+        if not h_check(ctx, proto, h, task, verify=True):
+            problems.append(f"H check of {h} missing or failed")
+    ok &= all(compare(ctx, r["a"], r["b"], None, seeds=r["seeds"], verify=True, comparison_id=r["comparison_id"])
+              for r in comps)
+    kinds = {r.get("record") for r in mine}
+    if kinds - set(FEATURE_RECORDS):
+        problems.append(f"unexplained {task} record kinds {sorted(kinds - set(FEATURE_RECORDS))}")
+    if not allow_incomplete:
+        if not flog.of("features") or flog.of("features")[0]["batch_id"] not in flog.allocations:
+            problems.append("the initial feature batch is not judged")
+        for b in flog.batches:
+            if b["batch_id"] not in flog.allocations:
+                if b["batch_id"] in flog.starts or evidence.get(b["batch_id"]):
+                    problems.append(f"{b['batch_id']} is partial (started, or with execution evidence)")
+                elif not past_cutoff(proto):
+                    problems.append(f"{b['batch_id']} is unstarted before the cutoff")
+                elif b is not flog.batches[-1]:
+                    problems.append(f"{b['batch_id']} is unstarted but not the last batch")
+        if not past_cutoff(proto) and all(b["batch_id"] in flog.allocations for b in flog.batches):
+            nf, nr = len(flog.of("features")) + 1, len(flog.of("retune")) + 1
+            if not flog.of("retune") and not feature_closed(proto, flog) and \
+                    plan_feature_batch(ctx, proto, flog, "features", nf, rid_of, now()):
+                problems.append("a feature expansion is still due")
+            elif plan_feature_batch(ctx, proto, flog, "retune", nr, rid_of, now()):
+                problems.append("a re-tuning round is still due")
+    for p in problems:
+        print(f"  incomplete or inconsistent: {p}")
+    return ok and not problems
+
+
 def parse_members(items):
     out = []
     for it in items:
@@ -731,6 +1547,13 @@ def verify(ctx, run_ids, manifest, inv):
     return ok
 
 
+def positive(text):
+    v = int(text)
+    if v < 1:
+        raise argparse.ArgumentTypeError("batch indices start at 1")
+    return v
+
+
 def main():
     ap = argparse.ArgumentParser()
     mode = ap.add_mutually_exclusive_group(required=True)
@@ -747,6 +1570,13 @@ def main():
     mode.add_argument("--audit-task")
     ap.add_argument("--allow-incomplete", action="store_true")
     mode.add_argument("--verify-task")
+    mode.add_argument("--plan-features", type=positive)
+    mode.add_argument("--run-features", type=positive)
+    mode.add_argument("--plan-retune", type=positive)
+    mode.add_argument("--run-retune", type=positive)
+    mode.add_argument("--audit-features")
+    mode.add_argument("--stop-features", action="store_true")
+    ap.add_argument("--reason")
     ap.add_argument("--members", nargs="+")
     ap.add_argument("--run-id", nargs="+")
     ap.add_argument("--seeds", nargs="+", type=int, default=None)
@@ -757,7 +1587,8 @@ def main():
     root = Path(args.root).resolve()
     ctx = runs.Context.load(root)
     manifest, inv = banks.source_manifest(root), invocation(root)
-    if not (args.verify or args.verify_all or args.audit_task or args.verify_task) and not args.task:
+    if not (args.verify or args.verify_all or args.audit_task or args.verify_task or args.audit_features) \
+            and not args.task:
         ap.error("--task is required for anything that writes")
     seeds = banks.canonical_seeds(args.seeds or list(SPLIT_SEEDS))
     if args.timing:
@@ -769,6 +1600,16 @@ def main():
         plan_wave(ctx, args.plan_wave, seeds, args.task, manifest)
     elif args.run_wave:
         sys.exit(0 if run_wave(ctx, args.run_wave, seeds, args.task, manifest, inv, args.anchors_only) else 1)
+    elif args.plan_features or args.plan_retune:
+        plan_features(ctx, "features" if args.plan_features else "retune", args.plan_features or args.plan_retune,
+                      seeds, args.task, manifest)
+    elif args.run_features or args.run_retune:
+        sys.exit(0 if run_features(ctx, "features" if args.run_features else "retune",
+                                   args.run_features or args.run_retune, seeds, args.task, manifest, inv) else 1)
+    elif args.stop_features:
+        stop_features(ctx, args.task, args.reason, seeds, manifest)
+    elif args.audit_features:
+        sys.exit(0 if audit_features(ctx, seeds, args.audit_features, manifest, args.allow_incomplete) else 1)
     elif args.audit_task:
         sys.exit(0 if audit_task(ctx, seeds, args.audit_task, manifest, args.allow_incomplete) else 1)
     elif args.verify_task:

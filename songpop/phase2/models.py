@@ -12,7 +12,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, SplineTransformer, StandardScaler
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, RobustScaler, SplineTransformer, StandardScaler
 from threadpoolctl import threadpool_limits
 
 from songpop.models import LOG100
@@ -125,6 +125,7 @@ def knn_blocks(prep, columns):
     (Manhattan) 1/d and beta/6, so a row differing in one of the three categorical fields adds beta/3 to the
     distance (plan section 15.4)."""
     l2 = prep["normalization"] == "l2"
+    robust = prep.get("audio_scaler", "standard") == "robust"  # knn_blocks_v2 (P2.4): robust audio scaling
     cont = [c for c in columns if c not in CATEGORICAL and c != "year"]
     year = [c for c in columns if c == "year"]
     cats = [c for c in columns if c in CATEGORICAL]
@@ -138,11 +139,55 @@ def knn_blocks(prep, columns):
         return Pipeline(steps + [("weight", FunctionTransformer(scale_by, kw_args={"factor": float(factor)}))])
 
     numeric = [("impute", SimpleImputer(strategy="median", keep_empty_features=True)), ("scale", StandardScaler())]
-    parts = [("continuous", weighted(list(numeric), w_cont), cont),
+    audio = [numeric[0], ("scale", RobustScaler(quantile_range=(25, 75), unit_variance=True))] if robust else numeric
+    parts = [("continuous", weighted(list(audio), w_cont), cont),
              ("year", weighted(list(numeric), prep["alpha"]), year),
              ("categories", weighted([("impute", SimpleImputer(strategy="most_frequent", keep_empty_features=True)),
                                       ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))], w_cat),
               cats)]
+    return Pipeline([("log", FunctionTransformer(log_columns)),
+                     ("columns", ColumnTransformer(parts, remainder="drop", verbose_feature_names_out=False))])
+
+
+SPLINE_CORE = ["speechiness", "danceability", "duration_ms", "energy", "instrumentalness", "valence", "tempo",
+               "loudness", "acousticness", "liveness", "year"]  # plan section 6.2's splined columns
+CALENDAR_CATEGORICAL = CATEGORICAL + ["date_precision"]
+CYCLIC_PAIRS = [("month_sin", "month_cos"), ("weekday_sin", "weekday_cos"), ("doy_sin", "doy_cos")]
+
+
+def missing_pairs(X):
+    """One indicator per cyclic phase pair: 1 where the phase is unobserved (its sine is missing)."""
+    return np.isnan(np.asarray(X, dtype="float64")[:, ::2]).astype("float64")
+
+
+def spline_calendar(prep, columns):
+    """Spline logistic preprocessing for frames beyond F1 (plan section 18; P2.4): the phase 1 log transforms; cubic
+    splines with scaling on the eleven core columns of section 6.2 only; key, mode, time signature and date precision
+    one-hot; cyclic coordinates zero-imputed, as linear inputs, with one missingness indicator per phase pair; every
+    other column (the further F2 date parts, the date blocks) median-imputed and standardized as a linear input.
+    Every statistic is fitted on the estimator's rows. On F1 it builds exactly the spline preprocessing's steps."""
+    columns = list(columns)
+    core = [c for c in columns if c in SPLINE_CORE]
+    cats = [c for c in columns if c in CALENDAR_CATEGORICAL]
+    cyc = [c for pair in CYCLIC_PAIRS for c in pair if c in columns]
+    if cyc and len(cyc) != 6:
+        raise ValueError("spline_calendar needs all six cyclic coordinates or none")
+    linear = [c for c in columns if c not in core and c not in cats and c not in cyc]
+    if len(core) != len(SPLINE_CORE):
+        raise ValueError(f"spline_calendar needs the core columns {SPLINE_CORE}")
+    parts = [("rest", Pipeline([("impute", SimpleImputer(strategy="median")),
+                                ("spline", SplineTransformer(n_knots=prep["n_knots"], degree=3)),
+                                ("scale", StandardScaler())]), core)]
+    if cats:
+        parts.append(("categories", Pipeline([("impute", SimpleImputer(strategy="most_frequent")),
+                                              ("onehot", OneHotEncoder(handle_unknown="ignore",
+                                                                       sparse_output=False))]), cats))
+    if linear:
+        parts.append(("linear", Pipeline([("impute", SimpleImputer(strategy="median", keep_empty_features=True)),
+                                          ("scale", StandardScaler())]), linear))
+    if cyc:
+        parts.append(("cyclic", SimpleImputer(strategy="constant", fill_value=0.0, keep_empty_features=True), cyc))
+        parts.append(("cyclic_missing", FunctionTransformer(missing_pairs), cyc))
     return Pipeline([("log", FunctionTransformer(log_columns)),
                      ("columns", ColumnTransformer(parts, remainder="drop", verbose_feature_names_out=False))])
 
@@ -154,8 +199,10 @@ def make_preprocessing(prep, columns):
     name = prep["name"]
     if name == "none":
         return None
-    if name == "knn_blocks":
+    if name in ("knn_blocks", "knn_blocks_v2"):
         return knn_blocks(prep, columns)
+    if name == "spline_calendar":
+        return spline_calendar(prep, columns)
     cats = [c for c in columns if c in CATEGORICAL]
     rest = [c for c in columns if c not in CATEGORICAL]
     steps = [("impute", SimpleImputer(strategy="median"))]

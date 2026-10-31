@@ -11,6 +11,7 @@ import copy
 import importlib.metadata
 import io
 import itertools
+import json
 import math
 import sys
 from pathlib import Path
@@ -28,7 +29,7 @@ from songpop import artifacts
 from songpop.data import AUDIO, DATE
 from songpop.evaluate import PredictionBank
 from songpop.metrics import paired_cluster_bootstrap
-from songpop.phase2 import allocation, banks, batches, protocol, refine, runs, searches
+from songpop.phase2 import allocation, banks, batches, feature_stage, protocol, refine, runs, searches
 from songpop.phase2.encoders import DateCount, DateTargetEncoder, EraRelative, FitContext, inner_group_splits
 from songpop.phase2.engine import fit_recipe, run_recipe_cv, training_weights
 from songpop.phase2.ensembles import blend_banks, select_seeds
@@ -1585,6 +1586,414 @@ def _():
            SystemExit, "still due")
     return ("after the cutoff an unstarted wave 2 batch is reported as omitted; before it, a started (partial) batch "
             "or a wave still due refuses the handoff")
+
+
+@check("P2.4 blocks: date_te3 and date_te100 by hand, one shared inner split for every smoothing value, at most one "
+       "target encoding per recipe (plan section 18)")
+def _():
+    dates = ["A", "A", "A", "B", "B", "C", "C", "C", "A", "B", "D", "D"]
+    y = np.array([1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0])
+    groups = np.array([0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9])
+    rows = frame(dates)
+    splits = {}
+    for m in (3, 10, 30, 100):
+        enc = DateTargetEncoder(m)
+        out = enc.fit_transform(rows, y, groups, FitContext(155, 0))[f"date_te{m}"].to_numpy()
+        splits[m] = [(list(a), list(b)) for a, b in enc.splits_]
+        expected = np.full(len(y), np.nan)
+        for tr, te in enc.splits_:
+            prior = y[tr].mean()
+            for i in te:
+                same = [j for j in tr if dates[j] == dates[i]]
+                expected[i] = (y[same].sum() + m * prior) / (len(same) + m)
+        assert np.allclose(out, expected, rtol=0, atol=1e-12), (m, out, expected)
+        assert np.allclose(enc.transform(frame(["Z"]))[f"date_te{m}"], y.mean(), rtol=0, atol=1e-12)
+    assert all(splits[m] == splits[10] for m in (3, 30, 100))
+    for blocks in (["date_te3", "date_te100"], ["date_te10", "date_te3"], ["date_te30", "date_te100"]):
+        raises(lambda b=blocks: recipe(blocks=b), ValueError, "at most one date target encoding")
+    r = recipe(blocks=["date_count", "date_te3"])
+    assert feature_columns(r)[-2:] == ["date_count", "date_te3"]
+    return "m = 3, 10, 30, 100 by hand, unseen dates get the fitting prior, identical inner splits; two encodings refused"
+
+
+@check("P2.4 preprocessing: spline_calendar reproduces spline on F1 and keeps calendar fields linear on F2; "
+       "knn_blocks_v2 standard reproduces knn_blocks, robust changes only the audio block (plan section 18)")
+def _():
+    tr = np.flatnonzero(CTX.fold_id([155])[0] != 0)[:900]
+    rows, y, groups = CTX.rows.iloc[tr], CTX.data.y[tr], CTX.groups[tr]
+    test = CTX.test_rows.iloc[:200]
+    old = recipe(name="probe_spline", family="logistic", base="F1", params={"C": 0.05},
+                 preprocessing={"name": "spline", "n_knots": 5})
+    new = recipe(name="probe_spline", family="logistic", base="F1", params={"C": 0.05},
+                 preprocessing={"name": "spline_calendar", "n_knots": 5})
+    a, b = (fit_recipe(r, rows, y, groups, FitContext(155, 0)) for r in (old, new))
+    assert np.array_equal(a.model_inputs(test), b.model_inputs(test)) and np.array_equal(a.predict_high(test),
+                                                                                         b.predict_high(test))
+    f2 = recipe(name="probe_spline_f2", family="logistic", base="F2", blocks=["cyclic", "date_count"], params={"C": 0.05},
+                preprocessing={"name": "spline_calendar", "n_knots": 5})
+    fit = fit_recipe(f2, rows, y, groups, FitContext(155, 0))
+    ct = fit.estimators[0].named_steps["prep"].named_steps["columns"]
+    names = {n: list(c) for n, _, c in ct.transformers_ if n != "remainder"}
+    assert names["rest"] == [c for c in feature_columns(f2) if c in
+                             ("speechiness", "danceability", "duration_ms", "energy", "instrumentalness", "valence",
+                              "tempo", "loudness", "acousticness", "liveness", "year")]
+    assert names["categories"] == ["time_signature", "mode", "key", "date_precision"] or \
+        sorted(names["categories"]) == sorted(["time_signature", "mode", "key", "date_precision"])
+    assert set(names["linear"]) == {"month", "day", "day_of_year", "weekday", "days", "date_count"}
+    assert len(names["cyclic"]) == 6 and names["cyclic_missing"] == names["cyclic"]
+    Z = fit.model_inputs(rows)
+    miss = fit.features.transform(rows)["month_sin"].isna().to_numpy()
+    assert miss.any() and np.array_equal(Z[:, -3], miss.astype(float))  # one indicator per phase pair
+    raises(lambda: recipe(family="lightgbm", preprocessing={"name": "spline_calendar", "n_knots": 5}), ValueError)
+    k1 = recipe(name="probe_knn", family="knn", base="F1", params={"n_neighbors": 30, "weights": "distance",
+                "metric": "euclidean"}, preprocessing={"name": "knn_blocks", "alpha": 1.0, "category_weight": 0.5,
+                                                       "normalization": "l2"})
+    k2 = dict(k1, preprocessing=dict(k1["preprocessing"], name="knn_blocks_v2", audio_scaler="standard"))
+    k3 = dict(k1, preprocessing=dict(k1["preprocessing"], name="knn_blocks_v2", audio_scaler="robust"))
+    f1, f2_, f3 = (fit_recipe(validate_recipe(r), rows, y, groups, FitContext(155, 0)) for r in (k1, k2, k3))
+    z1, z2, z3 = (f.model_inputs(test) for f in (f1, f2_, f3))
+    assert np.array_equal(z1, z2) and np.array_equal(f1.predict_high(test), f2_.predict_high(test))
+    assert not np.allclose(z1[:, :10], z3[:, :10]) and np.array_equal(z1[:, 10:], z3[:, 10:])
+    raises(lambda: validate_recipe(dict(k1, preprocessing=dict(k3["preprocessing"], audio_scaler="minmax"))), ValueError)
+    return "F1 matrices and predictions identical; F2: 11 splined, 4 one-hot, 6 linear, 6 cyclic with 3 indicators; " \
+        "kNN standard identical, robust changes only the ten audio columns"
+
+
+def _fs_proto():
+    return run_experiments.load_feature_protocol(CTX, "P2.4")[0]
+
+
+def _entry(name, family, rec, mean, blend=None, task="P2.2"):
+    b = blend if blend is not None else 0.8314739289
+    return {"run_id": f"run_{name}", "task_id": task, "family": family, "recipe": rec, "recipe_id": f"{name}_x",
+            "recipe_hash": recipe_hash(rec), "bank_sha256": "b_" + name, "features": feature_columns(rec), "mean": mean,
+            "repeats": [mean] * 3, "blends": {0.1: {"mean": b, "repeats": [b] * 3}, 0.25: {"mean": b, "repeats": [b] * 3}}}
+
+
+@check("P2.4 feature stage: declared changes, judgments against frozen references, the counter with and without "
+       "imports, witnesses, expansion queues by hand (released slots, exhausted bases and holders, matched menu "
+       "comparators), units and the family cap, normalized re-tuning keys (plan section 18)")
+def _():
+    fs = feature_stage
+    base = recipe(name="probe_base", blocks=["date_count", "date_te30"])
+    assert fs.changed(base, {"add": ["date_te10"]}, "x")["blocks"] == ["date_count", "date_te10"]
+    assert fs.changed(base, {"remove": ["date_te30"]}, "x")["blocks"] == ["date_count"]
+    assert fs.changed(base, {"drop": ["weekday", "days"]}, "x")["drop"] == ["days", "weekday"]
+    sp = recipe(name="s", family="logistic", base="F1", params={"C": 1.0}, preprocessing={"name": "spline", "n_knots": 7})
+    assert fs.changed(sp, {"base": "F2", "preprocessing": {"name": "spline_calendar"}}, "x")["preprocessing"] == \
+        {"name": "spline_calendar", "n_knots": 7}
+    h = _entry("h", "lightgbm", recipe(name="h"), 0.8314739289)
+    lgb = _entry("lgb", "lightgbm", recipe(name="lgb", params=dict(SMALL_LGBM, num_leaves=31)), 0.8339)
+    et = _entry("et", "extra_trees", recipe(name="et", family="extra_trees", params={"n_estimators": 50}), 0.8280, 0.8351)
+    pool = [h, lgb, et]
+    st = fs.state(pool, h, {"lightgbm", "extra_trees"}, None)
+    assert st["strongest"]["run_id"] == "run_lgb" and st["incumbents"]["extra_trees"]["run_id"] == "run_et"
+    assert st["previous_best_blends"]["extra_trees"]["weight"] == 0.1 and st["previous_best_blends"]["lightgbm"]["weight"] == 0.0
+    ch = _entry("c", "lightgbm", fs.changed(lgb["recipe"], {"add": ["date_te30"]}, "c"), 0.8372, 0.8360)
+    m = {"kind": "initial", "state": st, "h": {"run_id": "run_h"},
+         "comparisons": [{"id": "B20", "family": "lightgbm", "comparator_run_id": "run_lgb", "challenger_run_id": "run_c"}]}
+    j = fs.judge(m, {"run_lgb": lgb, "run_c": ch}, imports=[{"routes": ["ensemble_contribution"]}])
+    assert j["comparisons"]["B20"]["routes"] == ["clear_standalone", "smaller_useful", "competitive_refinement",
+                                                 "ensemble_contribution"]
+    assert abs(j["comparisons"]["B20"]["matched_difference"] - 0.0033) < 1e-12 and j["allowance_after"] == 2
+    w = fs.witnesses(m, j, {"run_lgb": lgb, "run_c": ch})
+    assert [x[0] for x in w] == ["clear_standalone", "smaller_useful", "competitive_refinement", "ensemble_contribution"]
+    assert w[0][3] == ("run", "run_lgb") and w[3][2] == ("blend", "run_c", 0.1) and w[3][3] == ("run", "run_h")
+    weak = _entry("w", "lightgbm", ch["recipe"], 0.8300)
+    j2 = fs.judge(m, {"run_lgb": lgb, "run_c": weak}, imports=[{"routes": ["ensemble_contribution"]}])
+    assert not j2["comparisons"]["B20"]["routes"] and j2["progress"] and j2["allowance_after"] == 2  # imports count
+    j3 = fs.judge(dict(m, kind="expansion", state=dict(st, allowance_before=2)), {"run_lgb": lgb, "run_c": weak},
+                  imports=[{"routes": ["ensemble_contribution"]}])
+    assert not j3["progress"] and j3["allowance_after"] == 1  # later batches count only their own comparisons
+    later = dict(st, strongest=dict(st["strongest"], repeat_mean_auc_unrounded=[0.90] * 3))
+    assert fs.judge(dict(m, state=later), {"run_lgb": lgb, "run_c": ch}, [])["comparisons"]["B20"]["routes"] == \
+        ["clear_standalone", "ensemble_contribution"]  # the routes follow the batch's own frozen references
+    # Expansion by hand: two date bases, the first exhausted; a removal holder without the column skipped; menu
+    # comparators; released slots go to the first queue with candidates.
+    full = [(c, t) for c, t in fs.DATE_VARIANTS]
+    imports = []
+    for k, (c, t) in enumerate(full):  # every date variant of lgb already declared
+        rec = fs.changed(lgb["recipe"], {"add": (["date_count"] if c else []) + ([t] if t else [])}, f"i{k}")
+        imports.append({"id": f"B{k + 1}", "comparator_recipe": lgb["recipe"], "challenger_recipe": rec,
+                        "challenger_recipe_sha256": recipe_hash(rec), "routes": ["smaller_useful"] if k == 0 else []})
+    f0 = _entry("f0", "lightgbm", recipe(name="f0", base="F0"), 0.8200)
+    et_rec = et["recipe"]
+    proto = {"expansion": {"size": 6, "max_comparisons": 50, "date_families": ["extra_trees"], "date_bases_per_batch": 1,
+                           "queue": [["dates", 3], ["combinations", 1], ["smooth_knn", 0], ["removals", 1],
+                                     ["other_trees", 1], ["weights", 0]], "smooth_knn": [],
+                           "other_trees": [{"id": "OT1", "base": "E", "change": {"add": ["interactions"]},
+                                            "comparator_change": {"add": ["music"]}}]}}
+    aliases = {"E": et}
+    got = fs.plan_expansion(proto, [h, lgb, et, f0], aliases, [], [], imports, 2)
+    qs = [(c["generation"]["queue"], c["comparator"]["name"], c["challenger"]["blocks"], c["challenger"]["drop"])
+          for c in got]
+    want_dates = [("dates", fs.base_name(et_rec), b, []) for b in (["date_count", "date_te30"], ["date_count", "date_te10"],
+                                                                     ["date_te10"])]
+    assert qs[:3] == want_dates, qs  # lgb exhausted, so the declared family's base takes the place
+    assert qs[3][0] == "removals" and qs[3][1] == fs.base_name(lgb["recipe"]) and qs[3][3] == ["days"]
+    ot = got[4]
+    assert ot["generation"]["queue"] == "other_trees" and ot["comparator"]["blocks"] == ["music"] \
+        and ot["challenger"]["blocks"] == ["music", "interactions"]  # the declared comparator plus the change
+    assert got[5]["generation"]["queue"] == "dates"  # the empty combinations queue released its slot to dates
+    assert fs.plan_expansion(proto, [h, lgb, et, f0], aliases, [], [], imports, 2) == got
+    # Units: qualifying feature recipes only; the family cap; distinct parents by the normalized key.
+    rp = {"retune": {"max_units": 3, "max_per_family": 1, "by_standalone": 2,
+                     "families": {"lightgbm": {"types": {"num_leaves": {"type": "log", "integer": True, "zero_step": None,
+                                                                          "default": 31}}}, "extra_trees": {"types": {}}}}}
+    u_a = _entry("ua", "lightgbm", fs.changed(lgb["recipe"], {"add": ["date_count"]}, "ua"), 0.8360)
+    u_b = _entry("ub", "lightgbm", fs.changed(lgb["recipe"], {"add": ["music"]}, "ub"), 0.8350)
+    u_c = _entry("uc", "extra_trees", fs.changed(et_rec, {"add": ["date_count"]}, "uc"), 0.8290, 0.8370)
+    routes = {"A": ["smaller_useful"], "B": ["smaller_useful"], "C": ["ensemble_contribution"], "D": []}
+    recs = {"A": u_a["recipe"], "B": u_b["recipe"], "C": u_c["recipe"], "D": lgb["recipe"]}
+    chosen = fs.choose_units(rp, [u_a, u_b, u_c, lgb], routes, recs)
+    assert [v["unit"]["unit_id"] for v in chosen] == [fs.unit_of(u_a["recipe"])["unit_id"],
+                                                      fs.unit_of(u_c["recipe"])["unit_id"]]  # one LightGBM unit only
+    k = fs.family_key(rp, "lightgbm")
+    one = recipe(name="p", params=dict(SMALL_LGBM, reg_lambda=1))
+    two = recipe(name="q", params=dict(SMALL_LGBM, reg_lambda=1.0))
+    assert recipe_hash(one) != recipe_hash(two) and k(one) == k(two)
+    p1, p2 = _entry("p1", "lightgbm", one, 0.84), _entry("p2", "lightgbm", two, 0.83)
+    parents, excl = fs.retune_parents(rp, fs.unit_of(one), [p1, p2])
+    assert [x["run_id"] for x in parents] == ["run_p1"] and excl == {k(one)}  # the same computation is one parent
+    return ("changes; routes and witnesses against frozen references; the counter; a hand-built expansion with an "
+            "exhausted base, a holder without the column, a matched menu comparator and a released slot; the family "
+            "cap; integer and float parameters one computation")
+
+
+@check("P2.4 imports: P2.8's receipt validates against P2.8's manifest; a changed route flag, bank hash, file hash, "
+       "substituted comparator, swapped ids or another H is refused (plan section 18.2)")
+def _():
+    rx = run_experiments
+    proto = _fs_proto()
+    got = rx.validate_imports(CTX, proto)
+    assert [c["id"] for c in got] == [f"B{i}" for i in range(1, 15)] and [c["id"] for c in got if c["routes"]] == \
+        ["B12", "B14"]
+    imp = proto["imports"]
+    cs = imp["comparisons"]
+    swapped = [dict(cs[1], id="B1"), dict(cs[0], id="B2")] + cs[2:]
+    other = dict(cs[12], comparator_run_id=cs[0]["comparator_run_id"], comparator_bank_sha256=cs[0]["comparator_bank_sha256"],
+                 comparator_recipe=cs[0]["comparator_recipe"])  # a valid P2.8 run, but not B13's comparator
+    for bad in (dict(imp, comparisons=[dict(cs[0], routes=["clear_standalone"])] + cs[1:]),
+                dict(imp, comparisons=[cs[0], dict(cs[1], challenger_bank_sha256="0" * 64)] + cs[2:]),
+                dict(imp, judge_sha256="0" * 64), dict(imp, comparisons=swapped),
+                dict(imp, comparisons=cs[:12] + [other] + cs[13:]),
+                dict(imp, h_run_id=cs[13]["comparator_run_id"])):
+        raises(lambda bad=bad: rx.validate_imports(CTX, dict(proto, imports=bad)), ValueError)
+    rx.validate_handoff(CTX, proto)
+    bad_alias = dict(proto, aliases=dict(proto["aliases"], C=dict(proto["aliases"]["C"], run_id=proto["aliases"]["X"]["run_id"])))
+    raises(lambda: rx.validate_handoff(CTX, bad_alias), ValueError, "handoff")
+    raises(lambda: rx.validate_handoff(CTX, dict(proto, p23_handoff=dict(proto["p23_handoff"], sha256="0" * 64))),
+           ValueError, "hash")
+    hb, hs = rx.reference_bank(CTX, proto)
+    inv0 = proto["reference_inventory"][0]
+    rx.pool_entry(CTX, inv0["run_id"], hb, hs, inv0["bank_sha256"])  # warms the cache
+    raises(lambda: rx.pool_entry(CTX, inv0["run_id"], hb, hs, "0" * 64), ValueError, "expected")
+    raises(lambda: feature_stage.load_protocol(dict(proto, imports=dict(imp, comparisons=cs[:13]))), ValueError)
+    raises(lambda: feature_stage.load_protocol(dict(proto, imports=dict(imp, comparisons=cs[:13] + [cs[12]]))), ValueError)
+    return "14 imports, B12 and B14 with routes; tampered routes, bank hash, judge hash, swapped ids, a substituted " \
+        "comparator, another H, a missing and a duplicated import refused; the aliases follow P2.3's handoff, a " \
+        "changed alias or handoff hash refused"
+
+
+def _tiny_feature_protocol(fs_root, runs_of, task):
+    rx, fs = run_experiments, feature_stage
+    L, Ldc, E, ref_rec = runs_of["L"], runs_of["Ldc"], runs_of["E"], runs_of["ref"]
+    imports = []
+    for i in range(1, 15):
+        imports.append({"id": f"B{i}", "family": "lightgbm", "comparator_run_id": L["run_id"],
+                        "comparator_bank_sha256": L["bank_sha256"], "comparator_recipe": L["recipe"],
+                        "challenger_run_id": Ldc["run_id"], "challenger_bank_sha256": Ldc["bank_sha256"],
+                        "challenger_recipe": Ldc["recipe"], "challenger_recipe_sha256": recipe_hash(Ldc["recipe"]),
+                        "routes": ["smaller_useful"] if i == 1 else []})
+    L_ = lambda: {"type": "log", "integer": True, "zero_step": None, "default": 31}  # noqa: E731
+    return {"schema": fs.PROTOCOL_SCHEMA, "task_id": task, "name": "tinyfeat", "split_seeds": list(SPLIT_SEEDS),
+            "cutoff_utc": "2100-01-01T00:00:00+00:00", "retune_budget_end_utc": "2100-01-01T00:00:00+00:00",
+            "reference_p21_run_id": ref_rec["run_id"], "h_recipe": dict(ref_rec["recipe"], name="tinyfeat_h"),
+            "reference_inventory": [{"run_id": x["run_id"], "bank_sha256": x["bank_sha256"]} for x in (L, Ldc, E)],
+            "p23_handoff": {"path": None, "sha256": None, "families": {}},
+            "imports": {"task": "P9.7", "manifest": None, "manifest_sha256": None, "judge": None, "judge_sha256": None,
+                        "output": None, "output_sha256": None, "h_run_id": ref_rec["run_id"], "comparisons": imports},
+            "aliases": {"L": {"rule": {"rule": "named_run"}, "run_id": L["run_id"], "omitted_reason": None},
+                        "E": {"rule": {"rule": "named_run"}, "run_id": E["run_id"], "omitted_reason": None},
+                        "Z": {"rule": {"rule": "best_of_family"}, "run_id": None, "omitted_reason": "test omission"}},
+            "initial": [{"id": "T1", "base": "L", "change": {"add": ["date_te30"]}},
+                        {"id": "T2", "base": "E", "change": {"add": ["date_count"]}},
+                        {"id": "T3", "base": "Z", "change": {"add": ["music"]}}],
+            "expansion": {"size": 4, "max_comparisons": 40, "date_families": [], "date_bases_per_batch": 1,
+                          "queue": [["dates", 1], ["combinations", 1], ["smooth_knn", 0], ["removals", 1],
+                                    ["other_trees", 1], ["weights", 0]], "smooth_knn": [],
+                          "other_trees": [{"id": "OT1", "base": "E", "change": {"add": ["interactions"]}}]},
+            "retune": {"max_units": 2, "max_per_family": 2, "by_standalone": 1, "batch": 4, "local": 3, "broad": 1,
+                       "max_batches": 2, "seed_base": 1,
+                       "families": {"lightgbm": {"space": {"num_leaves": [3, 5, 7], "n_estimators": [10, 20, 30]},
+                                                 "fixed": {}, "derived": [], "admissible": [],
+                                                 "types": {"num_leaves": L_(), "n_estimators": dict(L_(), default=100)},
+                                                 "trees": "n_estimators"},
+                                    "extra_trees": {"space": {"min_samples_leaf": [1, 3, 9]}, "fixed": {},
+                                                    "derived": [], "admissible": [],
+                                                    "types": {"min_samples_leaf": dict(L_(), default=1)},
+                                                    "trees": None}}}}
+
+
+@check("P2.4 feature commands in memory: plan, an interrupted run and its resume, expansions until closed, both "
+       "re-tuning rounds, the full audit; a missing contribution, a missing comparison, a duplicate allocation and an "
+       "empty task are refused; a later reference-task run changes no declared batch (plan section 18)")
+def _():
+    rx, seeds, task = run_experiments, list(SPLIT_SEEDS), "P9.8"
+    tiny = dict(SMALL_LGBM, n_estimators=15, num_leaves=5)
+    with MemFS() as fs_:
+        tmp = Path(fs_.root)
+        patches = [mock.patch.object(runs, "LOG_FILE", tmp / "log.jsonl"), mock.patch.object(runs, "BANK_DIR", tmp / "bank"),
+                   mock.patch.object(rx, "BATCH_DIR", tmp / "batches"),
+                   mock.patch.dict(rx.FEATURE_PROTOCOLS, {task: tmp / "fp.json", "P9.5": tmp / "fp_empty.json"}),
+                   mock.patch.object(rx, "validate_imports", lambda ctx, proto: proto["imports"]["comparisons"])]
+        with Patches(patches):
+            mk = lambda name, **o: validate_recipe(dict(recipe(name=name, base="F0", params=tiny), **o))  # noqa: E731
+            made = {}
+            for key, rec, t in (("ref", mk("tinyfeat_ref"), "P9.6"), ("L", mk("tinyfeat_L"), "P9.7"),
+                                ("Ldc", mk("tinyfeat_Ldc", blocks=["date_count"]), "P9.7"),
+                                ("E", mk("tinyfeat_E", family="extra_trees", params={"n_estimators": 20}), "P9.7")):
+                r = rx.run_one(CTX, rec, seeds, t, MANIFEST, INV)
+                made[key] = dict(r, recipe=rec)
+            proto = _tiny_feature_protocol(fs_.root, made, task)
+            fs_.files[str(tmp / "fp.json")] = artifacts.dumps(proto).encode()
+            fs_.files[str(tmp / "fp_empty.json")] = artifacts.dumps(dict(proto, task_id="P9.5",
+                                                                       cutoff_utc="2000-01-01T00:00:00+00:00")).encode()
+            m1 = rx.plan_features(CTX, "features", 1, seeds, task, MANIFEST)
+            assert [c["id"] for c in m1["comparisons"]] == ["T1", "T2"] and m1["omitted"][0]["id"] == "T3"
+            calls = {"n": 0}
+            real_run_one = rx.run_one
+
+            def flaky(*a, **k):
+                calls["n"] += 1
+                if calls["n"] == 3:
+                    raise RuntimeError("interrupted")
+                return real_run_one(*a, **k)
+            with mock.patch.object(rx, "run_one", flaky):
+                raises(lambda: rx.run_features(CTX, "features", 1, seeds, task, MANIFEST, INV), RuntimeError)
+            log_key = str(tmp / "log.jsonl")
+            assert b'"record": "run_failure"' in fs_.files[log_key]
+            assert rx.run_features(CTX, "features", 1, seeds, task, MANIFEST, INV)  # resumes, reusing logged runs
+            assert rx.audit_features(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+            n = 2
+            while rx.plan_features(CTX, "features", n, seeds, task, MANIFEST) is not None:
+                assert rx.run_features(CTX, "features", n, seeds, task, MANIFEST, INV)
+                n += 1
+            expansions = n - 2
+            for k in (1, 2):
+                mr = rx.plan_features(CTX, "retune", k, seeds, task, MANIFEST)
+                assert mr is not None and mr["units"] and all(0 < len(u["recipes"]) <= 4 for u in mr["units"])
+                assert rx.run_features(CTX, "retune", k, seeds, task, MANIFEST, INV)
+            assert rx.plan_features(CTX, "retune", 3, seeds, task, MANIFEST) is None
+            assert rx.audit_features(CTX, seeds, task, MANIFEST)
+            # A later run of a reference task changes no declared batch: the inventory is frozen.
+            rx.run_one(CTX, mk("tinyfeat_late", params=dict(tiny, num_leaves=7)), seeds, "P9.7", MANIFEST, INV)
+            assert rx.audit_features(CTX, seeds, task, MANIFEST)
+            good = fs_.files[log_key]
+            lines = good.decode().splitlines()
+
+            def audited(new_lines, incomplete=False):
+                fs_.files[log_key] = ("\n".join(new_lines) + "\n").encode()
+                try:
+                    return rx.audit_features(CTX, seeds, task, MANIFEST, allow_incomplete=incomplete)
+                finally:
+                    fs_.files[log_key] = good
+            mine = [i for i, l in enumerate(lines) if f'"task_id": "{task}"' in l]
+            for kind in ('"record": "contribution"', '"record": "comparison"', '"record": "bootstrap"',
+                         '"record": "h_check"'):
+                i = next(i for i in mine if kind in lines[i])
+                assert not audited(lines[:i] + lines[i + 1:]), kind  # a missing record
+                assert not audited(lines + [lines[i]]), kind  # a duplicated record
+            i = next(i for i in mine if '"record": "feature_allocation"' in lines[i])
+            assert not audited(lines + [lines[i]])
+            assert not audited([l for l in lines if '"record": "batch_start"' not in l])  # starts removed
+            b = json.loads(lines[next(i for i in mine if '"record": "bootstrap"' in lines[i])])
+            assert not audited(lines + [json.dumps(dict(b, comparison_id="0" * 16))])  # an orphan witness
+            for bad in ({"repeat_differences": [999.0, 999.0, 999.0]}, {"draws_positive_share": -1.0}):
+                k = next(i for i in mine if '"record": "bootstrap"' in lines[i])
+                assert not audited(lines[:k] + [json.dumps(dict(json.loads(lines[k]), **bad))] + lines[k + 1:]), bad
+            # The stop record: a valid one after the last feature batch passes; an empty reason, an unknown or
+            # earlier batch, a wrong omitted expansion, or a stop after re-tuning is refused.
+            retune0 = next(i for i in mine if '"record": "feature_batch"' in lines[i] and '"stage": "retune"' in lines[i])
+            head = lines[:retune0]
+            feats = [json.loads(lines[i])["batch_id"] for i in mine if '"record": "feature_batch"' in lines[i]
+                     and '"stage": "features"' in lines[i]]
+            stop = {"record": "feature_stop", "task_id": task, "batch_id": feats[-1], "reason": "schedule",
+                    "omitted_expansion": [], "timestamp_utc": "2026-10-30T20:00:00+00:00"}
+            assert audited(head + [json.dumps(stop)], incomplete=True)
+            for bad in ({"reason": " "}, {"batch_id": "nonexistent"}, {"batch_id": feats[0]},
+                        {"omitted_expansion": ["X9_01"]}):
+                assert not audited(head + [json.dumps(dict(stop, **bad))], incomplete=True), bad
+            assert not audited(lines + [json.dumps(stop)])
+            # Witnesses moved after their allocation are refused (they must close the batch before it).
+            boot = [i for i in mine if '"record": "bootstrap"' in lines[i]]
+            assert not audited([l for i, l in enumerate(lines) if i not in boot] + [lines[i] for i in boot])
+            # The second feature batch interrupted after its fits, before its contributions, with the cutoff passed:
+            # refused with its start, and refused without it (its logged runs are execution evidence).
+            rec2 = next(i for i in mine if '"record": "feature_batch"' in lines[i] and '"stage": "features"' in lines[i]
+                        and '"index": 2' in lines[i])
+            bid2 = json.loads(lines[rec2])["batch_id"]
+            start2 = next(i for i in mine if '"record": "batch_start"' in lines[i] and bid2 in lines[i])
+            alloc2 = next(i for i in mine if '"record": "feature_allocation"' in lines[i] and bid2 in lines[i])
+            cut = lines[:start2 + 1] + [lines[i] for i in range(start2 + 1, alloc2)
+                                        if '"record": "run"' in lines[i] and f'"task_id": "{task}"' in lines[i]]
+            with mock.patch.object(rx, "past_cutoff", lambda proto: True):
+                assert not audited(cut)
+                assert not audited([l for i, l in enumerate(cut) if i != start2])
+
+            def moved(i, j):  # line i moved to just before line j
+                rest = [l for k, l in enumerate(lines) if k != i]
+                at = j - (i < j)
+                return rest[:at] + [lines[i]] + rest[at:]
+            # Review round 3, F2: the second batch record logged before the first batch's start, or after its fits
+            # and before its allocation (both consume an allocation not yet logged), is refused; so is H's check
+            # logged after the other fits of its batch, or before H's run.
+            bid1 = feats[0]
+            start1 = next(i for i in mine if '"record": "batch_start"' in lines[i] and bid1 in lines[i])
+            alloc1 = next(i for i in mine if '"record": "feature_allocation"' in lines[i] and bid1 in lines[i])
+            assert not audited(moved(rec2, start1)) and not audited(moved(rec2, alloc1))
+            assert not audited(moved(rec2, start1), incomplete=True)
+            hc = next(i for i in mine if '"record": "h_check"' in lines[i])
+            hrun = next(i for i in mine if '"record": "run"' in lines[i] and m1["h"]["run_id"] in lines[i])
+            assert hrun < hc < alloc1
+            assert not audited(moved(hc, alloc1)) and not audited(moved(hc, alloc1), incomplete=True)
+            assert not audited(moved(hc, hrun))
+            # A matched comparison logged before a run it uses, and a contribution logged after the batch's first
+            # witness, are refused.
+            comp1 = next(i for i in range(start1, alloc1) if '"record": "comparison"' in lines[i] and i in mine)
+            ch1 = json.loads(lines[comp1])["a"]
+            run1 = next(i for i in range(start1, alloc1) if '"record": "run"' in lines[i] and ch1 in lines[i])
+            assert not audited(moved(comp1, run1))
+            boot1 = [i for i in range(start1, alloc1) if '"record": "bootstrap"' in lines[i] and i in mine]
+            if boot1:
+                con1 = next(i for i in range(start1, alloc1) if '"record": "contribution"' in lines[i] and i in mine)
+                assert not audited(moved(con1, alloc1))
+            assert audited(lines)  # the unmodified log still passes
+            # Review round 3, F6: a refused stop writes nothing (a blank reason; a stop after re-tuning); a valid
+            # stop through the command re-plans its omitted expansion from the log as it stood, and passes.
+            head_bytes = ("\n".join(head) + "\n").encode()
+            fs_.files[log_key] = head_bytes
+            for reason in ("   ", "", None):
+                raises(lambda: rx.stop_features(CTX, task, reason, seeds, MANIFEST), ValueError, "reason")
+                assert fs_.files[log_key] == head_bytes
+            fs_.files[log_key] = good
+            raises(lambda: rx.stop_features(CTX, task, "schedule", seeds, MANIFEST), ValueError, "feature_stop")
+            assert fs_.files[log_key] == good
+            fs_.files[log_key] = head_bytes
+            rx.stop_features(CTX, task, "  schedule  ", seeds, MANIFEST)
+            stops = [json.loads(l) for l in fs_.files[log_key].decode().splitlines() if '"record": "feature_stop"' in l]
+            assert len(stops) == 1 and stops[0]["reason"] == "schedule" and stops[0]["batch_id"] == feats[-1]
+            assert rx.audit_features(CTX, seeds, task, MANIFEST, allow_incomplete=True)
+            fs_.files[log_key] = good
+            assert not rx.audit_features(CTX, seeds, "P9.5", MANIFEST)  # nothing executed is not complete
+    return (f"initial batch interrupted at its third run and resumed; {expansions} expansion batches until closed; two "
+            f"re-tuning rounds; the full audit passes and refuses a missing or duplicated contribution, comparison, "
+            f"witness or H check, a duplicated allocation, removed starts, an orphan witness, corrupted witness "
+            f"statistics, witnesses after their allocation, an interrupted batch after the cutoff with or without its "
+            f"start, a batch record before an allocation it uses, an H check after its batch's other fits or before "
+            f"H's run, a comparison before its run{', a contribution after a witness' if boot1 else ''}, four invalid "
+            f"stop records and an empty task after its cutoff; refused stop commands write "
+            f"nothing; a valid stop passes; a later reference-task run changes nothing")
 
 
 def tiny_protocol():

@@ -648,7 +648,7 @@ The runtime checks use samples of 1,500 fitting rows and small models; they esta
 
 Review status:
 
-`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), readiness checkpoint.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its readiness checkpoint converged in round 2 and its completion checkpoint in round 3; not yet committed.
 
 Downstream use:
 
@@ -677,7 +677,7 @@ CatBoost searched only its initial batch, because no configuration met a route o
 
 Review status:
 
-`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), completion checkpoint.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; not yet committed.
 
 Downstream use:
 
@@ -692,7 +692,7 @@ Do the CatBoost and EBM configurations add to H in a fixed blend, and what did s
 Current conclusion:
 
 - CatBoost: no configuration met a route, so the family stopped after its initial batch (allowance 0). Its best blend with H is candidate 31 at weight 0.25, 0.8333, +0.0018 over H with every repeat positive (+0.0017, +0.0017, +0.0020); it fails the ensemble route because it improves the anchor's own best blend, the family's previous best blend, by less than 0.0005.
-- EBM: seven of the initial batch's eleven new configurations met the clear standalone route against the weak main-effects anchor (bootstrap witness +0.0162, interval +0.0108 to +0.0215), and two of them also met the ensemble route (witness: the better blend minus H +0.0007, interval -0.0009 to +0.0023). The allowance of two then bought two local refinement batches without progress, and EBM stopped. Its best blend with H is `p23_ebm_b1_0_002` at weight 0.25, 0.8321, +0.0007 over H.
+- EBM: seven of the initial batch's eleven new configurations met the clear standalone route against the weak main-effects anchor (bootstrap witness +0.0162, interval +0.0108 to +0.0215), and two of them also met the ensemble route, at weight 0.1. The ensemble witness follows section 15.5's convention, the qualifying configuration's better blend, here at weight 0.25: +0.0007 over H (interval -0.0009 to +0.0023), below H on the first repeat; it describes the comparison and does not change the route, which the weight 0.1 blend met. The allowance of two then bought two local refinement batches without progress, and EBM stopped. Its best blend with H is `p23_ebm_b1_0_002` at weight 0.25, 0.8321, +0.0007 over H.
 - The allocation thresholds are heuristics, not significance tests; the bootstrap intervals are conditional on the fitted predictions.
 
 Evidence:
@@ -705,8 +705,37 @@ The ensemble route compares a blend with H and with the family's previous best b
 
 Review status:
 
-`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), completion checkpoint.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; not yet committed.
 
 Downstream use:
 
 P2.6b's pool (CatBoost and EBM members by their contributions); P2.4's re-tuning candidates include only units that meet a route there.
+
+## Finding 021: Exact-Date Coverage Under the Fitting Dictionaries
+
+Question:
+
+How often does a row's exact release-date string occur among the rows that fit its encoders, at each validation level, and with how many distinct groups behind it (plan sections 6.4 and 18.8)?
+
+Current conclusion:
+
+- Outer validation rows: 69.3% have their exact date among the outer fitting rows (8,030 of 11,589 over the three split seeds; per fit 66.1% to 72.5%). Test rows against each outer fitting population: 68.8% on average (67.3% to 69.8%). Inner held-out parts against their inner fitting parts, with the encoder's own inner splits: 65.1% (30,176 of 46,356).
+- Support is thin for many covered rows: over the 15 outer fits, on average 16.3% of test rows (14.0% to 18.1%) have a date held by exactly one fitting group and 29.1% (28.2% to 30.2%) by five or more; distinct dates are covered less often than rows (59.1% of the test rows' distinct dates on average, 57.2% to 60.4%).
+- The inner coverage is about four points below the outer one, as expected from the smaller inner fitting parts; the test rows' coverage is close to the validation rows', so the validation measures the encoding at about the coverage it would meet on the test rows.
+- Descriptive only: nothing was fitted, no label was summarized, no smoothing value was chosen from it. The encoding is an exact-date association, not album identity.
+
+Evidence:
+
+`../analysis/p24_date_coverage.py` and its output `../analysis/p24_date_coverage_output.txt` (per seed and fold, with support bins and distinct-date coverage; per-fit means and pooled counts).
+
+Uncertainty:
+
+The earlier round E figures used the same definition for the validation rows (each fold's training part), and this recomputation reproduces them (69.87%, 68.65% and 69.35% by repeat); only round E's 72.2% for the test rows was measured against the whole training population, while here the test rows are measured against each outer fitting population, as a model sees them (68.8%). Coverage does not say how informative a covered date is.
+
+Review status:
+
+`draft`, in the P2.4 review (`../reviews/2026-10-30-p2.4-features.md`), readiness checkpoint.
+
+Downstream use:
+
+The interpretation of the date-encoding comparisons in P2.4 (Finding 022) and the report's description of the date features.

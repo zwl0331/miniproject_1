@@ -9,9 +9,14 @@ RECIPE_SCHEMA = "recipe_v1"
 FAMILIES = ("lightgbm", "random_forest", "extra_trees", "xgboost", "hist_gb", "logistic", "catboost", "ebm", "knn")
 NEEDS_IMPUTATION = ("logistic", "knn")  # families without native missing-value support
 PREPROCESSING = {"none": set(), "log_standard": set(), "spline": {"n_knots"},
-                 "knn_blocks": {"alpha", "category_weight", "normalization"}}  # name: its parameters
+                 "knn_blocks": {"alpha", "category_weight", "normalization"},
+                 "spline_calendar": {"n_knots"},  # P2.4: splines on the core columns only, calendar fields linear
+                 "knn_blocks_v2": {"alpha", "category_weight", "normalization", "audio_scaler"}}  # name: its parameters
+KNN_PREPROCESSING = ("knn_blocks", "knn_blocks_v2")
 BASES = ("F0", "F1", "F2")
-BLOCKS = ("date_count", "date_te10", "date_te30", "interactions", "cyclic", "era_relative", "music")
+BLOCKS = ("date_count", "date_te3", "date_te10", "date_te30", "date_te100", "interactions", "cyclic", "era_relative",
+          "music")
+DATE_TE_BLOCKS = ("date_te3", "date_te10", "date_te30", "date_te100")
 WEIGHTS = ("none", "inverse_group_size")
 KEYS = ("schema", "name", "family", "params", "base", "blocks", "drop", "preprocessing", "training_weights",
         "estimator_seeds", "iterations", "deployment")
@@ -38,7 +43,7 @@ def validate_recipe(recipe):
     blocks = recipe["blocks"]
     if not isinstance(blocks, list) or len(set(blocks)) != len(blocks) or set(blocks) - set(BLOCKS):
         raise ValueError(f"blocks {blocks!r} must be distinct names from {BLOCKS}")
-    if "date_te10" in blocks and "date_te30" in blocks:
+    if len(set(blocks) & set(DATE_TE_BLOCKS)) > 1:
         raise ValueError("at most one date target encoding per recipe")
     from songpop.phase2.features import undropped_columns  # features does not import recipes
     drop, available = recipe["drop"], undropped_columns(recipe)
@@ -49,14 +54,18 @@ def validate_recipe(recipe):
     if not isinstance(prep, dict) or prep.get("name") not in PREPROCESSING \
             or set(prep) - {"name"} != PREPROCESSING[prep["name"]]:
         raise ValueError(f"preprocessing {prep!r} must name one of {sorted(PREPROCESSING)} with exactly its parameters")
-    if prep["name"] == "spline" and not (isinstance(prep["n_knots"], int) and not isinstance(prep["n_knots"], bool)
-                                         and prep["n_knots"] >= 3):
+    if prep["name"] in ("spline", "spline_calendar") and not (
+            isinstance(prep["n_knots"], int) and not isinstance(prep["n_knots"], bool) and prep["n_knots"] >= 3):
         raise ValueError("spline preprocessing needs an integer n_knots of at least 3")
+    if prep["name"] == "spline_calendar" and recipe["family"] != "logistic":
+        raise ValueError("spline_calendar is the logistic family's preprocessing")
     if recipe["family"] in NEEDS_IMPUTATION and prep["name"] == "none":
         raise ValueError(f"{recipe['family']} has no native missing-value support; it needs a preprocessing that imputes")
-    if (recipe["family"] == "knn") != (prep["name"] == "knn_blocks"):
-        raise ValueError("the knn family uses exactly the knn_blocks preprocessing, and knn_blocks only the knn family")
-    if prep["name"] == "knn_blocks" and not (all(
+    if (recipe["family"] == "knn") != (prep["name"] in KNN_PREPROCESSING):
+        raise ValueError("the knn family uses exactly a knn_blocks preprocessing, and knn_blocks only the knn family")
+    if prep["name"] == "knn_blocks_v2" and prep["audio_scaler"] not in ("standard", "robust"):
+        raise ValueError("knn_blocks_v2 needs audio_scaler standard or robust")
+    if prep["name"] in KNN_PREPROCESSING and not (all(
             isinstance(prep[k], (int, float)) and not isinstance(prep[k], bool) and math.isfinite(prep[k]) and prep[k] > 0
             for k in ("alpha", "category_weight")) and prep["normalization"] in ("l1", "l2")):
         raise ValueError("knn_blocks needs positive finite alpha and category_weight and normalization l1 or l2")
