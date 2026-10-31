@@ -3,6 +3,6 @@
   "name": "blend_h_extra_trees_25",
   "task_id": "P2.6b",
   "run_id": "p2_blend_h_p26_extra_trees_aafa66ea_25_seeds155-2026-1029_ac5ed064bbd1",
-  "purpose": "the frozen menu's two-atom contribution blend (0.75 H* + 0.25 Extra Trees with interactions, CV 0.8394), the likely final selection B under plan section 11 (the candidate whose errors differ most from the equal blend's among the competitive ones): exercise its deployment and see how the public score moves against its CV distance of 0.0017 to the equal blend; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "purpose": "the frozen menu's two-atom contribution blend (0.75 H* + 0.25 Extra Trees with interactions, CV 0.8394), a candidate for final selection B under plan section 11 (within 0.005 of the equal blend on CV, 0.0017 below it, built from two of its six atoms): exercise its deployment and see how the public score moves against its CV distance of 0.0017 to the equal blend; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
   "date": "2026-10-31"
 }

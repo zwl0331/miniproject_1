@@ -3,6 +3,6 @@
   "name": "stacker_c1",
   "task_id": "P2.6b",
   "run_id": "p2_stacker_c1_aa3dac90643f",
-  "purpose": "the frozen menu's most regularized stacker (C 1, CV 0.8402): the learned procedure whose predictions differ most from the equal blend's among the stackers; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
+  "purpose": "the frozen menu's least regularized stacker (C 1: C is scikit-learn's inverse regularization strength, so among the menu's settings 0.01, 0.1 and 1 this logistic combiner carries the weakest L2 penalty; CV 0.8402): the stacker whose combiner weights are the least shrunk; Sam's instruction of 2026-10-31 (decisions.md): a public-board check of a frozen-menu candidate, its purpose recorded before any score; the public score never chooses a candidate, and the two final selections stay on grouped CV and the nested evaluation",
   "date": "2026-10-31"
 }
