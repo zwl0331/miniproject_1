@@ -15,16 +15,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from songpop import artifacts
-from songpop.phase2 import banks, runs
-from songpop.phase2.submission import members_of, procedure_members, validate_candidate, write_candidate
+from songpop.phase2 import runs
+from songpop.phase2.submission import members_of, validate_candidate, write_candidate
 
 MANIFEST_KEYS = ["schema", "name", "task_id", "run_id", "purpose", "date"]
 DEPLOYMENT = ("within each base recipe, probabilities averaged equally over its estimator seeds, its 5 folds and "
               "its 3 split repeats; a blend then combines the base-recipe averages with its recorded weights")
-PROCEDURE_DEPLOYMENT = ("each of the 15 fitted procedures (one per fold and split repeat) applies its own combiner, "
-                        "fitted on its outer training part's rebuilt out-of-fold channel predictions, to that fold's "
-                        "channel models' test predictions (estimator seeds averaged inside each recipe, equal "
-                        "averages inside a within-family channel); the submission averages the 15 procedures")
 
 
 def load_manifest(path):
@@ -39,15 +35,10 @@ def describe_candidate(m, bank, rec, sha):
     md = bank.metadata
     if md["prediction_kind"] == "blend":
         what = "blend of " + ", ".join(f"{p['run_id']} ({p['weight']:g})" for p in md["parents"])
-    elif md["prediction_kind"] == "learned_procedure":
-        what = (f"learned procedure {md['procedure']['id']} ({md['procedure']['setting'][0]} "
-                f"{md['procedure']['setting'][1]:g}) over channels " + ", ".join(
-                    f"{c['id']} ({len(c['run_ids'])} recipes)" for c in md["channel_runs"]))
     else:
         what = f"{md['recipe']['family']} recipe {md['recipe_id']}"
-    dep = PROCEDURE_DEPLOYMENT if md["prediction_kind"] == "learned_procedure" else DEPLOYMENT
     long = (f"{m['task_id']} candidate {m['name']}: {what}, High = 1. Five-fold StratifiedGroupKFold over track "
-            f"groups, split seeds 155, 2026, 1029. Deployment: {dep}. Mean fold CV AUC {auc:.4f}. Provided "
+            f"groups, split seeds 155, 2026, 1029. Deployment: {DEPLOYMENT}. Mean fold CV AUC {auc:.4f}. Provided "
             f"training data only; no pretrained models; nothing fitted on test rows. Run {md['run_id']}, file "
             f"sha256 {sha}. Purpose: {m['purpose']}.")
     short = f"{m['date']}_{m['task_id'].lower()}_{m['name']}: grouped 5-fold CV AUC {auc:.4f}; sha256 {sha[:12]}"
@@ -57,18 +48,8 @@ def describe_candidate(m, bank, rec, sha):
 def build(root, manifest_path, verify):
     ctx = runs.Context.load(root)
     m = load_manifest(root / manifest_path)
-    procs = [r for r in runs.logged(ctx, "procedure") if r["run_id"] == m["run_id"]]
-    if procs:  # a learned procedure (P2.6b): its bank, its hash checked against its record, its atoms as members
-        rec = procs[0]
-        raw = (root / rec["bank_path"]).read_bytes()
-        bank_sha = artifacts.sha256_bytes(raw)
-        if len(procs) != 1 or bank_sha != rec["bank_sha256"]:
-            raise ValueError(f"procedure {m['run_id']}: one record whose bank matches its hash is required")
-        bank = banks.load_bank_v2(raw, validate=False)
-        members = procedure_members(ctx, bank, lambda r: runs.load_logged(ctx, r)[:2])
-    else:
-        bank, bank_sha, rec = runs.load_logged(ctx, m["run_id"])
-        members = members_of(ctx, bank, lambda r: runs.load_logged(ctx, r)[:2])
+    bank, bank_sha, rec = runs.load_logged(ctx, m["run_id"])
+    members = members_of(ctx, bank, lambda r: runs.load_logged(ctx, r)[:2])
     name = f"{m['date']}_{m['task_id'].lower()}_{m['name']}"
     csv_path, side_path = root / "submissions" / f"{name}.csv", root / "submissions" / f"{name}.json"
     if verify:
@@ -85,9 +66,7 @@ def build(root, manifest_path, verify):
     sidecar = {"task": m["task_id"], "file": report["path"], "sha256": report["sha256"], "run_id": m["run_id"],
                "bank_path": rec["bank_path"], "bank_sha256": bank_sha, "manifest": str(manifest_path),
                "manifest_sha256": artifacts.sha256_bytes((root / manifest_path).read_bytes()),
-               "mean_fold_auc": float(bank.fold_auc.mean()),
-               "deployment": PROCEDURE_DEPLOYMENT if bank.metadata["prediction_kind"] == "learned_procedure"
-               else DEPLOYMENT, "purpose": m["purpose"],
+               "mean_fold_auc": float(bank.fold_auc.mean()), "deployment": DEPLOYMENT, "purpose": m["purpose"],
                "description": long, "kaggle_description": short, "validation": report}
     if bank.metadata["prediction_kind"] == "blend":
         sidecar["weights"] = {p["run_id"]: p["weight"] for p in bank.metadata["parents"]}
