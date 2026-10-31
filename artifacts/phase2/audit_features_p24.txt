@@ -1,0 +1,98 @@
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_f588ac7c271c: equals its file, record and re-planning
+  allocation p24_features_1_f588ac7c271c: re-judged equal, witnesses recomputed
+  p24_features_2_46f1fd7728be: equals its file, record and re-planning
+  allocation p24_features_2_46f1fd7728be: re-judged equal, witnesses recomputed
+  p24_features_3_deef536b2422: equals its file, record and re-planning
+  allocation p24_features_3_deef536b2422: re-judged equal, witnesses recomputed
+  p24_features_4_4a2db427d328: equals its file, record and re-planning
+  allocation p24_features_4_4a2db427d328: re-judged equal, witnesses recomputed
+  p24_features_5_36aa9f346ef0: equals its file, record and re-planning
+  allocation p24_features_5_36aa9f346ef0: re-judged equal, witnesses recomputed
+  p24_retune_1_cae2ecb31746: equals its file, record and re-planning
+  allocation p24_retune_1_cae2ecb31746: re-judged equal, witnesses recomputed
+  p24_retune_2_181c45f1e1cc: equals its file, record and re-planning
+  allocation p24_retune_2_181c45f1e1cc: re-judged equal, witnesses recomputed
+  runs: 220 audited against their banks and records, 0 with problems
+  p2_p24_B15_seeds155-2026-1029_374efb8357c8 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0008  [-0.0016, +0.0030]  0.758  2000/2000  equals log
+  p2_p24_B16_seeds155-2026-1029_237257a7c3d8 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0030  [-0.0009, +0.0071]  0.935  2000/2000  equals log
+  p2_p24_B17_seeds155-2026-1029_b72a53b51edb - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: -0.0001  [-0.0034, +0.0029]  0.453  2000/2000  equals log
+  p2_p24_B18_seeds155-2026-1029_83ae951c6c4f - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: -0.0011  [-0.0042, +0.0021]  0.244  2000/2000  equals log
+  p2_p24_B19_seeds155-2026-1029_39920051ded0 - p2_p24_base_e60306fcc6_seeds155-2026-1029_5a076b1c9a48 on seeds [155, 2026, 1029]: +0.0008  [-0.0016, +0.0030]  0.727  2000/2000  equals log
+  p2_p24_B20_seeds155-2026-1029_aa8b09c2f16c - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0020  [-0.0015, +0.0057]  0.857  2000/2000  equals log
+  p2_p24_B21_seeds155-2026-1029_1f7ba26853c8 - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0016  [-0.0018, +0.0053]  0.807  2000/2000  equals log
+  p2_p24_B22_seeds155-2026-1029_4fb466304463 - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0018  [-0.0018, +0.0056]  0.819  2000/2000  equals log
+  p2_p24_B23_seeds155-2026-1029_ec0a1b96222b - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0020  [-0.0015, +0.0057]  0.849  2000/2000  equals log
+  p2_p24_B24_seeds155-2026-1029_f17b502ca732 - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0028  [-0.0010, +0.0067]  0.922  2000/2000  equals log
+  p2_p24_B25_seeds155-2026-1029_d9b85ef34580 - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0005  [-0.0029, +0.0042]  0.625  2000/2000  equals log
+  p2_p24_B26_seeds155-2026-1029_2b3fc4ac9490 - p2_p24_base_c8427905ee_seeds155-2026-1029_c2a897b62085 on seeds [155, 2026, 1029]: +0.0007  [-0.0029, +0.0044]  0.640  2000/2000  equals log
+  p2_p24_B27_seeds155-2026-1029_ccaa783b4efd - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0002  [-0.0025, +0.0030]  0.550  2000/2000  equals log
+  p2_p24_B28_seeds155-2026-1029_0f0d0dd3bfea - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: -0.0004  [-0.0048, +0.0044]  0.434  2000/2000  equals log
+  p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 - p2_p24_base_eec3837390_seeds155-2026-1029_3ccb021ffdf9 on seeds [155, 2026, 1029]: +0.0007  [-0.0012, +0.0024]  0.769  2000/2000  equals log
+  p2_p24_B30_seeds155-2026-1029_26104391cace - p2_p24_base_eec3837390_seeds155-2026-1029_3ccb021ffdf9 on seeds [155, 2026, 1029]: +0.0048  [+0.0012, +0.0085]  0.997  2000/2000  equals log
+  p2_p24_B31_seeds155-2026-1029_30fce5219ec5 - p2_p24_base_483fb7586b_seeds155-2026-1029_0c81409881ec on seeds [155, 2026, 1029]: +0.0042  [+0.0002, +0.0083]  0.980  2000/2000  equals log
+  p2_p24_B32_seeds155-2026-1029_5c693aee1fb1 - p2_p24_base_3e3a87d017_seeds155-2026-1029_b091f88359ad on seeds [155, 2026, 1029]: -0.0021  [-0.0039, -0.0004]  0.008  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b590967d0f21 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0040  [+0.0000, +0.0080]  0.976  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_8980583ae290 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0037  [-0.0001, +0.0077]  0.971  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_7e2d0f128cce - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0035  [-0.0002, +0.0075]  0.966  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_e7673117c2c3 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0047  [+0.0006, +0.0088]  0.989  2000/2000  equals log
+  p2_p24_X2_05_seeds155-2026-1029_d8292e8558b5 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0033  [-0.0007, +0.0073]  0.947  2000/2000  equals log
+  p2_p24_X2_06_seeds155-2026-1029_1f5d1aed19a5 - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0035  [-0.0005, +0.0074]  0.959  2000/2000  equals log
+  p2_p24_X2_07_seeds155-2026-1029_4086c2c34704 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0019  [-0.0002, +0.0039]  0.958  2000/2000  equals log
+  p2_p24_X2_08_seeds155-2026-1029_d58ff004ab5d - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0108  [+0.0054, +0.0164]  1.000  2000/2000  equals log
+  p2_p24_X2_09_seeds155-2026-1029_9d5141b87cfe - p2_p24_B24_seeds155-2026-1029_f17b502ca732 on seeds [155, 2026, 1029]: -0.0032  [-0.0049, -0.0014]  0.000  2000/2000  equals log
+  p2_p24_X2_10_seeds155-2026-1029_a32d9607f9f4 - p2_p24_B20_seeds155-2026-1029_aa8b09c2f16c on seeds [155, 2026, 1029]: -0.0011  [-0.0029, +0.0005]  0.092  2000/2000  equals log
+  p2_p24_X2_11_seeds155-2026-1029_d7eeb6b73711 - p2_p24_B24_seeds155-2026-1029_f17b502ca732 on seeds [155, 2026, 1029]: -0.0034  [-0.0058, -0.0010]  0.005  2000/2000  equals log
+  p2_p24_X2_12_seeds155-2026-1029_7ae62113f774 - p2_p24_B20_seeds155-2026-1029_aa8b09c2f16c on seeds [155, 2026, 1029]: -0.0032  [-0.0057, -0.0006]  0.005  2000/2000  equals log
+  p2_p24_X2_13_seeds155-2026-1029_773fc61fe55c - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0020  [-0.0024, +0.0065]  0.810  2000/2000  equals log
+  p2_p24_X2_14_seeds155-2026-1029_16afa31e7fb5 - p2_p24_B24_seeds155-2026-1029_f17b502ca732 on seeds [155, 2026, 1029]: -0.0012  [-0.0025, +0.0002]  0.041  2000/2000  equals log
+  p2_p24_X2_15_seeds155-2026-1029_5299a9cf00ce - p2_p24_base_27cf25ac98_seeds155-2026-1029_01e1d2160892 on seeds [155, 2026, 1029]: +0.0030  [-0.0007, +0.0068]  0.947  2000/2000  equals log
+  p2_p24_X2_16_seeds155-2026-1029_ef776a4f7494 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: -0.0001  [-0.0046, +0.0047]  0.483  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_13fc62b25f49 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: +0.0002  [-0.0042, +0.0045]  0.530  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_db40e32180a2 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: -0.0005  [-0.0048, +0.0038]  0.406  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_bbf2b45673a5 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: +0.0001  [-0.0044, +0.0047]  0.517  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_b09efa9b8ae9 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: -0.0006  [-0.0050, +0.0040]  0.399  2000/2000  equals log
+  p2_p24_X3_05_seeds155-2026-1029_974ad89c41f9 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: +0.0009  [-0.0034, +0.0055]  0.656  2000/2000  equals log
+  p2_p24_X3_06_seeds155-2026-1029_9ae672624c09 - p2_p24_base_9c013fb096_seeds155-2026-1029_7ff41cf500a5 on seeds [155, 2026, 1029]: -0.0006  [-0.0049, +0.0037]  0.390  2000/2000  equals log
+  p2_p24_X3_07_seeds155-2026-1029_dae7f2e27c02 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0055  [+0.0024, +0.0088]  1.000  2000/2000  equals log
+  p2_p24_X3_08_seeds155-2026-1029_bd637827ec60 - p2_p24_B31_seeds155-2026-1029_30fce5219ec5 on seeds [155, 2026, 1029]: +0.0043  [-0.0025, +0.0108]  0.890  2000/2000  equals log
+  p2_p24_X3_09_seeds155-2026-1029_bdd36cab966c - p2_p24_B23_seeds155-2026-1029_ec0a1b96222b on seeds [155, 2026, 1029]: -0.0012  [-0.0029, +0.0004]  0.074  2000/2000  equals log
+  p2_p24_X3_10_seeds155-2026-1029_89c8d4d3d223 - p2_p24_B22_seeds155-2026-1029_4fb466304463 on seeds [155, 2026, 1029]: -0.0020  [-0.0037, -0.0003]  0.009  2000/2000  equals log
+  p2_p24_X3_11_seeds155-2026-1029_24459fce0178 - p2_p24_B23_seeds155-2026-1029_ec0a1b96222b on seeds [155, 2026, 1029]: -0.0029  [-0.0054, -0.0005]  0.009  2000/2000  equals log
+  p2_p24_X3_12_seeds155-2026-1029_88e77ea909f5 - p2_p24_B22_seeds155-2026-1029_4fb466304463 on seeds [155, 2026, 1029]: -0.0027  [-0.0051, -0.0004]  0.013  2000/2000  equals log
+  p2_p24_X3_13_seeds155-2026-1029_c99bc657c97a - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: -0.0021  [-0.0058, +0.0014]  0.120  2000/2000  equals log
+  p2_p24_X3_14_seeds155-2026-1029_2735f00c37e7 - p2_p24_B20_seeds155-2026-1029_aa8b09c2f16c on seeds [155, 2026, 1029]: -0.0008  [-0.0021, +0.0006]  0.116  2000/2000  equals log
+  p2_p24_X3_15_seeds155-2026-1029_c10c0896847a - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0007  [-0.0039, +0.0054]  0.622  2000/2000  equals log
+  p2_p24_X3_16_seeds155-2026-1029_78096c5156c8 - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0012  [-0.0030, +0.0055]  0.718  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_b786d6a726ae - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0016  [-0.0022, +0.0056]  0.785  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_1ee90be26600 - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: -0.0007  [-0.0060, +0.0044]  0.395  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_ff26859b8f9d - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0007  [-0.0035, +0.0052]  0.617  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_cfb93b8c4321 - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0011  [-0.0034, +0.0058]  0.682  2000/2000  equals log
+  p2_p24_X4_05_seeds155-2026-1029_29dfba7fad01 - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: +0.0021  [-0.0016, +0.0061]  0.873  2000/2000  equals log
+  p2_p24_X4_06_seeds155-2026-1029_c5eca2fa00d6 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0123  [+0.0069, +0.0180]  1.000  2000/2000  equals log
+  p2_p24_X4_07_seeds155-2026-1029_40a5bfa0e0cc - p2_p24_B21_seeds155-2026-1029_1f7ba26853c8 on seeds [155, 2026, 1029]: -0.0002  [-0.0018, +0.0015]  0.402  2000/2000  equals log
+  p2_p24_X4_08_seeds155-2026-1029_cdd9b57bc1a1 - p2_p24_X2_14_seeds155-2026-1029_16afa31e7fb5 on seeds [155, 2026, 1029]: -0.0021  [-0.0040, -0.0003]  0.011  2000/2000  equals log
+  p2_p24_X4_09_seeds155-2026-1029_dcb1c71c30ac - p2_p24_B21_seeds155-2026-1029_1f7ba26853c8 on seeds [155, 2026, 1029]: -0.0032  [-0.0058, -0.0007]  0.005  2000/2000  equals log
+  p2_p24_X4_10_seeds155-2026-1029_296e6b07edaa - p2_p24_X2_14_seeds155-2026-1029_16afa31e7fb5 on seeds [155, 2026, 1029]: -0.0026  [-0.0051, -0.0001]  0.021  2000/2000  equals log
+  p2_p24_X4_11_seeds155-2026-1029_8a69b10c52eb - p2_p24_base_1a6eea305c_seeds155-2026-1029_612f413042cc on seeds [155, 2026, 1029]: -0.0015  [-0.0047, +0.0019]  0.198  2000/2000  equals log
+  p2_p24_X4_12_seeds155-2026-1029_8dd5646c9a43 - p2_p24_base_3e3a87d017_seeds155-2026-1029_b091f88359ad on seeds [155, 2026, 1029]: -0.0009  [-0.0022, +0.0005]  0.109  2000/2000  equals log
+  p2_p24_X4_13_seeds155-2026-1029_f4d5a178d25b - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0131  [+0.0076, +0.0187]  1.000  2000/2000  equals log
+  p2_p24_X4_14_seeds155-2026-1029_331486e6c481 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0116  [+0.0062, +0.0170]  1.000  2000/2000  equals log
+  p2_p24_X4_15_seeds155-2026-1029_0ba1dfd96293 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0127  [+0.0074, +0.0183]  1.000  2000/2000  equals log
+  p2_p24_X4_16_seeds155-2026-1029_66b898adc907 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0117  [+0.0063, +0.0173]  1.000  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_edff44966fc7 - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0117  [+0.0065, +0.0169]  1.000  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_a4e0294dc17e - p2_p24_B29_seeds155-2026-1029_deecd2e2ddd1 on seeds [155, 2026, 1029]: +0.0100  [+0.0045, +0.0157]  1.000  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_6fcaebe64961 - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0014  [-0.0022, +0.0048]  0.786  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_2c2ac5b6b48a - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0019  [-0.0016, +0.0054]  0.867  2000/2000  equals log
+  p2_p24_X5_05_seeds155-2026-1029_eab797842c8c - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0018  [-0.0015, +0.0052]  0.867  2000/2000  equals log
+  p2_p24_X5_06_seeds155-2026-1029_d3575dd6898c - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0013  [-0.0020, +0.0046]  0.779  2000/2000  equals log
+  p2_p24_X5_07_seeds155-2026-1029_f663e530256b - p2_p24_X2_04_seeds155-2026-1029_e7673117c2c3 on seeds [155, 2026, 1029]: -0.0018  [-0.0035, +0.0000]  0.028  2000/2000  equals log
+  p2_p24_X5_08_seeds155-2026-1029_eb762339eafc - p2_p24_X3_14_seeds155-2026-1029_2735f00c37e7 on seeds [155, 2026, 1029]: -0.0016  [-0.0032, +0.0001]  0.036  2000/2000  equals log
+  p2_p24_X5_09_seeds155-2026-1029_17443f1f19c3 - p2_p24_base_3e3a87d017_seeds155-2026-1029_b091f88359ad on seeds [155, 2026, 1029]: -0.0033  [-0.0058, -0.0010]  0.006  2000/2000  equals log
+  p2_p24_X5_10_seeds155-2026-1029_bcd8959ff3b5 - p2_p24_X2_04_seeds155-2026-1029_e7673117c2c3 on seeds [155, 2026, 1029]: -0.0022  [-0.0047, +0.0004]  0.052  2000/2000  equals log
+  p2_p24_X5_11_seeds155-2026-1029_ab02fa447c86 - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: -0.0004  [-0.0029, +0.0022]  0.386  2000/2000  equals log
+  p2_p24_X5_12_seeds155-2026-1029_721189120bb6 - p2_p24_X2_04_seeds155-2026-1029_e7673117c2c3 on seeds [155, 2026, 1029]: -0.0021  [-0.0040, -0.0004]  0.007  2000/2000  equals log
+  p2_p24_X5_13_seeds155-2026-1029_fbc90d2f92de - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0028  [-0.0009, +0.0064]  0.938  2000/2000  equals log
+  p2_p24_X5_14_seeds155-2026-1029_1d81d9103c7d - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0012  [-0.0023, +0.0045]  0.752  2000/2000  equals log
+  p2_p24_X5_15_seeds155-2026-1029_45646884d1ce - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0030  [-0.0006, +0.0065]  0.949  2000/2000  equals log
+  p2_p24_X5_16_seeds155-2026-1029_dad609a0e3ec - p2_p24_base_92e260e03f_seeds155-2026-1029_aa8ab6620907 on seeds [155, 2026, 1029]: +0.0010  [-0.0022, +0.0043]  0.727  2000/2000  equals log

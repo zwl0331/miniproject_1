@@ -741,3 +741,65 @@ Review status:
 Downstream use:
 
 The interpretation of the date-encoding comparisons in P2.4 (Finding 022) and the report's description of the date features.
+
+## Finding 022: The Matched Feature Effects of P2.4
+
+Question:
+
+Which feature blocks, preprocessing alternatives, removals and training weights change each family's mean fold AUC when everything else is held fixed (plan sections 6 and 18)?
+
+Current conclusion:
+
+Matched effects (challenger minus its own comparator, unrounded mean fold AUC; the three repeat differences; paired cluster bootstrap with 2,000 draws, conditional on the fixed predictions):
+
+- Date encodings help the boosted trees. Tuned LightGBM: `date_count` with `date_te3` +0.0028 (+0.0022, +0.0043, +0.0018) to 0.8367; `date_te3` or `date_te10` alone +0.0020; `date_te30` +0.0016; `date_te100` +0.0005. CatBoost: +0.0030 to +0.0047, best `date_count` with `date_te3` (+0.0045, +0.0055, +0.0042; interval +0.0006 to +0.0088) to 0.8353. XGBoost: +0.0010 to +0.0030, best `date_te3` to 0.8319. Smaller smoothing values did as well or better than larger ones in every boosted family.
+- The forests barely respond: random forest -0.0006 to +0.0009 and Extra Trees -0.0007 to +0.0016 across the date variants, no consistent sign.
+- The smooth and distance models gain from representation changes: logistic regression with `spline_calendar` and the `cyclic` block +0.0048 (interval +0.0012 to +0.0085), with a date target encoding on top of `spline_calendar` +0.0100 to +0.0117 (to about 0.80, still far below the trees); kNN with robust audio scaling +0.0042, and Manhattan distance on it a further +0.0043.
+- The other blocks: interactions +0.0020 for Extra Trees, -0.0011 for CatBoost, -0.0021 for XGBoost; `music` -0.0001 for CatBoost, +0.0008 for EBM; `cyclic` -0.0004 for XGBoost.
+- Removals hurt consistently: dropping `days` -0.0011 to -0.0032; dropping `day` and `day_of_year` -0.0027 to -0.0034, most intervals excluding zero. Inverse-group-size training weights -0.0008 to -0.0021.
+- P2.8's 14 imported comparisons keep their own judgments (B12 and B14 met routes there).
+
+Evidence:
+
+`../analysis/p24_summary.py` and its output `../analysis/p24_summary_output.txt` (every comparison with its definition, matched effect, repeat differences, bootstrap interval, challenger score, contribution blends and routes; the handoff index); the P2.4 records in `../artifacts/phase2/experiments.jsonl` and the batch manifests `../artifacts/phase2/batches/p24_*.json`; `--audit-features P2.4` passes (220 runs audited against their banks and records).
+
+Uncertainty:
+
+Exploratory in the sense of section 15.6: adaptively chosen comparisons on repeatedly used folds; three repeats and conditional bootstrap intervals do not remove the selection optimism. Effects of 0.001 to 0.003 are of the order of the repeat-to-repeat spread. The date encodings depend on exact-date coverage (Finding 021), which is thinner for many rows.
+
+Review status:
+
+`draft`, provisional (agent-workflow v1); reviewed with the results that feed the final selection (R1).
+
+Downstream use:
+
+P2.6b's nominations draw on these runs; the report's description of which features matter.
+
+## Finding 023: P2.4's Expansions and Re-tuning Outcomes
+
+Question:
+
+How far did the feature stage's allocation rule carry the search, and what did re-tuning add (plan sections 18.3 to 18.6)?
+
+Current conclusion:
+
+- The feature stage ran its full 96 comparisons: the initial 32 (14 imported from P2.8, 18 new) and four expansions of 16; the counter went 2, 2, 2, 1, 2 (the fourth batch made no progress, the fifth did), and the stage closed at the comparison ceiling, with no recorded stop. 18 comparisons met an allocation route.
+- Re-tuning: four units chosen by the rule (LightGBM with `date_count` and `date_te3`; LightGBM with `date_te10`; Extra Trees with `date_count` and `date_te30`; CatBoost with `date_count` and `date_te3`), two rounds of 16 each, 128 configurations. No round made progress for any unit. The best re-tuned configuration, 0.8368 (LightGBM, `date_count` and `date_te3`), is within 0.0001 of its untuned recipe B24 (0.8367); CatBoost reached 0.8355, Extra Trees 0.8287.
+- The strongest P2.4 standalone, 0.8368, is 0.0014 above P2.8's leader (0.8354) and 0.0053 above the phase 1 anchor (0.8315). The best contribution blend with H is 0.75 H + 0.25 Extra Trees with `date_te3`, 0.8371.
+- Execution: 2026-10-30, 20:53 to 23:55 PDT, partly beside P2.5 and full self-checks, so the run times are inflated by load.
+
+Evidence:
+
+`../analysis/p24_summary_output.txt` (batch judgments, re-tuning units, best runs, the handoff index); `../artifacts/phase2/p24_execute_log.txt` is the execution log; the audit output `../artifacts/phase2/audit_features_p24.txt`.
+
+Uncertainty:
+
+As Finding 022. Re-tuning around already tuned parents found nothing measurable, which bounds what local search adds at these features, not what a wider search could find. `--verify --task P2.4` (the full refit) runs after this commit.
+
+Review status:
+
+`draft`, provisional; reviewed with the results that feed the final selection (R1).
+
+Downstream use:
+
+P2.6b's discovery inventory and nominations (plan section 20.2).
