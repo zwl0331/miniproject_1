@@ -949,3 +949,33 @@ Review status:
 Downstream use:
 
 P2.7 and phase 3's two final selections (Sam's decision).
+
+## Finding 029: The Test Population and the Frozen Menu's Scores on Singleton Rows
+
+Question:
+
+What population of tracks does the test file represent, and how do the frozen menu's candidates score on validation rows of that kind, compared with the official all-rows score? Raised by the AUC brainstorm of 2026-10-30/31 (`llm_usage/2026-10-31-auc-brainstorm/`), checked here on the project's own data and banks.
+
+Current conclusion:
+
+- Construction of the test file: its ids run from 2 to 967 with 103 ids missing; 3,864 + 863 + 103 = 4,830 rows and 3,864 / 4,830 = 0.8000 exactly. No test uri occurs in train, and no test row shares its 13 audio values and date string with a train row (2 share the audio values with another date). Within the test file 11 uris are repeated, 22 rows or 2.6% of it; within train 203 uris are repeated (185 twice, 18 three times), 424 rows or 11.0%. These facts fit an 80/20 row split from which every test row whose track occurs in train was removed; the removal step is inferred from the counts, not observed.
+- Labels by population in train: rows with a repeated uri are 79.3% High (424 rows), rows with a singleton uri 29.7% (3,440), all rows 35.2%. By the primary groups of Finding 002 (same uri, or identical audio and date), 3,431 of the 3,863 eligible rows are singletons (29.7% High) and 432 are in repeated groups (78.9% High). The test's High rate is therefore expected near 0.30, not 0.35.
+- The frozen menu on singleton validation rows (the official 15 folds, each fold scored on its singleton rows only, about 685 per fold): every candidate scores 0.0031 to 0.0043 lower. The production selection `blend_eq_all` goes from 0.8411 to 0.8370 (by repeat 0.8383, 0.8366, 0.8362), the anchor from 0.8315 to 0.8279, the standalone leader from 0.8364 to 0.8331. The ranking is kept: Spearman 0.965 over the 12 candidates, `blend_eq_all` first on both scores, and within the frozen rule's tie set on the official score (six candidates) it also has the highest singleton score. Applied to singleton scores as a diagnostic, the rule's mechanics would widen the tie set to eight candidates and the fewer-atoms key would then pick the two-atom 0.25 Extra Trees contribution blend (0.8363); the equal average leads it by 0.0007 on singleton rows against 0.0017 on all rows.
+- The official score exceeds both within-population scores (singleton 0.8370, repeated-group rows 0.8169 for `blend_eq_all`) because repeated-group rows are mostly High and receive higher scores than singleton rows: part of the official score is the separation between the two populations, which the test file lacks.
+- The menu's eight atom runs lose by family: LightGBM 0.0034 to 0.0038, XGBoost 0.0051, CatBoost 0.0053, Extra Trees 0.0014. The brainstorm's rescoring of all 576 phase 2 banks (its `rescore_singletons.log`, Spearman 0.993 over the banks) is corroboration from outside the project's engine, not project evidence.
+
+Evidence:
+
+`../analysis/brainstorm_checks.py` and its output `../analysis/brainstorm_checks_output.txt` (the data facts; the 12 candidates and 8 atoms rescored from their logged banks, each bank's hash checked against the menu and its all-rows mean against the menu's before the singleton score is taken; the frozen rule's tie set on both scores). Nothing was fitted.
+
+Uncertainty:
+
+The removal step is an inference from counts that fit it exactly. The singleton population omits the 22 test rows in within-test pairs (2.6%), whose behaviour under the models the brainstorm examined separately (`llm_usage/2026-10-31-auc-brainstorm/scratchpad/me/test_duplicates.log`). Singleton fold AUCs rest on about 685 rows each, and the differences among the top eight candidates on singleton rows (at most 0.001) are inside the repeat spread. The public leaderboard score of 0.85377 on about 40% of the test rows is not evidence about any of this.
+
+Review status:
+
+`draft`, written 2026-10-31 by the primary agent during the pause after P2.6b; no review record names it. It would be reviewed with phase 3's selection (R1) if the singleton score is reported there.
+
+Downstream use:
+
+A diagnostic beside the official metric in phase 3's selection evidence, if Sam decides to report it; the report's description of the test population; no change to the frozen selection rule.

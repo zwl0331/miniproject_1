@@ -1,0 +1,37 @@
+155 0 {'A_base': 0.8259, 'B_te': 0.8381, 'C_nn': 0.8311, 'D_all': 0.8274, 'E_wmean': 0.8372} 9s
+155 1 {'A_base': 0.842, 'B_te': 0.8337, 'C_nn': 0.8313, 'D_all': 0.8352, 'E_wmean': 0.8358} 17s
+155 2 {'A_base': 0.8469, 'B_te': 0.8485, 'C_nn': 0.8465, 'D_all': 0.8518, 'E_wmean': 0.8487} 26s
+155 3 {'A_base': 0.8272, 'B_te': 0.8305, 'C_nn': 0.8313, 'D_all': 0.8367, 'E_wmean': 0.8311} 35s
+155 4 {'A_base': 0.823, 'B_te': 0.8198, 'C_nn': 0.8225, 'D_all': 0.8141, 'E_wmean': 0.82} 44s
+2026 0 {'A_base': 0.8153, 'B_te': 0.8217, 'C_nn': 0.8167, 'D_all': 0.8237, 'E_wmean': 0.8264} 51s
+2026 1 {'A_base': 0.8194, 'B_te': 0.83, 'C_nn': 0.8202, 'D_all': 0.8176, 'E_wmean': 0.8243} 58s
+2026 2 {'A_base': 0.8272, 'B_te': 0.8352, 'C_nn': 0.8373, 'D_all': 0.8306, 'E_wmean': 0.8347} 67s
+2026 3 {'A_base': 0.8336, 'B_te': 0.8436, 'C_nn': 0.8386, 'D_all': 0.8431, 'E_wmean': 0.8376} 75s
+2026 4 {'A_base': 0.8443, 'B_te': 0.8417, 'C_nn': 0.8319, 'D_all': 0.8342, 'E_wmean': 0.834} 83s
+1029 0 {'A_base': 0.8224, 'B_te': 0.8188, 'C_nn': 0.8208, 'D_all': 0.8152, 'E_wmean': 0.8247} 93s
+1029 1 {'A_base': 0.8239, 'B_te': 0.8205, 'C_nn': 0.8312, 'D_all': 0.8221, 'E_wmean': 0.8254} 104s
+1029 2 {'A_base': 0.8331, 'B_te': 0.838, 'C_nn': 0.8412, 'D_all': 0.8355, 'E_wmean': 0.8438} 115s
+1029 3 {'A_base': 0.8357, 'B_te': 0.8367, 'C_nn': 0.8328, 'D_all': 0.8329, 'E_wmean': 0.839} 126s
+1029 4 {'A_base': 0.8215, 'B_te': 0.8223, 'C_nn': 0.8183, 'D_all': 0.8242, 'E_wmean': 0.8211} 134s
+
+=== single-feature AUC on validation rows (NaN -> training prior), mean of 15 folds
+  nn_label   0.6382 +- 0.0049
+  wmean      0.6618 +- 0.0051
+  te_m3      0.6327 +- 0.0049
+  mean_mate  0.6275 +- 0.0050
+  k3mean     0.6573 +- 0.0044
+
+=== LightGBM probe, mean of 15 fold AUCs (SE over folds of the paired difference vs A)
+  A_base   0.8294  diff +0.0000 +- 0.0000   per-seed means [np.float64(0.833), np.float64(0.828), np.float64(0.8273)]
+  B_te     0.8320  diff +0.0025 +- 0.0016   per-seed means [np.float64(0.8341), np.float64(0.8345), np.float64(0.8273)]
+  C_nn     0.8301  diff +0.0007 +- 0.0017   per-seed means [np.float64(0.8325), np.float64(0.8289), np.float64(0.8289)]
+  D_all    0.8296  diff +0.0002 +- 0.0017   per-seed means [np.float64(0.833), np.float64(0.8298), np.float64(0.826)]
+  E_wmean  0.8322  diff +0.0028 +- 0.0016   per-seed means [np.float64(0.8345), np.float64(0.8314), np.float64(0.8308)]
+
+coverage (fraction of rows with a same-date mate in the training part):
+fold               2.000
+val_with_mate      0.693
+train_with_mate    0.690
+val_near1          0.020
+val_near2          0.251
+train_near2        0.246

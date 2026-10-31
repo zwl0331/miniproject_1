@@ -1,0 +1,5 @@
+lgb teDate m=1 knn20                          mean15=0.8521 seeds=(0.8517,0.8519,0.8526) single=0.8272 sd=0.007 nfeat=25 28s
+lgb teDate m=10 knn20                         mean15=0.8522 seeds=(0.8530,0.8519,0.8517) single=0.8280 sd=0.008 nfeat=25 23s
+lgb teDate m=3 knn10                          mean15=0.8517 seeds=(0.8528,0.8506,0.8518) single=0.8276 sd=0.007 nfeat=25 22s
+lgb teDate m=3 knn35                          mean15=0.8514 seeds=(0.8510,0.8523,0.8511) single=0.8274 sd=0.007 nfeat=25 23s
+lgb teDate knn20 NO cnt                       mean15=0.8351 seeds=(0.8348,0.8364,0.8342) single=0.8293 sd=0.011 nfeat=24 23s

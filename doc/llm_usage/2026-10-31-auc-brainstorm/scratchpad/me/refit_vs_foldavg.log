@@ -1,0 +1,24 @@
+seed 155 fold 0: full 0.8425 full750 0.8428 full3 0.8445 fold_avg 0.8425 corr 0.988 (84 s)
+seed 155 fold 1: full 0.8410 full750 0.8399 full3 0.8416 fold_avg 0.8481 corr 0.990 (165 s)
+seed 155 fold 2: full 0.8471 full750 0.8479 full3 0.8472 fold_avg 0.8498 corr 0.988 (251 s)
+seed 155 fold 3: full 0.8346 full750 0.8355 full3 0.8335 fold_avg 0.8351 corr 0.986 (329 s)
+seed 155 fold 4: full 0.8158 full750 0.8171 full3 0.8169 fold_avg 0.8195 corr 0.986 (427 s)
+seed 2026 fold 0: full 0.8250 full750 0.8253 full3 0.8249 fold_avg 0.8295 corr 0.989 (527 s)
+seed 2026 fold 1: full 0.8271 full750 0.8293 full3 0.8289 fold_avg 0.8272 corr 0.990 (617 s)
+seed 2026 fold 2: full 0.8350 full750 0.8331 full3 0.8358 fold_avg 0.8357 corr 0.992 (710 s)
+seed 2026 fold 3: full 0.8433 full750 0.8437 full3 0.8429 fold_avg 0.8410 corr 0.991 (796 s)
+seed 2026 fold 4: full 0.8512 full750 0.8502 full3 0.8501 fold_avg 0.8528 corr 0.987 (872 s)
+seed 1029 fold 0: full 0.8316 full750 0.8315 full3 0.8336 fold_avg 0.8346 corr 0.990 (954 s)
+seed 1029 fold 1: full 0.8231 full750 0.8243 full3 0.8238 fold_avg 0.8250 corr 0.989 (1035 s)
+seed 1029 fold 2: full 0.8505 full750 0.8498 full3 0.8504 fold_avg 0.8482 corr 0.988 (1105 s)
+seed 1029 fold 3: full 0.8395 full750 0.8395 full3 0.8413 fold_avg 0.8399 corr 0.992 (1164 s)
+seed 1029 fold 4: full 0.8233 full750 0.8236 full3 0.8248 fold_avg 0.8299 corr 0.986 (1241 s)
+
+Mean over 15 folds:
+  full         0.8354   per seed 0.8362, 0.8363, 0.8336
+  full750      0.8356   per seed 0.8366, 0.8363, 0.8337
+  full3seeds   0.8360   per seed 0.8368, 0.8365, 0.8348
+  fold_avg     0.8373   per seed 0.8390, 0.8373, 0.8355
+  full minus fold_avg: -0.0019  per seed -0.0028, -0.0009, -0.0019  folds positive 2/15
+  full750 minus fold_avg: -0.0017  per seed -0.0024, -0.0009, -0.0018  folds positive 5/15
+  full3seeds minus fold_avg: -0.0012  per seed -0.0023, -0.0007, -0.0007  folds positive 6/15

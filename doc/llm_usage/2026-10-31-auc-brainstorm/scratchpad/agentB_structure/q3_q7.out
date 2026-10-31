@@ -1,0 +1,203 @@
+=== Q3: assembly / sources
+label rate by date precision:
+  full YYYY-MM-DD                                         n= 3751 High=0.344
+  YYYY only                                               n=  111 High=0.595
+  YYYY-MM                                                 n=    1 High=1.000
+  YYYY-only rows by era:
+              size   mean
+year                     
+(0, 1989]       27  1.000
+(1989, 1999]    34  0.441
+(1999, 2009]    35  0.514
+(2009, 2019]    15  0.400
+  full-date rows by era:
+              size   mean
+year                     
+(0, 1989]      106  1.000
+(1989, 1999]   189  0.513
+(1999, 2009]   281  0.520
+(2009, 2019]   795  0.423
+(2019, 2030]  2380  0.255
+pre-1990 block, year counts: {1954: 1, 1962: 1, 1966: 1, 1967: 1, 1968: 1, 1969: 2, 1970: 2, 1971: 3, 1972: 4, 1973: 3, 1975: 5, 1976: 7, 1977: 11, 1978: 5, 1979: 6, 1980: 9, 1981: 9, 1982: 10, 1983: 9, 1984: 14, 1985: 6, 1986: 9, 1987: 7, 1988: 4, 1989: 4}
+1990-1994 by year: {1990: {'size': 16.0, 'mean': 0.38}, 1991: {'size': 19.0, 'mean': 0.47}, 1992: {'size': 17.0, 'mean': 0.47}, 1993: {'size': 23.0, 'mean': 0.43}, 1994: {'size': 24.0, 'mean': 0.58}}
+  date is YYYY-01-01                                      n=  196 High=0.459
+  day==01, not January                                    n=  157 High=0.287
+  day>1                                                   n= 3398 High=0.340
+  YYYY-01-01 by era:
+              size   mean
+year                     
+(0, 1989]       17  1.000
+(1989, 1999]    47  0.298
+(1999, 2009]    79  0.392
+(2009, 2019]    52  0.538
+(2019, 2030]     1  0.000
+
+feature medians by era:
+       duration_ms  loudness  time_signature  energy  acousticness  instrumentalness  danceability    tempo  valence  speechiness  liveness
+year                                                                                                                                       
+<1990     246186.5    -8.123             4.0   0.750         0.087               0.0         0.549  122.301    0.669        0.040     0.124
+1990s     253840.0    -8.142             4.0   0.662         0.131               0.0         0.592  109.920    0.588        0.048     0.115
+2000s     232033.5    -5.992             4.0   0.681         0.147               0.0         0.603  116.506    0.585        0.047     0.134
+2010s     213972.0    -6.761             4.0   0.641         0.222               0.0         0.645  119.965    0.465        0.051     0.114
+2020+     176338.0    -7.313             4.0   0.620         0.262               0.0         0.675  118.023    0.458        0.061     0.117
+time_signature by era (row %):
+time_signature    1.0    3.0    4.0    5.0
+year                                      
+<1990           0.000  0.022  0.978  0.000
+1990s           0.000  0.058  0.937  0.004
+2000s           0.000  0.063  0.924  0.013
+2010s           0.006  0.070  0.907  0.016
+2020+           0.008  0.075  0.875  0.042
+mode by era (share mode=1): {'<1990': 0.694, '1990s': 0.565, '2000s': 0.592, '2010s': 0.564, '2020+': 0.556}
+
+univariate AUC of each feature by era (High vs Low):
+     era     n  duration_ms  loudness  time_signature  energy  acousticness  instrumentalness  danceability  tempo  valence  speechiness  liveness   year  date_len  month    day    dow
+0  1990s   223        0.469     0.748           0.527   0.745         0.237             0.402         0.540  0.531    0.557        0.505     0.501  0.565     0.519  0.654  0.619  0.434
+1  2000s   316        0.502     0.755           0.520   0.708         0.238             0.377         0.554  0.525    0.492        0.560     0.551  0.510     0.501  0.612  0.576  0.429
+2  2010s   810        0.537     0.636           0.527   0.555         0.373             0.353         0.554  0.515    0.468        0.561     0.547  0.471     0.501  0.563  0.479  0.560
+3  2020+  2380        0.552     0.709           0.488   0.613         0.381             0.294         0.600  0.562    0.583        0.521     0.504  0.535     0.500  0.481  0.499  0.508
+
+duration_ms: last 3 digits ==000: 0.0603  High rate among them: 0.219  n= 233
+duration_ms: %1000 distribution top values: {0.0: 233, 500.0: 45, 333.0: 42, 267.0: 40, 800.0: 37}
+  duration ms multiple of 1000                            n=  233 High=0.219
+
+label rate by number of train rows sharing the exact date (full dates):
+  date count 1-1                                          n=  955 High=0.334
+  date count 2-2                                          n=  558 High=0.376
+  date count 3-4                                          n=  641 High=0.390
+  date count 5-9                                          n=  672 High=0.338
+  date count 10-19                                        n=  642 High=0.310
+  date count 20-999                                       n=  283 High=0.307
+  mean(y - era rate) by date count:
+    1-1: -0.082 (n=955)
+    2-2: +0.002 (n=558)
+    3-4: +0.047 (n=641)
+    5-9: +0.011 (n=672)
+    10-19: +0.043 (n=642)
+    20-999: +0.052 (n=283)
+dates with >=10 rows:
+   2024-11-08: n=30 High=0.17 groups=28 dur_med=191446 loud_med=-7.1
+   2024-11-15: n=30 High=0.37 groups=27 dur_med=174886 loud_med=-5.6
+   2024-10-18: n=28 High=0.46 groups=24 dur_med=178078 loud_med=-6.6
+   2024-09-20: n=27 High=0.41 groups=25 dur_med=184524 loud_med=-6.9
+   2024-11-01: n=23 High=0.13 groups=22 dur_med=167216 loud_med=-8.8
+   2024-10-11: n=23 High=0.26 groups=22 dur_med=158118 loud_med=-8.3
+   2023-12-01: n=21 High=0.24 groups=18 dur_med=195587 loud_med=-8.3
+   2024-08-09: n=21 High=0.48 groups=21 dur_med=169698 loud_med=-8.1
+   2024-08-23: n=20 High=0.35 groups=20 dur_med=159602 loud_med=-5.9
+   2024-10-04: n=20 High=0.15 groups=19 dur_med=152000 loud_med=-7.8
+   2023-10-27: n=20 High=0.25 groups=19 dur_med=168882 loud_med=-7.2
+   2023-10-13: n=20 High=0.40 groups=19 dur_med=151620 loud_med=-8.1
+   2024-07-19: n=19 High=0.42 groups=15 dur_med=147143 loud_med=-8.2
+   2024-10-25: n=18 High=0.11 groups=18 dur_med=189234 loud_med=-8.9
+   2024-05-31: n=18 High=0.22 groups=18 dur_med=154178 loud_med=-8.1
+   2024-05-10: n=18 High=0.50 groups=16 dur_med=177270 loud_med=-6.6
+   2024-03-22: n=17 High=0.53 groups=11 dur_med=228267 loud_med=-5.7
+   2022-06-24: n=17 High=0.06 groups=17 dur_med=112533 loud_med=-11.5
+   2023-10-04: n=16 High=0.00 groups=13 dur_med=163099 loud_med=-6.8
+   2013-01-01: n=16 High=0.56 groups=16 dur_med=241740 loud_med=-9.8
+   2023-11-10: n=16 High=0.38 groups=15 dur_med=143656 loud_med=-8.4
+   2022-05-06: n=16 High=0.88 groups=15 dur_med=207438 loud_med=-6.0
+   2024-09-27: n=16 High=0.25 groups=15 dur_med=209143 loud_med=-11.0
+   2024-06-21: n=15 High=0.47 groups=12 dur_med=181518 loud_med=-6.8
+   2024-05-03: n=15 High=0.27 groups=14 dur_med=168454 loud_med=-6.5
+   2023-11-17: n=15 High=0.33 groups=13 dur_med=171198 loud_med=-7.3
+   2024-06-07: n=14 High=0.21 groups=13 dur_med=180514 loud_med=-8.3
+   2024-07-26: n=14 High=0.43 groups=13 dur_med=211979 loud_med=-8.5
+   2023-06-23: n=14 High=0.29 groups=14 dur_med=155316 loud_med=-6.8
+   2024-05-17: n=14 High=0.29 groups=12 dur_med=186592 loud_med=-10.2
+   2024-04-26: n=13 High=0.08 groups=13 dur_med=168000 loud_med=-37.4
+   2024-04-12: n=13 High=0.31 groups=12 dur_med=161194 loud_med=-24.3
+   2024-08-16: n=13 High=0.31 groups=12 dur_med=193857 loud_med=-7.8
+   2023-10-20: n=13 High=0.00 groups=13 dur_med=191440 loud_med=-9.3
+   2024-08-08: n=13 High=0.31 groups=11 dur_med=184249 loud_med=-5.5
+   2024-08-22: n=13 High=0.92 groups=9 dur_med=159228 loud_med=-7.2
+   2024-01-12: n=13 High=0.46 groups=12 dur_med=159310 loud_med=-10.2
+   2022-06-17: n=12 High=0.42 groups=10 dur_med=169040 loud_med=-6.0
+   2014-01-01: n=12 High=0.58 groups=11 dur_med=216346 loud_med=-7.6
+   2024-06-14: n=12 High=0.33 groups=12 dur_med=174008 loud_med=-7.2
+   2023-10-06: n=12 High=0.08 groups=11 dur_med=200128 loud_med=-8.2
+   2024-03-08: n=12 High=0.25 groups=11 dur_med=156800 loud_med=-10.2
+   2024-03-29: n=12 High=0.08 groups=12 dur_med=182385 loud_med=-7.8
+   2024-02-02: n=12 High=0.33 groups=11 dur_med=169015 loud_med=-8.2
+   2023-12-08: n=11 High=0.00 groups=10 dur_med=157000 loud_med=-6.9
+   2024-07-05: n=11 High=0.18 groups=10 dur_med=152222 loud_med=-7.3
+   2023-06-30: n=11 High=0.00 groups=11 dur_med=161587 loud_med=-6.1
+   2023-09-22: n=11 High=0.36 groups=9 dur_med=184841 loud_med=-10.9
+   2024-02-23: n=11 High=0.09 groups=11 dur_med=169851 loud_med=-9.8
+   2024-10-31: n=11 High=0.91 groups=10 dur_med=172632 loud_med=-5.0
+   2023-09-29: n=11 High=0.00 groups=11 dur_med=169500 loud_med=-9.7
+   2023-08-08: n=11 High=0.00 groups=9 dur_med=155020 loud_med=-7.3
+   2002-01-01: n=11 High=0.55 groups=9 dur_med=238560 loud_med=-5.3
+   2024-08-02: n=10 High=0.20 groups=10 dur_med=170670 loud_med=-7.9
+   2020-02-29: n=10 High=0.80 groups=9 dur_med=171550 loud_med=-4.7
+   2024-01-19: n=10 High=0.50 groups=10 dur_med=157561 loud_med=-9.9
+   2024-05-24: n=10 High=0.10 groups=10 dur_med=179497 loud_med=-6.6
+   2024-07-12: n=10 High=0.10 groups=10 dur_med=161975 loud_med=-8.6
+   2024-11-06: n=10 High=0.00 groups=10 dur_med=111272 loud_med=-17.7
+   2024-09-13: n=10 High=0.20 groups=10 dur_med=168700 loud_med=-9.0
+   2021-09-10: n=10 High=0.20 groups=10 dur_med=190933 loud_med=-5.6
+  rows whose uri repeats in train                         n=  424 High=0.792
+  rows with unique uri                                    n= 3439 High=0.297
+  by era, High rate dup vs unique:
+       size         mean       
+dup   False True   False  True 
+year                           
+<1990    99    35  1.000  1.000
+1990s   197    26  0.457  0.846
+2000s   278    38  0.482  0.789
+2010s   730    80  0.374  0.862
+2020+  2135   245  0.200  0.735
+
+multi-row groups: 206  conflicting: 35  sizes of conflicting: {2: 33, 3: 2}
+  conflicting-group rows by era: {'1990s': 8, '2000s': 4, '2010s': 17, '2020+': 43}  vs multi-row consistent groups by era: {'<1990': 35, '1990s': 18, '2000s': 34, '2010s': 65, '2020+': 208}
+  are conflicting rows identical in audio AND date? 1.0
+  conflicting groups: date differs within group: 0
+
+=== Q7 misc
+release weekday distribution by era (full dates), row %:
+dow      0.0    1.0    2.0    3.0    4.0    5.0    6.0
+year                                                  
+<1990  0.330  0.142  0.104  0.057  0.245  0.075  0.047
+1990s  0.190  0.460  0.063  0.042  0.201  0.032  0.011
+2000s  0.217  0.445  0.057  0.103  0.078  0.053  0.046
+2010s  0.107  0.155  0.069  0.072  0.533  0.040  0.024
+2020+  0.039  0.051  0.080  0.143  0.620  0.023  0.043
+High rate by weekday within era:
+dow     0.0   1.0   2.0   3.0   4.0   5.0   6.0
+year                                           
+<1990  1.00  1.00  1.00  1.00  1.00  1.00  1.00
+1990s  0.50  0.61  0.33  0.50  0.42  0.17  0.50
+2000s  0.54  0.61  0.31  0.34  0.55  0.33  0.38
+2010s  0.33  0.41  0.24  0.23  0.51  0.38  0.26
+2020+  0.20  0.21  0.13  0.32  0.28  0.31  0.05
+High rate by weekday, 2015+ only: {0.0: {'size': 134.0, 'mean': 0.216}, 1.0: {'size': 165.0, 'mean': 0.248}, 2.0: {'size': 224.0, 'mean': 0.129}, 3.0: {'size': 386.0, 'mean': 0.311}, 4.0: {'size': 1812.0, 'mean': 0.314}, 5.0: {'size': 73.0, 'mean': 0.301}, 6.0: {'size': 111.0, 'mean': 0.054}}
+High rate by mode within era:
+       size         mean       
+mode    0.0   1.0    0.0    1.0
+year                           
+<1990    41    93  1.000  1.000
+1990s    97   126  0.505  0.500
+2000s   129   187  0.527  0.513
+2010s   353   457  0.419  0.425
+2020+  1056  1324  0.248  0.261
+High rate by time_signature:
+                size   mean
+time_signature             
+1.0               25  0.160
+3.0              271  0.280
+4.0             3449  0.364
+5.0              118  0.186
+High rate by key (all): {0.0: 0.29, 1.0: 0.39, 2.0: 0.32, 3.0: 0.33, 4.0: 0.35, 5.0: 0.37, 6.0: 0.36, 7.0: 0.34, 8.0: 0.34, 9.0: 0.33, 10.0: 0.37, 11.0: 0.42}
+loudness decimals (digits after point) distribution: {3: 3493, 2: 336, 1: 34}
+tempo: fraction in [60,90): 0.161  High rate by tempo band: {Interval(0, 70, closed='right'): {'size': 100.0, 'mean': 0.13}, Interval(70, 90, closed='right'): {'size': 535.0, 'mean': 0.26}, Interval(90, 110, closed='right'): {'size': 891.0, 'mean': 0.371}, Interval(110, 130, closed='right'): {'size': 1125.0, 'mean': 0.398}, Interval(130, 150, closed='right'): {'size': 713.0, 'mean': 0.332}, Interval(150, 170, closed='right'): {'size': 288.0, 'mean': 0.385}, Interval(170, 250, closed='right'): {'size': 211.0, 'mean': 0.379}}
+High rate by month (2015+): {1.0: 0.2, 2.0: 0.21, 3.0: 0.31, 4.0: 0.29, 5.0: 0.35, 6.0: 0.26, 7.0: 0.27, 8.0: 0.32, 9.0: 0.29, 10.0: 0.3, 11.0: 0.23, 12.0: 0.27}
+2018-2025 by year: {2018: {'size': 111.0, 'mean': 0.495}, 2019: {'size': 161.0, 'mean': 0.354}, 2020: {'size': 215.0, 'mean': 0.251}, 2021: {'size': 221.0, 'mean': 0.199}, 2022: {'size': 323.0, 'mean': 0.279}, 2023: {'size': 583.0, 'mean': 0.197}, 2024: {'size': 1038.0, 'mean': 0.293}}
+
+=== Q5 follow-up: can "removed rows = test rows whose uri is in train" explain 103?
+train uri multiplicities: {1: 3439, 2: 185, 3: 18}
+  G2=250 G3=30: [train repeated uris, train rows in them, test rows removed, test repeated uris] = [187.4 390.2  96.7  10.2]
+  G2=270 G3=25: [train repeated uris, train rows in them, test rows removed, test repeated uris] = [195.1 402.9 100.8  11.1]
+  G2=300 G3=20: [train repeated uris, train rows in them, test rows removed, test repeated uris] = [209.7 429.7 107.6  12.2]
+  G2=280 G3=30: [train repeated uris, train rows in them, test rows removed, test repeated uris] = [205.8 426.9 107.2  11.5]
+  observed: [203, 424, 103, 11]

@@ -1,0 +1,8 @@
+B24 pooled fold AUC: all rows 0.8367 -> era-recalibrated 0.8347 (diff -0.0019; per seed -0.0019, -0.0011, -0.0028)
+singleton rows: 0.8335 -> 0.8311 (diff -0.0024; per seed -0.0026, -0.0022, -0.0025)
+  within-era fold AUC 1990s    0.786  (rows 223, High rate 0.50)
+  within-era fold AUC 2000s    0.818  (rows 316, High rate 0.52)
+  within-era fold AUC 2010-15  0.819  (rows 344, High rate 0.46)
+  within-era fold AUC 2016-19  0.734  (rows 466, High rate 0.39)
+  within-era fold AUC 2020-22  0.757  (rows 759, High rate 0.25)
+  within-era fold AUC 2023-24  0.834  (rows 1621, High rate 0.26)

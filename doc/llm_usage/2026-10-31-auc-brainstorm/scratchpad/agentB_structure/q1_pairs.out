@@ -1,0 +1,26 @@
+same full-date different-group pairs: 10079 rows involved: 2711 agreement: 0.629
+same-year different-date pairs: 840500 agreement: 0.6055
+year-matched null agreement: 0.5993
+same-date: bothHigh 0.1269 bothLow 0.5021 | matched null: bothHigh 0.0925 bothLow 0.5068
+distance thresholds (same-date quantiles): [-1.     2.343  3.022  3.865  4.895  6.318    inf]
+          q  d_lo  d_hi  n_same  agree_same  n_null  agree_null_matched  agree_null_raw
+0     0-0.1 -1.00  2.34    1008      0.7411   56687              0.6147          0.6134
+1  0.1-0.25  2.34  3.02    1512      0.6607  105425              0.5903          0.5919
+2  0.25-0.5  3.02  3.86    2520      0.6270  198012              0.5819          0.5875
+3  0.5-0.75  3.86  4.89    2519      0.5895  224743              0.5875          0.5947
+4  0.75-0.9  4.89  6.32    1512      0.5985  153159              0.6227          0.6336
+5   0.9-1.0  6.32   inf    1008      0.6190  102474              0.6267          0.6317
+overall NN distance quantiles (any row): [0.    0.756 0.974 1.209 1.46 ]
+rows with a same-date mate: 2711 of 3863
+  nearest mate dist [0,0.5): n=  30 agree=0.833  P(High|mate High)=0.750 P(High|mate Low)=0.136
+  nearest mate dist [0.5,1): n=  61 agree=0.967  P(High|mate High)=0.889 P(High|mate Low)=0.019
+  nearest mate dist [1,1.5): n= 184 agree=0.761  P(High|mate High)=0.618 P(High|mate Low)=0.178
+  nearest mate dist [1.5,2): n= 425 agree=0.727  P(High|mate High)=0.588 P(High|mate Low)=0.211
+  nearest mate dist [2,2.5): n= 511 agree=0.699  P(High|mate High)=0.596 P(High|mate Low)=0.254
+  nearest mate dist [2.5,3): n= 487 agree=0.653  P(High|mate High)=0.567 P(High|mate Low)=0.306
+  nearest mate dist [3,4): n= 640 agree=0.691  P(High|mate High)=0.543 P(High|mate Low)=0.224
+  nearest mate dist [4,99): n= 373 agree=0.630  P(High|mate High)=0.319 P(High|mate Low)=0.235
+AUC(nearest same-date mate label) among rows with mate: 0.6523  base rate among them 0.333
+AUC(nearest same-YEAR other-date label) same rows: 0.618
+AUC(mean same-date mates label): 0.6771
+YYYY same-string pairs: 176 agreement 0.494

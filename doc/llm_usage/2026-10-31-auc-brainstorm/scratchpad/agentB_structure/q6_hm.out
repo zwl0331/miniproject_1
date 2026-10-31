@@ -1,0 +1,11 @@
+Hanley-McNeil SE, AUC 0.84, positive rate 0.35:
+  20% n=173: SE=0.0343  95% half-width 0.067
+  30% n=259: SE=0.0281  95% half-width 0.055
+  40% n=345: SE=0.0243  95% half-width 0.048
+  50% n=432: SE=0.0218  95% half-width 0.043
+  60% n=518: SE=0.0199  95% half-width 0.039
+  100% n=863: SE=0.0154  95% half-width 0.030
+OOF seed-averaged AUC: A=0.8338 B=0.8377 E=0.8381; corr(A,E)=0.964 corr(A,B)=0.968
+  empirical subsample of OOF, n=345: SE(AUC_A)=0.0207; SE(AUC_E - AUC_A)=0.0076  [pred corr 0.964]
+  empirical subsample of OOF, n=518: SE(AUC_A)=0.0165; SE(AUC_E - AUC_A)=0.0059  [pred corr 0.964]
+  empirical subsample of OOF, n=863: SE(AUC_A)=0.0120; SE(AUC_E - AUC_A)=0.0044  [pred corr 0.964]

@@ -1,0 +1,2 @@
+xgb d4 +teDate+knn20                          mean15=0.8521 seeds=(0.8518,0.8524,0.8523) single=0.8270 sd=0.007 nfeat=25 18s
+ebm +teDate+knn20                             mean15=0.8419 seeds=(0.8430,0.8428,0.8399) single=0.8111 sd=0.008 nfeat=25 116s

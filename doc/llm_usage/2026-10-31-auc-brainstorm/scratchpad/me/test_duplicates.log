@@ -1,0 +1,7 @@
+test rows 863; rows in within-test duplicate pairs 22 (2.5%)
+B24 deployment prediction: mean 0.297; duplicate rows mean 0.587 vs others 0.289
+duplicate rows' percentile ranks: [0.26 0.26 0.36 0.36 0.69 0.69 0.71 0.71 0.75 0.75 0.87 0.87 0.91 0.91
+ 0.94 0.94 0.95 0.95 0.96 0.96 0.99 0.99]
+share of duplicate rows above the 70th / 80th / 90th percentile: 0.73 / 0.55 / 0.45
+duplicate rows' release years: [1984, 1984, 1988, 1988, 2000, 2000, 2014, 2014, 2016, 2016, 2016, 2016, 2019, 2019, 2022, 2022, 2022, 2022, 2023, 2023, 2024, 2024]
+duplicate rows below the median score: 4 of 22

@@ -1,0 +1,25 @@
+155 0 15s
+155 1 32s
+155 2 46s
+155 3 61s
+155 4 77s
+2026 0 94s
+2026 1 112s
+2026 2 129s
+2026 3 145s
+2026 4 159s
+1029 0 172s
+1029 1 187s
+1029 2 202s
+1029 3 216s
+1029 4 232s
+
+=== date-part ablation, mean of 15 fold AUCs; diff vs full(A) with SE over folds; last column = AUC on singleton-uri validation rows only
+  audio_only                 0.7499  diff -0.0796 +- 0.0029   singleton-only AUC 0.7455
+  audio_year                 0.8137  diff -0.0158 +- 0.0011   singleton-only AUC 0.8110
+  audio_ordinal              0.8159  diff -0.0136 +- 0.0012   singleton-only AUC 0.8133
+  audio_year_md              0.8223  diff -0.0071 +- 0.0010   singleton-only AUC 0.8173
+  audio_year_md_dow          0.8278  diff -0.0016 +- 0.0010   singleton-only AUC 0.8218
+  full(A)                    0.8294  diff +0.0000 +- 0.0000   singleton-only AUC 0.8240
+  full+dur_round             0.8303  diff +0.0008 +- 0.0005   singleton-only AUC 0.8252
+  full+n_copies(LEAKY-ish)   0.8479  diff +0.0185 +- 0.0019   singleton-only AUC 0.8227

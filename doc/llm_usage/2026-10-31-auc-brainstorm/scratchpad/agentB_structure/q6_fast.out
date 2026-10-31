@@ -1,0 +1,43 @@
+=== (b) paired difference, equal true AUC 0.84, by n and prediction correlation (2500 reps)
+  n  pred_corr  SE_single  SE_diff  AUC_corr  gap_95
+345       0.80     0.0224   0.0180     0.674   0.035
+345       0.90     0.0222   0.0130     0.828   0.025
+345       0.97     0.0222   0.0073     0.946   0.014
+518       0.80     0.0181   0.0147     0.668   0.029
+518       0.90     0.0176   0.0105     0.825   0.021
+518       0.97     0.0175   0.0061     0.941   0.012
+863       0.80     0.0141   0.0113     0.672   0.022
+863       0.90     0.0138   0.0083     0.822   0.016
+863       0.97     0.0138   0.0045     0.946   0.009
+
+=== (c) winner's curse on n=345: E[max of k public AUCs] - E[single], equal true AUC, pairwise prediction corr rho (2500 reps)
+ pred_corr  k  E_max_minus_true  SD_max
+       0.8  1            0.0000  0.0222
+       0.8  4            0.0138  0.0197
+       0.8  6            0.0161  0.0190
+       0.8 13            0.0209  0.0185
+       0.8 24            0.0248  0.0178
+       0.9  1            0.0000  0.0226
+       0.9  4            0.0096  0.0210
+       0.9  6            0.0114  0.0205
+       0.9 13            0.0156  0.0199
+       0.9 24            0.0177  0.0198
+
+=== (d) best-of-k2 (rival) minus best-of-k1 (team), equal TRUE AUC, n=345, within-team pred corr 0.9, between-team corr rb (2500 reps)
+ between_corr  k_team  k_rival   E_gap  SD_gap  P_ge_0018  P_ge_0025  P_ge_0028    q95
+          0.8       4        4 -0.0002  0.0155      0.127      0.052      0.034 0.0254
+          0.8       4        6  0.0020  0.0150      0.145      0.064      0.044 0.0268
+          0.8       4       13  0.0053  0.0154      0.194      0.098      0.068 0.0306
+          0.8       1       13  0.0156  0.0165      0.431      0.278      0.224 0.0433
+          0.9       4        4 -0.0002  0.0090      0.018      0.003      0.000 0.0143
+          0.9       4        6  0.0022  0.0088      0.037      0.005      0.003 0.0166
+          0.9       4       13  0.0057  0.0082      0.071      0.008      0.004 0.0191
+          0.9       1       13  0.0154  0.0108      0.392      0.181      0.117 0.0341
+
+=== (e) implied real gap: observed gap minus median noise+selection gap (k1=4, k2=13), and the true delta that makes P(observed >= gap) = 50%
+  between_corr 0.8: median noise+selection gap 0.0059, 90% interval [-0.019,0.030]; implied real delta for observed 0.018/0.025/0.028: +0.0121 / +0.0191 / +0.0221
+  between_corr 0.9: median noise+selection gap 0.0057, 90% interval [-0.007,0.019]; implied real delta for observed 0.018/0.025/0.028: +0.0123 / +0.0193 / +0.0223
+  if rival TRUE AUC is higher by 0.005: P(observed best-of-13 minus best-of-4 >= 0.025) = 0.039; mean observed gap 0.0104
+  if rival TRUE AUC is higher by 0.01: P(observed best-of-13 minus best-of-4 >= 0.025) = 0.101; mean observed gap 0.0151
+  if rival TRUE AUC is higher by 0.015: P(observed best-of-13 minus best-of-4 >= 0.025) = 0.261; mean observed gap 0.0201
+  if rival TRUE AUC is higher by 0.02: P(observed best-of-13 minus best-of-4 >= 0.025) = 0.501; mean observed gap 0.0251

@@ -1,0 +1,65 @@
+=== Q2: test rows vs FULL train (deployment)
+test rows with same-date train row: 0.722 (full-date rows only: 0.720)
+  nn_dist < 0.5: 0.002  (n=2)
+  nn_dist < 1.0: 0.022  (n=19)
+  nn_dist < 1.5: 0.079  (n=68)
+  nn_dist < 2.0: 0.182  (n=157)
+  nn_dist < 2.34: 0.294  (n=254)
+  nn_dist < 3.02: 0.476  (n=411)
+  mean count of same-date train rows (when >0): 6.89  median 4.0
+  nearest same-date label mean among test rows with a mate: 0.31
+CV reference (val rows vs 80% train): with mate 0.693, nn<1: 0.020, nn<2.34: 0.251  [from q1_probe]
+train rows vs all other-group train rows: with mate 0.726, nn<1 0.024, nn<2.34 0.283
+test date strings unseen in train: 240  by date_len: {10: 235, 4: 5}
+test year distribution vs train: {Interval(0, 1989, closed='right'): 0.036, Interval(1989, 1999, closed='right'): 0.044, Interval(1999, 2009, closed='right'): 0.067, Interval(2009, 2019, closed='right'): 0.212, Interval(2019, 2030, closed='right'): 0.641}
+                                 {Interval(0, 1989, closed='right'): 0.035, Interval(1989, 1999, closed='right'): 0.058, Interval(1999, 2009, closed='right'): 0.082, Interval(2009, 2019, closed='right'): 0.21, Interval(2019, 2030, closed='right'): 0.616}
+
+=== Q4: within-test structure
+repeated uri in test: 11 rows involved: 22  multiplicities: {2: 11}
+  QcozQPxg: n=2 identical_audio=True dates=['2000-07-10']
+  iUsmW8lq: n=2 identical_audio=True dates=['2014-10-31']
+  UP9cOCzC: n=2 identical_audio=True dates=['2022-12-22']
+  qaEVaz5W: n=2 identical_audio=True dates=['2022-04-01']
+  4T7zqbzK: n=2 identical_audio=True dates=['2016-02-05']
+  OmRLeM2m: n=2 identical_audio=True dates=['2019-01-24']
+  lOt9Zj3y: n=2 identical_audio=True dates=['2016-04-29']
+  vlJpYdUd: n=2 identical_audio=True dates=['2023-10-04']
+  BPZAd4oB: n=2 identical_audio=True dates=['1984-11-19']
+  4wiWwKW0: n=2 identical_audio=True dates=['1988-08-25']
+  m3TjTVVf: n=2 identical_audio=True dates=['2024-04-12']
+test rows sharing an exact date with another test row: 411  distinct such dates: 141  max per date: 12
+same-date different-uri test pairs: 516  d<1: 0  d<2.34: 61  d<3.02: 124
+test rows in a same-date pair with d<2.34: 88
+test rows with a same-date TEST mate but NO same-date train row: 42
+  those dates: {'2020-02-07': 5, '2000-07-10': 3, '2023-09-14': 3, '2020-06-05': 3, '1998-09-01': 2, '2024-06-17': 2, '2023-01-30': 2, '2024-04-10': 2, '2022-06-23': 2, '1993-12-24': 2, '2022-12-01': 2, '2019-01-24': 2, '2019-06-21': 2, '2016-04-29': 2, '1984-11-19': 2, '1985': 2, '1988-08-25': 2, '2022-09-29': 2}
+test rows whose exact audio signature appears in train: 2
+test->train nearest audio distance (any date) quantiles: [0.328 0.558 0.69  0.843 1.004]  n with d<0.3: 8
+  of test rows with d<0.3 to a train row, fraction with same date string: 0.125  same year: 0.875
+
+=== Q5: test ID gaps
+IDs present 863 range 2 967 missing 103
+missing IDs: [19, 21, 24, 26, 27, 48, 75, 77, 80, 91, 113, 126, 142, 144, 157, 164, 183, 186, 187, 189, 197, 225, 247, 264, 268, 272, 276, 310, 320, 333, 335, 345, 350, 361, 363, 365, 372, 374, 387, 395, 399, 407, 408, 410, 413, 419, 466, 476, 494, 500, 504, 511, 534, 536, 548, 554, 560, 571, 584, 609, 620, 629, 633, 634, 637, 642, 643, 648, 663, 672, 674, 688, 692, 694, 695, 699, 749, 758, 761, 785, 786, 791, 796, 802, 803, 825, 826, 832, 843, 844, 852, 856, 862, 886, 895, 907, 919, 927, 940, 943, 945, 952, 964]
+runs of consecutive missing IDs, length counts: {1: 83, 2: 10}
+gaps between consecutive missing IDs: mean 9.26 sd 9.11 min 1 max 50
+  observed runs 93 vs null 92.1+-3.0; observed gap sd 9.11 vs null 8.65+-0.79
+  missing mod 2: [54, 49] chi2 p=0.622
+  missing mod 3: [35, 32, 36] chi2 p=0.881
+  missing mod 5: [20, 19, 22, 18, 24] chi2 p=0.890
+  missing mod 7: [20, 11, 17, 12, 16, 14, 13] chi2 p=0.671
+  missing mod 8: [18, 10, 11, 15, 14, 11, 11, 13] chi2 p=0.785
+  missing mod 9: [11, 8, 10, 14, 12, 11, 10, 12, 15] chi2 p=0.924
+  missing mod 10: [9, 7, 11, 11, 15, 11, 12, 11, 7, 9] chi2 p=0.829
+  missing mod 12: [11, 3, 8, 10, 9, 9, 5, 11, 12, 9, 9, 7] chi2 p=0.668
+  missing per decile of ID range: [10, 10, 7, 12, 9, 10, 13, 8, 14, 10]  chi2 p= 0.906
+test rows adjacent to a missing ID: 172
+   year: adj mean 2016.500 vs other 2017.276  MWU p=0.751
+   duration_ms: adj mean 195962.203 vs other 203180.726  MWU p=0.966
+   loudness: adj mean -9.823 vs other -9.566  MWU p=0.320
+   energy: adj mean 0.570 vs other 0.580  MWU p=0.604
+   date_len: adj mean 9.651 vs other 9.887  MWU p=0.004
+  spearman(ID,year) = -0.001 p=0.983
+  spearman(ID,duration_ms) = +0.039 p=0.248
+  spearman(ID,loudness) = +0.041 p=0.233
+  spearman(ID,energy) = +0.067 p=0.048
+  spearman(ID,danceability) = -0.021 p=0.533
+train+test+missing = 4830 ; train/(train+test) = 0.8174  with missing:  0.8

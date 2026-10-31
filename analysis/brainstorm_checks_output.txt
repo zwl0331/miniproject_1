@@ -1,0 +1,50 @@
+# brainstorm_checks: run 2026-10-31 10:42 UTC at commit 308b795
+
+## Part 1: how the test file relates to the training file
+train rows 3864; test rows 863; sample rows 863; test ids equal the sample's ids in order: True
+test ids: min 2, max 967, unique 863, ids missing inside the range 103
+train + test + missing ids = 4830; train share 0.800000 (0.8 exactly would be 3864.0 train rows)
+test uris that also occur in train: 0 uris, 0 test rows
+within-test repeated uris: 11 uris, 22 rows; copies per repeated uri [2]
+within-train repeated uris: 203 uris, 424 rows; copies per repeated uri {2: 185, 3: 18}
+High rate: repeated-uri rows 0.7925 (n 424); singleton-uri rows 0.2974 (n 3440); all rows 0.3517
+test rows whose 13 audio values and date string occur together in train: 0; whose 13 audio values occur in train with any date: 2
+test rows with a repeated uri as a share of test: 0.0255; train rows with a repeated uri as a share of train: 0.1097
+
+## Part 2: the frozen menu rescored on singleton validation rows
+eligible rows 3863; singleton rows (primary group of size 1) 3431; rows in repeated groups 432; High rate singleton 0.2967, repeated 0.7894, all 0.3518
+singleton validation rows per fold, seed 155: [688, 684, 689, 686, 684]
+
+| candidate | kind | all rows (official) | singleton rows | by seed 155, 2026, 1029 | repeated rows | all minus singleton | rank all | rank singleton |
+|---|---|---|---|---|---|---|---|---|
+| blend_eq_all | blend | 0.8411 | 0.8370 | 0.8383, 0.8366, 0.8362 | 0.8169 | +0.0041 | 1 | 1 |
+| constrained_l0.1 | learned | 0.8410 | 0.8370 | 0.8382, 0.8364, 0.8363 | 0.8166 | +0.0040 | 2 | 2 |
+| stacker_c0.01 | learned | 0.8408 | 0.8365 | 0.8380, 0.8360, 0.8355 | 0.8166 | +0.0043 | 3 | 5 |
+| constrained_l0.01 | learned | 0.8406 | 0.8366 | 0.8377, 0.8362, 0.8360 | 0.8159 | +0.0040 | 4 | 3 |
+| stacker_c0.1 | learned | 0.8405 | 0.8365 | 0.8376, 0.8362, 0.8356 | 0.8160 | +0.0040 | 5 | 4 |
+| stacker_c1 | learned | 0.8402 | 0.8363 | 0.8374, 0.8362, 0.8354 | 0.8152 | +0.0039 | 6 | 6 |
+| constrained_l0 | learned | 0.8400 | 0.8360 | 0.8370, 0.8358, 0.8353 | 0.8167 | +0.0040 | 7 | 8 |
+| blend_h_p26_extra_trees_aafa66ea_25 | blend | 0.8394 | 0.8363 | 0.8379, 0.8355, 0.8356 | 0.8094 | +0.0031 | 8 | 7 |
+| family_average | blend | 0.8365 | 0.8330 | 0.8346, 0.8320, 0.8323 | 0.8081 | +0.0035 | 9 | 10 |
+| atom_p26_lightgbm_415b649d | atomic | 0.8364 | 0.8331 | 0.8346, 0.8323, 0.8323 | 0.8092 | +0.0034 | 10 | 9 |
+| atom_p26_anchor_s3 | atomic | 0.8323 | 0.8288 | 0.8306, 0.8276, 0.8283 | 0.8075 | +0.0035 | 11 | 11 |
+| atom_p26_anchor | atomic | 0.8315 | 0.8279 | 0.8292, 0.8267, 0.8279 | 0.8085 | +0.0035 | 12 | 12 |
+
+Spearman correlation of the two scores over the 12 candidates: 0.965
+frozen rule on the official score: selected blend_eq_all; tie set ['blend_eq_all', 'constrained_l0.01', 'constrained_l0.1', 'stacker_c0.01', 'stacker_c0.1', 'stacker_c1']
+the same rule on the singleton score (a diagnostic, not the rule): selected blend_h_p26_extra_trees_aafa66ea_25; tie set ['blend_eq_all', 'blend_h_p26_extra_trees_aafa66ea_25', 'constrained_l0', 'constrained_l0.01', 'constrained_l0.1', 'stacker_c0.01', 'stacker_c0.1', 'stacker_c1']
+menu production_selection: blend_eq_all
+
+### The menu's 8 atom runs
+
+| run | family | blocks | all rows | singleton rows | by seed | all minus singleton |
+|---|---|---|---|---|---|---|
+| p26_anchor_s3 | lightgbm | [] | 0.8323 | 0.8288 | 0.8306, 0.8276, 0.8283 | +0.0035 |
+| p26_anchor | lightgbm | [] | 0.8315 | 0.8279 | 0.8292, 0.8267, 0.8279 | +0.0035 |
+| p26_catboost_a9a13819 | catboost | ['music'] | 0.8321 | 0.8268 | 0.8290, 0.8258, 0.8256 | +0.0053 |
+| p26_extra_trees_aafa66ea | extra_trees | ['interactions'] | 0.8291 | 0.8277 | 0.8290, 0.8283, 0.8259 | +0.0014 |
+| p26_lightgbm_415b649d | lightgbm | ['date_count', 'date_te3'] | 0.8364 | 0.8331 | 0.8346, 0.8323, 0.8323 | +0.0034 |
+| p26_lightgbm_6aefed81 | lightgbm | ['date_count', 'date_te3'] | 0.8362 | 0.8324 | 0.8342, 0.8312, 0.8320 | +0.0038 |
+| p26_lightgbm_a8ce5635 | lightgbm | ['date_count', 'date_te3'] | 0.8366 | 0.8331 | 0.8350, 0.8317, 0.8325 | +0.0035 |
+| p26_xgboost_3aad74aa | xgboost | ['date_te3'] | 0.8325 | 0.8275 | 0.8290, 0.8270, 0.8263 | +0.0051 |
+
