@@ -62,7 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 ## Next action
 
-P2.7 running (Sam's go-ahead 2026-10-31, 05:41 PDT, verbatim: "Start P2.7"): the build (full path, projected about 2 h), then the empty-cache replay (about the same), then decide; Codex round X critiques the driver meanwhile. Then phase 3. For Sam:
+Development reopened (Sam, 2026-10-31 06:27 PDT, `decisions.md`): P2.9 explores what was dropped early, in an isolated worktree: a hierarchical prior for the exact-date encoding and the duration-rounding flag (matched comparisons), an RBF SVM family (cost pilot, small grid, contribution), then a neural channel with numerical embeddings and the date blocks if time allows; adoption on the 15 production folds, contribution to the current best blend positive on all three repeats. P2.7 continues on the current menu (build running, then replay, then decide) as reliability evidence; a revised menu gets its own nested evaluation. For Sam:
 
 
 1. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). No driver exists yet: the engine is built and checked with stand-ins, so P2.7 starts with the Codex consultation, then a driver that saves the outer split, measures the cost without concurrent jobs and chooses the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision; the eight-hour reservation was sized for a Sunday slot, and raising it is Sam's call). Then phase 3.
