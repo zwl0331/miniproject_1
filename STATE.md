@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, 06:25 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-31, 06:35 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
@@ -61,7 +61,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 ## Next action
 
-Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"). Nothing runs. For Sam:
+P2.7 started on Sam's go-ahead (2026-10-31, 06:35 PDT, verbatim: "Start P2.7"): the driver is being built after the Codex consultation; the cost is measured without concurrent jobs and the path chosen before any outer score. For Sam:
 
 
 1. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). No driver exists yet: the engine is built and checked with stand-ins, so P2.7 starts with the Codex consultation, then a driver that saves the outer split, measures the cost without concurrent jobs and chooses the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision; the eight-hour reservation was sized for a Sunday slot, and raising it is Sam's call). Then phase 3.
