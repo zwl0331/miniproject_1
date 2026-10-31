@@ -1969,6 +1969,25 @@ def _():
                 con1 = next(i for i in range(start1, alloc1) if '"record": "contribution"' in lines[i] and i in mine)
                 assert not audited(moved(con1, alloc1))
             assert audited(lines)  # the unmodified log still passes
+            # Review round 4, F2: a run_failure record must name a run its batch declares, with that run's recipe
+            # hash; the legitimate failure of the interrupted first batch (kept in the log) passes, and so does a
+            # well-formed failure of a declared run in a later batch.
+            fail = next(i for i in mine if '"record": "run_failure"' in lines[i])
+            f0 = json.loads(lines[fail])
+            assert f0["batch_id"] == bid1 and f0["planned_run_id"] in rx.feature_recipe_hashes(m1)
+            assert f0["recipe_sha256"] == rx.feature_recipe_hashes(m1)[f0["planned_run_id"]]
+            for bad in ({"planned_run_id": "not_in_any_manifest"}, {"recipe_sha256": "0" * 64}):
+                wrong = lines[:fail] + [json.dumps(dict(f0, **bad))] + lines[fail + 1:]
+                assert not audited(wrong), bad
+                assert not audited(wrong, incomplete=True), bad
+            r2 = rx.FeatureLog(CTX, task).manifests[bid2]["comparisons"][0]
+            assert rx.searches.recipe_hash(r2["comparator"]) != rx.searches.recipe_hash(r2["challenger"])
+            ok2 = dict(f0, batch_id=bid2, planned_run_id=r2["challenger_run_id"],
+                       recipe_sha256=rx.searches.recipe_hash(r2["challenger"]))
+            at = start2 + 1  # a failure right after the start, before the batch's runs (a resumed batch)
+            assert audited(lines[:at] + [json.dumps(ok2)] + lines[at:])
+            for bad in ({"planned_run_id": r2["comparator_run_id"]}, {"planned_run_id": "not_in_any_manifest"}):
+                assert not audited(lines[:at] + [json.dumps(dict(ok2, **bad))] + lines[at:]), bad
             # Review round 3, F6: a refused stop writes nothing (a blank reason; a stop after re-tuning); a valid
             # stop through the command re-plans its omitted expansion from the log as it stood, and passes.
             head_bytes = ("\n".join(head) + "\n").encode()

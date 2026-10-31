@@ -27,3 +27,4 @@ Rows dated before 2026-10-30's migration were copied on that day from the record
 | 2026-10-30 | "Review each one", the answer to: "Should non-final Kaggle submissions be a pre-authorized routine action (no review, no approval), within 10 a day?" | chat |
 | 2026-10-30 | "Fix F2, run provisionally (Recommended)", the answer to: "P2.4 is paused at readiness round 4 (one blocking finding, F2: the audit accepts undeclared failure records). After the migration, what should happen to it when you resume work?" The option read: "Fix F2 with its rejection tests, commit, execute the feature stage; its results get reviewed when they feed the final selection (R1)." | chat |
 | 2026-10-30 | "Not now", the answer to: "Start P2.4 now: fix F2, then run the feature stage provisionally?" (P2.4 stays paused) | chat |
+| 2026-10-30 | "continue the work finish P2.5 and 2.6 then pause." Then "Finished 2.4 before doing" (read as: finish P2.4 first, then P2.5 and P2.6, then pause) | chat |
