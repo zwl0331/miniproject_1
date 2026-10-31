@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, 03:50 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-31, 05:15 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
@@ -33,6 +33,7 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.6a | Learned-procedure engine, cache, selector, nested evaluator (with `executable_menu`); isolation checks; cost pilot within the plan's formulas | reviewed with the P2.6b freeze | Finding 026 (reviewed); `scripts/check_phase2.py` "(P2.6a)" | fd48199 |
 | P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | reviewed (R2 `APPROVED` at fd48199, round 2); every P2.6b run and the learned procedures replay exactly | Findings 026 to 028 (reviewed); `reviews/2026-10-31-p2.6b-menu.md` | fd48199 |
 | P2.6b | Submission file `2026-10-31_p2.6b_blend_eq_all.csv` (the frozen rule's first, CV 0.8411; sha256 d2b5c461…); public AUC 0.85377, a check only | released (R1 `APPROVED` at fe70fc4; Sam uploaded it 2026-10-31) | `reviews/2026-10-31-p2.6b-submission.md`; `submissions/README.md` | af7a466 |
+| P2.6b | Six more frozen-menu files prepared as public-board checks on Sam's instruction of 2026-10-31: the 0.25 Extra Trees blend (CV 0.8394), `constrained_l0.1` (0.8410), `stacker_c0.01` (0.8408), `stacker_c1` (0.8402), the standalone leader (0.8364), the family average (0.8365); the learned-procedure submission path used on real procedure banks for the first time | provisional; in R1 review (one batched record) | `reviews/2026-10-31-p2.6b-public-checks.md`; `submissions/README.md` | 6dbaf1f |
 | Brainstorm | A separate read-only Claude Fable 5.1 session with three sub-agents (2026-10-30/31) on raising the AUC; checked here: the test file is an 80/20 row split with every train track removed (no shared uri), and on singleton validation rows every menu candidate scores 0.003 to 0.004 lower with the ranking and the production selection kept | provisional (recorded; nothing adopted into the models or the frozen menu); Finding 029 draft | `doc/llm_usage/2026-10-31-auc-brainstorm/`; `analysis/brainstorm_checks_output.txt` | af7a466 |
 | Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30); primary agent Claude Opus 5.5 to 308b795, Claude Fable 5.1 from 2026-10-31 | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
 
@@ -56,11 +57,13 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| none | | | |
+| R1 review of the six public-check files | `review.sh run` (Codex gpt-6-astra xhigh); thread id in the record | `reviews/2026-10-31-p2.6b-public-checks.md`; `~/.agent-review/Mini_project_1-303d1eaf/logs/` | 2026-10-31 05:15 PDT |
 
 ## Next action
 
-Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"). Nothing runs. For Sam:
+Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"); only the R1 review above runs. For Sam:
+
+0. When the R1 approves: upload the six public-check files (Kaggle descriptions in `submissions/README.md`; six today keeps the daily cap) and report each public score; they are checks, never a selection signal.
 
 1. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). No driver exists yet: the engine is built and checked with stand-ins, so P2.7 starts with the Codex consultation, then a driver that saves the outer split, measures the cost without concurrent jobs and chooses the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision; the eight-hour reservation was sized for a Sunday slot, and raising it is Sam's call). Then phase 3.
 2. Sam's decisions on the brainstorm's three questions (open questions above). The primary agent's recommendation: report the singleton score as a diagnostic only, do not reopen the frozen pool, no transductive use of the test file.
