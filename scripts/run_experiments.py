@@ -102,7 +102,8 @@ TIMING_SCHEMA = "timing_v1"
 TIMING_CASES = ("light", "representative", "expensive")
 OPTIONAL_TIMING_CASES = ("extended",)  # beyond the space's timed corner (P2.3's range extensions); not averaged
 PROTOCOLS = {"P2.2": Path("configs/phase2/p2.2/protocol.json"),  # plan section 15
-             "P2.3": Path("configs/phase2/p2.3/protocol.json")}  # plan section 17
+             "P2.3": Path("configs/phase2/p2.3/protocol.json"),  # plan section 17
+             "P2.5": Path("configs/phase2/p2.5/protocol.json")}  # plan section 19
 BATCH_DIR = runs.ARTIFACTS / "batches"
 
 

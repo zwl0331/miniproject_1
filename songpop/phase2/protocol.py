@@ -8,7 +8,7 @@ import itertools
 from songpop import artifacts
 from songpop.phase2 import allocation, refine, searches
 from songpop.phase2.models import INTEGER_PARAMS
-from songpop.phase2.recipes import RECIPE_SCHEMA, recipe_hash, recipe_id, strict_loads, validate_recipe
+from songpop.phase2.recipes import RECIPE_SCHEMA, iteration_policy, recipe_hash, recipe_id, strict_loads, validate_recipe
 from songpop.splits import SPLIT_SEEDS
 
 PROTOCOL_SCHEMA = "protocol_v1"
@@ -75,7 +75,7 @@ def make_recipe(template, family, name, values):
     return validate_recipe({"schema": RECIPE_SCHEMA, "name": name, "family": family, "params": params,
                             "base": template["base"], "blocks": list(template["blocks"]), "drop": list(template["drop"]),
                             "preprocessing": prep, "training_weights": template["training_weights"],
-                            "estimator_seeds": list(template["estimator_seeds"]), "iterations": "fixed",
+                            "estimator_seeds": list(template["estimator_seeds"]), "iterations": iteration_policy(family),
                             "deployment": "fold_average"})
 
 

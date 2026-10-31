@@ -804,6 +804,37 @@ Score-free timing of the feature recipes before readiness (`../../configs/phase2
 | Re-tuning | `--plan-retune K --task P2.4`, then `--run-retune K --task P2.4`, K = 1, 2 |
 | Audit and refit | `--audit-features P2.4`, then `--verify --task P2.4` |
 
+## 19. P2.5: the TabM challenger
+
+On Sam's instruction of 2026-10-30, verbatim: "continue the work finish P2.5 and 2.6 then pause." and "Finished 2.4 before doing". Built after Codex consultation round S (an independent design, after Claude's positions were written down), verbatim in `../llm_usage/2026-10-30-p2.5-consultation/` with what was adopted. Under agent-workflow v1 (`../../AGENTS.md`) it runs provisionally: no readiness or completion review; its results get an R1 review when they feed the final selection. It resolves what section 5.5 leaves to the task; where this section is silent, section 5.5 applies.
+
+### 19.1 The family
+
+- Installation: torch 2.14.1 and tabm 0.0.3 from the lock reviewed in P2.1 (`../../configs/phase2/install/tabm.txt`), with `install_locks check-before tabm` and `check-after tabm` (both OK, 2026-10-30). The package identity of `songpop.artifacts.packages` is unchanged; a TabM run's `packages` add `tabm` and `torch`.
+- `songpop/phase2/tabm.py`: the `tabm` family. Parameters `n_blocks`, `d_block`, `dropout`, `learning_rate`, `weight_decay`, `batch_size`, all six set by every recipe; fixed by the factory: 16 members, `arch_type` "tabm" with ReLU and random-sign scaling initialization, no numerical embeddings, at most 300 epochs, patience 20, tolerance 1e-6, a five-fold inner split, four threads, AdamW with betas (0.9, 0.999), epsilon 1e-8 and weight decay on every parameter.
+- Preprocessing, owned by the estimator because its two stages fit it on different rows: `tabm_numeric` with `scaler` "standard" (the phase 1 log transforms, median imputation, standardization) or "quantile" (the ten continuous audio columns quantile-transformed to the normal distribution, at most 256 quantiles; the calendar columns standardized). Both add a missing indicator for each of the F2 fields month, day, day of year, weekday and days present, and one-hot encode key, mode and time signature with categories from the fitting rows, an unseen category all zero.
+- Stopping and refit (recipe field `iterations`: "early_stop_refit_v1"; every other family keeps "fixed"): the first fold of a `StratifiedGroupKFold` of the fitting rows, seeded from the fit context alone (shared by every configuration and estimator seed on one fitting population); preprocessing fitted on its training part; after each epoch the log loss of the averaged member probabilities on its validation part; a stop after 20 epochs without an improvement larger than the tolerance; the chosen epoch the earliest within the tolerance of the lowest loss. Then preprocessing is refitted on all fitting rows and a new network is trained for exactly that many epochs, with the same batch size (so about a quarter more updates). Initialization and minibatch order have separate seeds for each stage, from the fit context and the estimator seed. Members train on the same batches with the mean of their binary cross-entropies; predictions average the members' probabilities, in fixed batches of 256 rows. Each fit's receipt records the inner split, the preprocessing rows and digests, the seeds, the losses, the chosen epoch, why it stopped, and the update counts.
+- Leakage boundary: a TabM recipe takes no training weights and none of the fitted blocks (`date_count`, the date target encodings, `era_relative`), because their output would carry information across the inner stopping split; the stateless blocks are allowed.
+- Process isolation (Finding 024): LightGBM and XGBoost load Homebrew's OpenMP runtime and torch its own; using torch after either crashes the process. Every torch computation runs in one persistent worker process (`python -m songpop.phase2.tabm`), which imports neither; the fitting process holds the fitted preprocessing and the weights as arrays. A torch import in the fitting process is refused.
+
+### 19.2 Search
+
+The wave protocol of sections 15 and 17 (`../../configs/phase2/p2.5/protocol.json`, written by `../../analysis/p25_make_protocol.py` after P2.4 ran): the LightGBM reference family (H, refitted and checked against the P2.1 anchor bank in all ten arrays), `prior_strongest` the strongest complete run of P2.2, P2.8, P2.3 and P2.4, and the `tabm` family. Initial batch of 8: the anchor N0 (two blocks, width 128, dropout 0.1, learning rate 1e-3, weight decay 1e-4, batch 256, standard scaling) and seven one-factor variants (width 64; width 256; three blocks; learning rate 3e-4; learning rate 3e-3; dropout 0.2 with weight decay 1e-2 and batch 128; quantile scaling, the matched preprocessing comparison P2.4 omitted). Then, under section 5.6, at most two local refinement batches of 4 (two proposals around the standalone parent and one around the contribution parent, then one and two; one broad draw; at most two dimensions moved), ceiling 16. Every configuration runs on all three split seeds with estimator seed 0; nothing is screened on one split seed, so no partial-seed candidate exists. This replaces section 5.5's screening sentence for P2.5. The cutoff is Saturday 2026-10-31, 08:00 PDT: no batch starts later.
+
+### 19.3 Timing, records, verification and handoff
+
+- Score-free timing of a light, a representative and an expensive configuration (`../../configs/phase2/p2.5/timing.json`), all three split seeds, before any P2.5 score; the reservation from it. If 8 configurations do not fit section 5.5's three hours, the initial batch is reduced before any score.
+- Records, audit and refit as in section 17.6, with the P2.5 protocol: `--audit-task P2.5`, then `--verify-task P2.5`. The criterion is the classical one (1e-12), since the repeatability pilot showed bit-identical predictions across processes.
+- Finding 024 (the installation, the process isolation, the repeatability and the timing) and Finding 025 (the search: standalone and contribution results), draft and exploratory.
+- Handoff to P2.6b (`../../analysis/p25_summary.py`): every complete TabM run with its recipe, run id and bank hash, its standalone result and its contribution blends with H. Default seed policy for P2.6b: estimator seed 0 (16 members are one fitted model); TabM enters learned combiners only if its measured cost fits (section 5.5).
+
+| Step | Command (from the project root, `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m scripts.run_experiments`) |
+|---|---|
+| Protocol | `.venv/bin/python -B analysis/p25_make_protocol.py` |
+| Timing and reservation | `--timing configs/phase2/p2.5/timing.json --task P2.5`, `--reserve --task P2.5` |
+| Waves | `--plan-wave 1 --task P2.5`; `--run-wave 1 --anchors-only --task P2.5`; `--run-wave 1 --task P2.5`; then `--plan-wave N`, `--run-wave N`, N = 2, 3, until nothing is planned |
+| Audit, refit, handoff | `--audit-task P2.5`, `--verify-task P2.5`, `.venv/bin/python -B -I analysis/p25_summary.py .` |
+
 ## Open questions
 
 1. The exact Kaggle team name as Kaggle displays it, for the report and the Piazza note (Sam).

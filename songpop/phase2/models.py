@@ -16,10 +16,11 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, RobustScal
 from threadpoolctl import threadpool_limits
 
 from songpop.models import LOG100
+from songpop.phase2.tabm import TabMClassifier  # imported here, so its source is in every run's manifest from the start
 
 THREADS = 4
 CATEGORICAL = ["key", "mode", "time_signature"]  # one-hot under log_standard, spline and knn_blocks, never splined
-OPTIONAL_PACKAGES = {"catboost": "catboost", "ebm": "interpret-core"}
+OPTIONAL_PACKAGES = {"catboost": "catboost", "ebm": "interpret-core", "tabm": ("tabm", "torch")}
 
 # Parameters a recipe may set, per family; everything else is fixed by the factory.
 ALLOWED = {
@@ -35,7 +36,10 @@ ALLOWED = {
                  "bootstrap_type", "bagging_temperature", "rsm"},
     "ebm": {"max_rounds", "learning_rate", "interactions"},
     "knn": {"n_neighbors", "weights", "metric"},
+    "tabm": {"n_blocks", "d_block", "dropout", "learning_rate", "weight_decay", "batch_size"},  # P2.5
 }
+# TabM settings fixed by the factory (plan section 5.5), written out so an omitted argument cannot change the method.
+TABM_FIXED = {"k": 16, "max_epochs": 300, "patience": 20, "tolerance": 1e-6, "inner_folds": 5}
 KNN_METRICS = {"euclidean": "l2", "manhattan": "l1"}  # each metric with the block normalization it requires
 # EBM pair terms (plan section 5.2): "none" fits main effects only; "declared3" adds these three pairs, resolved to
 # column indices after the recipe's feature construction. interpret's default ("3x", automatic pairs) is never used.
@@ -78,12 +82,14 @@ DOMAINS = {  # parameter: predicate on its value; a recipe's parameters are chec
     "boosting_type": lambda v: v in ("Plain", "Ordered"), "interactions": lambda v: v in EBM_PAIRS,
     "bootstrap_type": lambda v: v in ("MVS", "Bayesian"),
     "bagging_temperature": lambda v: _num(v) and v >= 0, "rsm": _fraction,
+    "n_blocks": _int, "d_block": _int, "batch_size": _int, "dropout": lambda v: _num(v) and 0 <= v < 1,
+    "weight_decay": lambda v: _num(v) and v >= 0,
 }
 
 
 FAMILY_DOMAINS = {("xgboost", "max_depth"): _int}
 # Parameters whose values are counts: compared as integers; every other numeric parameter is compared as a float.
-INTEGER_PARAMS = {"n_estimators", "max_iter", "iterations", "max_rounds", "n_neighbors", "num_leaves", "max_leaf_nodes",
+INTEGER_PARAMS = {"n_blocks", "d_block", "batch_size", "n_estimators", "max_iter", "iterations", "max_rounds", "n_neighbors", "num_leaves", "max_leaf_nodes",
                   "min_child_samples", "min_samples_leaf", "subsample_freq", "max_depth", "depth", "n_knots"}
 
 
@@ -281,7 +287,15 @@ def make_estimator(family, p, seed, columns=None):
 
 
 def make_model(recipe, seed, columns):
-    """The recipe's preprocessing (if any) followed by its family's estimator, for feature frames with these columns."""
+    """The recipe's preprocessing (if any) followed by its family's estimator, for feature frames with these columns.
+    TabM owns its preprocessing (songpop.phase2.tabm): its stopping stage and its final stage fit it on different
+    rows, so the recipe names it ("tabm_numeric" with its scaler) and the estimator builds it."""
+    if recipe["family"] == "tabm":
+        validate_model_params("tabm", recipe["params"])
+        if set(recipe["params"]) != ALLOWED["tabm"]:
+            raise ValueError(f"a tabm recipe sets exactly {sorted(ALLOWED['tabm'])}")
+        return TabMClassifier(**recipe["params"], scaler=recipe["preprocessing"]["scaler"], random_state=seed,
+                              **TABM_FIXED, threads=THREADS)
     if recipe["family"] in ("catboost", "ebm") and recipe["preprocessing"]["name"] != "none":
         raise ValueError(f"{recipe['family']} takes the feature frame as it is (EBM resolves its pairs on those "
                          f"columns; CatBoost predicts through prediction_view)")
@@ -342,11 +356,12 @@ def weight_argument(model):
 
 
 def family_packages(recipe):
-    """Versions of the optional package a family needs, without importing it; None when absent."""
-    name = OPTIONAL_PACKAGES.get(recipe["family"])
-    if name is None:
-        return {}
-    try:
-        return {name: importlib.metadata.version(name)}
-    except importlib.metadata.PackageNotFoundError:
-        return {name: None}
+    """Versions of the optional packages a family needs, without importing them; None when absent."""
+    names = OPTIONAL_PACKAGES.get(recipe["family"])
+    out = {}
+    for name in ((names,) if isinstance(names, str) else names or ()):
+        try:
+            out[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            out[name] = None
+    return out
