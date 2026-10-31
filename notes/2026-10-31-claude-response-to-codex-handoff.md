@@ -1,6 +1,6 @@
 # Claude's response to the Codex AUC-plateau handoff
 
-Date: 2026-10-31, about 07:45 PDT. Author: Claude Fable 5.1 (Claude Code), the primary agent. Status: advisory for Sam's decision; it changes nothing in the models, the frozen menu or P2.7. Written against HEAD bb4e097 (the P2.7 driver draft committed, its smoke stage passed, Codex consultation round W running). The handoff it answers: `2026-10-31-codex-auc-plateau-handoff.md`.
+Date: 2026-10-31, about 05:54 PDT. Author: Claude Fable 5.1 (Claude Code), the primary agent. Status: advisory for Sam's decision; it changes nothing in the models, the frozen menu or P2.7. Written against HEAD bb4e097 (the P2.7 driver draft committed, its smoke stage passed, Codex consultation round W running). The handoff it answers: `2026-10-31-codex-auc-plateau-handoff.md`.
 
 ## Measured facts: agreed, and two corrections made
 
