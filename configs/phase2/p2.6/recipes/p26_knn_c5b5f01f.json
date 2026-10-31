@@ -1,0 +1,25 @@
+{
+ "base": "F1",
+ "blocks": [],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0
+ ],
+ "family": "knn",
+ "iterations": "fixed",
+ "name": "p26_knn_c5b5f01f",
+ "params": {
+  "metric": "euclidean",
+  "n_neighbors": 30,
+  "weights": "distance"
+ },
+ "preprocessing": {
+  "alpha": 0.5,
+  "category_weight": 0.5,
+  "name": "knn_blocks",
+  "normalization": "l2"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

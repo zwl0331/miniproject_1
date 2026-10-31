@@ -12,7 +12,9 @@ standalone winner and contribution winner (best blend AUC, ties to the lower rec
 to two further configurations of R0's family within 0.002 of R0, distinct atoms, by mean AUC then recipe id; the
 anchor (the phase 1 recipe, estimator seed 0) and its three-seed version. Final seed policies: estimator seeds 0, 1
 and 2 for every family except kNN (deterministic, one fit) and TabM (seed 0, declared from its cost in P2.5); the
-anchor keeps seed 0 and its three-seed version is a separate nominee."""
+anchor keeps seed 0 and its three-seed version is a separate nominee. Every nominee, the seed-0 anchor and the
+single-seed families included, is run again under the current sources (P2.6b), so the menu is regenerated under one
+final implementation revision (plan section 11; R2 review round 1, F3); no historical bank enters the pool."""
 import json
 import sys
 from pathlib import Path
@@ -116,7 +118,7 @@ def nominate(inv):
         if rid == ANCHOR_RUN:
             base = dict(e["recipe"], name="p26_anchor")
             nominees.append({"source_run_id": rid, "family": e["family"], "atom_id": e["atom_id"], "roles": roles,
-                             "policy": "anchor, estimator seed 0", "recipe": validate_recipe(base), "run_existing": rid})
+                             "policy": "anchor, estimator seed 0", "recipe": validate_recipe(base), "run_existing": None})
             nominees.append({"source_run_id": rid, "family": e["family"], "atom_id": e["atom_id"],
                              "roles": ["anchor_three_seeds"], "policy": "estimator seeds 0, 1, 2",
                              "recipe": validate_recipe(dict(base, name="p26_anchor_s3", estimator_seeds=[0, 1, 2])),
@@ -124,10 +126,8 @@ def nominate(inv):
             continue
         name = f"p26_{e['family']}_{e['atom_id'][:8]}"
         rec = final_policy(e["recipe"], name)
-        same = rec["estimator_seeds"] == e["recipe"]["estimator_seeds"]
         nominees.append({"source_run_id": rid, "family": e["family"], "atom_id": e["atom_id"], "roles": roles,
-                         "policy": f"estimator seeds {rec['estimator_seeds']}", "recipe": rec,
-                         "run_existing": rid if same and rec == dict(e["recipe"], name=name) else None})
+                         "policy": f"estimator seeds {rec['estimator_seeds']}", "recipe": rec, "run_existing": None})
     return ref, contrib, per_family, extras, nominees
 
 

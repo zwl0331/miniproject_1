@@ -1,6 +1,6 @@
 {
  "schema": "p26_procedures_v1",
- "nominations_sha256": "a2fb226c6b2c2cbe28669aef5647cd80ac69235acad689ff92eeb8e45e27cbe8",
+ "nominations_sha256": "fc8cb005b0a762748df6627050218f8140a76366d06b8f0c00d020531a56819e",
  "final_runs": [
   {
    "name": "p26_lightgbm_a8ce5635",
@@ -94,24 +94,24 @@
   },
   {
    "name": "p26_knn_230fcf76",
-   "run_id": "p2_p24_X3_08_seeds155-2026-1029_bd637827ec60",
+   "run_id": "p2_p26_knn_230fcf76_seeds155-2026-1029_b0d6ed8364c2",
    "family": "knn",
    "roles": [
     "standalone_winner"
    ],
    "atom_id": "230fcf761ff0e38d",
-   "bank_sha256": "1a9b750231ce20d364c1bcbfe6e358216ff7860693f3604f7d0e45d28effc0fe",
+   "bank_sha256": "ea35a9960c136c83151b08b0e80ba5e65a677373a8aa0a32c0525e42e0a1ffee",
    "mean": 0.7913861570704911
   },
   {
    "name": "p26_knn_c5b5f01f",
-   "run_id": "p2_p22_knn_b1_0_011_seeds155-2026-1029_e8f3035506ea",
+   "run_id": "p2_p26_knn_c5b5f01f_seeds155-2026-1029_bd834d977bf1",
    "family": "knn",
    "roles": [
     "contribution_winner"
    ],
    "atom_id": "c5b5f01f65033044",
-   "bank_sha256": "be299bd694e7f612c6dd85635ae73b5585d66a2378359674d8ce36e48a703e43",
+   "bank_sha256": "9b0c68dd001dd964f4a096ca6207d0ca4f452b6bebd3a9da6b8b6d1291979586",
    "mean": 0.780623284333583
   },
   {
@@ -171,24 +171,24 @@
   },
   {
    "name": "p26_tabm_54f94b43",
-   "run_id": "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c",
+   "run_id": "p2_p26_tabm_54f94b43_seeds155-2026-1029_67202ff0db8d",
    "family": "tabm",
    "roles": [
     "standalone_winner"
    ],
    "atom_id": "54f94b437c929150",
-   "bank_sha256": "1ef9681f2a8986b713c72a5ee3f294c8dd5cf157a1db4b5ce40b5888010841b3",
+   "bank_sha256": "b471943735565cf76d5897a71c37eb651d242da65f4d001b94eb8db24a7bb559",
    "mean": 0.8033962567773794
   },
   {
    "name": "p26_tabm_f84a691f",
-   "run_id": "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2",
+   "run_id": "p2_p26_tabm_f84a691f_seeds155-2026-1029_de01fe44d223",
    "family": "tabm",
    "roles": [
     "contribution_winner"
    ],
    "atom_id": "f84a691f53a277a9",
-   "bank_sha256": "f1c826016c95c01f85daf41ec24fd696546fa17f01322ff66dffe52602588a1e",
+   "bank_sha256": "e7fa9621b82f92698c4ede7909a505ac823edc31dc09b9ace63839e2aa2f6827",
    "mean": 0.8010862745278561
   },
   {
@@ -237,13 +237,13 @@
   },
   {
    "name": "p26_anchor",
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
    "family": "lightgbm",
    "roles": [
     "anchor"
    ],
    "atom_id": "041e3e3eedeae2a1",
-   "bank_sha256": "8f7df54fe0184dfdeb1489264f70c3f2e4a5ccec5576c4ad5a3c94cf7f1c23c2",
+   "bank_sha256": "a15575d7f9a4f4fd781352a983d673f3bfc77e2cac2991b4d7c24f2cd0f02864",
    "mean": 0.8314739289455241
   },
   {
@@ -267,56 +267,6 @@
  },
  "contributions": [
   {
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
-   "weight": 0.1,
-   "mean": 0.8372227241089776
-  },
-  {
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
-   "weight": 0.25,
-   "mean": 0.8376878149785372
-  },
-  {
-   "run_id": "p2_p22_knn_b1_0_011_seeds155-2026-1029_e8f3035506ea",
-   "weight": 0.1,
-   "mean": 0.8374378161591584
-  },
-  {
-   "run_id": "p2_p22_knn_b1_0_011_seeds155-2026-1029_e8f3035506ea",
-   "weight": 0.25,
-   "mean": 0.8372324471507748
-  },
-  {
-   "run_id": "p2_p24_X3_08_seeds155-2026-1029_bd637827ec60",
-   "weight": 0.1,
-   "mean": 0.8371466146319618
-  },
-  {
-   "run_id": "p2_p24_X3_08_seeds155-2026-1029_bd637827ec60",
-   "weight": 0.25,
-   "mean": 0.8368165534786733
-  },
-  {
-   "run_id": "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2",
-   "weight": 0.1,
-   "mean": 0.8374784517897134
-  },
-  {
-   "run_id": "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2",
-   "weight": 0.25,
-   "mean": 0.8371608385392587
-  },
-  {
-   "run_id": "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c",
-   "weight": 0.1,
-   "mean": 0.8374065553034008
-  },
-  {
-   "run_id": "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c",
-   "weight": 0.25,
-   "mean": 0.8371565249069187
-  },
-  {
    "run_id": "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd",
    "weight": 0.1,
    "mean": 0.8372197302378096
@@ -325,6 +275,16 @@
    "run_id": "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd",
    "weight": 0.25,
    "mean": 0.8377577552152767
+  },
+  {
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
+   "weight": 0.1,
+   "mean": 0.8372227241089776
+  },
+  {
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
+   "weight": 0.25,
+   "mean": 0.8376878149785372
   },
   {
    "run_id": "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
@@ -397,6 +357,26 @@
    "mean": 0.8374366149114114
   },
   {
+   "run_id": "p2_p26_knn_230fcf76_seeds155-2026-1029_b0d6ed8364c2",
+   "weight": 0.1,
+   "mean": 0.8371466146319618
+  },
+  {
+   "run_id": "p2_p26_knn_230fcf76_seeds155-2026-1029_b0d6ed8364c2",
+   "weight": 0.25,
+   "mean": 0.8368165534786733
+  },
+  {
+   "run_id": "p2_p26_knn_c5b5f01f_seeds155-2026-1029_bd834d977bf1",
+   "weight": 0.1,
+   "mean": 0.8374378161591584
+  },
+  {
+   "run_id": "p2_p26_knn_c5b5f01f_seeds155-2026-1029_bd834d977bf1",
+   "weight": 0.25,
+   "mean": 0.8372324471507748
+  },
+  {
    "run_id": "p2_p26_lightgbm_142597fc_seeds155-2026-1029_f665b2f192cc",
    "weight": 0.1,
    "mean": 0.8374557807653631
@@ -467,6 +447,26 @@
    "mean": 0.8378434570082758
   },
   {
+   "run_id": "p2_p26_tabm_54f94b43_seeds155-2026-1029_67202ff0db8d",
+   "weight": 0.1,
+   "mean": 0.8374065553034008
+  },
+  {
+   "run_id": "p2_p26_tabm_54f94b43_seeds155-2026-1029_67202ff0db8d",
+   "weight": 0.25,
+   "mean": 0.8371565249069187
+  },
+  {
+   "run_id": "p2_p26_tabm_f84a691f_seeds155-2026-1029_de01fe44d223",
+   "weight": 0.1,
+   "mean": 0.8374784517897134
+  },
+  {
+   "run_id": "p2_p26_tabm_f84a691f_seeds155-2026-1029_de01fe44d223",
+   "weight": 0.25,
+   "mean": 0.8371608385392587
+  },
+  {
    "run_id": "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023",
    "weight": 0.1,
    "mean": 0.8367670157911513
@@ -525,7 +525,7 @@
   },
   {
    "name": "p26_anchor",
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
    "family": "lightgbm",
    "atom_id": "041e3e3eedeae2a1",
    "reason": "anchor"
@@ -985,7 +985,7 @@
   {
    "id": "atom_p26_anchor",
    "kind": "atomic",
-   "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+   "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
    "recipe": {
     "base": "F2",
     "blocks": [],
@@ -996,7 +996,7 @@
     ],
     "family": "lightgbm",
     "iterations": "fixed",
-    "name": "lightgbm_F2_anchor",
+    "name": "p26_anchor",
     "params": {
      "colsample_bytree": 0.8,
      "learning_rate": 0.02,
@@ -1503,7 +1503,7 @@
      "weight": 0.9
     },
     {
-     "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+     "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
      "weight": 0.1
     }
    ],
@@ -1531,7 +1531,7 @@
      "weight": 0.75
     },
     {
-     "run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+     "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
      "weight": 0.25
     }
    ],

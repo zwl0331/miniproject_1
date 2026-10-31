@@ -1,0 +1,26 @@
+{
+ "base": "F2",
+ "blocks": [],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0
+ ],
+ "family": "lightgbm",
+ "iterations": "fixed",
+ "name": "p26_anchor",
+ "params": {
+  "colsample_bytree": 0.8,
+  "learning_rate": 0.02,
+  "min_child_samples": 20,
+  "n_estimators": 600,
+  "num_leaves": 15,
+  "subsample": 0.8,
+  "subsample_freq": 1
+ },
+ "preprocessing": {
+  "name": "none"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

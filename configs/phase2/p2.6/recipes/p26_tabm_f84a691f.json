@@ -1,0 +1,26 @@
+{
+ "base": "F2",
+ "blocks": [],
+ "deployment": "fold_average",
+ "drop": [],
+ "estimator_seeds": [
+  0
+ ],
+ "family": "tabm",
+ "iterations": "early_stop_refit_v1",
+ "name": "p26_tabm_f84a691f",
+ "params": {
+  "batch_size": 256,
+  "d_block": 256,
+  "dropout": 0.1,
+  "learning_rate": 0.001,
+  "n_blocks": 2,
+  "weight_decay": 0.0001
+ },
+ "preprocessing": {
+  "name": "tabm_numeric",
+  "scaler": "standard"
+ },
+ "schema": "recipe_v1",
+ "training_weights": "none"
+}

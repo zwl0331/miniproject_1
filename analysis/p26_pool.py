@@ -30,8 +30,8 @@ KIND_ORDER = {"atomic": 0, "blend": 1, "constrained": 2, "stacker": 3}
 
 
 def final_runs(ctx, nom):
-    """Each nominee's final-policy run: the existing run when its policy changed nothing, else the P2.6b run of its
-    recipe file; each audited against its bank and complete."""
+    """Each nominee's final-policy run: the P2.6b run of its recipe file, made under the current sources; each audited
+    against its bank and complete."""
     by_recipe = {}
     for r in runs.logged(ctx):
         if r["task_id"] == "P2.6b" and r["prediction_kind"] in ("fitted", "seed_average"):
