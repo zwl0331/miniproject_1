@@ -29,6 +29,7 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.8 | Best standalone 0.8354 (tuned LightGBM, date count, `date_te30`); best blend 0.8359; identifier probes negative | reviewed | Findings 014 to 017 | 5e2d5a0 |
 | P2.3 | CatBoost best 0.8306, EBM best 0.8162, both below the anchor | reviewed (approved at fingerprint 42967267…, whose tree is this commit) | Findings 018 to 020 | dca38c6 |
 | P2.4 | Feature stage code, protocol and timing; nothing scored | provisional; readiness round 4 left F2 open | Finding 021 (draft), `reviews/2026-10-30-p2.4-features.md` | 74517ab |
+| Workflow | Migration to agent-workflow v1, homework profile | reviewed (`APPROVED` in round 2, no finding open) | `reviews/2026-10-30-agent-workflow-migration.md` | 10fa77a |
 
 ## Rejected approaches
 
