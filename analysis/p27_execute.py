@@ -292,8 +292,9 @@ def shrink_candidate(cand):
     return c
 
 
-def maxrss_mb():
-    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 ** 2)
+def peak_memory_gb():
+    r = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss  # bytes on macOS, kilobytes on Linux
+    return r / (1024 ** 3) if sys.platform == "darwin" else r / (1024 ** 2)
 
 
 def smoke():
@@ -344,7 +345,7 @@ def smoke():
     print(f"smoke (b): a full-size learned procedure on outer fold 0's training part ({len(O.y)} rows): "
           f"{len(settings)} combiner settings learned and one learned full refit in {t3 - t2:.0f} s "
           f"({cache.misses} meta cross-fits, {cache.hits} hits); repeated from the disk cache in a fresh object in "
-          f"{time.time() - t3:.0f} s with equal predictions ({fresh.hits} hits, no miss); peak memory {maxrss_mb():.2f} GB",
+          f"{time.time() - t3:.0f} s with equal predictions ({fresh.hits} hits, no miss); peak memory {peak_memory_gb():.2f} GB",
           flush=True)
     shutil.rmtree(ns)
 
@@ -358,7 +359,7 @@ def measure():
     menu, msha = load_menu()
     fold, ssha = outer_assignment(pop, write=True)
     fold_id = ctx.fold_id(list(SPLIT_SEEDS))
-    names = [f"p27-measure:{s}" for s in SPLIT_SEEDS]
+    names = [int(s) for s in SPLIT_SEEDS]  # the production fit contexts, FitContext(split seed, fold), so each atom must equal its logged bank
     res = menu["p27_reservation"]
     env = artifacts.environment(ctx.root)
     load_before = os.getloadavg()
@@ -446,7 +447,7 @@ def evaluate(replay):
          "selected": [r["selected"] for r in result["folds"]], **hashes})
     print_selections(result)
     print(f"{stage}: done in {elapsed / 3600:.2f} h; {cache.misses} atomic cross-fits computed, {cache.hits} cache hits "
-          f"(a cold run of this menu needs {provenance['expected_fresh_cross_fits_cold']}); peak memory {maxrss_mb():.2f} GB",
+          f"(a cold run of this menu needs {provenance['expected_fresh_cross_fits_cold']}); peak memory {peak_memory_gb():.2f} GB",
           flush=True)
     if replay:
         a, b = load_result(OUT / "result_build"), load_result(OUT / "result_replay")

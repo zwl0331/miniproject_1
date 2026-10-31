@@ -1,0 +1,3 @@
+# Stale record: the first P2.7 measurement, 2026-10-31 06:06 to 06:12 PDT
+
+Moved out of `../../experiments.jsonl` with its `measure.json`: the timing and the path decision were valid (C_all 387.1 s, C_L 357.5 s, 4.88 hours against 8 reserved, path full), but the stage's comparison of each atom with its logged bank used the driver's own fit-context names instead of the production contexts, so the four date-encoded atoms, whose date encoder seeds from the context, were reported as differing. The stage was rerun with the production contexts; the rerun's record and `measure.json` are the ones in force.

@@ -1,0 +1,79 @@
+{
+  "atom_seconds": {
+    "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd": 22.123212040984072,
+    "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4": 7.901731749996543,
+    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3": 42.183626167010516,
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": 37.59427562501514,
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": 85.94248362502549,
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": 87.25157041696366,
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": 87.90850708301878,
+    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023": 23.380752749973908
+  },
+  "atoms_equal_logged_banks": {
+    "p2_p26_anchor_s3_seeds155-2026-1029_4e296f114edd": true,
+    "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4": true,
+    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3": true,
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": true,
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": true,
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": true,
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": true,
+    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023": true
+  },
+  "build_and_replay_with_margin_hours": 4.97413014171603,
+  "c_all_seconds": 394.2861594579881,
+  "c_l_seconds": 364.2612156670075,
+  "cpu_count": 10,
+  "decided_at_utc": "2026-10-31T13:20:27+00:00",
+  "decided_before_any_outer_score": true,
+  "load_average_after": [
+    3.29443359375,
+    3.0029296875,
+    2.5869140625
+  ],
+  "load_average_before": [
+    1.68505859375,
+    2.619140625,
+    2.24853515625
+  ],
+  "margin": 1.25,
+  "menu_sha256": "6a6ea04af63dc85c5dd256549072c4b15655c7b4715630571f0ae2387ea76298",
+  "other_project_processes": [],
+  "path": "full",
+  "pilot_multipliers": [
+    3.04,
+    14.16
+  ],
+  "pilot_projection_seconds": 6356.56873859711,
+  "plan_multipliers": [
+    3.2,
+    16.2
+  ],
+  "plan_projection_seconds": 7162.747404071083,
+  "record": "nested_measure",
+  "reduced_candidate": null,
+  "reserved_hours": 8,
+  "split_file": "artifacts/phase2/splits/nested_outer_v1.csv",
+  "split_sha256": "376fe54e20a4b1a0d6746e2a395c53740a068685b31a30724cf999d2f2088a36",
+  "started_utc": "2026-10-31T13:13:52+00:00",
+  "task_id": "P2.7",
+  "threadpools": [
+    {
+      "internal_api": "openmp",
+      "num_threads": 10,
+      "user_api": "openmp",
+      "version": null
+    },
+    {
+      "internal_api": "openmp",
+      "num_threads": 10,
+      "user_api": "openmp",
+      "version": null
+    }
+  ],
+  "threads": {
+    "MKL_NUM_THREADS": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+  }
+}
