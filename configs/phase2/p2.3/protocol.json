@@ -1,0 +1,595 @@
+{
+ "schema": "protocol_v1",
+ "task_id": "P2.3",
+ "name": "p23",
+ "reference": "H: the LightGBM reference family's anchor, the phase 1 recipe with estimator seed 0, fitted under P2.3's sources and checked equal to the P2.1 anchor bank; the reference family has no space and no search",
+ "reference_p21_run_id": "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af",
+ "split_seeds": [
+  155,
+  2026,
+  1029
+ ],
+ "seed_base": 2026103000,
+ "cutoff_utc": "2026-10-30T19:00:00+00:00",
+ "refinement": {
+  "families": 1,
+  "by_standalone": 1,
+  "batch": 12,
+  "broad": 3,
+  "local": [
+   [
+    5,
+    4
+   ],
+   [
+    4,
+    5
+   ]
+  ],
+  "max_dimensions": 3,
+  "max_per_family": 24
+ },
+ "prior_strongest": {
+  "run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+  "task_id": "P2.8",
+  "recipe": {
+   "schema": "recipe_v1",
+   "name": "p28_lightgbm_b3_001_date_count_te30",
+   "family": "lightgbm",
+   "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 1,
+    "subsample": 0.7,
+    "subsample_freq": 1
+   },
+   "base": "F2",
+   "blocks": [
+    "date_count",
+    "date_te30"
+   ],
+   "drop": [],
+   "preprocessing": {
+    "name": "none"
+   },
+   "training_weights": "none",
+   "estimator_seeds": [
+    0
+   ],
+   "iterations": "fixed",
+   "deployment": "fold_average"
+  },
+  "bank_sha256": "83e5cbf1056cf618b5e4f8fc930defcf669d99a9f338ad692bc6d7ed539d2414"
+ },
+ "families": [
+  {
+   "family": "lightgbm",
+   "index": 0,
+   "initial": 1,
+   "expansion": 1,
+   "ceiling": 1,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "n_estimators": 600,
+    "learning_rate": 0.02,
+    "num_leaves": 15,
+    "min_child_samples": 20,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8
+   },
+   "initial_branches": [],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {},
+   "derived": [],
+   "admissible": [],
+   "types": {},
+   "hard_bounds": {},
+   "trees": null
+  },
+  {
+   "family": "catboost",
+   "index": 1,
+   "initial": 48,
+   "expansion": 24,
+   "ceiling": 120,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "depth": 6,
+    "iterations": 1000,
+    "learning_rate": 0.0168,
+    "l2_leaf_reg": 3.0,
+    "random_strength": 1.0,
+    "boosting_type": "Plain"
+   },
+   "initial_branches": [
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "depth": 6,
+       "iterations": 1944,
+       "learning_rate": 0.009535096982557112,
+       "l2_leaf_reg": 4.757135294733201,
+       "random_strength": 0.0,
+       "rsm": 0.8880009208730744,
+       "bootstrap_type": "Bayesian",
+       "bagging_temperature": 1.793473187168845,
+       "boosting_type": "Plain"
+      }
+     ]
+    },
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {
+      "boosting_type": "Plain"
+     },
+     "space": {
+      "depth": [
+       3,
+       4,
+       5,
+       6,
+       7
+      ],
+      "learning_rate": [
+       0.015,
+       0.03,
+       0.05,
+       0.07,
+       0.1
+      ],
+      "iterations": [
+       400,
+       800,
+       1200,
+       2000
+      ],
+      "l2_leaf_reg": [
+       1.0,
+       3.0,
+       10.0,
+       30.0,
+       100.0
+      ],
+      "random_strength": [
+       0.0,
+       0.1,
+       0.5,
+       1.0,
+       2.0
+      ]
+     },
+     "draws": 22
+    },
+    {
+     "kind": "draws",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "fixed": {
+      "boosting_type": "Ordered"
+     },
+     "space": {
+      "depth": [
+       3,
+       4,
+       5,
+       6,
+       7
+      ],
+      "learning_rate": [
+       0.015,
+       0.03,
+       0.05,
+       0.07,
+       0.1
+      ],
+      "iterations": [
+       400,
+       800,
+       1200,
+       2000
+      ],
+      "l2_leaf_reg": [
+       1.0,
+       3.0,
+       10.0,
+       30.0,
+       100.0
+      ],
+      "random_strength": [
+       0.0,
+       0.1,
+       0.5,
+       1.0,
+       2.0
+      ]
+     },
+     "draws": 24
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "depth": [
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "learning_rate": [
+     0.015,
+     0.03,
+     0.05,
+     0.07,
+     0.1
+    ],
+    "iterations": [
+     400,
+     800,
+     1200,
+     2000
+    ],
+    "l2_leaf_reg": [
+     1.0,
+     3.0,
+     10.0,
+     30.0,
+     100.0
+    ],
+    "random_strength": [
+     0.0,
+     0.1,
+     0.5,
+     1.0,
+     2.0
+    ],
+    "boosting_type": [
+     "Plain",
+     "Ordered"
+    ]
+   },
+   "derived": [],
+   "admissible": [
+    {
+     "product": [
+      "learning_rate",
+      "iterations"
+     ],
+     "min": 5,
+     "max": 100
+    }
+   ],
+   "types": {
+    "depth": {
+     "type": "ordinal",
+     "values": [
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "default": 6
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.0168
+    },
+    "iterations": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 1000
+    },
+    "l2_leaf_reg": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 3.0
+    },
+    "random_strength": {
+     "type": "log",
+     "integer": false,
+     "zero_step": 0.1,
+     "default": 1.0
+    },
+    "boosting_type": {
+     "type": "categorical",
+     "values": [
+      "Plain",
+      "Ordered"
+     ],
+     "default": "Plain"
+    }
+   },
+   "hard_bounds": {
+    "depth": {
+     "min": 3,
+     "max": 8,
+     "integer": true
+    },
+    "learning_rate": {
+     "min": 0.005,
+     "max": 0.15,
+     "integer": false
+    },
+    "iterations": {
+     "min": 200,
+     "max": 3000,
+     "integer": true
+    },
+    "l2_leaf_reg": {
+     "min": 0.1,
+     "max": 300,
+     "integer": false
+    },
+    "random_strength": {
+     "min": 0,
+     "max": 5,
+     "integer": false
+    }
+   },
+   "trees": "iterations"
+  },
+  {
+   "family": "ebm",
+   "index": 2,
+   "initial": 12,
+   "expansion": 6,
+   "ceiling": 30,
+   "template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "anchor": {
+    "interactions": "none",
+    "max_rounds": 700,
+    "learning_rate": 0.03
+   },
+   "initial_branches": [
+    {
+     "kind": "explicit",
+     "template": {
+      "base": "F2",
+      "blocks": [],
+      "drop": [],
+      "preprocessing": {
+       "name": "none"
+      },
+      "training_weights": "none",
+      "estimator_seeds": [
+       0
+      ]
+     },
+     "values": [
+      {
+       "interactions": "declared3",
+       "max_rounds": 700,
+       "learning_rate": 0.03
+      },
+      {
+       "interactions": "none",
+       "max_rounds": 300,
+       "learning_rate": 0.03
+      },
+      {
+       "interactions": "declared3",
+       "max_rounds": 300,
+       "learning_rate": 0.03
+      },
+      {
+       "interactions": "none",
+       "max_rounds": 300,
+       "learning_rate": 0.06
+      },
+      {
+       "interactions": "declared3",
+       "max_rounds": 300,
+       "learning_rate": 0.06
+      },
+      {
+       "interactions": "none",
+       "max_rounds": 700,
+       "learning_rate": 0.01
+      },
+      {
+       "interactions": "declared3",
+       "max_rounds": 700,
+       "learning_rate": 0.01
+      },
+      {
+       "interactions": "none",
+       "max_rounds": 1500,
+       "learning_rate": 0.01
+      },
+      {
+       "interactions": "declared3",
+       "max_rounds": 1500,
+       "learning_rate": 0.01
+      },
+      {
+       "interactions": "none",
+       "max_rounds": 1500,
+       "learning_rate": 0.06
+      },
+      {
+       "interactions": "declared3",
+       "max_rounds": 1500,
+       "learning_rate": 0.06
+      }
+     ]
+    }
+   ],
+   "space_template": {
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ]
+   },
+   "fixed": {},
+   "space": {
+    "interactions": [
+     "none",
+     "declared3"
+    ],
+    "max_rounds": [
+     300,
+     700,
+     1500
+    ],
+    "learning_rate": [
+     0.01,
+     0.03,
+     0.06
+    ]
+   },
+   "derived": [],
+   "admissible": [
+    {
+     "product": [
+      "learning_rate",
+      "max_rounds"
+     ],
+     "min": 5,
+     "max": 100
+    }
+   ],
+   "types": {
+    "interactions": {
+     "type": "categorical",
+     "values": [
+      "none",
+      "declared3"
+     ],
+     "default": "none"
+    },
+    "max_rounds": {
+     "type": "log",
+     "integer": true,
+     "zero_step": null,
+     "default": 50000
+    },
+    "learning_rate": {
+     "type": "log",
+     "integer": false,
+     "zero_step": null,
+     "default": 0.015
+    }
+   },
+   "hard_bounds": {
+    "max_rounds": {
+     "min": 100,
+     "max": 3000,
+     "integer": true
+    },
+    "learning_rate": {
+     "min": 0.003,
+     "max": 0.1,
+     "integer": false
+    }
+   },
+   "trees": "max_rounds"
+  }
+ ]
+}

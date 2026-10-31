@@ -1,0 +1,328 @@
+{
+ "batch_id": "ebm_w1_initial_19fe8f103c05",
+ "family": "ebm",
+ "kind": "initial",
+ "protocol_sha256": "56d94303efc7211337970b93693308bf451702dbe01994f23dbdc349f8961068",
+ "recipe_sha256": [
+  "c390e2929b4ec0c429c383d306f98207057e1cddce7d4706e8a5a03fcf2d2070",
+  "68bd1f4662d201b6dfe86a7a8e478b643da3ff8fb7bdc0e9b5cc67d3e1bcea50",
+  "e66514b7e149a06368ea1c6241acc1df639bb7acf78911b52a69360a98f22685",
+  "64afd1064294cda2f9839f5c647fc1f92248d6c903a211bf71a06d1632c8454c",
+  "854c9afd807a90c6c4f9343edcd16f1407bf9c759a1f37af5fc6d30cc1f04f82",
+  "43ad48fbdd53156dae4718c8f3b88f1c71e1a33343c78fb6bf317845c60d4179",
+  "133494284b7377f5cac8a7b64ba793afeb2567201b821927e702b51dbe3b2fbf",
+  "fe221d5766b59653d74260f3952e4d643448940bb1460d17ca7547d3565c605b",
+  "968a98cfebd07608a60b7cf601e16f61f3082bc9a552c23a4248669828af7235",
+  "abdfbcaf2d0629ba572a66c94c50ccbe97cf7830ff539a83081aa3b762730c9f",
+  "7cf4a76fff5893e5e14d869fb8c0521f56db18728de02ed0a3e3a128930e12f4",
+  "a836a28d233e6ca815a50ae322178d59ca5e44c31e48ed4327e3601065f831b9"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_anchor",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.03,
+    "max_rounds": 700
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_000",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.03,
+    "max_rounds": 700
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_001",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.03,
+    "max_rounds": 300
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_002",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.03,
+    "max_rounds": 300
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_003",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.06,
+    "max_rounds": 300
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_004",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.06,
+    "max_rounds": 300
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_005",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.01,
+    "max_rounds": 700
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_006",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.01,
+    "max_rounds": 700
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_007",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.01,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_008",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.01,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_009",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.06,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b1_0_010",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.06,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513",
+  "p2_p23_ebm_b1_0_000_seeds155-2026-1029_0efebcf7fc56",
+  "p2_p23_ebm_b1_0_001_seeds155-2026-1029_5ca0588f5b3f",
+  "p2_p23_ebm_b1_0_002_seeds155-2026-1029_97e7e34226a7",
+  "p2_p23_ebm_b1_0_003_seeds155-2026-1029_2285934a4c8a",
+  "p2_p23_ebm_b1_0_004_seeds155-2026-1029_9177b1105b86",
+  "p2_p23_ebm_b1_0_005_seeds155-2026-1029_47481eca6102",
+  "p2_p23_ebm_b1_0_006_seeds155-2026-1029_afdcf1c3e37d",
+  "p2_p23_ebm_b1_0_007_seeds155-2026-1029_516a5aa70048",
+  "p2_p23_ebm_b1_0_008_seeds155-2026-1029_5a6754923c3a",
+  "p2_p23_ebm_b1_0_009_seeds155-2026-1029_5019dc5047bf",
+  "p2_p23_ebm_b1_0_010_seeds155-2026-1029_4a7b9afe3a84"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103201
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513"
+  },
+  "incumbent": {
+   "run_id": "p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030",
+   "of_run_id": "p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513"
+  },
+  "reference_h": {
+   "run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030"
+  },
+  "strongest": {
+   "prior_run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+   "run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030"
+  }
+ },
+ "task_id": "P2.3",
+ "wave": 1
+}

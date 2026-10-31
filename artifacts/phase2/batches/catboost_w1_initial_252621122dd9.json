@@ -1,0 +1,1339 @@
+{
+ "batch_id": "catboost_w1_initial_252621122dd9",
+ "family": "catboost",
+ "kind": "initial",
+ "protocol_sha256": "56d94303efc7211337970b93693308bf451702dbe01994f23dbdc349f8961068",
+ "recipe_sha256": [
+  "27cf25ac987a55a457585e70b62253ce712260b37fbc4306ff8f7a1811c90571",
+  "d624e5e4b646a9ac7a1dc07134b6523f928aa29af6231bbaf76fd4e1a5296a65",
+  "12be0e248dfcec655851a138e0a6601c2df9da52853e8e8092d3b71943e66518",
+  "afde46dd38122502ea6e3080a5de15da9f4204e7625af251f848b49770da7f2d",
+  "c477e8b5f4bb713396bfd9dd50774d373d3f06c59d54378d527813b2b877a13b",
+  "806a14137823c79be6197fd988b8174433645dd403a8e099df307e1ac6c2ad1e",
+  "7ca6bd6e44ab65415faf966c002b6fa3ad4209fc967b0470ae52edaa71cd89ce",
+  "949aa3be36f29e4657254de7c617b33776e6e1de48e02587bcf82a6f85e462f6",
+  "c1d6095cc914c9d590890de0fef818024a5799660dd39af15d3d4174daa2b071",
+  "09031303e0fb9902a80e46f4a2fb93a9c8dfb30bc3708540e16edd30ca2c7722",
+  "62ef8c1e2764c96998b69ed85129fa6751d57a40dfe3acf87f26536c9b39a340",
+  "fbb8d60227ebe70ba43b344e47e76dda24c4fd68f2495a8ae10b57b207b21c38",
+  "7b2cd4baf657285ddd9596d9a05aadf8386dcdb5a1aac30cf84d2bd38f1a63c3",
+  "347afbef5a106095bca3b4411abd3b8ce42a439f19d2ffbaf2ffa7738fe5aa6b",
+  "2d40c304f0c9ba00bc8d241d75251081e7a6dea93bc292cecb936ca72cf700cc",
+  "38cfb3ac639cae0c133aa6f443a7d4e0f6496bfe7dad4de9db41d930424a8759",
+  "8f2ed71bbfa48c290b940fe32e36ed6e9d4f58a07b11cfa040eacd65ad9f89b6",
+  "db81b51e304846317209fbeb2027b92e2bface40a986d2bb506c3fa7768618cc",
+  "ca791c2004b00a8417a6dfc0d3760bdb3b5eb8dc02890da50e916073f3f7f3fb",
+  "4ab323dcd20119711f47259d654152d63b6946fdde27cbb8df7e4a79d925efd6",
+  "b3dc9955063fc9a9dac7517d34a831d732d1d1e7bf96222f6ffcbbda9578b8c9",
+  "f99386b2c16ac50e0b3e50f65461725117763af8a3e255d0e06737a03164f19e",
+  "02ccd823ed126c5616924eec47acbfc0148e600e3e892fa363a8dbe2d5947adc",
+  "24aea26edc598cde32e5ea76257ab7b020fc71944b22c5e20e3591071f3dcbd4",
+  "5ca01bf20fb0723bbc1575e47d528c51327fe3f741727ef9fa792b97d2ddbebd",
+  "ffb4f9e1e0440aaa08ba23a86092ae3879435b2aac01bbee041692abdda5ac6e",
+  "146bcc99b40f55cbf14f8ed4be2416a47cebd896ee316471a46af3ce2ea7a832",
+  "94323ac8235b981a3112ec7653d5ce0b8fc0107078d97aeffcb56c907f658b92",
+  "8a260da44478876523326099d0c64756ecdc7187307dffb9c84e8c5b2dabdae6",
+  "7785fbb05e87739f32fa161447d05ff941c3762eedeb917acd90919aea18f404",
+  "31f18b91bd9377c3c3f7cf5ace1f84dee6c80f001d328ad05de9baaae8f7e634",
+  "64d1b81d74eb67c907dcc4ed33238d0990a8cd1165ee7a8c099c35b95630dcc6",
+  "75ed0281c5ce5ade89f59eeb355762832b05ac780097d11eb1cd70d7498b254e",
+  "c713ebaff940bceb167257016082c99b700bbe56d0b2529aa4f857efa19c9a97",
+  "d80ded6512fb3bdb96a56b09ed567102153cf4c2a16f6c0413b978a7a811a9bc",
+  "7531ebac28c20f6dfdf3e40d045e68a42489b5f7beda9f3c29f47ba298fdc6e5",
+  "cca69d2cc38a6ba94a7fa0455a8cf35e640f29ea2216894634ee93a60dfc32d2",
+  "a6e28869f237aa50a5bee68717be9e70cc4fc0de9d156e588597a0310cc6282f",
+  "d1d60778b68a95ee48cd7a008ab14ad676596b3151dbeabb3916bfa87cc5436d",
+  "784081e0a7567b7c472497aa29f7a649ccefaa696f0b9350432207877a05ae1f",
+  "5534b7f356f93b136a9fbd546c51c559c678ec2368ec2a1fd58c773b41179ebc",
+  "2bc4cd7a4cf44277d848ab53f0a59444909e7bebdb5c55919a52a89674c23e3f",
+  "755808b6e52f30db3a1abbab15390d5285253becf1b7b594d624c68750e31095",
+  "0ebcec1a01b9770c60d803dd9684111d36d94dedcd649303f3efe81c667ea564",
+  "1644f0d8447aa19a973ddc1077539638db718b250de867bfb8850f4c954193d1",
+  "02fe622a5bb63f7354ec6b4f9ac29fcbbedf6aa87f3a528f8c0a41f7d7d0e952",
+  "f3bb5de4e0f61b1f7879ca0c47a24e107a3985e9456a7ac1188f7faa6698e09d",
+  "679801120af39f515680ab0f9ddd8a630b2dbbb8e40405c9ed85b49952f339db"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_anchor",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 1000,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.0168,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_0_000",
+   "params": {
+    "bagging_temperature": 1.793473187168845,
+    "boosting_type": "Plain",
+    "bootstrap_type": "Bayesian",
+    "depth": 6,
+    "iterations": 1944,
+    "l2_leaf_reg": 4.757135294733201,
+    "learning_rate": 0.009535096982557112,
+    "random_strength": 0.0,
+    "rsm": 0.8880009208730744
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_000",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 4,
+    "iterations": 2000,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_001",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 4,
+    "iterations": 2000,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.03,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_002",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.1,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_003",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 4,
+    "iterations": 1200,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_004",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 1200,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.03,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_005",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 1200,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.05,
+    "random_strength": 0.5
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_006",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 400,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.05,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_007",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 1200,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.05,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_008",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 800,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.015,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_009",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_010",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 4,
+    "iterations": 1200,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_011",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 2000,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_012",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 1200,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.05,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_013",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 2000,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.05,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_014",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 3,
+    "iterations": 800,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.03,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_015",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.07,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_016",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 4,
+    "iterations": 400,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.5
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_017",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 3,
+    "iterations": 400,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.07,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_018",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 400,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_019",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 7,
+    "iterations": 400,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_020",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.1,
+    "random_strength": 0.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_1_021",
+   "params": {
+    "boosting_type": "Plain",
+    "depth": 6,
+    "iterations": 2000,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.015,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_000",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.07,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_001",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 3,
+    "iterations": 800,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.1,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_002",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 1200,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_003",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 5,
+    "iterations": 2000,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_004",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 4,
+    "iterations": 400,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.1,
+    "random_strength": 0.5
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_005",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 5,
+    "iterations": 800,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.05,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_006",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 7,
+    "iterations": 800,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.1,
+    "random_strength": 0.5
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_007",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 3,
+    "iterations": 2000,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.015,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_008",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 5,
+    "iterations": 2000,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_009",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 400,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.05,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_010",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 7,
+    "iterations": 400,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_011",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 3,
+    "iterations": 800,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.1,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_012",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 2000,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_013",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 4,
+    "iterations": 1200,
+    "l2_leaf_reg": 1.0,
+    "learning_rate": 0.03,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_014",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 800,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.05,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_015",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 6,
+    "iterations": 1200,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.05,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_016",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 7,
+    "iterations": 400,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.5
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_017",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 4,
+    "iterations": 1200,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.03,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_018",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 5,
+    "iterations": 800,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.015,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_019",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 5,
+    "iterations": 800,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.07,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_020",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 3,
+    "iterations": 400,
+    "l2_leaf_reg": 3.0,
+    "learning_rate": 0.015,
+    "random_strength": 1.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_021",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 4,
+    "iterations": 1200,
+    "l2_leaf_reg": 30.0,
+    "learning_rate": 0.07,
+    "random_strength": 2.0
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_022",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 3,
+    "iterations": 400,
+    "l2_leaf_reg": 10.0,
+    "learning_rate": 0.015,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "catboost",
+   "iterations": "fixed",
+   "name": "p23_catboost_b1_2_023",
+   "params": {
+    "boosting_type": "Ordered",
+    "depth": 7,
+    "iterations": 400,
+    "l2_leaf_reg": 100.0,
+    "learning_rate": 0.07,
+    "random_strength": 0.1
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a",
+  "p2_p23_catboost_b1_0_000_seeds155-2026-1029_c5b301913c23",
+  "p2_p23_catboost_b1_1_000_seeds155-2026-1029_9a4312c1a9ff",
+  "p2_p23_catboost_b1_1_001_seeds155-2026-1029_b2ab13df2d99",
+  "p2_p23_catboost_b1_1_002_seeds155-2026-1029_5dc33f8dd069",
+  "p2_p23_catboost_b1_1_003_seeds155-2026-1029_ffb4191db738",
+  "p2_p23_catboost_b1_1_004_seeds155-2026-1029_4dc2b9f7ab22",
+  "p2_p23_catboost_b1_1_005_seeds155-2026-1029_2786da65f7fa",
+  "p2_p23_catboost_b1_1_006_seeds155-2026-1029_a255475201e0",
+  "p2_p23_catboost_b1_1_007_seeds155-2026-1029_b4d1e4c0661b",
+  "p2_p23_catboost_b1_1_008_seeds155-2026-1029_29058b66f97a",
+  "p2_p23_catboost_b1_1_009_seeds155-2026-1029_e6431266b8a7",
+  "p2_p23_catboost_b1_1_010_seeds155-2026-1029_0b44f462210f",
+  "p2_p23_catboost_b1_1_011_seeds155-2026-1029_9d437c15ce11",
+  "p2_p23_catboost_b1_1_012_seeds155-2026-1029_e0c3dd23fcc4",
+  "p2_p23_catboost_b1_1_013_seeds155-2026-1029_fc8c35a73e6d",
+  "p2_p23_catboost_b1_1_014_seeds155-2026-1029_26d1377b9d47",
+  "p2_p23_catboost_b1_1_015_seeds155-2026-1029_05b93035def4",
+  "p2_p23_catboost_b1_1_016_seeds155-2026-1029_ea1e64a3fa0e",
+  "p2_p23_catboost_b1_1_017_seeds155-2026-1029_9fe509ac8aea",
+  "p2_p23_catboost_b1_1_018_seeds155-2026-1029_8ea166496e22",
+  "p2_p23_catboost_b1_1_019_seeds155-2026-1029_f9e2ba3cd9c0",
+  "p2_p23_catboost_b1_1_020_seeds155-2026-1029_2c612d10e629",
+  "p2_p23_catboost_b1_1_021_seeds155-2026-1029_7833a43775cf",
+  "p2_p23_catboost_b1_2_000_seeds155-2026-1029_d474e2d68dee",
+  "p2_p23_catboost_b1_2_001_seeds155-2026-1029_574fbe9319fc",
+  "p2_p23_catboost_b1_2_002_seeds155-2026-1029_406ec947d69f",
+  "p2_p23_catboost_b1_2_003_seeds155-2026-1029_e2eb82eeef0f",
+  "p2_p23_catboost_b1_2_004_seeds155-2026-1029_f4e665878077",
+  "p2_p23_catboost_b1_2_005_seeds155-2026-1029_e02636ed19b9",
+  "p2_p23_catboost_b1_2_006_seeds155-2026-1029_95d8d2cf8df8",
+  "p2_p23_catboost_b1_2_007_seeds155-2026-1029_69d70038c411",
+  "p2_p23_catboost_b1_2_008_seeds155-2026-1029_22d2dfe7ece7",
+  "p2_p23_catboost_b1_2_009_seeds155-2026-1029_6591f51ed58c",
+  "p2_p23_catboost_b1_2_010_seeds155-2026-1029_4530bc6f70ce",
+  "p2_p23_catboost_b1_2_011_seeds155-2026-1029_b3ad402b2d8e",
+  "p2_p23_catboost_b1_2_012_seeds155-2026-1029_ff7b9fb96908",
+  "p2_p23_catboost_b1_2_013_seeds155-2026-1029_d56156275e6c",
+  "p2_p23_catboost_b1_2_014_seeds155-2026-1029_3f5a39c573ac",
+  "p2_p23_catboost_b1_2_015_seeds155-2026-1029_9f495c44d0fe",
+  "p2_p23_catboost_b1_2_016_seeds155-2026-1029_2ccf3b70cf94",
+  "p2_p23_catboost_b1_2_017_seeds155-2026-1029_1a80986bb4ff",
+  "p2_p23_catboost_b1_2_018_seeds155-2026-1029_415f06343eb1",
+  "p2_p23_catboost_b1_2_019_seeds155-2026-1029_19a10b940202",
+  "p2_p23_catboost_b1_2_020_seeds155-2026-1029_0a1127a9e472",
+  "p2_p23_catboost_b1_2_021_seeds155-2026-1029_e801c810972a",
+  "p2_p23_catboost_b1_2_022_seeds155-2026-1029_68a464f9525b",
+  "p2_p23_catboost_b1_2_023_seeds155-2026-1029_9976f4b05b2f"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103101
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a"
+  },
+  "incumbent": {
+   "run_id": "p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030",
+   "of_run_id": "p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a"
+  },
+  "reference_h": {
+   "run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030"
+  },
+  "strongest": {
+   "prior_run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+   "run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030"
+  }
+ },
+ "task_id": "P2.3",
+ "wave": 1
+}

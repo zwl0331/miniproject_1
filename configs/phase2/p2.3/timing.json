@@ -1,0 +1,217 @@
+{
+ "schema": "timing_v1",
+ "cases": [
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_catboost_light",
+    "family": "catboost",
+    "params": {
+     "depth": 3,
+     "iterations": 400,
+     "learning_rate": 0.05,
+     "l2_leaf_reg": 3,
+     "random_strength": 1,
+     "boosting_type": "Plain"
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_catboost_representative",
+    "family": "catboost",
+    "params": {
+     "depth": 5,
+     "iterations": 1200,
+     "learning_rate": 0.05,
+     "l2_leaf_reg": 10,
+     "random_strength": 0.5,
+     "boosting_type": "Plain"
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_catboost_expensive",
+    "family": "catboost",
+    "params": {
+     "depth": 7,
+     "iterations": 2000,
+     "learning_rate": 0.05,
+     "l2_leaf_reg": 3,
+     "random_strength": 1,
+     "boosting_type": "Ordered"
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "extended",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_catboost_extended",
+    "family": "catboost",
+    "params": {
+     "depth": 8,
+     "iterations": 3000,
+     "learning_rate": 0.03,
+     "l2_leaf_reg": 3,
+     "random_strength": 1,
+     "boosting_type": "Ordered"
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "light",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_ebm_light",
+    "family": "ebm",
+    "params": {
+     "interactions": "none",
+     "max_rounds": 300,
+     "learning_rate": 0.03
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "representative",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_ebm_representative",
+    "family": "ebm",
+    "params": {
+     "interactions": "declared3",
+     "max_rounds": 700,
+     "learning_rate": 0.03
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "expensive",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_ebm_expensive",
+    "family": "ebm",
+    "params": {
+     "interactions": "declared3",
+     "max_rounds": 1500,
+     "learning_rate": 0.01
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  },
+  {
+   "case": "extended",
+   "recipe": {
+    "schema": "recipe_v1",
+    "name": "p23_time_ebm_extended",
+    "family": "ebm",
+    "params": {
+     "interactions": "declared3",
+     "max_rounds": 3000,
+     "learning_rate": 0.03
+    },
+    "base": "F2",
+    "blocks": [],
+    "drop": [],
+    "preprocessing": {
+     "name": "none"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+     0
+    ],
+    "iterations": "fixed",
+    "deployment": "fold_average"
+   }
+  }
+ ]
+}

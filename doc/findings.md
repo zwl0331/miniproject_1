@@ -499,7 +499,7 @@ Descriptive and exact. It says what the supplied files contain, not how Spotify 
 
 Review status:
 
-`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+`reviewed`, by the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`): its completion checkpoint converged in round 5 and P2.8 was committed (5e2d5a0).
 
 Downstream use:
 
@@ -542,7 +542,7 @@ Bootstrap bounds are conditional on the fitted predictions and exclude retrainin
 
 Review status:
 
-`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+`reviewed`, by the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`): its completion checkpoint converged in round 5 and P2.8 was committed (5e2d5a0).
 
 Downstream use:
 
@@ -590,7 +590,7 @@ Exploratory (plan section 5.7): every interval of the matched comparisons includ
 
 Review status:
 
-`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+`reviewed`, by the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`): its completion checkpoint converged in round 5 and P2.8 was committed (5e2d5a0).
 
 Downstream use:
 
@@ -619,8 +619,94 @@ The seven anchor refits are regression coverage, not proof for every recipe path
 
 Review status:
 
-`draft`, in the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`), completion checkpoint.
+`reviewed`, by the P2.8 review (`../reviews/2026-10-30-p2.8-gap-hunt.md`): its completion checkpoint converged in round 5 and P2.8 was committed (5e2d5a0).
 
 Downstream use:
 
 Every later random forest and Extra Trees run, including P2.8's (B11, B12, the Extra Trees anchor) and any forest in a frozen menu; Finding 013's follow-up is complete.
+
+## Finding 018: CatBoost and EBM Installation, Runtime Compatibility and Cost
+
+Question:
+
+Are CatBoost and EBM installed exactly as their reviewed route locks specify, do they fit and predict the project's F2 data through the phase 2 engine as declared and repeatably, and what does one 15-fit evaluation cost (plan section 17.2 and 17.5)?
+
+Current conclusion:
+
+- Installed on 2026-10-30 with the commands P2.1 reviewed, unchanged: the CatBoost route added exactly catboost 1.2.10, graphviz 0.21 and plotly 7.1.0; the EBM route exactly interpret-core 0.7.8. No previously installed version changed (`check-before` and `check-after` for each route), `pip check` found no broken requirement, and the phase 1 commands of exit criterion 5 pass afterwards.
+- Both libraries fit F2 with its missing date parts and predict full, month-only and year-only dates; two fits with one seed predict identically; a pickle round trip predicts identically; identical rows, missing values included, get identical predictions; training weights are accepted; no new top-level project entry appears and CatBoost writes no `catboost_info` directory.
+- Defaults that would change the declared method are pinned in the factories. CatBoost: without a declared bootstrap, CatBoost 1.2.10 uses MVS with subsample 0.8 on the CPU for Plain and Ordered alike; the factory passes these explicitly with `rsm` 1.0, Logloss, `nan_mode` Min, no class weights, no evaluation set and no stopping. Its `predict_proba` uses every CPU core by default; the engine passes four threads, and predictions were identical with one, four and all threads on a probe. EBM: interpret-core 0.7.8 defaults to automatic pairs ("3x"), a 0.15 validation split with early stopping, and 14 outer bags; the factory passes no validation split, no early stopping, one bag and only the declared pairs, writes the remaining defaults out, and bins every feature as continuous (also what it infers for these frames). With validation and early stopping disabled, each EBM stage makes `max_rounds` times its number of terms boosting updates, checked.
+- Score-free timing at the readiness sources, one 15-fit run on the three split seeds with four threads, feature construction and prediction included: CatBoost 2.8 s (depth 3, 400 iterations, Plain), 11.0 s (depth 5, 1,200, Plain), 131.2 s (depth 7, 2,000, Ordered) and 371.0 s (depth 8, 3,000, Ordered, the largest range extension allowed); EBM 5.5 s (main effects, 300 rounds), 13.5 s (pairs, 700), 27.0 s (pairs, 1,500) and 54.4 s (pairs, 3,000). Each EBM run records one warning, interpret's notice that missing values are not drawn in its plots. The reservation projects 42 minutes for P2.3's initial batches and 104 minutes at both ceilings, not bounds.
+
+Evidence:
+
+`../artifacts/phase2/install/inventory_before_catboost.json`, `inventory_after_catboost.json`, `inventory_before_ebm.json`, `inventory_after_ebm.json`; the self-checks "CatBoost runtime" and "EBM runtime" of `../scripts/check_phase2.py`, output `../artifacts/phase2/check_phase2.txt`; the P2.3 timing and reservation records in `../artifacts/phase2/experiments.jsonl` (`../configs/phase2/p2.3/timing.json`).
+
+Uncertainty:
+
+The runtime checks use samples of 1,500 fitting rows and small models; they establish compatibility and repeatability of the declared paths, not that every searched configuration replays, which is P2.3's completion evidence (`--verify-task P2.3`). Timings are representative cases on one machine, not bounds; Ordered boosting dominates CatBoost's cost.
+
+Review status:
+
+`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), readiness checkpoint.
+
+Downstream use:
+
+P2.3's searches (plan section 17) and the CatBoost and EBM checks reserved for P2.4 (sections 6.5 and 16.3).
+
+## Finding 019: The CatBoost and EBM Searches on F2
+
+Question:
+
+How well do CatBoost and EBM do on F2 under P2.3's protocol (plan section 17), against H and the strongest recipe so far?
+
+Current conclusion:
+
+- Exploratory: every score below is a matched evaluation on the three repeats that also chose it (plan section 5.7).
+- CatBoost, 48 configurations (the initial batch only, 24 minutes of fitting): the best is the default-inspired anchor (depth 6, 1,000 iterations, learning rate 0.0168, L2 3, random strength 1, Plain, MVS), mean fold AUC 0.8306, below H (0.8315) on every repeat (-0.0006, -0.0010, -0.0010) and 0.0048 below P2.8's B14 (0.8354). The earlier project's candidate 31, ported to F2 without the `music` block, 0.8292. Plain boosting: best 0.8306, median 0.8244 over 24; Ordered: best 0.8266, median 0.8218 over 24. Depth 6 gave the best configuration (0.8306); depths 3, 4, 5 and 7 peaked at 0.8235, 0.8267, 0.8248 and 0.8257.
+- EBM, 28 configurations (an initial batch of 12, then two local refinement batches of 12 and 4; 5.6 minutes): the best is the declared pairs with learning rate 0.01 and 603 rounds, 0.8162, 0.0153 below H and 0.0193 below B14. Main effects alone peaked at 0.8064, the declared pairs at 0.8162. The main-effects anchor (700 rounds, learning rate 0.03) scored 0.7999.
+- Neither family approaches the tuned LightGBM recipes on these features; CatBoost comes within about 0.001 of H.
+
+Evidence:
+
+`../analysis/p23_summary.py` and its output `../analysis/p23_summary_output.txt`; the P2.3 records and banks in `../artifacts/phase2/experiments.jsonl` and `../artifacts/phase2/bank/`; the manifests `../artifacts/phase2/batches/*_w1_initial_*`, `ebm_w2_refinement_*`, `ebm_w3_refinement_*`; `--audit-task P2.3` (`../artifacts/phase2/audit_task_p23.txt`) and the full refit `--verify-task P2.3` (`../artifacts/phase2/verify_task_p23.txt`).
+
+Uncertainty:
+
+CatBoost searched only its initial batch, because no configuration met a route of section 5.6 (Finding 020); its space around the anchor is otherwise untested. CatBoost's automatic learning rate, ordered target statistics for categorical inputs and early stopping were deliberately not used (sections 5.3 and 17.2). EBM's interpret-core 0.7.8 defaults other than those pinned were not searched. F2 only: date encodings and the `music` block on these families are P2.4's reserved checks.
+
+Review status:
+
+`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), completion checkpoint.
+
+Downstream use:
+
+P2.4's reserved checks take the best CatBoost (the anchor) and the best EBM (`p23_ebm_b2_001`) by the handoff rule (sections 6.5, 16.3, 17.6); P2.6b's pool rule.
+
+## Finding 020: CatBoost and EBM Contributions to H and the Allocation Outcomes
+
+Question:
+
+Do the CatBoost and EBM configurations add to H in a fixed blend, and what did section 5.6's allocation decide for them?
+
+Current conclusion:
+
+- CatBoost: no configuration met a route, so the family stopped after its initial batch (allowance 0). Its best blend with H is candidate 31 at weight 0.25, 0.8333, +0.0018 over H with every repeat positive (+0.0017, +0.0017, +0.0020); it fails the ensemble route because it improves the anchor's own best blend, the family's previous best blend, by less than 0.0005.
+- EBM: seven of the initial batch's eleven new configurations met the clear standalone route against the weak main-effects anchor (bootstrap witness +0.0162, interval +0.0108 to +0.0215), and two of them also met the ensemble route (witness: the better blend minus H +0.0007, interval -0.0009 to +0.0023). The allowance of two then bought two local refinement batches without progress, and EBM stopped. Its best blend with H is `p23_ebm_b1_0_002` at weight 0.25, 0.8321, +0.0007 over H.
+- The allocation thresholds are heuristics, not significance tests; the bootstrap intervals are conditional on the fitted predictions.
+
+Evidence:
+
+The P2.3 allocation, contribution and bootstrap records (`../artifacts/phase2/experiments.jsonl`), re-judged and recomputed by `--audit-task P2.3`; `../analysis/p23_summary_output.txt`.
+
+Uncertainty:
+
+The ensemble route compares a blend with H and with the family's previous best blend; a family whose anchor already blends well with H (CatBoost) must beat that blend, not only H. Blends with a stronger reference than H are P2.6b's question.
+
+Review status:
+
+`draft`, in the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`), completion checkpoint.
+
+Downstream use:
+
+P2.6b's pool (CatBoost and EBM members by their contributions); P2.4's re-tuning candidates include only units that meet a route there.

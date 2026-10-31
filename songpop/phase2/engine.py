@@ -12,7 +12,8 @@ from songpop.evaluate import N_SPLITS, PredictionBank, validate_bank, validate_c
 from songpop.models import predict_high
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.features import RAW_COLUMNS, FeaturePipeline
-from songpop.phase2.models import FORESTS, make_model, prediction_threads, thread_limit, weight_argument
+from songpop.phase2.models import (FORESTS, make_model, prediction_threads, prediction_view, thread_limit,
+                                   weight_argument)
 from songpop.phase2.recipes import validate_recipe
 
 TOL = 1e-12  # equal predictions for identical model inputs
@@ -43,10 +44,10 @@ class FittedRecipe:
 
     def predict_each(self, raw_rows):
         """The probability of numeric class 1 from each estimator seed, in the recipe's order; forests predict with
-        one thread (plan section 16.4)."""
+        one thread (plan section 16.4), CatBoost with THREADS (section 17.2)."""
         X = self.features.transform(raw_rows)
         with thread_limit(self.family), prediction_threads(self.family, self.estimators):
-            return [predict_high(est, X) for est in self.estimators]
+            return [predict_high(prediction_view(self.family, est), X) for est in self.estimators]
 
     def predict_high(self, raw_rows):
         """Probability of numeric class 1, averaged with equal weights over the estimator seeds."""

@@ -1,7 +1,7 @@
-"""The P2.2 execution protocol (plan section 15): families advance in waves separated by barriers. Every manifest
-of wave N is a pure function of the protocol file and the records of the waves before N, so verification re-plans
-each wave from the log and compares; each batch is judged by the allocation rule of plan section 5.6 against the
-pre-batch state its manifest names. Nothing here fits a model or writes a file."""
+"""The wave execution protocol of P2.2 and P2.3 (plan sections 15 and 17): families advance in waves separated by
+barriers. Every manifest of wave N is a pure function of the protocol file and the records of the waves before N, so
+verification re-plans each wave from the log and compares; each batch is judged by the allocation rule of plan
+section 5.6 against the pre-batch state its manifest names. Nothing here fits a model or writes a file."""
 import copy
 import itertools
 
@@ -14,6 +14,10 @@ from songpop.splits import SPLIT_SEEDS
 PROTOCOL_SCHEMA = "protocol_v1"
 KEYS = ("schema", "task_id", "name", "reference", "reference_p21_run_id", "split_seeds", "seed_base", "cutoff_utc",
         "refinement", "families")
+# prior_strongest (P2.3, plan section 17): a complete run of an earlier converged task that joins G, the strongest
+# standalone recipe, in every wave: {"run_id", "task_id", "recipe", "bank_sha256"}. P2.2's protocol has none.
+OPTIONAL_KEYS = ("prior_strongest",)
+PRIOR_KEYS = ("bank_sha256", "recipe", "run_id", "task_id")
 FAMILY_KEYS = ("family", "index", "initial", "expansion", "ceiling", "template", "anchor", "initial_branches",
                "space_template", "fixed", "space", "derived", "admissible", "types", "hard_bounds", "trees")
 REFINEMENT_KEYS = ("families", "by_standalone", "batch", "broad", "local", "max_dimensions", "max_per_family")
@@ -28,8 +32,15 @@ def load_protocol(path):
     """The protocol file, with its keys, the official split seeds, unique families in index order, positive counts
     with initial and expansion within the ceiling, hard bounds, types and rules checked."""
     p = strict_loads(path.read_text())
-    if not isinstance(p, dict) or p.get("schema") != PROTOCOL_SCHEMA or sorted(p) != sorted(KEYS):
-        raise ValueError(f"protocol keys {sorted(p) if isinstance(p, dict) else p!r}, expected {sorted(KEYS)}")
+    if not isinstance(p, dict) or p.get("schema") != PROTOCOL_SCHEMA \
+            or not set(KEYS) <= set(p) <= set(KEYS) | set(OPTIONAL_KEYS):
+        raise ValueError(f"protocol keys {sorted(p) if isinstance(p, dict) else p!r}, expected {sorted(KEYS)} "
+                         f"and optionally {list(OPTIONAL_KEYS)}")
+    prior = p.get("prior_strongest")
+    if prior is not None:
+        if not isinstance(prior, dict) or sorted(prior) != sorted(PRIOR_KEYS) or prior["task_id"] == p["task_id"]:
+            raise ValueError(f"malformed prior_strongest {prior!r}")
+        validate_recipe(prior["recipe"])
     if p["split_seeds"] != list(SPLIT_SEEDS):
         raise ValueError(f"protocol split seeds {p['split_seeds']}, expected the official {list(SPLIT_SEEDS)}")
     r = p["refinement"]
@@ -181,7 +192,8 @@ class Log:
     allocation and contribution identity; every batch member's run record bound to its manifest recipe.
     read_manifest(path) returns a saved manifest."""
 
-    def __init__(self, records, task_id, read_manifest):
+    def __init__(self, records, task_id, read_manifest, prior=None):
+        """prior: the protocol's prior_strongest entry, or None."""
         self.task_id, self.read_manifest = task_id, read_manifest
 
         def unique(kind, ident):
@@ -214,6 +226,14 @@ class Log:
                 self.runs[rid] = dict(self.runs[rid], recipe_sha256=recipe_hash(r))
         self.contributions = [dict(c, recipe_sha256=recipe_hash(self.recipes[c["run_id"]])) if c["run_id"] in self.recipes
                               else c for c in self.contributions]
+        self.prior = None
+        if prior is not None:  # bound to its logged record: task, recipe, bank and completeness must all agree
+            rec = self.runs.get(prior["run_id"])
+            if rec is None or rec["task_id"] != prior["task_id"] or rec["recipe_id"] != recipe_id(prior["recipe"]) \
+                    or rec["bank_sha256"] != prior["bank_sha256"] or not complete(rec):
+                raise ValueError(f"prior_strongest {prior['run_id']} does not match a complete logged run")
+            self.runs[prior["run_id"]] = dict(rec, recipe_sha256=recipe_hash(prior["recipe"]))
+            self.prior = prior["run_id"]
 
     def manifest_recipe(self, run_id):
         return self.recipes[run_id]
@@ -260,9 +280,10 @@ def allowance_after(log, family, wave):
 
 
 def strongest(log, wave, h):
-    """G: the strongest complete run of the closed waves before this one, H included. Results inside a wave never
-    update its comparators."""
-    return best([log.runs[h]] + [r for b in log.batches_before(wave) for r in log.family_runs(b["family"], wave)])
+    """G: the strongest complete run of the closed waves before this one, H and the protocol's prior run (if any)
+    included. Results inside a wave never update its comparators."""
+    return best([log.runs[h]] + ([log.runs[log.prior]] if log.prior else [])
+                + [r for b in log.batches_before(wave) for r in log.family_runs(b["family"], wave)])
 
 
 def qualifying(log, family, wave):
@@ -350,8 +371,9 @@ def local_types(fam, space):
 
 def plan_wave(protocol, log, wave, run_id_of):
     """The manifests of a wave, in family order. Wave 1: every family's initial batch, its state naming the runs
-    that will supply it (the family anchor as incumbent, H as reference and strongest; the previous best blend is
-    the better of the anchor's two blends with H, floored at H). Later waves: for each family with allowance below
+    that will supply it (the family anchor as incumbent, H as reference, and as strongest H or, when the protocol
+    names a prior run, the better of H and that run; the previous best blend is the better of the anchor's two blends
+    with H, floored at H). Later waves: for each family with allowance below
     its ceiling, a local refinement batch (a chosen family's first two batches after wave 1) or a broad expansion
     batch, with the full pre-batch state. run_id_of(recipe) gives the run id the recipe will have."""
     fams = protocol["families"]
@@ -359,13 +381,14 @@ def plan_wave(protocol, log, wave, run_id_of):
     if wave == 1:
         lgb = next(f for f in fams if f["family"] == "lightgbm")
         h = run_id_of(anchor_recipe(protocol, lgb))
+        g = {"run_id": h} if log.prior is None else {"run_id": h, "prior_run_id": log.prior}
         for fam in fams:
             recipes = initial_recipes(protocol, fam)
             a = run_id_of(recipes[0])
             out.append({"family": fam["family"], "wave": 1, "kind": "initial", "recipes": recipes,
                         "run_ids": [run_id_of(r) for r in recipes],
                         "state": {"family_anchor": {"run_id": a}, "incumbent": {"run_id": a},
-                                  "strongest": {"run_id": h}, "reference_h": {"run_id": h},
+                                  "strongest": dict(g), "reference_h": {"run_id": h},
                                   "previous_best_blend": {"of_run_id": a, "floor_run_id": h},
                                   "allowance_before": None},
                         "sources": {"sampler_seed": sampler_seed(protocol, fam, 1), "extensions": []}})
@@ -442,7 +465,9 @@ def resolved_state(state, log):
     complete already."""
     st = copy.deepcopy(state)
     for k in ("family_anchor", "incumbent", "strongest", "reference_h"):
-        if "repeat_mean_auc_unrounded" not in st[k]:
+        if "prior_run_id" in st[k]:  # wave 1 with a prior run: G is the better of H and that run
+            st[k] = ref(best([log.runs[st[k]["run_id"]], log.runs[st[k]["prior_run_id"]]]))
+        elif "repeat_mean_auc_unrounded" not in st[k]:
             st[k] = ref(log.runs[st[k]["run_id"]])
     pb = st["previous_best_blend"]
     if "of_run_id" in pb:

@@ -1,0 +1,256 @@
+P2.3 summary. H (the reference family's anchor): p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030, bank ce9081da503d509fda65f9af9223c7517d21a6e5e1c86a822a1c68ea5a86a0f4
+  mean fold AUC 0.8314739289, repeats [0.833456, 0.83095, 0.830016]
+  H check against p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af: passed
+  completion: every batch closed
+  G's prior member: p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4 (P2.8), 0.8354212897
+Waves planned: [1, 2, 3]; batches 5, judged 5
+
+== catboost: 48 configurations run of 48 planned (ceiling 120); 24.2 min of fitting
+  family anchor  p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a  0.8306  minus H by repeat [-0.0006, -0.0010, -0.0010]
+  top five by unrounded mean fold AUC (minus H by repeat; parameters):
+    0.8306  [-0.0006, -0.0010, -0.0010]  p23_catboost_anchor  {"boosting_type": "Plain", "depth": 6, "iterations": 1000, "l2_leaf_reg": 3.0, "learning_rate": 0.0168, "random_strength": 1.0}
+    0.8292  [-0.0021, -0.0033, -0.0015]  p23_catboost_b1_0_000  {"bagging_temperature": 1.793473187168845, "boosting_type": "Plain", "bootstrap_type": "Bayesian", "depth": 6, "iterations": 1944, "l2_leaf_reg": 4.757135294733201, "learning_rate": 0.009535096982557112, "random_strength": 0.0, "rsm": 0.8880009208730744}
+    0.8290  [-0.0026, -0.0028, -0.0021]  p23_catboost_b1_1_004  {"boosting_type": "Plain", "depth": 6, "iterations": 1200, "l2_leaf_reg": 30.0, "learning_rate": 0.03, "random_strength": 2.0}
+    0.8285  [-0.0016, -0.0038, -0.0034]  p23_catboost_b1_1_006  {"boosting_type": "Plain", "depth": 6, "iterations": 400, "l2_leaf_reg": 3.0, "learning_rate": 0.05, "random_strength": 2.0}
+    0.8285  [-0.0024, -0.0038, -0.0027]  p23_catboost_b1_1_021  {"boosting_type": "Plain", "depth": 6, "iterations": 2000, "l2_leaf_reg": 100.0, "learning_rate": 0.015, "random_strength": 2.0}
+  batch catboost_w1_initial_252621122dd9 (initial, wave 1, 48 configurations): progress False, allowance None -> 0, 0 meeting a route []
+  best standalone (handoff): p23_catboost_anchor 0.8306126590, minus H by repeat [-0.0006, -0.0010, -0.0010], minus G's prior member -0.0048
+  best contribution to H: p23_catboost_b1_0_000 at weight 0.25, 0.8332696909, minus H by repeat [+0.0017, +0.0017, +0.0020]
+
+== ebm: 28 configurations run of 28 planned (ceiling 30); 5.6 min of fitting
+  family anchor  p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513  0.7999  minus H by repeat [-0.0352, -0.0306, -0.0288]
+  top five by unrounded mean fold AUC (minus H by repeat; parameters):
+    0.8162  [-0.0184, -0.0149, -0.0127]  p23_ebm_b2_001  {"interactions": "declared3", "learning_rate": 0.01, "max_rounds": 603}
+    0.8161  [-0.0187, -0.0147, -0.0126]  p23_ebm_b1_0_006  {"interactions": "declared3", "learning_rate": 0.01, "max_rounds": 700}
+    0.8158  [-0.0187, -0.0149, -0.0133]  p23_ebm_b1_0_002  {"interactions": "declared3", "learning_rate": 0.03, "max_rounds": 300}
+    0.8154  [-0.0196, -0.0153, -0.0133]  p23_ebm_b3_000  {"interactions": "declared3", "learning_rate": 0.01, "max_rounds": 905}
+    0.8153  [-0.0198, -0.0154, -0.0134]  p23_ebm_b2_003  {"interactions": "declared3", "learning_rate": 0.01, "max_rounds": 904}
+  batch ebm_w1_initial_19fe8f103c05 (initial, wave 1, 12 configurations): progress True, allowance None -> 2, 7 meeting a route ['clear_standalone', 'ensemble_contribution']
+  batch ebm_w2_refinement_9ae2d107d8bd (refinement, wave 2, 12 configurations): progress False, allowance 2 -> 1, 0 meeting a route []
+  batch ebm_w3_refinement_cde8afa3d901 (refinement, wave 3, 4 configurations): progress False, allowance 1 -> 0, 0 meeting a route []
+  best standalone (handoff): p23_ebm_b2_001 0.8161642394, minus H by repeat [-0.0184, -0.0149, -0.0127], minus G's prior member -0.0193
+  best contribution to H: p23_ebm_b1_0_002 at weight 0.25, 0.8321290946, minus H by repeat [-0.0003, +0.0009, +0.0014]
+
+Handoff to P2.4 (plan sections 6.5, 16.3 and 17.6):
+{
+ "batches_unstarted_at_cutoff": [],
+ "families": {
+  "catboost": {
+   "available": true,
+   "best_contribution": {
+    "bank_path": "artifacts/phase2/bank/p2_p23_catboost_b1_0_000_seeds155-2026-1029_c5b301913c23.npz",
+    "bank_sha256": "569ba16c9bd4af3368c3e511886617a9603461887ec5f809406776c48ba16a5b",
+    "blend_mean_fold_auc_unrounded": 0.8332696908837706,
+    "blend_repeat_mean_auc_unrounded": [
+     0.835139569526023,
+     0.8326736983272438,
+     0.8319958047980446
+    ],
+    "estimator_seeds": [
+     0
+    ],
+    "h_bank_sha256": "ce9081da503d509fda65f9af9223c7517d21a6e5e1c86a822a1c68ea5a86a0f4",
+    "mean_fold_auc_unrounded": 0.8291672843481694,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "catboost",
+     "iterations": "fixed",
+     "name": "p23_catboost_b1_0_000",
+     "params": {
+      "bagging_temperature": 1.793473187168845,
+      "boosting_type": "Plain",
+      "bootstrap_type": "Bayesian",
+      "depth": 6,
+      "iterations": 1944,
+      "l2_leaf_reg": 4.757135294733201,
+      "learning_rate": 0.009535096982557112,
+      "random_strength": 0.0,
+      "rsm": 0.8880009208730744
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p23_catboost_b1_0_000_d624e5e4b646",
+    "recipe_sha256": "d624e5e4b646a9ac7a1dc07134b6523f928aa29af6231bbaf76fd4e1a5296a65",
+    "repeat_mean_auc_unrounded": [
+     0.8313796327141679,
+     0.8276412765634349,
+     0.8284809437669051
+    ],
+    "run_id": "p2_p23_catboost_b1_0_000_seeds155-2026-1029_c5b301913c23",
+    "source_manifest_hash": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ],
+    "weight": 0.25
+   },
+   "best_standalone": {
+    "bank_path": "artifacts/phase2/bank/p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a.npz",
+    "bank_sha256": "f9b3bdec7dfa515d54323185b589dcf3e97440f4e879eda5178c43421dce7c2b",
+    "estimator_seeds": [
+     0
+    ],
+    "mean_fold_auc_unrounded": 0.8306126589903183,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "catboost",
+     "iterations": "fixed",
+     "name": "p23_catboost_anchor",
+     "params": {
+      "boosting_type": "Plain",
+      "depth": 6,
+      "iterations": 1000,
+      "l2_leaf_reg": 3.0,
+      "learning_rate": 0.0168,
+      "random_strength": 1.0
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p23_catboost_anchor_27cf25ac987a",
+    "recipe_sha256": "27cf25ac987a55a457585e70b62253ce712260b37fbc4306ff8f7a1811c90571",
+    "repeat_mean_auc_unrounded": [
+     0.8328466804723526,
+     0.8299512482848499,
+     0.8290400482137527
+    ],
+    "run_id": "p2_p23_catboost_anchor_seeds155-2026-1029_7c6f83673c5a",
+    "source_manifest_hash": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ]
+   },
+   "configurations": 48
+  },
+  "ebm": {
+   "available": true,
+   "best_contribution": {
+    "bank_path": "artifacts/phase2/bank/p2_p23_ebm_b1_0_002_seeds155-2026-1029_97e7e34226a7.npz",
+    "bank_sha256": "149a126c196b34d77e8be9a076c73b0028c99736bec15ded2c6383fb818a22ed",
+    "blend_mean_fold_auc_unrounded": 0.8321290946072547,
+    "blend_repeat_mean_auc_unrounded": [
+     0.8331976424186575,
+     0.8318163256296177,
+     0.8313733157734889
+    ],
+    "estimator_seeds": [
+     0
+    ],
+    "h_bank_sha256": "ce9081da503d509fda65f9af9223c7517d21a6e5e1c86a822a1c68ea5a86a0f4",
+    "mean_fold_auc_unrounded": 0.8158185639754425,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "ebm",
+     "iterations": "fixed",
+     "name": "p23_ebm_b1_0_002",
+     "params": {
+      "interactions": "declared3",
+      "learning_rate": 0.03,
+      "max_rounds": 300
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p23_ebm_b1_0_002_64afd1064294",
+    "recipe_sha256": "64afd1064294cda2f9839f5c647fc1f92248d6c903a211bf71a06d1632c8454c",
+    "repeat_mean_auc_unrounded": [
+     0.8147238566712895,
+     0.8160381485996966,
+     0.8166936866553414
+    ],
+    "run_id": "p2_p23_ebm_b1_0_002_seeds155-2026-1029_97e7e34226a7",
+    "source_manifest_hash": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ],
+    "weight": 0.25
+   },
+   "best_standalone": {
+    "bank_path": "artifacts/phase2/bank/p2_p23_ebm_b2_001_seeds155-2026-1029_ca9f6f749db8.npz",
+    "bank_sha256": "415eb92e604f4b138f4eacb179badac12db039af38fc5ccd5a6a73abc1e5624c",
+    "estimator_seeds": [
+     0
+    ],
+    "mean_fold_auc_unrounded": 0.8161642393672968,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "ebm",
+     "iterations": "fixed",
+     "name": "p23_ebm_b2_001",
+     "params": {
+      "interactions": "declared3",
+      "learning_rate": 0.01,
+      "max_rounds": 603
+     },
+     "preprocessing": {
+      "name": "none"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p23_ebm_b2_001_e60306fcc698",
+    "recipe_sha256": "e60306fcc698359f49d727407c24cff4e7dd5551c56adeea3c8fe02acf1b31cb",
+    "repeat_mean_auc_unrounded": [
+     0.8150472265692189,
+     0.8160893427059491,
+     0.8173561488267225
+    ],
+    "run_id": "p2_p23_ebm_b2_001_seeds155-2026-1029_ca9f6f749db8",
+    "source_manifest_hash": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ]
+   },
+   "configurations": 28
+  }
+ },
+ "h_bank_sha256": "ce9081da503d509fda65f9af9223c7517d21a6e5e1c86a822a1c68ea5a86a0f4",
+ "h_run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030",
+ "prior_member_of_g": {
+  "bank_sha256": "83e5cbf1056cf618b5e4f8fc930defcf669d99a9f338ad692bc6d7ed539d2414",
+  "mean_fold_auc_unrounded": 0.8354212897300688,
+  "run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4"
+ },
+ "task_id": "P2.3"
+}

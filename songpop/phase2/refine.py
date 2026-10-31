@@ -155,18 +155,23 @@ def propose(spec, key=recipe_hash):
     def name_of():
         return f"{spec['name']}_{len(out):03d}"
 
-    def in_bounds(r):
+    def value(r, n):
+        held = r["preprocessing"] if n.startswith(PREP) else r["params"]
+        return held.get(n[len(PREP):] if n.startswith(PREP) else n)
+
+    def in_bounds(r, parent=None):
+        """Every scale value inside its active bounds, except a value kept unchanged from the parent: a declared
+        configuration off the space's lists (P2.3's candidate 31) keeps its own values when others move."""
         for n, t in spec["types"].items():
-            held = r["preprocessing"] if n.startswith(PREP) else r["params"]
-            v = held.get(n[len(PREP):] if n.startswith(PREP) else n)
-            if v is None or t["type"] != "log" or v == 0:
+            v = value(r, n)
+            if v is None or t["type"] != "log" or v == 0 or (parent is not None and v == value(parent, n)):
                 continue
             if not t["min"] <= v <= t["max"]:
                 return False
         return True
 
-    def new(r, count=True):
-        if not in_bounds(r):
+    def new(r, count=True, parent=None):
+        if not in_bounds(r, parent):
             info["out_of_bounds"] += count
             return False
         if not admissible(r["params"], spec["admissible"]):
@@ -177,19 +182,19 @@ def propose(spec, key=recipe_hash):
             return False
         return True
 
-    def accept(r):
-        if not new(r):
+    def accept(r, parent=None):
+        if not new(r, parent=parent):
             return False
         seen.add(key(r))
         out.append(r)
         return True
 
-    def fill(count, draw):
+    def fill(count, draw, parent=None):
         """Up to count accepted proposals from draw(); stops at the first slot without one in SLOT_ATTEMPTS draws."""
         made = 0
         while made < count:
             for _ in range(SLOT_ATTEMPTS):
-                if accept(draw()):
+                if accept(draw(), parent):
                     made += 1
                     break
             else:
@@ -202,7 +207,7 @@ def propose(spec, key=recipe_hash):
         if i == 0 and spec["trees"] is not None:
             for r in tree_variants(parent, spec["trees"], spec["derived"], name_of):
                 if made < count:
-                    made += accept(r)
+                    made += accept(r, parent)
         names = applicable(parent, sorted(spec["types"]))
 
         def local(parent=parent, names=names):
@@ -211,7 +216,7 @@ def propose(spec, key=recipe_hash):
             values = {names[j]: move(_value(parent, names[j], spec["types"][names[j]]), spec["types"][names[j]], rng)
                       for j in chosen}
             return _with_params(parent, values, spec["derived"], name_of())
-        made += fill(count - made, local)
+        made += fill(count - made, local, parent)
         info["local_shortfall"].append(count - made)
         leftover += count - made
     broad = sorted(spec["broad_space"])

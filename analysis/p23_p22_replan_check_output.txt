@@ -1,0 +1,17 @@
+  wave 1 lightgbm       initial     64 configurations: equal to the saved manifest
+  wave 1 random_forest  initial     48 configurations: equal to the saved manifest
+  wave 1 xgboost        initial     48 configurations: equal to the saved manifest
+  wave 1 extra_trees    initial     32 configurations: equal to the saved manifest
+  wave 1 hist_gb        initial     12 configurations: equal to the saved manifest
+  wave 1 logistic       initial     24 configurations: equal to the saved manifest
+  wave 1 knn            initial     48 configurations: equal to the saved manifest
+wave 1: families ['extra_trees', 'hist_gb', 'knn', 'lightgbm', 'logistic', 'random_forest', 'xgboost']: unchanged
+  wave 2 lightgbm       refinement  12 configurations: equal to the saved manifest
+  wave 2 extra_trees    refinement  12 configurations: equal to the saved manifest
+  wave 2 logistic       refinement  12 configurations: equal to the saved manifest
+wave 2: families ['extra_trees', 'lightgbm', 'logistic']: unchanged
+  wave 3 lightgbm       refinement  12 configurations: equal to the saved manifest
+  wave 3 extra_trees    refinement  12 configurations: equal to the saved manifest
+  wave 3 logistic       refinement  12 configurations: equal to the saved manifest
+wave 3: families ['extra_trees', 'lightgbm', 'logistic']: unchanged
+P2.2 re-planning under the current protocol code: UNCHANGED

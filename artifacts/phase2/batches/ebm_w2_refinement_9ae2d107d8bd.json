@@ -1,0 +1,388 @@
+{
+ "batch_id": "ebm_w2_refinement_9ae2d107d8bd",
+ "family": "ebm",
+ "kind": "refinement",
+ "protocol_sha256": "56d94303efc7211337970b93693308bf451702dbe01994f23dbdc349f8961068",
+ "recipe_sha256": [
+  "ef6987af32691d400b586faf23106de09bf73c1967626163f9e62f0649f50c9f",
+  "e60306fcc698359f49d727407c24cff4e7dd5551c56adeea3c8fe02acf1b31cb",
+  "a9f8485728007e624b330e8410d1ea2048eae9d5e40b8a7aaf84fda33a054c54",
+  "81f3843a330c120eb8fd0c51941baf574409806cc55d572840d8596043e1d067",
+  "2e06105411d83a8d5f8750c47a85458bb769442e5f324f6faacc8bbc1059c582",
+  "12e9bf21f08db72e4159afe05ebbcd75170a434127135f1f1545d46fafc93129",
+  "cd338b0e24a48d15496df32610913523ab737e98d001400554babebf629cf01c",
+  "d5d592547a0b640b25bd937f5028021fbe5949f1fff6935d6e038b44b9b5b8ca",
+  "8a2d51e6255a200fa03cccbd75b923077c24faf5248c398bd5ec450fbd5649d8",
+  "b09316acccb87ebe41df32b0b7147895ba9a808253972a27c2c63b6fd6fb88fa",
+  "fceda03e00bd8416934bc24c441ac42cc8afbe159686976cc8ac9cb3e4a96286",
+  "2d6f3303a9bcd01e91c223f8618279fc5959365c72339e70731e96d2d19a6618"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_000",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.01,
+    "max_rounds": 1050
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_001",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.01,
+    "max_rounds": 603
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_002",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.01,
+    "max_rounds": 981
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_003",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.01,
+    "max_rounds": 904
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_004",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.01,
+    "max_rounds": 520
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_005",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.03,
+    "max_rounds": 469
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_006",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.0418,
+    "max_rounds": 404
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_007",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.0258,
+    "max_rounds": 330
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_008",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.0313,
+    "max_rounds": 540
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_009",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.06,
+    "max_rounds": 700
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_010",
+   "params": {
+    "interactions": "none",
+    "learning_rate": 0.03,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "ebm",
+   "iterations": "fixed",
+   "name": "p23_ebm_b2_011",
+   "params": {
+    "interactions": "declared3",
+    "learning_rate": 0.03,
+    "max_rounds": 1500
+   },
+   "preprocessing": {
+    "name": "none"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p23_ebm_b2_000_seeds155-2026-1029_c1e8a580e602",
+  "p2_p23_ebm_b2_001_seeds155-2026-1029_ca9f6f749db8",
+  "p2_p23_ebm_b2_002_seeds155-2026-1029_5ca3982c2a94",
+  "p2_p23_ebm_b2_003_seeds155-2026-1029_aa9b707f2f15",
+  "p2_p23_ebm_b2_004_seeds155-2026-1029_fe12f0e61900",
+  "p2_p23_ebm_b2_005_seeds155-2026-1029_f4e82cfa5192",
+  "p2_p23_ebm_b2_006_seeds155-2026-1029_ae60a3411c60",
+  "p2_p23_ebm_b2_007_seeds155-2026-1029_a6633afd9f14",
+  "p2_p23_ebm_b2_008_seeds155-2026-1029_8b08618c6aab",
+  "p2_p23_ebm_b2_009_seeds155-2026-1029_f83c1cf5ef5a",
+  "p2_p23_ebm_b2_010_seeds155-2026-1029_323d15929dd7",
+  "p2_p23_ebm_b2_011_seeds155-2026-1029_029a7c4bca93"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "663076d45ae8fb20384cf7dde82de32daa373e7dfa5df639ca85b9d3fb2aa54b",
+ "sources": {
+  "broad": 3,
+  "exclude_digest": "a7e8aaf249d5fc967a36f7b08eb9ea14cc9e0cfec48ee15fd1378b77a9dea337",
+  "extensions": [],
+  "local_per_parent": [
+   5,
+   4
+  ],
+  "parents": [
+   "p2_p23_ebm_b1_0_006_seeds155-2026-1029_afdcf1c3e37d",
+   "p2_p23_ebm_b1_0_002_seeds155-2026-1029_97e7e34226a7"
+  ],
+  "rejected": {
+   "broad_shortfall": 0,
+   "duplicate": 9,
+   "inadmissible": 6,
+   "local_shortfall": [
+    0,
+    0
+   ],
+   "out_of_bounds": 0,
+   "termination": "requested_count"
+  },
+  "sampler_seed": 2026103202
+ },
+ "state": {
+  "allowance_before": 2,
+  "family_anchor": {
+   "run_id": "p2_p23_ebm_anchor_seeds155-2026-1029_a59d46f27513"
+  },
+  "incumbent": {
+   "bank_sha256": "aa2aa000d1194865610a58ca4ca2fb938f0ce67f6b1493b7a0f2383544b462e4",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.8161471522045267,
+   "recipe_sha256": "fe221d5766b59653d74260f3952e4d643448940bb1460d17ca7547d3565c605b",
+   "repeat_mean_auc_unrounded": [
+    0.814762574449538,
+    0.8162539998903864,
+    0.8174248822736555
+   ],
+   "run_id": "p2_p23_ebm_b1_0_006_seeds155-2026-1029_afdcf1c3e37d"
+  },
+  "previous_best_blend": {
+   "bank_sha256": "149a126c196b34d77e8be9a076c73b0028c99736bec15ded2c6383fb818a22ed",
+   "mean_fold_auc_unrounded": 0.8321290946072547,
+   "repeat_mean_auc_unrounded": [
+    0.8331976424186575,
+    0.8318163256296177,
+    0.8313733157734889
+   ],
+   "run_id": "p2_p23_ebm_b1_0_002_seeds155-2026-1029_97e7e34226a7",
+   "weight": 0.25
+  },
+  "reference_h": {
+   "bank_sha256": "ce9081da503d509fda65f9af9223c7517d21a6e5e1c86a822a1c68ea5a86a0f4",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.8314739289455241,
+   "recipe_sha256": "08732fab4a5606bf1797465d3186d283e69b1aa90f175ef4d663ef2b9e0b933b",
+   "repeat_mean_auc_unrounded": [
+    0.8334559624727105,
+    0.8309501561669368,
+    0.8300156681969251
+   ],
+   "run_id": "p2_p23_lightgbm_anchor_seeds155-2026-1029_2b98258b2030"
+  },
+  "strongest": {
+   "bank_sha256": "83e5cbf1056cf618b5e4f8fc930defcf669d99a9f338ad692bc6d7ed539d2414",
+   "estimator_seeds": [
+    0
+   ],
+   "mean_fold_auc_unrounded": 0.8354212897300688,
+   "recipe_sha256": "3e3a87d0174e3cb4aa6d5cc5921c81728e895b6fb1b63f6358f54b1699dfb9bb",
+   "repeat_mean_auc_unrounded": [
+    0.8367162401374806,
+    0.8365189154467275,
+    0.8330287136059983
+   ],
+   "run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4"
+  }
+ },
+ "task_id": "P2.3",
+ "wave": 2
+}

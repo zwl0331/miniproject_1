@@ -1,0 +1,12 @@
+  wave 1: every manifest equals its file, record and re-planning
+  wave 2: every manifest equals its file, record and re-planning
+  wave 3: every manifest equals its file, record and re-planning
+  runs: 77 audited against their banks and records, 0 with problems
+  H check: recomputed equal
+  contributions of 77 runs: recomputed equal
+  allocation lightgbm_w1_initial_9b1890401c25: re-judged equal, bootstraps recomputed
+  allocation catboost_w1_initial_252621122dd9: re-judged equal, bootstraps recomputed
+  allocation ebm_w1_initial_19fe8f103c05: re-judged equal, bootstraps recomputed
+  allocation ebm_w2_refinement_9ae2d107d8bd: re-judged equal, bootstraps recomputed
+  allocation ebm_w3_refinement_cde8afa3d901: re-judged equal, bootstraps recomputed
+audit exit 0

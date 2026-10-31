@@ -99,7 +99,9 @@ def run_search(ctx, spec, seeds, task, manifest, inv, directory=runs.SEARCH_DIR,
 
 TIMING_SCHEMA = "timing_v1"
 TIMING_CASES = ("light", "representative", "expensive")
-PROTOCOL = Path("configs/phase2/p2.2/protocol.json")
+OPTIONAL_TIMING_CASES = ("extended",)  # beyond the space's timed corner (P2.3's range extensions); not averaged
+PROTOCOLS = {"P2.2": Path("configs/phase2/p2.2/protocol.json"),  # plan section 15
+             "P2.3": Path("configs/phase2/p2.3/protocol.json")}  # plan section 17
 BATCH_DIR = runs.ARTIFACTS / "batches"
 
 
@@ -134,7 +136,7 @@ def time_cases(ctx, spec, seeds, task, manifest, inv, spec_sha256, log_path=runs
     env = artifacts.environment(ctx.root)
     out = []
     for case in spec["cases"]:
-        if sorted(case) != ["case", "recipe"] or case["case"] not in TIMING_CASES:
+        if sorted(case) != ["case", "recipe"] or case["case"] not in TIMING_CASES + OPTIONAL_TIMING_CASES:
             raise ValueError(f"malformed timing case {case!r}")
         recipe = validate_recipe(case["recipe"])
         load = [round(x, 2) for x in os.getloadavg()]
@@ -156,31 +158,63 @@ def time_cases(ctx, spec, seeds, task, manifest, inv, spec_sha256, log_path=runs
     return out
 
 
-def reservation(ctx, task, proto):
-    """The compute reservation of plan section 15.6 from the logged timing records: per family, the mean of its
-    light, representative and expensive cases times its initial count and its ceiling; the full refit equals the
-    fitting done; bootstraps and review are listed apart. A projection from three cases, not an upper bound."""
-    t = [r for r in runs.logged(ctx, "timing") if r["task_id"] == task]
-    rows, init, ceil = [], 0.0, 0.0
+def timing_set(ctx, task, manifest):
+    """The task's timing records made under the running sources, one per (family, case), all from one timing
+    specification; older records stay in the log as history. Raises on duplicates or a mixture of specifications."""
+    t = [r for r in runs.logged(ctx, "timing") if r["task_id"] == task
+         and r["source_manifest"]["manifest_sha256"] == manifest["manifest_sha256"]]
+    specs = sorted({r["timing_spec_sha256"] for r in t})
+    if len(specs) != 1:
+        raise ValueError(f"{task} needs timing records from exactly one specification under the running sources, "
+                         f"found {len(specs)}")
+    out = {}
+    for r in t:
+        k = (r["family"], r["case"])
+        if k in out:
+            raise ValueError(f"duplicate timing records for {k} under the running sources")
+        out[k] = r
+    return out
+
+
+def reservation(ctx, task, proto, psha, manifest):
+    """The compute reservation of plan sections 15.6 and 17.5 from the timing set of the running sources (one record
+    per family and case): per family, the mean of its light, representative and expensive cases times its initial
+    count and its ceiling; an extended case, if timed, is reported and not averaged. The record names the timing
+    records and the protocol hash. A projection, not an upper bound."""
+    t = timing_set(ctx, task, manifest)
+    rows, init, ceil, used = [], 0.0, 0.0, []
     for fam in proto["families"]:
-        secs = [r["elapsed_seconds"] for r in t if r["family"] == fam["family"]]
-        if len(secs) < 3:
-            raise ValueError(f"{fam['family']} has {len(secs)} timing records, expected its three cases")
+        if not fam["space"]:
+            continue  # a reference family (P2.3's LightGBM): its anchor H alone, one run of a few seconds
+        cases = {c: t.get((fam["family"], c)) for c in TIMING_CASES + OPTIONAL_TIMING_CASES}
+        missing = [c for c in TIMING_CASES if cases[c] is None]
+        if missing:
+            raise ValueError(f"{fam['family']} lacks the timing cases {missing}")
+        secs = [cases[c]["elapsed_seconds"] for c in TIMING_CASES]
         mean = sum(secs) / len(secs)
+        ext = cases["extended"]
         rows.append({"family": fam["family"], "mean_case_seconds": round(mean, 2), "max_case_seconds": max(secs),
+                     "extended_case_seconds": ext["elapsed_seconds"] if ext else None,
                      "initial_minutes": round(mean * fam["initial"] / 60, 1),
                      "ceiling_minutes": round(mean * fam["ceiling"] / 60, 1)})
+        used += [{"family": r["family"], "case": r["case"], "recipe_id": r["recipe_id"],
+                  "elapsed_seconds": r["elapsed_seconds"], "timestamp_utc": r["timestamp_utc"]}
+                 for r in cases.values() if r is not None]
         init, ceil = init + mean * fam["initial"], ceil + mean * fam["ceiling"]
+    spec = next(iter(t.values()))["timing_spec_sha256"]
     rec = {"record": "reservation", "task_id": task, "families": rows,
            "initial_minutes": round(init / 60, 1), "ceiling_minutes": round(ceil / 60, 1),
-           "full_refit_minutes": "equal to the fitting actually done, at most the ceiling figure",
+           "full_refit_minutes": "projected to repeat the fitting actually completed; the ceiling projection is not "
+                                 "a runtime bound",
            "bootstraps": "2,000 replicates per decision-driving comparison, a few seconds each",
            "review": "two Codex review checkpoints, about 30 to 60 minutes each",
-           "note": "a projection from three timed cases per family, not an upper bound", "timestamp_utc": now()}
+           "note": "a projection from three timed cases per family, not an upper bound",
+           "protocol_sha256": psha, "timing_spec_sha256": spec, "source_manifest_sha256": manifest["manifest_sha256"],
+           "timing_records": used, "timestamp_utc": now()}
     artifacts.append_experiment(ctx.root / runs.LOG_FILE, rec)
     for r in rows:
         print(f"  {r['family']:14s} mean case {r['mean_case_seconds']:7.2f} s  initial {r['initial_minutes']:6.1f} min  "
-              f"ceiling {r['ceiling_minutes']:6.1f} min")
+              f"ceiling {r['ceiling_minutes']:6.1f} min  extended case {r['extended_case_seconds']} s")
     print(f"  all families: initial {rec['initial_minutes']} min, ceilings {rec['ceiling_minutes']} min; "
           f"the full refit adds the fitting done")
     return rec
@@ -226,7 +260,34 @@ def read_manifest(ctx, rel):
 
 
 def load_log(ctx, task):
-    return protocol.Log(artifacts.read_experiments(ctx.root / runs.LOG_FILE), task, lambda rel: read_manifest(ctx, rel))
+    """The task's log index; a task with a wave protocol binds that protocol's prior run, if it names one."""
+    prior = load_protocol(ctx, task)[0].get("prior_strongest") if task in PROTOCOLS else None
+    return protocol.Log(artifacts.read_experiments(ctx.root / runs.LOG_FILE), task, lambda rel: read_manifest(ctx, rel),
+                        prior)
+
+
+PRIOR_ARRAYS = ("train_row_id", "y", "group_id", "split_seeds", "fold_id", "test_id")
+
+
+def validate_prior(ctx, proto):
+    """Plan section 17.3: the protocol's prior member of G, read from its bank and not only from its log entry: the
+    bank's bytes against the protocol's hash; its record's task and recipe; a complete population whose rows, labels,
+    groups, split seeds, folds and test ids equal the P2.1 anchor bank's; and runs.audit_run, which rebuilds the
+    record's scores from the stored predictions. Raises before anything is planned, fitted, judged or audited. A
+    protocol without a prior member passes."""
+    prior = proto.get("prior_strongest")
+    if prior is None:
+        return
+    bank, sha, rec = runs.load_logged(ctx, prior["run_id"])
+    ref_bank = runs.load_logged(ctx, proto["reference_p21_run_id"])[0]
+    problems = [k for k, ok in {
+        "bank hash": sha == prior["bank_sha256"], "task": rec["task_id"] == prior["task_id"],
+        "recipe": bank.metadata["recipe_sha256"] == searches.recipe_hash(prior["recipe"]),
+        "complete": protocol.complete(rec),
+        **{a: bool(np.array_equal(getattr(bank, a), getattr(ref_bank, a))) for a in PRIOR_ARRAYS}}.items() if not ok]
+    problems += runs.audit_run(ctx, prior["run_id"])
+    if problems:
+        raise ValueError(f"the prior member of G, {prior['run_id']}, fails its validation: {problems}")
 
 
 def run_id_of(ctx, seeds, manifest):
@@ -237,9 +298,15 @@ def past_cutoff(proto):
     return datetime.now(timezone.utc) > datetime.fromisoformat(proto["cutoff_utc"])
 
 
-def load_protocol(ctx):
-    raw = (ctx.root / PROTOCOL).read_bytes()
-    return protocol.load_protocol(ctx.root / PROTOCOL), artifacts.sha256_bytes(raw)
+def load_protocol(ctx, task):
+    """The task's protocol file and its hash; a task without one has no waves."""
+    if task not in PROTOCOLS:
+        raise ValueError(f"task {task} has no wave protocol (known: {sorted(PROTOCOLS)})")
+    raw = (ctx.root / PROTOCOLS[task]).read_bytes()
+    proto = protocol.load_protocol(ctx.root / PROTOCOLS[task])
+    if proto["task_id"] != task:
+        raise ValueError(f"the protocol file of {task} belongs to task {proto['task_id']}")
+    return proto, artifacts.sha256_bytes(raw)
 
 
 def full_manifest(m, task, psha, manifest):
@@ -251,7 +318,8 @@ def full_manifest(m, task, psha, manifest):
 
 def protocol_seeds(proto, seeds):
     if list(seeds) != proto["split_seeds"]:
-        raise ValueError(f"the P2.2 protocol runs on exactly the split seeds {proto['split_seeds']}, not {list(seeds)}")
+        raise ValueError(f"the {proto['task_id']} protocol runs on exactly the split seeds {proto['split_seeds']}, "
+                         f"not {list(seeds)}")
 
 
 def batch_record(m, bid, rel, fsha, task, psha):
@@ -268,16 +336,15 @@ def plan_wave(ctx, wave, seeds, task, manifest):
     """Save and log the manifests of a wave (plan section 15), before any of its fits. Resumable: the wave is
     re-planned deterministically; manifests already saved or logged must equal the re-planning and are reused,
     and only missing ones are written and logged."""
-    proto, psha = load_protocol(ctx)
+    proto, psha = load_protocol(ctx, task)
     protocol_seeds(proto, seeds)
-    if task != proto["task_id"]:
-        raise ValueError(f"the protocol belongs to task {proto['task_id']}, not {task}")
+    validate_prior(ctx, proto)
     log = load_log(ctx, task)
     if wave > 1 and not any(b["wave"] == wave - 1 for b in log.batches):
         raise ValueError(f"wave {wave - 1} is not planned")
     logged = {b["family"]: b for b in log.batches if b["wave"] == wave}
     if past_cutoff(proto) and not logged:
-        raise ValueError(f"the P2.2 cutoff {proto['cutoff_utc']} has passed: no new batch")
+        raise ValueError(f"the {task} cutoff {proto['cutoff_utc']} has passed: no new batch")
     planned = protocol.plan_wave(proto, log, wave, run_id_of(ctx, seeds, manifest))
     if set(logged) - {m["family"] for m in planned}:
         raise ValueError(f"wave {wave} has logged batches the re-planning does not produce: {sorted(logged)}")
@@ -293,7 +360,7 @@ def plan_wave(ctx, wave, seeds, task, manifest):
         artifacts.append_experiment(ctx.root / runs.LOG_FILE, dict(rec, timestamp_utc=now()))
         print(f"  {bid}: {len(m['recipes'])} configurations, saved in {rel}")
     if not planned:
-        print(f"  wave {wave}: no family has allowance left below its ceiling; P2.2's search is complete")
+        print(f"  wave {wave}: no family has allowance left below its ceiling; {task}'s search is complete")
     return planned
 
 
@@ -402,9 +469,10 @@ def run_wave(ctx, wave, seeds, task, manifest, inv, anchors_only=False):
     record before its first search fit; after the cutoff, only batches with a start record continue. Each run logs
     its contribution records; a failed fit logs a run_failure record and stops. Each completed batch is judged
     (plan section 5.6), its allocation and the bootstraps of its witnesses logged."""
-    proto, psha = load_protocol(ctx)
+    proto, psha = load_protocol(ctx, task)
     if anchors_only and wave != 1:
         raise ValueError("--anchors-only is the initialization of wave 1 only")
+    validate_prior(ctx, proto)
     log = load_log(ctx, task)
     todo = preflight(ctx, wave, seeds, task, manifest, proto, psha, log)
     h = protocol.h_run_id(proto, log)
@@ -444,7 +512,7 @@ def run_wave(ctx, wave, seeds, task, manifest, inv, anchors_only=False):
             if rec["run_id"] != rid:  # unreachable after the preflight; kept as a guard
                 raise AssertionError(f"run id {rec['run_id']} differs from the planned {rid}")
             if rid == h and anchors_only and not h_check(ctx, proto, h, task):
-                raise AssertionError("H differs from the P2.1 anchor bank; P2.2 stops (plan section 15.2)")
+                raise AssertionError(f"H differs from the P2.1 anchor bank; {task} stops (plan sections 15.2, 17)")
             contributions(ctx, rid, h, task)
         if anchors_only:
             continue
@@ -469,7 +537,12 @@ def audit_task(ctx, seeds, task, manifest, allow_incomplete=False):
     contribution, allocation, bootstrap and the H check recomputed. Completion (the default) also requires every
     planned batch to be fully run and judged, or unstarted at the cutoff with every earlier batch closed;
     allow_incomplete audits the integrity of an unfinished task. Run at the sources the runs were made with."""
-    proto, psha = load_protocol(ctx)
+    proto, psha = load_protocol(ctx, task)
+    try:
+        validate_prior(ctx, proto)
+    except ValueError as e:
+        print(f"  {e}")
+        return False
     log = load_log(ctx, task)
     ok, planned_ids = True, []
     if not log.batches:
@@ -554,7 +627,8 @@ def completion_problems(ctx, proto, log, seeds, manifest):
 def verify_task(ctx, task, manifest, inv, seeds=SPLIT_SEEDS, allow_incomplete=False):
     """Refit every distinct run of the task's batches once and compare it with its bank and record. An empty set
     fails, and so does an incomplete task unless allow_incomplete."""
-    proto, _ = load_protocol(ctx)
+    proto, _ = load_protocol(ctx, task)
+    validate_prior(ctx, proto)
     log = load_log(ctx, task)
     problems = [] if allow_incomplete else completion_problems(ctx, proto, log, list(seeds), manifest)
     if problems:
@@ -690,7 +764,7 @@ def main():
         raw = (root / args.timing).read_bytes()
         time_cases(ctx, strict_loads(raw.decode()), seeds, args.task, manifest, inv, artifacts.sha256_bytes(raw))
     elif args.reserve:
-        reservation(ctx, args.task, load_protocol(ctx)[0])
+        reservation(ctx, args.task, *load_protocol(ctx, args.task), manifest)
     elif args.plan_wave:
         plan_wave(ctx, args.plan_wave, seeds, args.task, manifest)
     elif args.run_wave:

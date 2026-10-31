@@ -31,11 +31,22 @@ ALLOWED = {
                 "subsample", "colsample_bytree"},
     "hist_gb": {"max_iter", "learning_rate", "max_leaf_nodes", "min_samples_leaf", "l2_regularization"},
     "logistic": {"C"},
-    "catboost": {"iterations", "learning_rate", "depth", "l2_leaf_reg", "random_strength", "boosting_type"},
-    "ebm": {"max_rounds", "interactions"},
+    "catboost": {"iterations", "learning_rate", "depth", "l2_leaf_reg", "random_strength", "boosting_type",
+                 "bootstrap_type", "bagging_temperature", "rsm"},
+    "ebm": {"max_rounds", "learning_rate", "interactions"},
     "knn": {"n_neighbors", "weights", "metric"},
 }
 KNN_METRICS = {"euclidean": "l2", "manhattan": "l1"}  # each metric with the block normalization it requires
+# EBM pair terms (plan section 5.2): "none" fits main effects only; "declared3" adds these three pairs, resolved to
+# column indices after the recipe's feature construction. interpret's default ("3x", automatic pairs) is never used.
+EBM_PAIRS = {"none": [], "declared3": [("year", "loudness"), ("year", "acousticness"), ("energy", "loudness")]}
+# EBM settings fixed by the factory (plan section 17.2): no validation split and no early stopping, one bag; the
+# rest are interpret-core 0.7.8's defaults, written out so that an omitted argument cannot change the method.
+# Every feature is binned as continuous, which is also what 0.7.8 infers for the float64 frames it receives.
+EBM_FIXED = {"validation_size": 0, "early_stopping_rounds": 0, "outer_bags": 1, "inner_bags": 0,
+             "objective": "log_loss", "max_bins": 1024, "max_interaction_bins": 64, "greedy_ratio": 10.0,
+             "cyclic_progress": False, "smoothing_rounds": 75, "interaction_smoothing_rounds": 75, "max_leaves": 2,
+             "min_samples_leaf": 4, "missing": "separate"}
 
 
 def _int(v, lo=1):
@@ -64,7 +75,9 @@ DOMAINS = {  # parameter: predicate on its value; a recipe's parameters are chec
     "subsample": _fraction, "colsample_bytree": _fraction, "max_samples": _fraction,
     "max_features": lambda v: v == "sqrt" or _fraction(v),
     "weights": lambda v: v in ("uniform", "distance"), "metric": lambda v: v in KNN_METRICS,
-    "boosting_type": lambda v: v in ("Plain", "Ordered"), "interactions": lambda v: True,
+    "boosting_type": lambda v: v in ("Plain", "Ordered"), "interactions": lambda v: v in EBM_PAIRS,
+    "bootstrap_type": lambda v: v in ("MVS", "Bayesian"),
+    "bagging_temperature": lambda v: _num(v) and v >= 0, "rsm": _fraction,
 }
 
 
@@ -82,6 +95,9 @@ def validate_model_params(family, params):
     bad = sorted(k for k, v in params.items() if not FAMILY_DOMAINS.get((family, k), DOMAINS[k])(v))
     if bad:
         raise ValueError(f"{family} parameters out of domain: { {k: params[k] for k in bad} }")
+    if ("bagging_temperature" in params) != (params.get("bootstrap_type") == "Bayesian"):
+        # CatBoost 1.2.10 accepts a temperature with MVS and ignores it: refuse the silent no-op, and an implicit one
+        raise ValueError("bagging_temperature is set exactly when bootstrap_type is 'Bayesian'")
 
 
 def log_columns(X):
@@ -157,8 +173,18 @@ def make_preprocessing(prep, columns):
                      ("columns", ColumnTransformer(parts, remainder="drop", verbose_feature_names_out=False))])
 
 
-def make_estimator(family, p, seed):
-    """A new, unfitted estimator of the family with the recipe's parameters and the given estimator seed."""
+def ebm_pairs(name, columns):
+    """The declared EBM pairs as column indices of the frame the estimator receives."""
+    columns = list(columns)
+    missing = sorted({c for pair in EBM_PAIRS[name] for c in pair} - set(columns))
+    if missing:
+        raise ValueError(f"EBM pairs {name!r} need the columns {missing}")
+    return [(columns.index(a), columns.index(b)) for a, b in EBM_PAIRS[name]]
+
+
+def make_estimator(family, p, seed, columns=None):
+    """A new, unfitted estimator of the family with the recipe's parameters and the given estimator seed. columns:
+    the frame's columns, needed only to resolve EBM's declared pairs."""
     validate_model_params(family, p)
     if family == "lightgbm":
         import lightgbm as lgb
@@ -176,24 +202,43 @@ def make_estimator(family, p, seed):
     if family == "logistic":
         return LogisticRegression(**p, max_iter=5000, random_state=seed)
     if family == "catboost":
+        # Numeric features only (no cat_features), no eval set, no class weights, no stopping. A recipe without
+        # bootstrap_type gets CatBoost 1.2.10's own CPU choice for this objective, made explicit: MVS with
+        # subsample 0.8, for Plain and Ordered alike; rsm 1.0 unless set (plan section 17.2).
         from catboost import CatBoostClassifier
-        return CatBoostClassifier(**p, random_seed=seed, thread_count=THREADS, allow_writing_files=False,
-                                  use_best_model=False, task_type="CPU", grow_policy="SymmetricTree", verbose=False)
+        q = dict(p)
+        q.setdefault("bootstrap_type", "MVS")
+        if q["bootstrap_type"] == "MVS":
+            q["subsample"] = 0.8
+        q.setdefault("rsm", 1.0)
+        return CatBoostClassifier(**q, loss_function="Logloss", eval_metric="Logloss", random_seed=seed,
+                                  thread_count=THREADS, allow_writing_files=False, save_snapshot=False,
+                                  use_best_model=False, auto_class_weights="None", nan_mode="Min", has_time=False,
+                                  task_type="CPU", grow_policy="SymmetricTree", verbose=False)
     if family == "knn":
         # Deterministic: brute-force distances, no random state; the seed is unused (recipes allow only [0]).
         # Training rows use permanent row-id order. Tied-neighbor behavior is that of the pinned scikit-learn
         # implementation; repeatability and identical-query predictions are tested.
         return KNeighborsClassifier(**p, algorithm="brute", n_jobs=1)
     if family == "ebm":
+        # No validation split and no early stopping, so each stage makes max_rounds x (its number of terms) boosting
+        # updates (greedy selection may spread them unevenly across terms); one bag; pairs only as declared.
         from interpret.glassbox import ExplainableBoostingClassifier
-        return ExplainableBoostingClassifier(**p, validation_size=0, outer_bags=1, inner_bags=0, n_jobs=THREADS,
-                                             random_state=seed)
+        if columns is None:
+            raise ValueError("an EBM estimator needs the frame's columns to resolve its pairs")
+        pairs = ebm_pairs(p.get("interactions", "none"), columns)
+        q = dict(p, interactions=pairs if pairs else 0)
+        return ExplainableBoostingClassifier(**q, **EBM_FIXED, feature_types=["continuous"] * len(columns),
+                                             n_jobs=THREADS, random_state=seed)
     raise ValueError(f"unknown family {family!r}")
 
 
 def make_model(recipe, seed, columns):
     """The recipe's preprocessing (if any) followed by its family's estimator, for feature frames with these columns."""
-    est = make_estimator(recipe["family"], dict(recipe["params"]), seed)
+    if recipe["family"] in ("catboost", "ebm") and recipe["preprocessing"]["name"] != "none":
+        raise ValueError(f"{recipe['family']} takes the feature frame as it is (EBM resolves its pairs on those "
+                         f"columns; CatBoost predicts through prediction_view)")
+    est = make_estimator(recipe["family"], dict(recipe["params"]), seed, list(columns))
     prep = make_preprocessing(recipe["preprocessing"], list(columns))
     return est if prep is None else Pipeline([("prep", prep), ("model", est)])
 
@@ -226,6 +271,22 @@ def prediction_threads(family, estimators):
     finally:
         for f, n in zip(forests, saved):
             f.n_jobs = n
+
+
+class _ThreadedCatBoost:
+    """A CatBoost model seen through predict_proba with THREADS threads: its own default is every CPU core."""
+
+    def __init__(self, est):
+        self.est, self.classes_ = est, est.classes_
+
+    def predict_proba(self, X):
+        return self.est.predict_proba(X, thread_count=THREADS)
+
+
+def prediction_view(family, est):
+    """The object whose predict_proba gives a fitted estimator's predictions under the thread limit: CatBoost
+    through _ThreadedCatBoost (plan section 17.2), every other family unchanged (forests: prediction_threads)."""
+    return _ThreadedCatBoost(est) if family == "catboost" else est
 
 
 def weight_argument(model):

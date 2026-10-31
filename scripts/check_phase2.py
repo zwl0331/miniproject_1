@@ -1,12 +1,14 @@
 """Self-checks of the phase 2 harness (task P2.1, doc/plans/phase2-models-features.md section 4.8), without pytest.
 
 From the project root: PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m scripts.check_phase2
-Everything runs in memory and writes nothing. Checks that need a package not installed yet are reported as
+Everything runs in memory and writes nothing to the project (libraries may use the system's temporary directory,
+as EBM's joblib backend does). Checks that need a package not installed yet are reported as
 SKIPPED, and checks of code that later tasks build are reported as STAGED, never as passed. Exit status 0 only if
 no check failed.
 """
 import builtins
 import copy
+import importlib.metadata
 import io
 import itertools
 import math
@@ -31,11 +33,13 @@ from songpop.phase2.encoders import DateCount, DateTargetEncoder, EraRelative, F
 from songpop.phase2.engine import fit_recipe, run_recipe_cv, training_weights
 from songpop.phase2.ensembles import blend_banks, select_seeds
 from songpop.phase2.features import FeaturePipeline, feature_columns
-from songpop.phase2.models import THREADS, make_estimator, make_model, prediction_threads
+from songpop.phase2.models import (EBM_FIXED, EBM_PAIRS, THREADS, ebm_pairs, make_estimator, make_model,
+                                   prediction_threads)
 from songpop.phase2.recipes import load_recipe, recipe_hash, recipe_id, validate_recipe
 from songpop.phase2.submission import members_of, repeated_uri_pairs, validate_candidate, write_candidate
 from songpop.splits import SPLIT_SEEDS
 from scripts import install_locks, run_experiments  # loaded before the source manifest is taken
+from analysis import p23_summary  # likewise
 
 ROOT = Path(".").resolve()
 RESULTS = []
@@ -630,14 +634,141 @@ def _():
     return "fifths mapping, octave equality for 60, 120 and 240, finite on every eligible row"
 
 
-@check("CatBoost runtime: fits F2 with missing values, writes no file, returns P(class 1)", status="STAGED")
-def _():
-    """Built and run in P2.3, after the reviewed installation; an installed package never turns it into a pass."""
+def _runtime_fixture():
+    """Fitting rows: the first 1,500 of seed 155's fold-0 training part (full dates and year-only dates, so missing
+    date parts). Prediction rows: the first 400 test rows and the one month-precision training row (1979-06), so all
+    three date precisions are predicted. The fitted recipes see nothing else."""
+    tr = np.flatnonzero(CTX.fold_id([155])[0] != 0)[:1500]
+    rows = CTX.rows.iloc[tr]
+    dates = CTX.rows["track_album_release_date"].astype(str)
+    month = CTX.rows[dates.str.len() == 7]
+    pred = pd.concat([CTX.test_rows.iloc[:400], month])
+    lengths = set(pred["track_album_release_date"].astype(str).str.len())
+    assert make_features_has_nan(rows) and lengths == {4, 7, 10}, lengths
+    return rows, CTX.data.y[tr], CTX.groups[tr], pred
 
 
-@check("EBM runtime: fits F2 with missing values, writes no file, returns P(class 1)", status="STAGED")
+def _runtime(r, fixture):
+    """Two fits of the recipe (identical predictions), the class-1 column, a pickle round trip, no new top-level
+    entry in the project root and no catboost_info directory (CatBoost's file writing and snapshots are disabled in
+    the factory); returns the first fit and its predictions."""
+    import pickle
+    rows, y, groups, test = fixture
+    before = sorted(p.name for p in ROOT.iterdir())
+    a = fit_recipe(r, rows, y, groups, FitContext(155, 0))
+    b = fit_recipe(r, rows, y, groups, FitContext(155, 0))
+    pa = a.predict_high(test)
+    assert np.array_equal(pa, b.predict_high(test)), "two fits with the same seed differ"
+    assert pa.shape == (len(test),) and np.all((pa >= 0) & (pa <= 1)) and np.unique(pa).size > 10
+    est, X = a.estimators[0], a.features.transform(test)
+    assert list(est.classes_) == [0, 1] and np.array_equal(pa, est.predict_proba(X)[:, 1])
+    assert np.array_equal(pa, pickle.loads(pickle.dumps(a)).predict_high(test)), "pickle round trip differs"
+    assert sorted(p.name for p in ROOT.iterdir()) == before, "a new entry appeared in the project root"
+    assert not (ROOT / "catboost_info").exists(), "CatBoost wrote its training directory into the working directory"
+    return a, pa
+
+
+@check("CatBoost runtime: fits F2 with missing values, predicts all three date precisions, repeatable, pickle round "
+       "trip, no new project entry, P(class 1); settings and refusals (plan sections 5.3, 16.3, 17.2)")
 def _():
-    """Built and run in P2.3 if EBM is used, after the reviewed installation."""
+    import catboost
+    if importlib.metadata.version("catboost") != "1.2.10":
+        raise AssertionError(f"catboost {importlib.metadata.version('catboost')} is not the locked 1.2.10")
+    fx = _runtime_fixture()
+    notes = []
+    for bt in ("Plain", "Ordered"):
+        r = recipe(name=f"probe_catboost_{bt.lower()}", family="catboost",
+                   params={"iterations": 60, "learning_rate": 0.05, "depth": 4, "l2_leaf_reg": 3.0,
+                           "random_strength": 1.0, "boosting_type": bt})
+        a, _ = _runtime(r, fx)
+        est = a.estimators[0]
+        got = est.get_all_params()
+        assert got["boosting_type"] == bt and got["bootstrap_type"] == "MVS" and abs(got["subsample"] - 0.8) < 1e-6
+        assert got["rsm"] == 1 and got["nan_mode"] == "Min" and got["auto_class_weights"] == "None" \
+            and got["loss_function"] == "Logloss" and "od_type" not in got  # no stopping
+        gp = est.get_params()
+        assert (gp["thread_count"], gp["allow_writing_files"], gp["save_snapshot"], gp["use_best_model"],
+                gp["has_time"]) == (THREADS, False, False, False, False)
+        notes.append(f"{bt}: MVS bootstrap, subsample 0.8, rsm 1, depth {got['depth']}, border count "
+                     f"{got['border_count']}, leaf estimation {got['leaf_estimation_method']} x "
+                     f"{got['leaf_estimation_iterations']}")
+    # Prediction runs with THREADS threads (CatBoost's own default is every core), and identical rows, NaNs
+    # included, get identical predictions.
+    from catboost import CatBoostClassifier
+    rows, y, groups, test = fx
+    nan_rows = rows.index[a.features.transform(rows).isna().any(axis=1).to_numpy()]
+    twin = pd.concat([rows.loc[nan_rows[:3]]] * 2)
+    calls = []
+    original = CatBoostClassifier.predict_proba
+
+    def spy(self, X, *args, **kw):
+        calls.append(kw.get("thread_count"))
+        return original(self, X, *args, **kw)
+    with mock.patch.object(CatBoostClassifier, "predict_proba", spy):
+        tw = a.predict_high(twin)
+    assert calls == [THREADS] and len(nan_rows) >= 3 and np.array_equal(tw[:3], tw[3:])
+    w = np.linspace(0.5, 1.5, len(y))
+    make_model(r, 0, a.features.columns_).fit(a.features.transform(rows), y, sample_weight=w)  # P2.4's weight route
+    c31 = recipe(name="probe_catboost_c31", family="catboost",
+                 params={"iterations": 60, "learning_rate": 0.05, "depth": 6, "l2_leaf_reg": 4.757135294733201,
+                         "random_strength": 0.0, "rsm": 0.8880009208730744, "bootstrap_type": "Bayesian",
+                         "bagging_temperature": 1.793473187168845, "boosting_type": "Plain"})
+    a, _ = _runtime(c31, fx)
+    got = a.estimators[0].get_all_params()
+    assert got["bootstrap_type"] == "Bayesian" and abs(got["bagging_temperature"] - 1.793473187168845) < 1e-6 \
+        and abs(got["rsm"] - 0.8880009208730744) < 1e-6
+    for bad in ({"bootstrap_type": "MVS", "bagging_temperature": 1.0}, {"bagging_temperature": 1.0},
+                {"bootstrap_type": "Bayesian"}, {"rsm": 1}, {"rsm": 1.5}, {"bootstrap_type": "Bernoulli"},
+                {"border_count": 128}):
+        raises(lambda bad=bad: make_estimator("catboost", dict({"iterations": 10}, **bad), 0), ValueError)
+    raises(lambda: make_model(recipe(family="catboost", params={"iterations": 10},
+                                     preprocessing={"name": "log_standard"}), 0, ["year"]), ValueError)
+    return "; ".join(notes) + "; prediction with 4 threads; identical NaN rows predicted identically; weights " \
+        "accepted; candidate 31's Bayesian bootstrap, temperature and rsm in effect; eight refusals"
+
+
+@check("EBM runtime: fits F2 with missing values, predicts all three date precisions, max_rounds x terms boosting "
+       "updates per stage, declared pairs, repeatable, pickle round trip, no new project entry, P(class 1); refusals "
+       "(plan sections 5.2, 17.2)")
+def _():
+    if importlib.metadata.version("interpret-core") != "0.7.8":
+        raise AssertionError(f"interpret-core {importlib.metadata.version('interpret-core')} is not the locked 0.7.8")
+    fx = _runtime_fixture()
+    notes = []
+    for inter, n_pairs in (("none", 0), ("declared3", 3)):
+        r = recipe(name=f"probe_ebm_{inter}", family="ebm",
+                   params={"max_rounds": 120, "learning_rate": 0.03, "interactions": inter})
+        a, _ = _runtime(r, fx)
+        est = a.estimators[0]
+        n_main = len(a.features.columns_)
+        names = list(est.term_names_)
+        assert len(names) == n_main + n_pairs and names[:n_main] == list(a.features.columns_)
+        if n_pairs:
+            assert sorted(names[n_main:]) == sorted(["year & loudness", "year & acousticness", "energy & loudness"])
+        # With no validation split and no early stopping, each stage makes max_rounds x (its number of terms)
+        # boosting updates; greedy selection may spread them unevenly across terms, so only stage totals are checked.
+        assert np.all(np.asarray(est.best_iteration_) == 120 * np.array([[n_main]] + ([[n_pairs]] if n_pairs else []))), \
+            f"boosting stopped early: {est.best_iteration_}"
+        params = est.get_params()
+        assert all(params[k] == v for k, v in EBM_FIXED.items()) and params["n_jobs"] == THREADS
+        assert params["feature_types"] == ["continuous"] * n_main and set(est.feature_types_in_) == {"continuous"}
+        notes.append(f"{inter}: {len(names)} terms, 120 x terms boosting updates per stage")
+    rows, y, groups, test = fx
+    nan_rows = rows.index[a.features.transform(rows).isna().any(axis=1).to_numpy()]
+    tw = a.predict_high(pd.concat([rows.loc[nan_rows[:3]]] * 2))
+    assert len(nan_rows) >= 3 and np.array_equal(tw[:3], tw[3:])
+    w = np.linspace(0.5, 1.5, len(y))
+    make_model(r, 0, a.features.columns_).fit(a.features.transform(rows), y, sample_weight=w)  # P2.4's weight route
+    cols = list(reversed(a.features.columns_))  # pairs follow the names, wherever the columns stand
+    assert [(cols[i], cols[j]) for i, j in ebm_pairs("declared3", cols)] == EBM_PAIRS["declared3"]
+    raises(lambda: make_estimator("ebm", {"max_rounds": 10, "interactions": 3}, 0, ["year"]), ValueError)
+    raises(lambda: make_estimator("ebm", {"max_rounds": 10, "interactions": "declared3"}, 0, ["year", "energy"]),
+           ValueError, "need the columns")
+    raises(lambda: make_estimator("ebm", {"max_rounds": 10}, 0), ValueError, "columns")
+    raises(lambda: make_model(recipe(family="ebm", params={"max_rounds": 10},
+                                     preprocessing={"name": "log_standard"}), 0, ["year"]), ValueError)
+    return "; ".join(notes) + "; every feature continuous; identical NaN rows predicted identically; weights " \
+        "accepted; pairs resolved by name on reordered columns; four refusals"
 
 
 @check("banks: bank_v2 round trip; metadata validation rejects every inconsistency")
@@ -965,7 +1096,7 @@ def _():
     return "a vanished earlier addition, a changed protected version and an unapproved addition are refused"
 
 
-PROTO = protocol.load_protocol(ROOT / run_experiments.PROTOCOL)
+PROTO = protocol.load_protocol(ROOT / run_experiments.PROTOCOLS["P2.2"])
 FAKE_ID = lambda r: f"run_{r['name']}_{recipe_hash(r)[:8]}"
 
 
@@ -1222,6 +1353,240 @@ def _():
            "local 5/4 + 3 broad; num_leaves extends to 127 once; tied contributions resolve by recipe hash"
 
 
+PROTO23 = protocol.load_protocol(ROOT / run_experiments.PROTOCOLS["P2.3"])
+
+
+def synthetic_log23(score, blend, prior_score=0.8354212897300688):
+    """P2.3's wave 1 on synthetic scores, as synthetic_log does for P2.2, with the protocol's prior run (G's
+    external member) logged as a complete P2.8 run with the given score."""
+    prior = PROTO23["prior_strongest"]
+    pv = prior_score
+    base = [{"record": "run", "run_id": prior["run_id"], "task_id": "P2.8", "recipe_id": recipe_id(prior["recipe"]),
+             "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS), "n_rows": 3863,
+             "bank_sha256": prior["bank_sha256"], "estimator_seeds": [0], "mean_fold_auc_unrounded": pv,
+             "repeat_mean_auc_unrounded": [pv] * 3}]
+    ms = protocol.plan_wave(PROTO23, protocol.Log(base, "P2.3", None, prior), 1, FAKE_ID)
+    files, records = {}, list(base)
+    h = ms[0]["run_ids"][0]
+    for m in ms:
+        bid = f"{m['family']}_w1"
+        files[bid] = {"recipes": m["recipes"]}
+        records.append({"record": "batch", "task_id": "P2.3", "batch_id": bid, "family": m["family"], "wave": 1,
+                        "kind": "initial", "file": bid, "run_ids": m["run_ids"], "state": m["state"],
+                        "sources": m["sources"]})
+        for r, rid in zip(m["recipes"], m["run_ids"]):
+            v = 0.8314739289 if rid == h else score(m["family"], r)
+            records.append({"record": "run", "run_id": rid, "task_id": "P2.3", "recipe_id": recipe_id(r),
+                            "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS), "n_rows": 3863,
+                            "bank_sha256": "bank_" + rid, "estimator_seeds": [0], "mean_fold_auc_unrounded": v,
+                            "repeat_mean_auc_unrounded": [v] * 3})
+            b = 0.8314739289 if rid == h else blend(m["family"], r)
+            for w, val in ((0.1, b), (0.25, 0.8314739289)):
+                records.append({"record": "contribution", "task_id": "P2.3", "run_id": rid, "h_run_id": h, "weight": w,
+                                "bank_sha256": "bank_" + rid, "h_sha256": "bank_" + h, "identity": rid == h,
+                                "mean_fold_auc_unrounded": val, "repeat_mean_auc_unrounded": [val] * 3})
+    log = protocol.Log(records, "P2.3", files.__getitem__, prior)
+    for b in log.batches:
+        records.append({"record": "allocation", "task_id": "P2.3", "batch_id": b["batch_id"], **protocol.judge(b, log)})
+    return protocol.Log(records, "P2.3", files.__getitem__, prior), records, ms
+
+
+@check("P2.3 protocol: reference family, prior run in G, wave 1 manifests (1, 48, 12), candidate 31, one refinement "
+       "family, inherited off-list values (plan section 17)")
+def _():
+    names = [f["family"] for f in PROTO23["families"]]
+    assert names == ["lightgbm", "catboost", "ebm"] and PROTO23["refinement"]["families"] == 1
+    p22_lgb = next(f for f in PROTO["families"] if f["family"] == "lightgbm")
+    ref = PROTO23["families"][0]
+    assert ref["anchor"] == p22_lgb["anchor"] and not ref["space"] and ref["initial"] == ref["ceiling"] == 1
+    init = {f["family"]: protocol.initial_recipes(PROTO23, f) for f in PROTO23["families"]}
+    assert [len(init[n]) for n in names] == [1, 48, 12]
+    cb, eb = init["catboost"], init["ebm"]
+    assert cb[0]["name"] == "p23_catboost_anchor" and cb[0]["params"] == PROTO23["families"][1]["anchor"]
+    c31 = {"depth": 6, "iterations": 1944, "learning_rate": 0.009535096982557112, "l2_leaf_reg": 4.757135294733201,
+           "random_strength": 0.0, "rsm": 0.8880009208730744, "bootstrap_type": "Bayesian",
+           "bagging_temperature": 1.793473187168845, "boosting_type": "Plain"}
+    assert cb[1]["params"] == c31
+    assert sum(r["params"]["boosting_type"] == "Ordered" for r in cb) == 24
+    assert all(5 <= r["params"]["learning_rate"] * r["params"]["iterations"] <= 100 for r in cb)
+    settings = {(r["params"]["max_rounds"], r["params"]["learning_rate"]) for r in eb}
+    assert len(settings) == 6 and all({x["params"]["interactions"] for x in eb if
+                                       (x["params"]["max_rounds"], x["params"]["learning_rate"]) == st} ==
+                                      {"none", "declared3"} for st in settings)
+    raises(lambda: run_experiments.load_protocol(CTX, "P2.8"), ValueError, "no wave protocol")
+    with mock.patch.dict(run_experiments.PROTOCOLS, {"P2.3": run_experiments.PROTOCOLS["P2.2"]}):
+        raises(lambda: run_experiments.load_protocol(CTX, "P2.3"), ValueError, "belongs to task P2.2")
+    real = run_experiments.load_log(CTX, "P2.3")  # the prior binds to the logged P2.8 record
+    assert real.prior == PROTO23["prior_strongest"]["run_id"]
+    for bad in ({"bank_sha256": "0" * 64}, {"task_id": "P2.2"}, {"recipe": dict(PROTO23["prior_strongest"]["recipe"],
+                                                                               blocks=[])}):
+        raises(lambda bad=bad: protocol.Log(artifacts.read_experiments(ROOT / runs.LOG_FILE), "P2.3",
+                                            lambda rel: run_experiments.read_manifest(CTX, rel),
+                                            dict(PROTO23["prior_strongest"], **bad)), ValueError, "prior_strongest")
+
+    # Synthetic wave 1: candidate 31 leads CatBoost by +0.004 over the anchor; EBM's best pair is +0.0015 over its
+    # anchor, 0.0054 below the prior run but only 0.0015 below H.
+    def score(family, r):
+        j = int(recipe_hash(r)[:4], 16) / 65536 * 1e-5
+        if family == "catboost":
+            return 0.8320 if r["params"].get("rsm") else (0.8280 if r["name"].endswith("_anchor") else 0.8270 + j)
+        return 0.8300 if r["params"]["max_rounds"] == 1500 and r["params"]["learning_rate"] == 0.06 else 0.8285 + j
+    log, records, ms = synthetic_log23(score, lambda f, r: 0.8314739289)
+    alloc = {r["batch_id"].split("_w")[0]: r for r in records if r["record"] == "allocation"}
+    assert alloc["lightgbm"]["routes"] == {} and alloc["lightgbm"]["allowance_after"] == 0
+    st = alloc["catboost"]["resolved_state"]["strongest"]
+    assert st["run_id"] == PROTO23["prior_strongest"]["run_id"]  # G: the better of H and the prior run
+    c31_id = ms[1]["run_ids"][1]
+    assert alloc["catboost"]["routes"][c31_id] == ["clear_standalone", "smaller_useful"]  # 0.0034 below G
+    assert alloc["ebm"]["routes"] and all(v == [] for v in alloc["ebm"]["routes"].values())  # 0.0054 below G
+    assert alloc["ebm"]["allowance_after"] == 0 and alloc["catboost"]["allowance_after"] == 2
+    _, records_h, _ = synthetic_log23(score, lambda f, r: 0.8314739289, prior_score=0.8300)
+    alloc_h = {r["batch_id"].split("_w")[0]: r for r in records_h if r["record"] == "allocation"}
+    assert alloc_h["catboost"]["resolved_state"]["strongest"]["run_id"] == ms[0]["run_ids"][0]  # weaker prior: G = H
+    assert alloc_h["ebm"]["allowance_after"] == 2 and any(alloc_h["ebm"]["routes"].values())  # within 0.005 of H
+    assert protocol.refinement_families(PROTO23, log, PROTO23["families"]) == ["catboost"]
+    w2 = protocol.plan_wave(PROTO23, log, 2, FAKE_ID)
+    assert [(m["family"], m["kind"], len(m["recipes"])) for m in w2] == [("catboost", "refinement", 12)]
+    m = w2[0]
+    assert m["state"]["incumbent"]["run_id"] == c31_id and m["sources"]["local_per_parent"] == [9]
+    local = m["recipes"][:9]
+    assert local[0]["params"]["iterations"] == 1296 and all(r["params"]["iterations"] != 2916 for r in local)
+    kept = [r for r in local if r["params"]["learning_rate"] == c31["learning_rate"]]
+    moved = [r for r in local if r["params"]["learning_rate"] != c31["learning_rate"]]
+    assert kept and all(0.015 <= r["params"]["learning_rate"] <= 0.1 for r in moved)
+    assert all(r["params"]["bootstrap_type"] == "Bayesian" and r["params"]["rsm"] == c31["rsm"] for r in local)
+    assert artifacts.dumps(protocol.plan_wave(PROTO23, log, 2, FAKE_ID)) == artifacts.dumps(w2)
+    return (f"the reference batch judged with no configuration, allowance 0; G the prior run, or H when the prior "
+            f"is weaker, which changes EBM's smaller-useful route; one refinement family; {len(kept)} local proposals keep its "
+            f"learning rate 0.0095, {len(moved)} move it inside [0.015, 0.1]; its 1.5T variant (2916) dropped")
+
+
+def extend_log23(records, files, manifests, wave, score):
+    """Append synthetic batch, run and contribution records for planned later-wave manifests (states complete)."""
+    h = next(r for r in records if r["record"] == "batch" and r["family"] == "lightgbm")["run_ids"][0]
+    for m in manifests:
+        bid = f"{m['family']}_w{wave}"
+        files[bid] = {"recipes": m["recipes"]}
+        records.append({"record": "batch", "task_id": "P2.3", "batch_id": bid, "family": m["family"], "wave": wave,
+                        "kind": m["kind"], "file": bid, "run_ids": m["run_ids"], "state": m["state"],
+                        "sources": m["sources"]})
+        for r, rid in zip(m["recipes"], m["run_ids"]):
+            v = score(m["family"], r)
+            records.append({"record": "run", "run_id": rid, "task_id": "P2.3", "recipe_id": recipe_id(r),
+                            "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS), "n_rows": 3863,
+                            "bank_sha256": "bank_" + rid, "estimator_seeds": [0], "mean_fold_auc_unrounded": v,
+                            "repeat_mean_auc_unrounded": [v] * 3})
+            for w in (0.1, 0.25):
+                records.append({"record": "contribution", "task_id": "P2.3", "run_id": rid, "h_run_id": h, "weight": w,
+                                "bank_sha256": "bank_" + rid, "h_sha256": "bank_" + h, "identity": False,
+                                "mean_fold_auc_unrounded": 0.8314739289,
+                                "repeat_mean_auc_unrounded": [0.8314739289] * 3})
+
+
+@check("P2.3 protocol, other paths: EBM takes the refinement slot and CatBoost expands; a P2.3 run overtakes the "
+       "prior member of G; current-wave results leave the wave's comparators unchanged; EBM's exhausted space gives "
+       "a smaller batch; a corrupted prior member is refused (plan section 17)")
+def _():
+    prior = PROTO23["prior_strongest"]
+    j = lambda r: int(recipe_hash(r)[:4], 16) / 65536 * 1e-5  # noqa: E731
+
+    # (a) EBM's incumbent (0.8310) beats CatBoost's (0.8300): EBM refines, CatBoost gets a broad expansion of 24.
+    def score_a(family, r):
+        if family == "catboost":
+            return 0.8300 if r["params"].get("rsm") else 0.8265 + j(r)
+        return 0.8310 if (r["params"]["max_rounds"], r["params"]["learning_rate"]) == (1500, 0.01) else 0.8270 + j(r)
+    log, _, _ = synthetic_log23(score_a, lambda f, r: 0.8314739289)
+    assert protocol.refinement_families(PROTO23, log, PROTO23["families"]) == ["ebm"]
+    w2 = {m["family"]: m for m in protocol.plan_wave(PROTO23, log, 2, FAKE_ID)}
+    assert (w2["ebm"]["kind"], len(w2["ebm"]["recipes"])) == ("refinement", 12)
+    assert (w2["catboost"]["kind"], len(w2["catboost"]["recipes"])) == ("expansion", 24) and "lightgbm" not in w2
+    assert w2["catboost"]["state"]["strongest"]["run_id"] == prior["run_id"]
+
+    # (b) Candidate 31 at 0.8360 overtakes the prior member (0.8354); EBM's best (+0.004) is interior (700 rounds,
+    # 0.03), so its expansion has no range extension.
+    def score_b(family, r):
+        if family == "catboost":
+            return 0.8360 if r["params"].get("rsm") else 0.8265 + j(r)
+        q = r["params"]
+        return 0.8310 if (q["max_rounds"], q["learning_rate"], q["interactions"]) == (700, 0.03, "declared3") \
+            else 0.8270 + j(r)
+    log, records, ms = synthetic_log23(score_b, lambda f, r: 0.8314739289)
+    c31_id = ms[1]["run_ids"][1]
+    w2 = protocol.plan_wave(PROTO23, log, 2, FAKE_ID)
+    by = {m["family"]: m for m in w2}
+    assert by["catboost"]["kind"] == "refinement" and by["catboost"]["state"]["strongest"]["run_id"] == c31_id
+    e = by["ebm"]
+    assert e["kind"] == "expansion" and len(e["recipes"]) == 4 and not e["sources"]["extensions"] \
+        and e["sources"]["rejected"]["termination"] == "enumerated_exhaustion"
+    assert {(r["params"]["max_rounds"], r["params"]["learning_rate"]) for r in e["recipes"]} == {(700, 0.06), (1500, 0.03)}
+
+    # (c) A wave 2 EBM run far above everything changes nothing in the wave 2 CatBoost batch's judgment.
+    files = {b["batch_id"]: {"recipes": [log.manifest_recipe(r) for r in b["run_ids"]]} for b in log.batches}
+    recs = list(records)
+    extend_log23(recs, files, w2, 2, lambda f, r: 0.8270 + j(r))
+    before = protocol.judge(next(b for b in protocol.Log(recs, "P2.3", files.__getitem__, prior).batches
+                                 if b["batch_id"] == "catboost_w2"), protocol.Log(recs, "P2.3", files.__getitem__, prior))
+    hot = [dict(r, mean_fold_auc_unrounded=0.90, repeat_mean_auc_unrounded=[0.90] * 3)
+           if r["record"] == "run" and r["run_id"] == e["run_ids"][0] else r for r in recs]
+    log_hot = protocol.Log(hot, "P2.3", files.__getitem__, prior)
+    after = protocol.judge(next(b for b in log_hot.batches if b["batch_id"] == "catboost_w2"), log_hot)
+    assert artifacts.dumps(before) == artifacts.dumps(after)
+    assert protocol.strongest(log_hot, 3, log_hot.batches[0]["run_ids"][0])["run_id"] == e["run_ids"][0]  # next wave
+
+    # (d) The prior member's bank must match the protocol, and its record must match its bank.
+    rx = run_experiments
+    rx.validate_prior(CTX, PROTO23)
+    raises(lambda: rx.validate_prior(CTX, dict(PROTO23, prior_strongest=dict(prior, bank_sha256="0" * 64))),
+           ValueError, "bank hash")
+    raises(lambda: rx.validate_prior(CTX, dict(PROTO23, prior_strongest=dict(prior, task_id="P2.2"))),
+           ValueError, "task")
+    real = runs.logged
+
+    def forged(ctx, record="run"):
+        return [dict(r, mean_fold_auc_unrounded=r["mean_fold_auc_unrounded"] + 0.01)
+                if record == "run" and r["run_id"] == prior["run_id"] else r for r in real(ctx, record)]
+    with mock.patch.object(runs, "logged", forged):
+        raises(lambda: rx.validate_prior(CTX, PROTO23), ValueError, "fails its validation")
+    return ("EBM refines while CatBoost expands by 24; candidate 31 at 0.8360 becomes G for wave 2; EBM's interior "
+            "incumbent leaves 4 admissible configurations, enumerated; a wave 2 score of 0.90 leaves the wave 2 "
+            "judgment unchanged and becomes G for wave 3; a wrong bank hash, task or forged score is refused")
+
+
+@check("P2.3 handoff: unstarted last-wave batches after the cutoff are reported as omitted; before the cutoff, or "
+       "with a partial batch, the handoff is refused (plan section 17.6)")
+def _():
+    rx = run_experiments
+
+    def score(family, r):
+        j = int(recipe_hash(r)[:4], 16) / 65536 * 1e-5
+        if family == "catboost":
+            return 0.8320 if r["params"].get("rsm") else (0.8280 if r["name"].endswith("_anchor") else 0.8270 + j)
+        return 0.8300 if r["params"]["max_rounds"] == 1500 and r["params"]["learning_rate"] == 0.06 else 0.8285 + j
+    log, records, _ = synthetic_log23(score, lambda f, r: 0.8314739289)
+    files = {b["batch_id"]: {"recipes": [log.manifest_recipe(r) for r in b["run_ids"]]} for b in log.batches}
+    w2 = protocol.plan_wave(PROTO23, log, 2, rx.run_id_of(CTX, list(SPLIT_SEEDS), MANIFEST))
+    recs = list(records)
+    for m in w2:  # wave 2 planned, nothing of it started
+        files[f"{m['family']}_w2"] = {"recipes": m["recipes"]}
+        recs.append({"record": "batch", "task_id": "P2.3", "batch_id": f"{m['family']}_w2", "family": m["family"],
+                     "wave": 2, "kind": m["kind"], "file": f"{m['family']}_w2", "run_ids": m["run_ids"],
+                     "state": m["state"], "sources": m["sources"]})
+    log2 = protocol.Log(recs, "P2.3", files.__getitem__, PROTO23["prior_strongest"])
+    seeds = list(SPLIT_SEEDS)
+    past, future = dict(PROTO23, cutoff_utc="2000-01-01T00:00:00+00:00"), dict(PROTO23, cutoff_utc="2100-01-01T00:00:00+00:00")
+    assert p23_summary.handoff_gate(log2, rx.completion_problems(CTX, past, log2, seeds, MANIFEST)) == ["catboost_w2"]
+    raises(lambda: p23_summary.handoff_gate(log2, rx.completion_problems(CTX, future, log2, seeds, MANIFEST)),
+           SystemExit, "not complete")
+    partial = recs + [{"record": "batch_start", "task_id": "P2.3", "batch_id": "catboost_w2"}]
+    log3 = protocol.Log(partial, "P2.3", files.__getitem__, PROTO23["prior_strongest"])
+    raises(lambda: p23_summary.handoff_gate(log3, rx.completion_problems(CTX, past, log3, seeds, MANIFEST)),
+           SystemExit, "partial")
+    raises(lambda: p23_summary.handoff_gate(log, rx.completion_problems(CTX, future, log, seeds, MANIFEST)),
+           SystemExit, "still due")
+    return ("after the cutoff an unstarted wave 2 batch is reported as omitted; before it, a started (partial) batch "
+            "or a wave still due refuses the handoff")
+
+
 def tiny_protocol():
     """Two families of tiny models outside the P2.2 spaces (F0, a few trees), for an end-to-end run in memory."""
     T = lambda prep: {"base": "F0", "blocks": [], "drop": [], "preprocessing": prep, "training_weights": "none",
@@ -1259,7 +1624,7 @@ def tiny_files(fs, proto):
     fs.files[str(tmp / "protocol.json")] = artifacts.dumps(proto).encode()
     return [mock.patch.object(runs, "LOG_FILE", tmp / "log.jsonl"), mock.patch.object(runs, "BANK_DIR", tmp / "bank"),
             mock.patch.object(run_experiments, "BATCH_DIR", tmp / "batches"),
-            mock.patch.object(run_experiments, "PROTOCOL", tmp / "protocol.json")]
+            mock.patch.dict(run_experiments.PROTOCOLS, {proto["task_id"]: tmp / "protocol.json"})]
 
 
 @check("wave commands in memory: preflight, initialization, H check, run, judge, bootstraps, resume, audit, refit")
@@ -1392,7 +1757,7 @@ def _():
     with MemFS() as fs, Patches(tiny_files(fs, tiny_protocol())):
         rx.plan_wave(CTX, 1, seeds, task, MANIFEST)
         assert rx.run_wave(CTX, 1, seeds, task, MANIFEST, INV, anchors_only=True)
-        proto, _ = rx.load_protocol(CTX)
+        proto, _ = rx.load_protocol(CTX, task)
         logistic_anchor = rx.load_log(CTX, task).batches[1]["run_ids"][0]
         h = rx.load_log(CTX, task).batches[0]["run_ids"][0]
         assert not rx.h_check(CTX, dict(proto, reference_p21_run_id=logistic_anchor), h, task)
