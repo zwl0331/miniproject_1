@@ -1,0 +1,54 @@
+{
+  "engine_sources_equal": true,
+  "executable_sha256": "45bb07fa019b4d7af2c4b8fb82b1efd437056fe12a4e2ba7b305e933b0a28382",
+  "files": {
+    "build": {
+      "json": "artifacts/phase2/p27/result_build.json",
+      "json_sha256": "611bf3a1c71849c1daeb469cfc4e5182189ef596da85e220ee6dd19e5aa67823",
+      "npz": "artifacts/phase2/p27/result_build.npz",
+      "npz_sha256": "8c44854059428196c8b5f5b775014bcf2629f35412ce6da9a0996765558025a0"
+    },
+    "replay": {
+      "json": "artifacts/phase2/p27/result_replay.json",
+      "json_sha256": "909e1a2847a04c49ace7b0422dfe93b8b31caff45726fac6657502787b8dad3c",
+      "npz": "artifacts/phase2/p27/result_replay.npz",
+      "npz_sha256": "8c44854059428196c8b5f5b775014bcf2629f35412ce6da9a0996765558025a0"
+    }
+  },
+  "freshness": {
+    "expected_cold": 294,
+    "replay_cross_fits": 294,
+    "replay_entries_at_start": 0
+  },
+  "lines": [
+    "assignment and rows equal; path equal; stable provenance equal; engine sources equal (driver 4c45d0bec1f6 in the build, 5045a344bd91 in the replay)",
+    "outer fold 0: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal",
+    "outer fold 1: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal",
+    "outer fold 2: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal",
+    "freshness: the replay namespace held 0 entries at start and 294 cross-fits were computed against 294 expected for a cold run: equal"
+  ],
+  "measure_sha256": "9542963bf46a03c4603833aaa7c63747d91febd255e415b74d01208ea1af51a9",
+  "menu_sha256": "6a6ea04af63dc85c5dd256549072c4b15655c7b4715630571f0ae2387ea76298",
+  "ok": true,
+  "path": "full",
+  "records": {
+    "build": {
+      "driver_sha256": null,
+      "timestamp_utc": "2026-10-31T15:06:14+00:00"
+    },
+    "replay": {
+      "driver_sha256": "5045a344bd916e9d1c73313c3d98601f5c2b94a4efa7d6803ccadc2874be631f",
+      "timestamp_utc": "2026-10-31T16:52:39+00:00"
+    }
+  },
+  "schema": "p27_verification_v1",
+  "selected_per_fold": [
+    "blend_eq_all",
+    "blend_h_p26_extra_trees_aafa66ea_25",
+    "blend_eq_all"
+  ],
+  "split_sha256": "376fe54e20a4b1a0d6746e2a395c53740a068685b31a30724cf999d2f2088a36",
+  "verdict": "replay: every array within 1e-12, every selection equal, every cross-fit fresh",
+  "verified_at_utc": "2026-10-31T16:52:40+00:00",
+  "verifier_source_manifest_sha256": "dedbc26e92c494d5ca0b2330beddb6f6debfc77f339eb8edb5e28cb69fef683b"
+}

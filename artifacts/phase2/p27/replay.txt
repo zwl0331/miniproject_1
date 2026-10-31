@@ -1,0 +1,6 @@
+assignment and rows equal; path equal; stable provenance equal; engine sources equal (driver 4c45d0bec1f6 in the build, 5045a344bd91 in the replay)
+outer fold 0: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal
+outer fold 1: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal
+outer fold 2: fold id equal; selected equal; tie set equal; inner means equal; fold_average equal; full_refit equal; anchor equal; validation rows equal
+freshness: the replay namespace held 0 entries at start and 294 cross-fits were computed against 294 expected for a cold run: equal
+replay: every array within 1e-12, every selection equal, every cross-fit fresh

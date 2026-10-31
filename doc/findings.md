@@ -979,3 +979,34 @@ Review status:
 Downstream use:
 
 A diagnostic beside the official metric in phase 3's selection evidence, if Sam decides to report it; the report's description of the test population; no change to the frozen selection rule.
+
+## Finding 030: The Restricted Nested Evaluation of the Frozen Menu (P2.7)
+
+Question:
+
+How much of the frozen selection rule's advantage on the production folds survives when the whole procedure, including the choice among the 12 menu candidates, is repeated inside outer folds that never see the rows it is scored on; and does the plan's decision function (section 8) recommend the fallback to the anchor, or a full refit instead of fold averaging?
+
+Current conclusion:
+
+- Protocol as approved in R2 at fd48199: three `StratifiedGroupKFold` outer folds on the 3,863 eligible rows and primary groups (split seed 20261101; 1,288, 1,288 and 1,287 validation rows; `../artifacts/phase2/splits/nested_outer_v1.csv`). Inside each outer training part the 15 production inner folds (seeds 155, 2026, 1029) are rebuilt, every candidate's inner predictions built, the learned procedures' meta-training predictions rebuilt inside each inner training part, and the frozen rule applied to the inner banks alone. The selected candidate predicts the outer validation rows by its inner-fold average and, separately, by a full refit on the outer training part; the anchor's fold average stands beside it. The full path ran: the measured projection was 4.97 h for build plus replay with margin, against 8 reserved.
+- Inner selections: outer fold 0 `blend_eq_all` (inner mean 0.8331; tie set of seven, maximum 0.8334); fold 1 the 0.25 Extra Trees contribution blend (0.8317; tie set of six with `blend_eq_all` at 0.8320 and the maximum `constrained_l0.1` at 0.8321, the fewer-atoms key deciding, the mechanism Finding 029 anticipated on singleton scores); fold 2 `blend_eq_all` (0.8215; tie set of five). The inner means sit below the production 0.8411 because each inner fit uses about two thirds of the production training rows and each inner fold is scored on about 515 rows.
+- Outer AUC of the selected procedure with fold averaging: 0.8418, 0.8377, 0.8399; mean 0.8398; pooled over the 3,863 out-of-fold predictions 0.8391. The anchor: 0.8334, 0.8251, 0.8334; mean 0.8306; pooled 0.8302. The paired gain of the selection over the anchor: +0.0084, +0.0126, +0.0065; mean +0.0092; a group bootstrap of the outer predictions (2,000 resamples of the primary groups with the folds kept, seed 155001, all valid) gives the 95% interval +0.0057 to +0.0127, positive in every resample. On the production folds the same gain is 0.8411 against 0.8315, +0.0096: the optimism from choosing among the 12 candidates on the production folds is at most a few ten-thousandths, inside the noise.
+- The full refit on the outer training part: 0.8409, 0.8383, 0.8433; mean 0.8408; pooled 0.8402. Refit minus fold average: -0.0009, +0.0006, +0.0034; mean +0.0010; bootstrap 95% interval -0.0005 to +0.0025, positive in 90.7% of resamples.
+- Decision (`nested.decide`, in the plan's order): the fallback does not trigger (it needs a loss of at least 0.003 to the anchor on average and a loss on all three folds; the selection gains on every fold); the deployment rule keeps fold averaging (a full refit needs at least +0.003 on average and a gain on every fold; observed +0.0010 with a loss on fold 0). Recommended: the selected procedure with fold averaging, which for the production selection is the prepared `blend_eq_all` deployment of Finding 028.
+- Reproduction: the build (driver of 948f0d4) took 1.74 h and the replay, a new process from an empty cache namespace (driver of 157a014), 1.75 h. Each computed the 294 atomic cross-fits (each a 15-fold cross-fit of one recipe at one level) that a cold run of this menu needs, with 1,476 cache hits. Every array is equal within 1e-12 (the two NPZ files are byte-identical, sha256 8c448540...), every selection and tie set equal, the engine sources equal between the runs; peak memory 0.68 and 0.65 GB. The decision from the build's and from the replay's result agree.
+
+Evidence:
+
+`../analysis/p27_execute.py` (stages `measure`, `preflight`, `run`, `replay`, `verify`, `decide`; checks in `../analysis/p27_checks.py`); `../artifacts/phase2/p27/measure.json`, `result_build.*`, `result_replay.*`, `verification.json` (the receipt, ok, binding both result files by hash to their log records), `replay.txt`, `decision.json` (bound to the receipt, sha256 d3dc8c75...); the log records `nested_measure`, `nested_build`, `nested_replay`, `nested_verification` and `nested_decision` in `../artifacts/phase2/experiments.jsonl`; the engine `../songpop/phase2/nested.py`; the consultation `llm_usage/2026-10-31-p2.7-consultation/` (rounds W and X).
+
+Uncertainty:
+
+Three outer folds of about 1,288 rows each: a single fold AUC has a standard error near 0.012, so the fold values move by that much and only the paired differences are tight. The bootstrap is conditional on the fixed outer predictions and the realized per-fold selections; it excludes retraining and selection variability and does not rerun the selection. The menu was informed by earlier exploration on the same production folds (plan section 5.7), which the nested evaluation does not remove: the result is an estimate for this restricted procedure, not for the whole search. The inner and third-level fits use smaller populations with thinner date support than production CV, so the outer scores sit below the production scores partly for that reason. Once the deployment rule has used the outer results, they are no longer an untouched estimate of what they chose. The build's log record predates the `driver_sha256` field (null in the receipt); the build's result file carries its driver's hash in its source manifest.
+
+Review status:
+
+`draft`, written 2026-10-31 by the primary agent at the end of P2.7. The protocol, the menu and the decision function were approved in R2 at fd48199 (`../reviews/2026-10-31-p2.6b-menu.md`); the result and its records are reviewed with phase 3's final selection (R1).
+
+Downstream use:
+
+Phase 3's selection evidence: the honest estimate of the frozen rule's procedure and of its margin over the anchor; the deployment of the production selection by fold averaging, with no fallback and no refit file; the report's validation and selection sections. A revised menu from P2.9 needs its own nested evaluation before this conclusion is extended to it.

@@ -1,0 +1,119 @@
+{
+  "bootstrap_caveat": "conditional on the fixed outer predictions and the realized per-fold selections; it excludes retraining and selection variability and does not rerun the selection",
+  "bootstrap_method": "2000 resamples of the primary groups with replacement (numpy default_rng, seed 155001; the project's helper is not reused, so the draws differ from its stream); the three outer folds kept and the mean of their paired AUC differences taken per resample; a resample with an empty or single-class fold is invalid as a whole",
+  "caveats": [
+    "exploratory: the menu was informed by earlier exploration on the same production folds (plan section 5.7), which the nested evaluation does not remove",
+    "the inner and third-level fits use smaller populations with thinner date support than production CV, so part of any decline against the production scores comes from smaller training sets",
+    "once the fallback or the deployment rule has used the outer results, they are no longer an untouched estimate of what they chose"
+  ],
+  "decided_at_utc": "2026-10-31T16:53:28+00:00",
+  "decision": "the selected procedure with fold averaging",
+  "executable_sha256": "45bb07fa019b4d7af2c4b8fb82b1efd437056fe12a4e2ba7b305e933b0a28382",
+  "group_bootstrap": {
+    "refit_minus_fold_average": {
+      "interval_95": [
+        -0.0004577364234403182,
+        0.00253443447604247
+      ],
+      "invalid": 0,
+      "mean": 0.0010222417711897526,
+      "observed_mean_difference": 0.0010324061539653817,
+      "share_positive": 0.9065,
+      "valid": 2000
+    },
+    "selected_minus_anchor": {
+      "interval_95": [
+        0.005699753872998882,
+        0.012658299785065035
+      ],
+      "invalid": 0,
+      "mean": 0.009165621010949216,
+      "observed_mean_difference": 0.009159539164876995,
+      "share_positive": 1.0,
+      "valid": 2000
+    }
+  },
+  "measure": {
+    "build_and_replay_with_margin_hours": 4.97413014171603,
+    "c_all_seconds": 394.2861594579881,
+    "c_l_seconds": 364.2612156670075,
+    "path": "full",
+    "plan_projection_seconds": 7162.747404071083
+  },
+  "measure_sha256": "9542963bf46a03c4603833aaa7c63747d91febd255e415b74d01208ea1af51a9",
+  "menu_sha256": "6a6ea04af63dc85c5dd256549072c4b15655c7b4715630571f0ae2387ea76298",
+  "outer_fold_auc": {
+    "anchor": [
+      0.8334020700321212,
+      0.825106079232264,
+      0.8334220041185594
+    ],
+    "fold_average": [
+      0.8418302467911858,
+      0.8377007574255463,
+      0.8398777666608435
+    ],
+    "full_refit": [
+      0.840889082761629,
+      0.8383431811872942,
+      0.8432737253905485
+    ]
+  },
+  "outer_mean_auc": {
+    "anchor": 0.8306433844609815,
+    "fold_average": 0.8398029236258585,
+    "full_refit": 0.8408353297798238
+  },
+  "path": "full",
+  "pooled_outer_auc": {
+    "anchor": 0.8302335101218478,
+    "fold_average": 0.8390817517578937,
+    "full_refit": 0.8402384000169266
+  },
+  "receipt_sha256": "d3dc8c7594d4a504858cea48066a6b6a189fc13781c57c5e9a1e41d169780be7",
+  "refit_minus_fold_average": [
+    -0.0009411640295567958,
+    0.0006424237617479456,
+    0.0033959587297049953
+  ],
+  "replay_agrees": true,
+  "reporting_source_manifest_sha256": "dedbc26e92c494d5ca0b2330beddb6f6debfc77f339eb8edb5e28cb69fef683b",
+  "selected_minus_anchor": [
+    0.008428176759064598,
+    0.012594678193282305,
+    0.0064557625422840825
+  ],
+  "selected_per_fold": [
+    "blend_eq_all",
+    "blend_h_p26_extra_trees_aafa66ea_25",
+    "blend_eq_all"
+  ],
+  "split_sha256": "376fe54e20a4b1a0d6746e2a395c53740a068685b31a30724cf999d2f2088a36",
+  "tie_sets_per_fold": [
+    [
+      "blend_eq_all",
+      "constrained_l0",
+      "constrained_l0.01",
+      "constrained_l0.1",
+      "stacker_c0.01",
+      "stacker_c0.1",
+      "stacker_c1"
+    ],
+    [
+      "blend_eq_all",
+      "blend_h_p26_extra_trees_aafa66ea_25",
+      "constrained_l0.01",
+      "constrained_l0.1",
+      "stacker_c0.01",
+      "stacker_c0.1"
+    ],
+    [
+      "blend_eq_all",
+      "constrained_l0.01",
+      "constrained_l0.1",
+      "stacker_c0.01",
+      "stacker_c0.1"
+    ]
+  ],
+  "verified_at_utc": "2026-10-31T16:52:40+00:00"
+}
