@@ -1,0 +1,150 @@
+P2.5 summary. H (the reference family's anchor): p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5, bank c4a805f59922565d350eac7800de5067cdf7f34f82137e1eac9b704eb6cc381a
+  mean fold AUC 0.8314739289, repeats [0.833456, 0.83095, 0.830016]
+  H check against p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af: passed
+  completion: every batch closed
+  G's prior member: p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4 (P2.8), 0.8354212897
+Waves planned: [1]; batches 2, judged 2
+
+== tabm: 8 configurations run of 8 planned (ceiling 16); 34.8 min of fitting
+  family anchor  p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783  0.8015  minus H by repeat [-0.0293, -0.0280, -0.0326]
+  top five by unrounded mean fold AUC (minus H by repeat; parameters):
+    0.8034  [-0.0251, -0.0274, -0.0318]  p25_tabm_b1_0_005  {"batch_size": 128, "d_block": 128, "dropout": 0.2, "learning_rate": 0.001, "n_blocks": 2, "weight_decay": 0.01}
+    0.8031  [-0.0272, -0.0285, -0.0296]  p25_tabm_b1_0_002  {"batch_size": 256, "d_block": 128, "dropout": 0.1, "learning_rate": 0.001, "n_blocks": 3, "weight_decay": 0.0001}
+    0.8021  [-0.0258, -0.0306, -0.0318]  p25_tabm_b1_0_000  {"batch_size": 256, "d_block": 64, "dropout": 0.1, "learning_rate": 0.001, "n_blocks": 2, "weight_decay": 0.0001}
+    0.8015  [-0.0293, -0.0280, -0.0326]  p25_tabm_anchor  {"batch_size": 256, "d_block": 128, "dropout": 0.1, "learning_rate": 0.001, "n_blocks": 2, "weight_decay": 0.0001}
+    0.8013  [-0.0289, -0.0293, -0.0323]  p25_tabm_b1_0_003  {"batch_size": 256, "d_block": 128, "dropout": 0.1, "learning_rate": 0.0003, "n_blocks": 2, "weight_decay": 0.0001}
+  batch tabm_w1_initial_c71d8641daaa (initial, wave 1, 8 configurations): progress False, allowance None -> 0, 0 meeting a route []
+  best standalone (handoff): p25_tabm_b1_0_005 0.8033962568, minus H by repeat [-0.0251, -0.0274, -0.0318], minus G's prior member -0.0320
+  best contribution to H: p25_tabm_b1_0_001 at weight 0.1, 0.8320068223, minus H by repeat [+0.0007, +0.0005, +0.0004]
+  stopping receipts (per configuration: elapsed s; chosen epochs of the 15 fits; fits stopped by patience):
+    p25_tabm_b1_0_005          242.0  epochs 17-122 (median 60)  patience 15/15
+    p25_tabm_b1_0_002          346.1  epochs 36-75 (median 49)  patience 15/15
+    p25_tabm_b1_0_000          199.6  epochs 38-255 (median 125)  patience 15/15
+    p25_tabm_anchor            172.8  epochs 25-89 (median 63)  patience 15/15
+    p25_tabm_b1_0_003          597.4  epochs 92-244 (median 164)  patience 15/15
+    p25_tabm_b1_0_001          237.2  epochs 14-46 (median 29)  patience 15/15
+    p25_tabm_b1_0_004          115.1  epochs 17-46 (median 26)  patience 15/15
+    p25_tabm_b1_0_006          179.3  epochs 25-82 (median 52)  patience 15/15
+
+Handoff to P2.6b (plan sections 19.3 and 20.2):
+{
+ "batches_unstarted_at_cutoff": [],
+ "families": {
+  "tabm": {
+   "available": true,
+   "best_contribution": {
+    "bank_path": "artifacts/phase2/bank/p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2.npz",
+    "bank_sha256": "f1c826016c95c01f85daf41ec24fd696546fa17f01322ff66dffe52602588a1e",
+    "blend_mean_fold_auc_unrounded": 0.832006822344025,
+    "blend_repeat_mean_auc_unrounded": [
+     0.834137090643978,
+     0.8314618313947315,
+     0.8304215449933647
+    ],
+    "estimator_seeds": [
+     0
+    ],
+    "h_bank_sha256": "c4a805f59922565d350eac7800de5067cdf7f34f82137e1eac9b704eb6cc381a",
+    "mean_fold_auc_unrounded": 0.8010862745278561,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "tabm",
+     "iterations": "early_stop_refit_v1",
+     "name": "p25_tabm_b1_0_001",
+     "params": {
+      "batch_size": 256,
+      "d_block": 256,
+      "dropout": 0.1,
+      "learning_rate": 0.001,
+      "n_blocks": 2,
+      "weight_decay": 0.0001
+     },
+     "preprocessing": {
+      "name": "tabm_numeric",
+      "scaler": "standard"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p25_tabm_b1_0_001_604a3b286065",
+    "recipe_sha256": "604a3b286065ae897d34399ee202e3eeb812e6eb022fc35b3b35df93de49262c",
+    "repeat_mean_auc_unrounded": [
+     0.8064545897243931,
+     0.8001195940981074,
+     0.7966846397610683
+    ],
+    "run_id": "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2",
+    "source_manifest_hash": "47231e2920c69ec8380086048d8200b6521b2338a497af19d3c0c0be1c221c2b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ],
+    "weight": 0.1
+   },
+   "best_standalone": {
+    "bank_path": "artifacts/phase2/bank/p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c.npz",
+    "bank_sha256": "1ef9681f2a8986b713c72a5ee3f294c8dd5cf157a1db4b5ce40b5888010841b3",
+    "estimator_seeds": [
+     0
+    ],
+    "mean_fold_auc_unrounded": 0.8033962567773794,
+    "recipe": {
+     "base": "F2",
+     "blocks": [],
+     "deployment": "fold_average",
+     "drop": [],
+     "estimator_seeds": [
+      0
+     ],
+     "family": "tabm",
+     "iterations": "early_stop_refit_v1",
+     "name": "p25_tabm_b1_0_005",
+     "params": {
+      "batch_size": 128,
+      "d_block": 128,
+      "dropout": 0.2,
+      "learning_rate": 0.001,
+      "n_blocks": 2,
+      "weight_decay": 0.01
+     },
+     "preprocessing": {
+      "name": "tabm_numeric",
+      "scaler": "standard"
+     },
+     "schema": "recipe_v1",
+     "training_weights": "none"
+    },
+    "recipe_id": "p25_tabm_b1_0_005_706cbb513cff",
+    "recipe_sha256": "706cbb513cff791fd6bc3d6f1f2f479319293bc88d6b636575b0c0a42148068f",
+    "repeat_mean_auc_unrounded": [
+     0.8083557806353865,
+     0.8035674938705182,
+     0.7982654958262334
+    ],
+    "run_id": "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c",
+    "source_manifest_hash": "47231e2920c69ec8380086048d8200b6521b2338a497af19d3c0c0be1c221c2b",
+    "split_seeds": [
+     155,
+     2026,
+     1029
+    ]
+   },
+   "configurations": 8
+  }
+ },
+ "h_bank_sha256": "c4a805f59922565d350eac7800de5067cdf7f34f82137e1eac9b704eb6cc381a",
+ "h_run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5",
+ "prior_member_of_g": {
+  "bank_sha256": "83e5cbf1056cf618b5e4f8fc930defcf669d99a9f338ad692bc6d7ed539d2414",
+  "mean_fold_auc_unrounded": 0.8354212897300688,
+  "run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4"
+ },
+ "task_id": "P2.5"
+}

@@ -1,0 +1,264 @@
+{
+ "batch_id": "tabm_w1_initial_c71d8641daaa",
+ "family": "tabm",
+ "kind": "initial",
+ "protocol_sha256": "77e3d87dbb350c17323d54e0004f8bfdb136240c59e1e7ea0292b67515e5b4c5",
+ "recipe_sha256": [
+  "efed179842b15a1f60e63a3bc22e82aff149f86d61b3ce6c77c8a69e09f85e40",
+  "edd9b0ab63fe2643d407e7bfceb94b3566956d8692e02bcb63a13abdeb0fcb93",
+  "604a3b286065ae897d34399ee202e3eeb812e6eb022fc35b3b35df93de49262c",
+  "d889087d8e07e2d3e268c84e72b31f85e30bd20ccb62bc40fe158244753c7ffe",
+  "f57aa69c09894af54feac7985c97b4ec4c6ffcc9cf8e3fbee0b7f277e5afc0d8",
+  "90d6d243b3dad0c3f7957fb4170ce21a2f8a8ad2472e95467faf5dc3ebbe16df",
+  "706cbb513cff791fd6bc3d6f1f2f479319293bc88d6b636575b0c0a42148068f",
+  "11774f5f0d35e3ed73602bc47694fb39f9712e5362a3605a50284e2eceae1ca3"
+ ],
+ "recipes": [
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_anchor",
+   "params": {
+    "batch_size": 256,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_000",
+   "params": {
+    "batch_size": 256,
+    "d_block": 64,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_001",
+   "params": {
+    "batch_size": 256,
+    "d_block": 256,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_002",
+   "params": {
+    "batch_size": 256,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 3,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_003",
+   "params": {
+    "batch_size": 256,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.0003,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_004",
+   "params": {
+    "batch_size": 256,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.003,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_005",
+   "params": {
+    "batch_size": 128,
+    "d_block": 128,
+    "dropout": 0.2,
+    "learning_rate": 0.001,
+    "n_blocks": 2,
+    "weight_decay": 0.01
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "standard"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  },
+  {
+   "base": "F2",
+   "blocks": [],
+   "deployment": "fold_average",
+   "drop": [],
+   "estimator_seeds": [
+    0
+   ],
+   "family": "tabm",
+   "iterations": "early_stop_refit_v1",
+   "name": "p25_tabm_b1_0_006",
+   "params": {
+    "batch_size": 256,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 2,
+    "weight_decay": 0.0001
+   },
+   "preprocessing": {
+    "name": "tabm_numeric",
+    "scaler": "quantile"
+   },
+   "schema": "recipe_v1",
+   "training_weights": "none"
+  }
+ ],
+ "run_ids": [
+  "p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783",
+  "p2_p25_tabm_b1_0_000_seeds155-2026-1029_9bd19fcacf88",
+  "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2",
+  "p2_p25_tabm_b1_0_002_seeds155-2026-1029_bf6b99d9a2c2",
+  "p2_p25_tabm_b1_0_003_seeds155-2026-1029_11ed90d4922d",
+  "p2_p25_tabm_b1_0_004_seeds155-2026-1029_4344dc9f8cd4",
+  "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c",
+  "p2_p25_tabm_b1_0_006_seeds155-2026-1029_029e6a90f119"
+ ],
+ "schema": "batch_v1",
+ "source_manifest_sha256": "47231e2920c69ec8380086048d8200b6521b2338a497af19d3c0c0be1c221c2b",
+ "sources": {
+  "extensions": [],
+  "sampler_seed": 2026103201
+ },
+ "state": {
+  "allowance_before": null,
+  "family_anchor": {
+   "run_id": "p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783"
+  },
+  "incumbent": {
+   "run_id": "p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783"
+  },
+  "previous_best_blend": {
+   "floor_run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5",
+   "of_run_id": "p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783"
+  },
+  "reference_h": {
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  },
+  "strongest": {
+   "prior_run_id": "p2_p28_lightgbm_b3_001_date_count_te30_seeds155-2026-1029_44725c40a3b4",
+   "run_id": "p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5"
+  }
+ },
+ "task_id": "P2.5",
+ "wave": 1
+}
