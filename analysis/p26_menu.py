@@ -94,6 +94,8 @@ def main():
     sel = select_candidate({i: ev[i] for i in chosen}, rule_menu(chosen))
     menu = {"schema": "menu_v1", "frozen_by": "P2.6b", "procedures_sha256": artifacts.sha256_bytes(raw),
             "nominations_sha256": doc["nominations_sha256"], "channels": doc["channels"],
+            "learned_channels": doc["learned_channels"],
+            "learned_channel_exclusions": doc["learned_channel_exclusions"],
             "meta_protocol": doc["meta_protocol"],
             "candidates": [dict({k: v for k, v in by_id[c].items()}, run_id=cb[c][0], bank_sha256=cb[c][1],
                                 reason=why[c], exploratory_mean_fold_auc=float(cb[c][2].fold_auc.mean()),

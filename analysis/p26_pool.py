@@ -2,7 +2,10 @@
 contributions against it, the pool of at most eight atomic recipes, the channels, and the enumerated procedures with
 their structural counts and complexity ranks. Fits nothing and scores no procedure; writes
 configs/phase2/p2.6/procedures.json. From the project root, after the final-policy runs:
-    PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p26_pool.py
+    PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B analysis/p26_pool.py [--no-learned-channel FAMILY "REASON"]
+A family named with --no-learned-channel (TabM when its measured cost does not fit the learned-procedure reservation,
+plan section 5.5) keeps its fixed blends but is left out of the learned procedures' channels; the decision and its
+reason are recorded in the manifest, before any procedure is scored.
 """
 import json
 import sys
@@ -133,7 +136,8 @@ def channels_of(pool, rep, cwin, hstar, family_avg, anchor):
     return chans
 
 
-def procedures(pool, chans, hstar, family_avg, anchor, anchor_s3):
+def procedures(pool, chans, hstar, family_avg, anchor, anchor_s3, learned_chans=None):
+    learned_chans = chans if learned_chans is None else learned_chans
     procs = []
 
     def counts(recipes, learned):
@@ -169,7 +173,7 @@ def procedures(pool, chans, hstar, family_avg, anchor, anchor_s3):
         procs.append({"id": "family_average", "kind": "blend",
                       "members": [{"run_id": r, "weight": 1 / len(fa["run_ids"])} for r in fa["run_ids"]],
                       "channels": [{"id": fa["id"], "weight": 1.0}], **counts(fa["atoms"], False)})
-    recipes = [r for c in chans for r in c["atoms"]]
+    recipes = [r for c in learned_chans for r in c["atoms"]]
     for lam in LAMBDAS:
         procs.append({"id": f"constrained_l{lam:g}", "kind": "learned", "setting": ["constrained", lam],
                       **counts(recipes, True)})
@@ -194,7 +198,17 @@ def main():
     fin = final_runs(ctx, nom)
     hstar, contrib, rep, cwin, pool, why, family_avg, anchor, anchor_s3 = build(fin)
     chans = channels_of(pool, rep, cwin, hstar, family_avg, anchor)
-    procs = procedures(pool, chans, hstar, family_avg, anchor, anchor_s3)
+    excluded = {}
+    args = sys.argv[1:]
+    while args:
+        if args[0] != "--no-learned-channel" or len(args) < 3:
+            raise SystemExit("usage: p26_pool.py [--no-learned-channel FAMILY REASON]...")
+        excluded[args[1]] = args[2]
+        args = args[3:]
+    learned_chans = [c for c in chans if c["family"] not in excluded]
+    if len(learned_chans) < 2:
+        raise SystemExit("a learned procedure needs at least two channels")
+    procs = procedures(pool, chans, hstar, family_avg, anchor, anchor_s3, learned_chans)
     doc = {"schema": "p26_procedures_v1", "nominations_sha256": artifacts.sha256_bytes(raw),
            "final_runs": [{k: e[k] for k in ("name", "run_id", "family", "roles", "atom_id", "bank_sha256", "mean")}
                           for e in fin],
@@ -204,6 +218,8 @@ def main():
                      "reason": why[e["run_id"]]} for e in pool],
            "anchor_three_seeds": anchor_s3["run_id"],
            "channels": [{k: c[k] for k in ("id", "family", "run_ids", "atoms")} for c in chans],
+           "learned_channels": [c["id"] for c in learned_chans],
+           "learned_channel_exclusions": [{"family": f, "reason": r} for f, r in sorted(excluded.items())],
            "meta_protocol": {"folds": 5, "seed": "coordinate_seed('meta-v1', 'production', split seed, fold)",
                              "clip": 1e-6, "slsqp": {"ftol": 1e-12, "maxiter": 2000}, "weight_cleanup": 1e-9,
                              "stacker": {"solver": "lbfgs", "tol": 1e-10, "max_iter": 5000}},

@@ -1536,7 +1536,8 @@ def run_learned(ctx, path, task, manifest, inv, verify=False):
     doc = strict_loads(raw.decode())
     learned = [p for p in doc["procedures"] if p["kind"] == "learned"]
     settings = [tuple(p["setting"]) for p in learned]
-    chans = [{"id": c["id"], "atoms": c["atoms"]} for c in doc["channels"]]
+    chans = [{"id": c["id"], "atoms": c["atoms"]} for c in doc["channels"] if c["id"] in doc["learned_channels"]]
+    doc = dict(doc, channels=[c for c in doc["channels"] if c["id"] in doc["learned_channels"]])
     cbanks, recipe_of_run = channel_banks(ctx, doc)
     fold_id = ctx.fold_id(SPLIT_SEEDS)
     for ch in chans:
