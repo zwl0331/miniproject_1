@@ -1,6 +1,6 @@
 # Submissions
 
-Every file here is written once by `../scripts/prepare_submission.py` (through `songpop.artifacts.write_submission`: exclusive create, read back, validated), next to a sidecar JSON with its provenance and its Kaggle description. Each submission is a gated action (`../doc/review_policy.md` section 4.3): it is reviewed before Sam uploads it. Sam uploads every file and reports the public score.
+Every file here is written once by `../scripts/prepare_submission.py` (through `songpop.artifacts.write_submission`: exclusive create, read back, validated), next to a sidecar JSON with its provenance and its Kaggle description. Each submission file gets an R1 review before Sam uploads it (`../AGENTS.md`; Sam's decision of 2026-10-30 in `../decisions.md`; before then, a gated action under `../doc/review_policy.md` section 4.3). Sam uploads every file and reports the public score.
 
 ## Log
 

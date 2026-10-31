@@ -5,7 +5,9 @@ This file is the evidence ledger for the Miniproject 1 model. New factual conclu
 ## Review Status Labels
 
 - `draft`: written for discussion, not yet accepted.
-- `reviewed`: named by a converged review record under `../reviews/` (`review_policy.md` section 4.1); the finding cites the record.
+- `reviewed`: named by a review record under `../reviews/` that ended in `APPROVED` at a commit with no blocking finding open (`../AGENTS.md`; before 2026-10-30, a converged record under `review_policy.md` section 4.1); the finding cites the record.
+
+`draft` findings are provisional: work may build on them provisionally (`../AGENTS.md`).
 - `superseded`: replaced by a later finding.
 - `rejected`: kept for audit history, but not used.
 
@@ -648,7 +650,7 @@ The runtime checks use samples of 1,500 fitting rows and small models; they esta
 
 Review status:
 
-`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its readiness checkpoint converged in round 2 and its completion checkpoint in round 3; not yet committed.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its readiness checkpoint converged in round 2 and its completion checkpoint in round 3; committed (dca38c6) at the migration of 2026-10-30.
 
 Downstream use:
 
@@ -677,7 +679,7 @@ CatBoost searched only its initial batch, because no configuration met a route o
 
 Review status:
 
-`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; not yet committed.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; committed (dca38c6) at the migration of 2026-10-30.
 
 Downstream use:
 
@@ -705,7 +707,7 @@ The ensemble route compares a blend with H and with the family's previous best b
 
 Review status:
 
-`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; not yet committed.
+`reviewed`, by the P2.3 review (`../reviews/2026-10-30-p2.3-catboost-ebm.md`): its completion checkpoint converged in round 3; committed (dca38c6) at the migration of 2026-10-30.
 
 Downstream use:
 

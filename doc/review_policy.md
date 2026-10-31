@@ -1,6 +1,8 @@
 # Agent review policy
 
-v1.0, 2026-10-28. Owner: Sam Zhou. Status: in force since 2026-10-28 by Sam's decision to make this project review-gated on the framework of the Positron Conversion DIO project; ported from that project's policy v1.1 (commit 0fe2a32) with the project-specific changes listed in section 10. The port is task P0.1 (`reviews/2026-10-28-p0.1-bootstrap.md`). Changes to this file or to `CLAUDE.md` need Sam's explicit approval (section 10).
+Superseded on 2026-10-30 by `../AGENTS.md` (agent-workflow v1, homework profile), on Sam's approval recorded in `../decisions.md`. Kept unchanged below as the rules under which the review records of P0.1 to P2.4 round 4 were made. `tools/codex_review.sh`, named below, was removed at the migration and is in git history.
+
+v1.0, 2026-10-28. Owner: Sam Zhou. Status: in force from 2026-10-28 to 2026-10-30 by Sam's decision to make this project review-gated on the framework of the Positron Conversion DIO project; ported from that project's policy v1.1 (commit 0fe2a32) with the project-specific changes listed in section 10. The port is task P0.1 (`reviews/2026-10-28-p0.1-bootstrap.md`). Changes to this file or to `CLAUDE.md` need Sam's explicit approval (section 10).
 
 This project is review-controlled. No work produced by an AI agent is accepted until a second, independent agent has reviewed it and issued an explicit written approval. If the reviewer requests changes, the author corrects and resubmits, and the two repeat the loop until they converge. The reviewer is by default an agent from a different model family: OpenAI Codex when the author is Claude Code, and the reverse. `CLAUDE.md` carries the binding summary; this file is the full protocol.
 

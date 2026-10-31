@@ -1,6 +1,6 @@
 # Project plan
 
-v0.3, 2026-10-29. Owner: Sam Zhou. Status: phase 0 (P0.1, P0.2) and phase 1 (P1.1 to P1.3, `plans/phase1-data-baseline.md`) converged and committed 2026-10-29; the first submission uploaded by Sam, public AUC 0.83597. Phase 2 plan approved in P2.0 and committed (3e24fe6, df11816; `plans/phase2-models-features.md`); P2.1, the phase 2 infrastructure, approved and committed (719a934, 4e451ec); P2.0b, the amendment on Sam's refinements to the phase 2 experiments, approved and committed (ee557e2, 281a014); P2.2, the broad searches, approved and committed (810d1ce, 72a822b); P2.8, the gap hunt, approved and committed (5e2d5a0, cab0174); P2.3, CatBoost and EBM, approved, not yet committed; P2.4, the feature stage, in review.
+v0.3, 2026-10-29. Owner: Sam Zhou. Status: phase 0 (P0.1, P0.2) and phase 1 (P1.1 to P1.3, `plans/phase1-data-baseline.md`) converged and committed 2026-10-29; the first submission uploaded by Sam, public AUC 0.83597. Phase 2 plan approved in P2.0 and committed (3e24fe6, df11816; `plans/phase2-models-features.md`); P2.1, the phase 2 infrastructure, approved and committed (719a934, 4e451ec); P2.0b, the amendment on Sam's refinements to the phase 2 experiments, approved and committed (ee557e2, 281a014); P2.2, the broad searches, approved and committed (810d1ce, 72a822b); P2.8, the gap hunt, approved and committed (5e2d5a0, cab0174); P2.3, CatBoost and EBM, approved and committed (dca38c6); P2.4, the feature stage, committed as provisional (74517ab). Since 2026-10-30 the project follows agent-workflow v1 (`../AGENTS.md`); the current state is in `../STATE.md`.
 
 This is the master plan: goal, phases, roles, risks. The task as assigned is `../Project_1.pdf`; the course rules and rulings are in `../CLAUDE.md` and `README.md`. The methods, validation protocol, experiment order and decision rules for phases 1 to 3 are in `plans/modeling_strategy.md`. The work of each phase is planned in its own file under `plans/` when the phase starts.
 
@@ -31,24 +31,24 @@ Phase 4 starts only after development ends (Sam's decision of 2026-10-29, quoted
 Rules:
 
 - A phase plan is written when the phase starts, not before. Until then the phase table above and the modeling strategy are its plan. Phase 0 has the tasks P0.1 and P0.2 and no plan file of its own; the modeling strategy is the strategy for phases 1 to 3, not a phase plan.
-- Tasks carry stable IDs `P<phase>.<n>`. Each task is one reviewable unit: one review record under `../reviews/`, with as many review rounds as convergence under `review_policy.md` needs. Review records and commit messages name the task ID, so every result traces back to a reviewed task.
+- Tasks carry stable IDs `P<phase>.<n>`. Review records and commit messages name the task ID, so every result traces back to its task. Since 2026-10-30 a task is reviewed when the triggers of `../AGENTS.md` (R1, R2, R3) apply, one record per review unit under `../reviews/`.
 - Status lines in the phase plans are dated, newest last.
 
 ## Roles
 
-- Sam: owner of this repository; final authority under `review_policy.md` (waivers, overrides, the two final Kaggle selections, changes to the policy).
+- Sam: owner of this repository; final authority under `../AGENTS.md` (external actions, consequential method choices, unsettled disputes, the two final Kaggle selections, changes to the rules).
 - Kaggle membership: Sam alone, as Sam reported on 2026-10-29, verbatim: "Kaggle team is my name . I am the only member: Weilong (Sam) Zhou." The course-group arrangement is not recorded.
-- Reviewer: Codex, gpt-6-astra at reasoning effort xhigh, per `review_policy.md`.
+- Reviewer: Codex, gpt-6-astra at reasoning effort xhigh, through the cross-review skill (`../.agent/review.conf`).
 
 ## Risks
 
 | Risk | Mitigation |
 |---|---|
-| Six days from release to the close of the competition, and every task waits for a review round at xhigh effort | Tasks sized for one round; interim numbers labelled unreviewed; Sam may waive review for a named task (`review_policy.md` section 3.3) |
+| Six days from release to the close of the competition, and every task waits for a review round at xhigh effort | Since 2026-10-30, review only at the triggers of `../AGENTS.md`: provisional work proceeds, results are reviewed before they are used as final |
 | Rows of the same track in different folds leak into validation and inflate the cross-validated AUC | Folds grouped by track (phase 1) |
 | Overfitting the public leaderboard | Model selection on cross-validation; the public leaderboard as a check only |
-| 10 submissions a day | Each submission reviewed, with a stated purpose |
-| Course rules: no external data, no code written for this dataset, LLM use reported | The rules in `../CLAUDE.md`; the reviewer checks them (`review_policy.md` section 6.3, item 9); the review records as the evidence for the LLM Usage section |
+| 10 submissions a day | Each submission file reviewed (R1), with a stated purpose (`../decisions.md`, 2026-10-30) |
+| Course rules: no external data, no code written for this dataset, LLM use reported | The rules in `../AGENTS.md`, binding under the homework profile; the review records, `../decisions.md` and `llm_usage/` as the evidence for the LLM Usage section |
 | Pretrained models slip in through a library or an AutoML preset | Sam's decision of 2026-10-29 excludes every pretrained model (`plans/modeling_strategy.md` section 3); AutoML only with an explicit whitelist |
 | The public leaderboard is a small, noisy subset of the test rows of unknown size | Selection on grouped CV with paired comparisons; public scores as a secondary diagnostic only (`plans/modeling_strategy.md` section 4) |
 
@@ -57,3 +57,4 @@ Rules:
 - v0.1, 2026-10-28: created with P0.1.
 - v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets. Status line updated with P1.1: P0.2 committed, phase 1 started; no strategy change. With P1.3, Sam's decision, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." Phase 4 moved to after the Kaggle close.
 - v0.3, 2026-10-29, with P2.0: status line; phase 2 starts Thursday, a day early, because phase 1 finished early; its plan is `plans/phase2-models-features.md`; feature influence and the stress tests moved from phase 2 to phase 4 under Sam's decision quoted in v0.2; Kaggle membership recorded as Sam alone, as Sam reported. Status line updated with P2.1; no change to the phases, roles or risks. With P2.0b: the status line and phase 2's work, after Sam's decision, verbatim in part: "Use measured runtimes to set sensible budgets; do not assume computation or agent effort is the main bottleneck." Status line updated with P2.2; no change to the phases, roles or risks. Status line updated with P2.8 (the gap hunt, phase 2 plan section 16), a phase 2 task inside the existing phase; no change to the phases, roles or risks. Status line updated with P2.3 and P2.4; no change to the phases, roles or risks.
+- v0.4, 2026-10-30: the migration to agent-workflow v1 on Sam's approval (`../decisions.md`): the status line, the second plan rule, the roles of Sam and the reviewer, and the review, submission and course-rule rows of the risks; no change to the phases.

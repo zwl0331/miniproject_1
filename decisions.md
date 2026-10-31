@@ -1,0 +1,28 @@
+# Decisions: CS 155 Miniproject 1
+
+Append only. Each row is one decision by the owner, in the owner's words, with its source (chat, meeting, email). Agents never record their own proposals here.
+
+Rows dated before 2026-10-30's migration were copied on that day from the records named in their source; the chat each came from is quoted there. A later row overrides an earlier one where they conflict.
+
+| Date | Decision (owner's words) | Source |
+|---|---|---|
+| 2026-10-28 | "I want you to turn this into a review gated project like git@github.com:zwl0331/Positron_Conversion_DIO.git Use gpt 6 astra ax xhigh as the review model" (superseded by the migration of 2026-10-30; the reviewer model is unchanged) | chat, in `reviews/2026-10-28-p0.1-bootstrap.md` |
+| 2026-10-28 | "Make sure you pass argument int to codex to use that model rather than relying on the defaul" (the cross-review runner passes the model and effort from `.agent/review.conf`) | chat, in `reviews/2026-10-28-p0.1-bootstrap.md` |
+| 2026-10-29 | "pre-trained models certainly include data that is external to the project." | chat, in `doc/project_plan.md` (history, v0.2) and `reviews/2026-10-29-p0.2-modeling-strategy.md` |
+| 2026-10-29 | "Don't forget to consult deeply with Codex." (phase 1); "Again, consult deeply with codex" (phase 2); "remember to consult deeply with codex" (P2.2) | chat, in `doc/plans/phase1-data-baseline.md`, `doc/llm_usage/2026-10-29-phase2-consultation/README.md`, `doc/llm_usage/2026-10-29-p2.2-consultation/README.md` |
+| 2026-10-29 | "I upload them (Recommended)", described as "I prepare and check each reviewed file and give you its path and description; you upload it on Kaggle and tell me the public score." | chat, in `doc/plans/phase1-data-baseline.md` |
+| 2026-10-29 | "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." | chat, in `doc/project_plan.md` (history, v0.2) |
+| 2026-10-29 | "Kaggle team is my name . I am the only member: Weilong (Sam) Zhou." (a report of a fact, kept here because plans cite it) | chat, in `doc/project_plan.md` (roles) |
+| 2026-10-29 | "I want the following bounded refinements incorporated into phase 2 before the P2.6 candidate freeze." (in part; the full message is in the source) | chat, in `doc/plans/phase2-models-features.md` and `doc/llm_usage/2026-10-29-p2.0b-consultation/round_I_prompt.md` |
+| 2026-10-29 | "pursue a thorough, evidence-driven search for the strongest final result." and "Use measured runtimes to set sensible budgets; do not assume computation or agent effort is the main bottleneck." and "This supersedes my earlier instruction to preserve the existing experiment budgets." (in part) | chat, in `doc/plans/phase2-models-features.md` and `doc/llm_usage/2026-10-29-p2.0b-consultation/round_I_prompt.md` |
+| 2026-10-29 | "Yeah, but I intend to execute this plan. This is good." | chat, in `reviews/2026-10-29-p2.0b-search-amendment.md` |
+| 2026-10-29 | "Yeah, don't assume anything. Use tests and actual data to draw conclusions." | chat, in `doc/llm_usage/2026-10-29-p2.8-consultation/README.md` |
+| 2026-10-30 | "Prioritise gap hunt" and "Yes, start P2.8" | chat, in `doc/llm_usage/2026-10-29-p2.8-consultation/README.md` |
+| 2026-10-30 | "Take what you can get out of the old project and then update your plan and your current working, and from then on just don't depend on the old project anymore. I may remove it later." | chat, in `reviews/2026-10-30-p2.8-gap-hunt.md` and `doc/plans/modeling_strategy.md` |
+| 2026-10-30 | "Do B" (P2.2: accept the 19 tie-sensitive forest runs by the amended verification of plan section 15.7) | chat, in `doc/plans/phase2-models-features.md` section 15.7 |
+| 2026-10-30 | "Okay, 2P2.3 and 2.4, and then pause after you finish." | chat, in `doc/README.md` (status) |
+| 2026-10-30 | "Yes, continue" (P2.4, after its readiness round 3) | chat, in `reviews/2026-10-30-p2.4-features.md` |
+| 2026-10-30 | "finish the current work and wrap up. Don't start any new work." | chat, in `reviews/2026-10-30-p2.4-features.md` |
+| 2026-10-30 | "You see the new skills that originated from my new AI workflow, right? Project setup and cross-review, skills. Can you rework the current project so that it will from now on use the new workflow?" Then "Migrate now (Recommended)", the answer to: "Your rules say CLAUDE.md and review_policy.md change only with your explicit approval. Migrate this project to the new workflow now?" | chat |
+| 2026-10-30 | "Review each one", the answer to: "Should non-final Kaggle submissions be a pre-authorized routine action (no review, no approval), within 10 a day?" | chat |
+| 2026-10-30 | "Fix F2, run provisionally (Recommended)", the answer to: "P2.4 is paused at readiness round 4 (one blocking finding, F2: the audit accepts undeclared failure records). After the migration, what should happen to it when you resume work?" The option read: "Fix F2 with its rejection tests, commit, execute the feature stage; its results get reviewed when they feed the final selection (R1)." | chat |
