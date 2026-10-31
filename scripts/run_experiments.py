@@ -27,7 +27,7 @@ import numpy as np
 
 from songpop import artifacts
 from songpop.metrics import BOOTSTRAP_SEED, paired_cluster_bootstrap
-from songpop.phase2 import allocation, banks, batches, feature_stage, protocol, runs, searches
+from songpop.phase2 import allocation, banks, batches, feature_stage, procedures, protocol, runs, searches
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.engine import fit_recipe
 from songpop.phase2.ensembles import blend_banks, select_seeds
@@ -348,6 +348,14 @@ def plan_wave(ctx, wave, seeds, task, manifest):
     if past_cutoff(proto) and not logged:
         raise ValueError(f"the {task} cutoff {proto['cutoff_utc']} has passed: no new batch")
     planned = protocol.plan_wave(proto, log, wave, run_id_of(ctx, seeds, manifest))
+    over = budget_exceeded(proto, log, planned, wave)
+    if over and not logged:
+        if not any(r.get("record") == "budget_stop" and r.get("task_id") == task and r.get("wave") == wave
+                   for r in artifacts.read_experiments(ctx.root / runs.LOG_FILE)):
+            artifacts.append_experiment(ctx.root / runs.LOG_FILE, dict(over, record="budget_stop", task_id=task,
+                                                                       wave=wave, timestamp_utc=now()))
+        print(f"  wave {wave}: not planned; the budget would be exceeded: {over}")
+        return []
     if set(logged) - {m["family"] for m in planned}:
         raise ValueError(f"wave {wave} has logged batches the re-planning does not produce: {sorted(logged)}")
     for m in planned:
@@ -599,6 +607,24 @@ def audit_task(ctx, seeds, task, manifest, allow_incomplete=False):
     return ok
 
 
+def budget_exceeded(proto, log, planned, wave):
+    """For a protocol with a budget (P2.5): None, or the numbers showing that the task's search runs so far (H and
+    every reference-family run excluded) plus the planned wave at the slowest of them would exceed the fitting
+    allowance. The first wave is never stopped: its size was fixed from the score-free timing."""
+    b = proto.get("budget")
+    if b is None or wave == 1 or not planned:
+        return None
+    ref = {f["family"] for f in proto["families"] if f["ceiling"] == 1}
+    mine = [r for r in log.runs.values() if r["task_id"] == proto["task_id"] and r["family"] not in ref]
+    spent = round(sum(r["elapsed_seconds"] for r in mine), 1)
+    per = max((r["elapsed_seconds"] for r in mine), default=0.0)
+    projected = round(per * sum(len(m["run_ids"]) for m in planned), 1)
+    if spent + projected > b["fitting_seconds"]:
+        return {"spent_seconds": spent, "slowest_run_seconds": per, "projected_seconds": projected,
+                "allowance_seconds": b["fitting_seconds"]}
+    return None
+
+
 def completion_problems(ctx, proto, log, seeds, manifest):
     """Why the task is not complete (plan section 15.5), or nothing: every planned batch must be closed (all its
     runs, contributions, bootstraps and allocation logged), except batches of the last wave left unstarted because
@@ -621,7 +647,7 @@ def completion_problems(ctx, proto, log, seeds, manifest):
             out.append(f"batch {b['batch_id']} is unstarted and the cutoff {proto['cutoff_utc']} has not passed")
     if not out and not cutoff and all(b["batch_id"] in log.allocations for b in log.batches if b["wave"] == last):
         due = protocol.plan_wave(proto, log, last + 1, run_id_of(ctx, seeds, manifest))
-        if due:
+        if due and not budget_exceeded(proto, log, due, last + 1):
             out.append(f"wave {last + 1} is still due ({len(due)} batches) before the cutoff")
     return out
 
@@ -1460,6 +1486,115 @@ def audit_features(ctx, seeds, task, manifest, allow_incomplete=False):
     return ok and not problems
 
 
+# ---- learned procedures (plan section 20, P2.6b) ----------------------------------------------------------------
+
+CACHE_DIR = Path("artifacts/phase2/cache")  # ignored by git; one namespace per source manifest, or empty for a replay
+
+
+def channel_banks(ctx, doc):
+    """The production adapter (round V, item 1): each channel's production bank, an atom's final-policy run or the
+    logged equal blend of the atoms' runs (the within-family average). Every atom run audits against its bank and
+    record, is complete on the saved folds of the eligible rows with their labels, groups and test ids, and is the
+    channel's recipe; a blend is rebuilt from its parents and must equal its logged bank. recipe_of_run maps every
+    atom run to its canonical recipe hash."""
+    recipe_of_run, out, atom_banks = {}, {}, {}
+    fold_id = ctx.fold_id(SPLIT_SEEDS)
+    blends = [r for r in runs.logged(ctx) if r["prediction_kind"] == "blend"]
+    for ch in doc["channels"]:
+        for rid, rec in zip(ch["run_ids"], ch["atoms"]):
+            problems = runs.audit_run(ctx, rid)
+            bank, sha, _ = runs.load_logged(ctx, rid)
+            if problems or not (np.array_equal(bank.y, ctx.data.y) and np.array_equal(bank.group_id, ctx.groups)
+                                and np.array_equal(bank.test_id, ctx.data.test_id)
+                                and np.array_equal(bank.fold_id, fold_id)
+                                and [int(s) for s in bank.split_seeds] == list(SPLIT_SEEDS)
+                                and bank.metadata["recipe_sha256"] == searches.recipe_hash(rec)):
+                raise ValueError(f"channel {ch['id']}: {rid} is not a sound production bank of its atom ({problems})")
+            recipe_of_run[rid], atom_banks[rid] = bank.metadata["recipe_sha256"], (bank, sha)
+        if len(ch["run_ids"]) == 1:
+            out[ch["id"]] = atom_banks[ch["run_ids"][0]][0]
+            continue
+        got = [r for r in blends if sorted(p["run_id"] for p in r["parents"]) == sorted(ch["run_ids"])
+               and all(abs(p["weight"] - 1 / len(ch["run_ids"])) <= 1e-12 for p in r["parents"])]
+        if len(got) != 1:
+            raise ValueError(f"channel {ch['id']}: {len(got)} logged equal blends of its atoms, expected 1")
+        logged_bank = runs.load_logged(ctx, got[0]["run_id"])[0]
+        parents = [atom_banks[p["run_id"]] for p in got[0]["parents"]]
+        rebuilt = blend_banks(parents, [p["weight"] for p in got[0]["parents"]])
+        if not all(np.allclose(getattr(rebuilt, f), getattr(logged_bank, f), rtol=0, atol=1e-12)
+                   for f in ("oof", "test_by_fold", "fold_auc")):
+            raise ValueError(f"channel {ch['id']}: its logged blend differs from its parents")
+        out[ch["id"]] = logged_bank
+    return out, recipe_of_run
+
+
+def run_learned(ctx, path, task, manifest, inv, verify=False):
+    """Every learned procedure of the frozen manifest, evaluated as a whole on the 15 production outer folds (plan
+    section 7.2); the six settings share their channels' rebuilt meta predictions. Each becomes a procedure bank,
+    written once and logged as a procedure record. verify: recompute with an empty cache and compare with the log."""
+    raw = (ctx.root / path).read_bytes()
+    doc = strict_loads(raw.decode())
+    learned = [p for p in doc["procedures"] if p["kind"] == "learned"]
+    settings = [tuple(p["setting"]) for p in learned]
+    chans = [{"id": c["id"], "atoms": c["atoms"]} for c in doc["channels"]]
+    cbanks, recipe_of_run = channel_banks(ctx, doc)
+    fold_id = ctx.fold_id(SPLIT_SEEDS)
+    for ch in chans:
+        procedures.check_channel_bank(ch, cbanks[ch["id"]], fold_id, ctx.data.row_ids, recipe_of_run)
+    pop = procedures.Population(ctx.rows, ctx.data.y, ctx.groups, "production")
+    space = f"verify-{now().replace(':', '')}" if verify else f"p26b-{manifest['manifest_sha256'][:12]}"
+    cache = procedures.Cache(ctx.root / CACHE_DIR / space)
+    outer = {ch["id"]: (cbanks[ch["id"]].oof, cbanks[ch["id"]].test_by_fold) for ch in chans}
+    t0 = time.time()
+    got, receipts = procedures.evaluate_learned(chans, settings, outer, pop, fold_id, list(SPLIT_SEEDS), cache,
+                                                manifest["manifest_sha256"], runs.packages_for, procedures.META_PROTOCOL)
+    elapsed = round(time.time() - t0, 1)
+    env = artifacts.environment(ctx.root)
+    logged = {r["run_id"]: r for r in runs.logged(ctx, "procedure")}
+    ok = True
+    for p, st in zip(learned, settings):
+        ident = {"kind": "learned_procedure", "procedures_sha256": artifacts.sha256_bytes(raw), "id": p["id"],
+                 "setting": list(st), "channels": [{"id": c["id"], "bank_sha256": artifacts.sha256_bytes(
+                     artifacts.bank_bytes(cbanks[c["id"]]))} for c in chans],
+                 "fold_ids_sha256": artifacts.sha256_bytes(np.ascontiguousarray(fold_id, dtype=np.int64).tobytes()),
+                 "source_manifest_sha256": manifest["manifest_sha256"], "python": env["python"],
+                 "packages": artifacts.packages()}
+        rid = f"p2_{p['id'].replace('.', '_')}_{artifacts.config_hash(ident)[:12]}"
+        meta = {"run_id": rid, "task_id": task, "procedure": p, "identity": ident, "states": got[st]["states"],
+                "meta_receipts": receipts, "source_manifest": manifest, "environment": env, "invocation": inv,
+                "cache": {"namespace": space, "hits": cache.hits, "misses": cache.misses}, "elapsed_seconds": elapsed,
+                "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS)}
+        bank = procedures.procedure_bank(got[st], ctx.data.y, ctx.data.row_ids, ctx.groups, fold_id, list(SPLIT_SEEDS),
+                                         ctx.data.test_id, meta)
+        mean = float(bank.fold_auc.mean())
+        if verify:
+            rec = logged.get(rid)
+            same = rec is not None
+            if same:
+                old, sha, = banks.load_bank_v2(ctx.root / rec["bank_path"], validate=False), rec["bank_sha256"]
+                same = artifacts.sha256_bytes((ctx.root / rec["bank_path"]).read_bytes()) == sha \
+                    and all(np.allclose(getattr(old, f), getattr(bank, f), rtol=0, atol=1e-12)
+                            for f in ("oof", "test_by_fold", "test_mean", "fold_auc")) \
+                    and artifacts.dumps(old.metadata["states"]) == artifacts.dumps(bank.metadata["states"])
+            print(f"  {rid:52s} {mean:.4f}  {'equals log' if same else 'DIFFERS'}")
+            ok &= same
+            continue
+        if rid in logged:
+            print(f"  {rid} already logged")
+            continue
+        bank_path = runs.BANK_DIR / f"{rid}.npz"
+        sha = procedures.save_procedure_bank(bank, ctx.root / bank_path)
+        artifacts.append_experiment(ctx.root / runs.LOG_FILE, {
+            "record": "procedure", "task_id": task, "run_id": rid, "procedure_id": p["id"], "setting": list(st),
+            "bank_path": str(bank_path), "bank_sha256": sha, "mean_fold_auc_unrounded": mean,
+            "repeat_mean_auc_unrounded": bank.fold_auc.mean(axis=1).tolist(), "fold_auc": bank.fold_auc.tolist(),
+            "selection_eligible": True, "split_seeds": list(SPLIT_SEEDS), "n_rows": int(len(ctx.data.y)),
+            "procedures_sha256": artifacts.sha256_bytes(raw), "elapsed_seconds": elapsed, "timestamp_utc": now()})
+        print(f"  {rid:52s} {mean:.4f}  repeats {np.round(bank.fold_auc.mean(axis=1), 6).tolist()}")
+    print(f"  cache {space}: {cache.hits} hits, {cache.misses} misses; {elapsed} s")
+    return ok
+
+
 def parse_members(items):
     out = []
     for it in items:
@@ -1576,6 +1711,8 @@ def main():
     mode.add_argument("--plan-retune", type=positive)
     mode.add_argument("--run-retune", type=positive)
     mode.add_argument("--audit-features")
+    mode.add_argument("--run-learned")
+    mode.add_argument("--verify-learned")
     mode.add_argument("--stop-features", action="store_true")
     ap.add_argument("--reason")
     ap.add_argument("--members", nargs="+")
@@ -1588,7 +1725,8 @@ def main():
     root = Path(args.root).resolve()
     ctx = runs.Context.load(root)
     manifest, inv = banks.source_manifest(root), invocation(root)
-    if not (args.verify or args.verify_all or args.audit_task or args.verify_task or args.audit_features) \
+    if not (args.verify or args.verify_all or args.audit_task or args.verify_task or args.audit_features
+            or args.verify_learned) \
             and not args.task:
         ap.error("--task is required for anything that writes")
     seeds = banks.canonical_seeds(args.seeds or list(SPLIT_SEEDS))
@@ -1609,6 +1747,9 @@ def main():
                                    args.run_features or args.run_retune, seeds, args.task, manifest, inv) else 1)
     elif args.stop_features:
         stop_features(ctx, args.task, args.reason, seeds, manifest)
+    elif args.run_learned or args.verify_learned:
+        sys.exit(0 if run_learned(ctx, args.run_learned or args.verify_learned, args.task, manifest, inv,
+                                  verify=bool(args.verify_learned)) else 1)
     elif args.audit_features:
         sys.exit(0 if audit_features(ctx, seeds, args.audit_features, manifest, args.allow_incomplete) else 1)
     elif args.audit_task:

@@ -70,7 +70,7 @@ class TabMPreprocessor:
             raise ValueError(f"unknown TabM scaler {scaler!r}")
         self.scaler = scaler
 
-    def fit(self, X):
+    def fit(self, X, y=None):  # y is ignored: nothing here learns from labels
         self.columns_ = list(X.columns)
         self.cat_ = [c for c in self.columns_ if c in CATEGORICAL]
         cont = [c for c in self.columns_ if c not in CATEGORICAL]
@@ -223,6 +223,8 @@ def train(torch, p, Z, y, epochs, init_seed, batch_seed, Zv=None, yv=None):
                 raise ValueError("a non-finite training loss")
             opt.zero_grad()
             loss.backward()
+            if not all(torch.isfinite(q.grad).all() for q in net.parameters() if q.grad is not None):
+                raise ValueError("a non-finite gradient")
             opt.step()
             updates += 1
         if Zv is not None:
@@ -247,6 +249,8 @@ def fit_state(p, X, y, groups, seeds):
         Z = prep.transform(X)
         net, _, final_updates = train(torch, p, Z, y, epoch, seeds["final_init"], seeds["final_batches"])
         state = {k: v.detach().numpy().copy() for k, v in net.state_dict().items()}
+        if not all(np.isfinite(v).all() for v in state.values()):
+            raise ValueError("non-finite network weights after training")
         import tabm as tabm_package
         # Plain strings: torch's own version object would import torch into the fitting process when unpickled.
         versions = {"torch": str(torch.__version__), "tabm": str(getattr(tabm_package, "__version__", None))}
@@ -270,19 +274,66 @@ def predict_state(p, state, d_in, Z):
         return mean_probability(torch, logits(torch, net, Z))
 
 
+PROTOCOL = "tabm-worker-v1"
+EXCHANGE_SECONDS = 3600  # one request and its reply; a fit takes minutes, so this only catches a hung worker
+SHUTDOWN_SECONDS = 10
+
+
+def source_digest():
+    return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+
+
+def write_frame(f, obj):
+    data = pickle.dumps(obj, protocol=pickle.HIGHEST_PROTOCOL)
+    f.write(len(data).to_bytes(8, "big") + data)
+    f.flush()
+
+
+def read_exact(fd, n, deadline):
+    """n bytes from a pipe, waiting at most until the deadline (None: block, as the worker waits for requests);
+    EOF or a timeout raises."""
+    import select
+    import time
+    buf = bytearray()
+    while len(buf) < n:
+        if deadline is not None:
+            left = deadline - time.monotonic()
+            if left <= 0 or not select.select([fd], [], [], left)[0]:
+                raise TimeoutError("the TabM worker did not answer in time")
+        chunk = os.read(fd, n - len(buf))
+        if not chunk:
+            raise EOFError("the TabM worker closed its output")
+        buf += chunk
+    return bytes(buf)
+
+
+def read_frame(fd, deadline):
+    return pickle.loads(read_exact(fd, int.from_bytes(read_exact(fd, 8, deadline), "big"), deadline))
+
+
 def serve(inp, out):
-    """The worker loop: one pickled request, one pickled reply ({"ok": value} or {"error": text}, with the warnings
-    raised while serving it), until end of input."""
+    """The worker loop: a hello describing the worker, then for each request ({"protocol", "id", "op", ...}) one reply
+    ({"protocol", "id", "ok" or "error", "warnings"}), until end of input. Errors are sent back with their traceback;
+    a crash ends the process."""
+    import traceback
     import torch
     torch.set_num_interop_threads(1)
+    import tabm as tabm_package
+    hello = {"protocol": PROTOCOL, "source_sha256": source_digest(), "python": sys.version.split()[0],
+             "torch": str(torch.__version__), "tabm": str(getattr(tabm_package, "__version__", None)),
+             "interop_threads": int(torch.get_num_interop_threads()), "default_dtype": str(torch.get_default_dtype())}
+    write_frame(out, hello)
+    fd = inp.fileno()
     while True:
         try:
-            req = pickle.load(inp)
+            req = read_frame(fd, None)
         except EOFError:
             return
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter("always")
             try:
+                if req.get("protocol") != PROTOCOL:
+                    raise ValueError(f"request protocol {req.get('protocol')!r}, expected {PROTOCOL!r}")
                 if req["op"] == "fit":
                     reply = {"ok": fit_state(req["params"], req["X"], req["y"], req["groups"], req["seeds"])}
                 elif req["op"] == "predict":
@@ -290,44 +341,92 @@ def serve(inp, out):
                 else:
                     raise ValueError(f"unknown request {req['op']!r}")
             except Exception as e:  # sent back and raised in the fitting process
-                reply = {"error": f"{type(e).__name__}: {e}"}
-        reply["warnings"] = [f"{type(w.message).__name__}: {w.message}" for w in caught]
-        pickle.dump(reply, out, protocol=pickle.HIGHEST_PROTOCOL)
-        out.flush()
+                reply = {"error": f"{type(e).__name__}: {e}", "traceback": traceback.format_exc()}
+        reply.update(protocol=PROTOCOL, id=req.get("id"),
+                     warnings=[f"{type(w.message).__name__}: {w.message}" for w in caught])
+        write_frame(out, reply)
 
 
 # ---- the fitting-process side ------------------------------------------------------------------------------------
 
 class Worker:
-    """The one persistent worker of this process, started on first use and closed at exit."""
-    proc = None
+    """The one persistent worker of this process: started on first use, checked by its hello (protocol, the source
+    of this very file, Python, one inter-op thread, float32), closed at exit. Every exchange carries a request id
+    and a deadline; any failure during an exchange (an interruption, a timeout, a malformed or mismatched reply)
+    discards the worker, so a partly read stream is never used again."""
+    proc, hello, counter = None, None, 0
+
+    @classmethod
+    def start(cls):
+        import time
+        cls.proc = subprocess.Popen([sys.executable, "-m", "songpop.phase2.tabm"], cwd=ROOT, stdin=subprocess.PIPE,
+                                    stdout=subprocess.PIPE, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+        atexit.register(cls.close)
+        try:
+            hello = read_frame(cls.proc.stdout.fileno(), time.monotonic() + 120)
+        except BaseException:
+            cls.kill()
+            raise
+        want = {"protocol": PROTOCOL, "source_sha256": source_digest(), "python": sys.version.split()[0],
+                "interop_threads": 1, "default_dtype": "torch.float32"}
+        if any(hello.get(k) != v for k, v in want.items()):
+            cls.kill()
+            raise RuntimeError(f"the TabM worker describes itself as {hello}, expected {want}")
+        cls.hello = hello
 
     @classmethod
     def call(cls, request):
+        import time
+        if "torch" in sys.modules:
+            raise RuntimeError("torch was loaded into the fitting process (Finding 024)")
         if cls.proc is None or cls.proc.poll() is not None:
-            cls.proc = subprocess.Popen([sys.executable, "-m", "songpop.phase2.tabm"], cwd=ROOT, stdin=subprocess.PIPE,
-                                        stdout=subprocess.PIPE, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
-            atexit.register(cls.close)
-        pickle.dump(request, cls.proc.stdin, protocol=pickle.HIGHEST_PROTOCOL)
-        cls.proc.stdin.flush()
+            cls.close()
+            cls.start()
+        cls.counter += 1
+        rid = f"{os.getpid()}-{cls.counter}"
         try:
-            reply = pickle.load(cls.proc.stdout)
-        except EOFError:
-            raise RuntimeError(f"the TabM worker exited with code {cls.proc.wait()}") from None
+            write_frame(cls.proc.stdin, dict(request, protocol=PROTOCOL, id=rid))
+            reply = read_frame(cls.proc.stdout.fileno(), time.monotonic() + EXCHANGE_SECONDS)
+            if reply.get("protocol") != PROTOCOL or reply.get("id") != rid:
+                raise RuntimeError(f"the TabM worker answered {reply.get('id')!r} to request {rid!r}")
+        except BaseException:
+            code = cls.proc.poll()
+            cls.kill()
+            if code is not None:
+                raise RuntimeError(f"the TabM worker exited with code {code}") from None
+            raise
         for w in reply["warnings"]:
             warnings.warn(f"TabM worker: {w}", RuntimeWarning)
         if "error" in reply:
-            raise RuntimeError(f"TabM worker: {reply['error']}")
+            raise RuntimeError(f"TabM worker: {reply['error']}\n{reply.get('traceback', '')}")
         if "torch" in sys.modules:
             raise RuntimeError("torch was loaded into the fitting process (Finding 024)")
         return reply["ok"]
 
     @classmethod
-    def close(cls):
-        if cls.proc is not None and cls.proc.poll() is None:
-            cls.proc.stdin.close()
-            cls.proc.wait()
+    def kill(cls):
+        if cls.proc is not None:
+            for f in (cls.proc.stdin, cls.proc.stdout):
+                try:
+                    f.close()
+                except OSError:
+                    pass
+            if cls.proc.poll() is None:
+                cls.proc.kill()
+            cls.proc.wait(timeout=SHUTDOWN_SECONDS)
         cls.proc = None
+
+    @classmethod
+    def close(cls):
+        """Close stdin and wait a bounded time for a clean exit (the worker only answers requests, so nothing is
+        left to drain), then kill."""
+        if cls.proc is not None and cls.proc.poll() is None:
+            try:
+                cls.proc.stdin.close()
+                cls.proc.wait(timeout=SHUTDOWN_SECONDS)
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+        cls.kill()
 
 
 def stage_seeds(context, estimator_seed):

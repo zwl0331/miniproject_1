@@ -85,6 +85,8 @@ def validate_recipe(recipe):
     if recipe["family"] == "tabm":
         if prep["scaler"] not in ("standard", "quantile"):
             raise ValueError("tabm_numeric needs scaler standard or quantile")
+        if recipe["base"] != "F2":
+            raise ValueError("tabm recipes use base F2 (the preprocessing is defined for its columns)")
         if recipe["training_weights"] != "none":
             raise ValueError("tabm recipes take no training weights (plan section 5.5)")
         if set(recipe["blocks"]) & set(STATEFUL_BLOCKS):

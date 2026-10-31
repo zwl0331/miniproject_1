@@ -16,11 +16,12 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, RobustScal
 from threadpoolctl import threadpool_limits
 
 from songpop.models import LOG100
-from songpop.phase2.tabm import TabMClassifier  # imported here, so its source is in every run's manifest from the start
+from songpop.phase2.tabm import TabMClassifier, TabMPreprocessor  # in every run's manifest from the start
 
 THREADS = 4
 CATEGORICAL = ["key", "mode", "time_signature"]  # one-hot under log_standard, spline and knn_blocks, never splined
-OPTIONAL_PACKAGES = {"catboost": "catboost", "ebm": "interpret-core", "tabm": ("tabm", "torch")}
+OPTIONAL_PACKAGES = {"catboost": "catboost", "ebm": "interpret-core",
+                     "tabm": ("tabm", "torch", "rtdl-num-embeddings")}
 
 # Parameters a recipe may set, per family; everything else is fixed by the factory.
 ALLOWED = {
@@ -205,6 +206,8 @@ def make_preprocessing(prep, columns):
     name = prep["name"]
     if name == "none":
         return None
+    if name == "tabm_numeric":  # the TabM estimator builds its own; this copy lets submission checks rebuild inputs
+        return TabMPreprocessor(prep["scaler"])
     if name in ("knn_blocks", "knn_blocks_v2"):
         return knn_blocks(prep, columns)
     if name == "spline_calendar":

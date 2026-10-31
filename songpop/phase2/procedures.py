@@ -12,11 +12,13 @@ channels' production banks, after checking that each bank is that channel's comp
 global out-of-fold bank is never used as meta-training data."""
 import hashlib
 import json
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 from scipy.optimize import minimize
+from scipy.special import expit
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import StratifiedGroupKFold
@@ -93,10 +95,24 @@ class Population:
 
 
 def frame_digest(frame):
-    """The ids and raw values of a frame (NaN and strings included), independent of the process."""
+    """The ids, column names, types and raw values of a frame, typed: float columns as float64 bytes with missing
+    values marked separately, other columns as JSON with None for a missing value (so a missing value never equals
+    the string "NA"); independent of the process."""
     h = hashlib.sha256()
-    h.update(np.asarray(frame.index, dtype=np.int64).tobytes())
-    h.update(frame.to_csv(index=False, na_rep="NA").encode())
+    idx = np.asarray(frame.index)
+    if idx.dtype.kind not in "iu":
+        raise ValueError("row ids must be integers")
+    h.update(idx.astype(np.int64).tobytes())
+    for c in frame.columns:
+        col = frame[c]
+        h.update(f"|{c}|{col.dtype}|".encode())
+        if col.dtype.kind == "f":
+            v = col.to_numpy(dtype="float64")
+            h.update(np.isnan(v).tobytes())
+            h.update(np.where(np.isnan(v), 0.0, v).tobytes())
+        else:
+            h.update(json.dumps([None if x is None or (isinstance(x, float) and x != x) else str(x)
+                                 for x in col.tolist()]).encode())
     return h.hexdigest()
 
 
@@ -114,30 +130,47 @@ class Cache:
     def key(request):
         return artifacts.sha256_bytes(artifacts.dumps(request).encode())
 
+    @staticmethod
+    def check(request, oof, pred, k):
+        """Exact shapes from the request, finite probabilities in [0, 1]."""
+        R, K = request["folds_shape"][0], request["n_folds"]
+        want = ((R, request["fitting"]["rows"]), (R, K, request["prediction"]["rows"]))
+        for a, shape in zip((oof, pred), want):
+            a = np.asarray(a)
+            if a.shape != shape or not np.isfinite(a).all() or a.min() < 0 or a.max() > 1:
+                raise ValueError(f"cache entry {k[:12]} is malformed; refused")
+
     def get(self, request):
         k = self.key(request)
         entry = self.memory.get(k)
         if entry is None and self.directory is not None and (self.directory / f"{k}.npz").exists():
             with np.load(self.directory / f"{k}.npz", allow_pickle=False) as z:
-                entry = {"request": json.loads(str(z["request_json"])), "oof": z["oof"], "pred": z["pred"]}
+                entry = {"request": json.loads(str(z["request_json"])), "oof": z["oof"].copy(), "pred": z["pred"].copy()}
         if entry is None:
             self.misses += 1
             return None
         if artifacts.dumps(entry["request"]) != artifacts.dumps(request):
             raise ValueError(f"cache entry {k[:12]} holds another request; refused")
-        if entry["oof"].shape != (request["folds_shape"][0], request["fitting"]["rows"]) \
-                or not np.isfinite(entry["oof"]).all():
-            raise ValueError(f"cache entry {k[:12]} is malformed; refused")
+        self.check(request, entry["oof"], entry["pred"], k)
         self.hits += 1
-        return entry["oof"], entry["pred"]
+        return entry["oof"].copy(), entry["pred"].copy()
 
     def put(self, request, oof, pred):
         k = self.key(request)
+        self.check(request, oof, pred, k)
+        oof, pred = np.array(oof, dtype="float64"), np.array(pred, dtype="float64")
+        old = self.memory.get(k)
+        if old is not None and not (np.array_equal(old["oof"], oof) and np.array_equal(old["pred"], pred)):
+            raise ValueError(f"cache entry {k[:12]} exists with other predictions; refused")
         self.memory[k] = {"request": request, "oof": oof, "pred": pred}
         if self.directory is not None:
             self.directory.mkdir(parents=True, exist_ok=True)
             path = self.directory / f"{k}.npz"
-            if not path.exists():
+            if path.exists():
+                with np.load(path, allow_pickle=False) as z:
+                    if not (np.array_equal(z["oof"], oof) and np.array_equal(z["pred"], pred)):
+                        raise ValueError(f"cache file {k[:12]} exists with other predictions; refused")
+            else:
                 with open(path, "xb") as f:
                     np.savez(f, oof=oof, pred=pred, request_json=np.array(artifacts.dumps(request)))
 
@@ -148,10 +181,10 @@ def atomic_request(recipe, pop, fold_id, contexts, pred_rows, manifest_sha256, p
                         "labels_sha256": artifacts.sha256_bytes(np.asarray(pop.y, dtype=np.int64).tobytes()),
                         "groups_sha256": artifacts.sha256_bytes(np.asarray(pop.groups).astype(str).astype("U").tobytes())},
             "folds_sha256": artifacts.sha256_bytes(np.ascontiguousarray(fold_id, dtype=np.int64).tobytes()),
-            "folds_shape": list(np.shape(fold_id)),
-            "contexts": [[[str(c.split_seed), str(c.fold)] for c in row] for row in contexts],
+            "folds_shape": list(np.shape(fold_id)), "n_folds": len(contexts[0]),
+            "contexts": [[{"split_seed": c.split_seed, "fold": c.fold} for c in row] for row in contexts],
             "prediction": {"rows": int(len(pred_rows)), "inputs_sha256": frame_digest(pred_rows)},
-            "source_manifest_sha256": manifest_sha256, "packages": packages}
+            "source_manifest_sha256": manifest_sha256, "packages": packages, "python": sys.version.split()[0]}
 
 
 def atomic_cv(recipe, pop, fold_id, context_names, pred_rows, cache, manifest_sha256, packages):
@@ -185,7 +218,7 @@ def fit_weights(Z, y, lam):
     plus lam times the squared distance to equal weights; SLSQP from equal weights with the analytic gradient.
     Failure (solver status, infeasibility beyond WEIGHT_CLEANUP, non-finite values, a loss above equal weights')
     raises; nothing falls back to equal weights."""
-    Z, y = np.asarray(Z, dtype="float64"), np.asarray(y, dtype="float64")
+    Z, y = check_meta(Z, y)
     J = Z.shape[1]
     eq = np.full(J, 1.0 / J)
 
@@ -197,7 +230,7 @@ def fit_weights(Z, y, lam):
     def grad(w):
         p = Z @ w
         q = clip(p)
-        d = (-(y / q) + (1 - y) / (1 - q)) * ((p > CLIP) & (p < 1 - CLIP))
+        d = (-(y / q) + (1 - y) / (1 - q)) * ((p >= CLIP) & (p <= 1 - CLIP))
         return Z.T @ d / len(y) + 2 * lam * (w - eq)
 
     res = minimize(loss, eq, jac=grad, method="SLSQP", bounds=[(0.0, 1.0)] * J,
@@ -206,12 +239,28 @@ def fit_weights(Z, y, lam):
     raw = np.asarray(res.x, dtype="float64")
     if not res.success or not np.isfinite(raw).all() or raw.min() < -WEIGHT_CLEANUP or abs(raw.sum() - 1) > WEIGHT_CLEANUP:
         raise ValueError(f"constrained weights failed: {res.message}, weights {raw.tolist()}")
-    w = np.where(raw < WEIGHT_CLEANUP, 0.0, raw)
+    w = np.maximum(raw, 0.0)  # only solver round-off below zero is removed; small positive weights are kept
     w = w / w.sum()
+    if np.abs(w - raw).max() > WEIGHT_CLEANUP or not np.isfinite(loss(w)) or abs(loss(w) - loss(raw)) > 1e-12:
+        raise ValueError("the clean-up of the solver's weights moved them or their loss")
     if loss(w) > loss(eq) + 1e-12:
         raise ValueError("constrained weights end above the equal-weight loss")
+    for j in range(J):  # no feasible direction toward a vertex may still improve the declared objective
+        e = np.eye(J)[j]
+        if min(loss(w + t * (e - w)) for t in (1e-3, 1e-2, 1.0)) < loss(w) - 1e-9:
+            raise ValueError("constrained weights stopped where a feasible move still improves the loss")
     return {"kind": "constrained", "lambda": float(lam), "raw_weights": raw.tolist(), "weights": w.tolist(),
             "loss": loss(w), "equal_weight_loss": loss(eq), "iterations": int(res.nit), "message": str(res.message)}
+
+
+def check_meta(Z, y):
+    """A meta-training matrix of finite probabilities in [0, 1], one row per label, labels exactly 0 and 1."""
+    Z, y = np.asarray(Z, dtype="float64"), np.asarray(y)
+    if Z.ndim != 2 or len(Z) != len(y) or Z.shape[1] < 1 or not np.isfinite(Z).all() or Z.min() < 0 or Z.max() > 1:
+        raise ValueError("meta features must be finite probabilities, one row per label")
+    if set(np.unique(y)) != {0, 1}:
+        raise ValueError("meta labels must be exactly 0 and 1")
+    return Z, y.astype("float64")
 
 
 def fit_stacker(Z, y, C):
@@ -219,11 +268,14 @@ def fit_stacker(Z, y, C):
     an intercept and the declared C; no original features, no class weights. A convergence warning raises."""
     import warnings
     from sklearn.exceptions import ConvergenceWarning
+    Z, y = check_meta(Z, y)
+    y = y.astype(int)
     L = np.log(clip(Z) / (1 - clip(Z)))
     sc = StandardScaler().fit(L)
     with warnings.catch_warnings():
         warnings.simplefilter("error", ConvergenceWarning)
-        lr = LogisticRegression(C=C, penalty="l2", fit_intercept=True, class_weight=None, **STACKER).fit(
+        # L2 is scikit-learn 1.9's default penalty (l1_ratio 0); passing penalty= is deprecated there
+        lr = LogisticRegression(C=C, fit_intercept=True, class_weight=None, **STACKER).fit(
             sc.transform(L), np.asarray(y))
     if list(lr.classes_) != [0, 1]:
         raise ValueError(f"stacker classes {list(lr.classes_)}")
@@ -238,15 +290,38 @@ def apply_combiner(state, Z):
         return Z @ np.asarray(state["weights"])  # the convex combination itself; only the loss clips
     L = np.log(clip(Z) / (1 - clip(Z)))
     s = ((L - np.asarray(state["mean"])) / np.asarray(state["scale"])) @ np.asarray(state["coef"]) + state["intercept"]
-    return 1.0 / (1.0 + np.exp(-s))
+    out = expit(s)
+    if not np.isfinite(out).all():
+        raise ValueError("a combiner produced non-finite predictions")
+    return out
+
+
+def check_setting(setting):
+    kind, value = setting
+    if not ((kind == "constrained" and value in LAMBDAS) or (kind == "stacker" and value in CS)):
+        raise ValueError(f"undeclared combiner setting {setting!r}")
 
 
 def fit_combiner(setting, Z, y):
+    check_setting(setting)
     kind, value = setting
     return fit_weights(Z, y, value) if kind == "constrained" else fit_stacker(Z, y, value)
 
 
 # ---- channels and whole procedures -----------------------------------------------------------------------------
+
+def check_channels(channels):
+    """Distinct ids, each channel a non-empty list of valid recipes without a repeated atom."""
+    ids = [c.get("id") for c in channels]
+    if not channels or len(set(ids)) != len(ids) or not all(isinstance(i, str) and i for i in ids):
+        raise ValueError(f"channels need distinct non-empty ids, got {ids}")
+    for c in channels:
+        if not c.get("atoms"):
+            raise ValueError(f"channel {c['id']} has no atoms")
+        hashes = [recipe_hash(validate_recipe(r)) for r in c["atoms"]]
+        if len(set(hashes)) != len(hashes):
+            raise ValueError(f"channel {c['id']} repeats an atom")
+
 
 def channel_cv(channel, pop, fold_id, context_names, pred_rows, cache, manifest_sha256, packages_of):
     """A channel cross-fitted inside a population: an atomic recipe's predictions, or the equal average of a
@@ -277,6 +352,7 @@ def check_channel_bank(channel, bank, fold_id, row_ids, recipe_of_run):
 def learn_on(D, channels, settings, meta_seed, context_name, cache, manifest_sha256, packages_of):
     """Fit every setting's combiner on population D: D's meta folds from meta_seed, each channel's out-of-fold
     probabilities on D shared by all settings. Returns ({setting: state}, receipt)."""
+    check_channels(channels)
     meta = population_folds(D.y, D.groups, D.row_ids, META_FOLDS, meta_seed)
     Z = np.column_stack([channel_cv(ch, D, meta, [context_name], D.rows.iloc[:1], cache, manifest_sha256,
                                     packages_of)[0][0] for ch in channels])
@@ -292,6 +368,11 @@ def evaluate_learned(channels, settings, channel_outer, pop, fold_id, split_seed
     D and applied to the channels' predictions from their fits on D, channel_outer[id] = (out-of-fold (R, N),
     per-fold predictions of the query rows (R, K, T)). Returns {setting: {"oof", "test", "states"}} and the
     meta-fold receipts."""
+    check_channels(channels)
+    for s in settings:
+        check_setting(s)
+    if sorted(channel_outer) != sorted(c["id"] for c in channels):
+        raise ValueError("outer predictions must be given for exactly the channels")
     R, N = fold_id.shape
     K = int(fold_id.max()) + 1
     T = next(iter(channel_outer.values()))[1].shape[2]
@@ -325,13 +406,37 @@ def procedure_bank(arrays, y, row_ids, groups, fold_id, split_seeds, test_ids, m
     return bank
 
 
+PROCEDURE_KEYS = ("schema", "run_id", "task_id", "procedure", "identity", "states", "meta_receipts", "source_manifest",
+                  "environment", "split_seeds", "selection_eligible")
+
+
+def validate_procedure_metadata(bank):
+    """A procedure bank names its procedure, identity and sources, and carries one combiner state and one meta-fold
+    receipt per outer fold, in fold order, each state finite and of the declared setting."""
+    md = bank.metadata
+    missing = [k for k in PROCEDURE_KEYS if k not in md]
+    if md.get("schema") != PROCEDURE_SCHEMA or missing:
+        raise ValueError(f"not a procedure bank (schema {md.get('schema')!r}, missing {missing})")
+    R, K = bank.fold_auc.shape
+    want = [(str(s), k) for s in bank.split_seeds for k in range(K)]
+    for name in ("states", "meta_receipts"):
+        got = [(str(x["split_seed"]), x["fold"]) for x in md[name]]
+        if got != want:
+            raise ValueError(f"procedure bank {md['run_id']}: {name} do not cover the outer folds in order")
+    setting = tuple(md["procedure"]["setting"])
+    check_setting(setting)
+    for st in md["states"]:
+        if st["kind"] != setting[0] or not np.isfinite(np.asarray(st.get("weights", st.get("coef")), dtype=float)).all():
+            raise ValueError(f"procedure bank {md['run_id']}: a combiner state is malformed")
+
+
 def save_procedure_bank(bank, path):
-    """Write once (as bank_v2 files are written) and return the sha256."""
+    """Validate, write once (as bank_v2 files are written) and return the sha256."""
     path = Path(path)
     if path.exists():
         raise FileExistsError(f"bank {path} exists; banks are immutable")
-    if bank.metadata.get("schema") != PROCEDURE_SCHEMA:
-        raise ValueError("not a procedure bank")
+    validate_bank(bank, n_splits=bank.fold_auc.shape[1])
+    validate_procedure_metadata(bank)
     b = artifacts.bank_bytes(bank)
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "xb") as f:

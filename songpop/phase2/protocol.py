@@ -16,7 +16,9 @@ KEYS = ("schema", "task_id", "name", "reference", "reference_p21_run_id", "split
         "refinement", "families")
 # prior_strongest (P2.3, plan section 17): a complete run of an earlier converged task that joins G, the strongest
 # standalone recipe, in every wave: {"run_id", "task_id", "recipe", "bank_sha256"}. P2.2's protocol has none.
-OPTIONAL_KEYS = ("prior_strongest",)
+# budget (P2.5, plan section 19.2): {"fitting_seconds": N}: no wave after the first is planned when the task's
+# search runs so far plus the next wave at the task's slowest run so far would exceed N seconds.
+OPTIONAL_KEYS = ("prior_strongest", "budget")
 PRIOR_KEYS = ("bank_sha256", "recipe", "run_id", "task_id")
 FAMILY_KEYS = ("family", "index", "initial", "expansion", "ceiling", "template", "anchor", "initial_branches",
                "space_template", "fixed", "space", "derived", "admissible", "types", "hard_bounds", "trees")

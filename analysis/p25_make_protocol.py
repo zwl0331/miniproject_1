@@ -9,7 +9,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, ".")
+from songpop import artifacts  # noqa: E402
 from songpop.phase2 import protocol, runs  # noqa: E402
+from songpop.phase2.recipes import recipe_hash  # noqa: E402
 
 ROOT = Path(".")
 TEMPLATE = {"base": "F2", "blocks": [], "drop": [], "preprocessing": {"name": "tabm_numeric", "scaler": "standard"},
@@ -19,7 +21,7 @@ REF_TEMPLATE = {"base": "F2", "blocks": [], "drop": [], "preprocessing": {"name"
 SPACE = {"n_blocks": [2, 3], "d_block": [64, 128, 256], "dropout": [0.0, 0.1, 0.2],
          "learning_rate": [0.0003, 0.0005, 0.001, 0.002, 0.003], "weight_decay": [1e-06, 1e-05, 0.0001, 0.001, 0.01],
          "batch_size": [128, 256], "preprocessing.scaler": ["standard", "quantile"]}
-# The family anchor N0 and seven one-factor variants around it (round S of the consultation): width 64 and 256,
+# The family anchor N0 and seven variants around it (six change one setting, one a regularization trio) (round S of the consultation): width 64 and 256,
 # three blocks, learning rates 3e-4 and 3e-3, stronger regularization with batch 128, and the matched preprocessing
 # comparison (quantile against standard), the one neural feature comparison P2.4 omitted.
 ANCHOR = {"n_blocks": 2, "d_block": 128, "dropout": 0.1, "learning_rate": 0.001, "weight_decay": 0.0001,
@@ -35,18 +37,27 @@ TYPES = {"n_blocks": {"type": "ordinal", "values": [2, 3], "default": 2},
          "weight_decay": {"type": "log", "integer": False, "zero_step": None, "default": 0.0001},
          "batch_size": {"type": "ordinal", "values": [128, 256], "default": 256},
          "preprocessing.scaler": {"type": "categorical", "values": ["standard", "quantile"], "default": "standard"}}
-HARD = {"learning_rate": {"min": 0.0001, "max": 0.01, "integer": False},
-        "weight_decay": {"min": 1e-07, "max": 0.1, "integer": False}}
+# Hard bounds at the declared space's edges, so no range extension ever leaves section 5.5's space (round T).
+HARD = {"learning_rate": {"min": 0.0003, "max": 0.003, "integer": False},
+        "weight_decay": {"min": 1e-06, "max": 0.01, "integer": False}}
+BUDGET = {"fitting_seconds": 10800}  # section 5.5: three hours for fitting and confirmation
 P21_ANCHOR = "p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af"
 CUTOFF = "2026-10-31T15:00:00+00:00"  # Saturday 08:00 PDT, the schedule guard: no exploratory batch starts later
 
 
 def strongest(ctx):
-    recs = [r for r in runs.logged(ctx) if r.get("task_id") in ("P2.2", "P2.8", "P2.3", "P2.4") and protocol.complete(r)]
-    best = min(recs, key=lambda r: (-r["mean_fold_auc_unrounded"], r["run_id"]))
-    bank, sha, _ = runs.load_logged(ctx, best["run_id"])
-    return {"run_id": best["run_id"], "task_id": best["task_id"], "recipe": bank.metadata["recipe"],
-            "bank_sha256": sha}
+    """The strongest complete standalone recipe (fitted or seed-averaged, never a blend) of the earlier tasks, ties to
+    the lower canonical recipe hash (protocol.best's rule), audited against its bank."""
+    recs = []
+    for r in runs.logged(ctx):
+        if r.get("task_id") in ("P2.2", "P2.8", "P2.3", "P2.4") and protocol.complete(r) \
+                and r["prediction_kind"] in ("fitted", "seed_average"):
+            bank, sha, _ = runs.load_logged(ctx, r["run_id"])
+            recs.append((r, bank, sha))
+    r, bank, sha = min(recs, key=lambda t: (-t[0]["mean_fold_auc_unrounded"], recipe_hash(t[1].metadata["recipe"])))
+    if runs.audit_run(ctx, r["run_id"]):
+        raise ValueError(f"{r['run_id']} does not audit against its bank")
+    return {"run_id": r["run_id"], "task_id": r["task_id"], "recipe": bank.metadata["recipe"], "bank_sha256": sha}
 
 
 def main():
@@ -64,7 +75,10 @@ def main():
              "split_seeds": [155, 2026, 1029], "seed_base": 2026103100, "cutoff_utc": CUTOFF,
              "refinement": {"families": 1, "by_standalone": 1, "batch": 4, "broad": 1, "local": [[2, 1], [1, 2]],
                             "max_dimensions": 2, "max_per_family": 8},
-             "prior_strongest": strongest(ctx), "families": [ref, tabm]}
+             "prior_strongest": strongest(ctx), "budget": BUDGET, "families": [ref, tabm]}
+    if any(r.get("task_id") == "P2.5" and r.get("record") in ("timing", "batch", "run")
+           for r in artifacts.read_experiments(ROOT / runs.LOG_FILE)):
+        raise SystemExit("P2.5 records exist: the protocol is bound to them and is not rewritten")
     out = ROOT / "configs/phase2/p2.5"
     out.mkdir(parents=True, exist_ok=True)
     (out / "protocol.json").write_text(json.dumps(proto, indent=1) + "\n")
