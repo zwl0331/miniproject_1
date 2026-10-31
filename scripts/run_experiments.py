@@ -1006,6 +1006,32 @@ def feature_run_ids(m):
     return list(dict.fromkeys(ids))
 
 
+def feature_recipe_hashes(m):
+    """Each run id a feature batch or re-tuning round declares, mapped to the recipe hash its manifest gives it."""
+    pairs = [(m["h"]["run_id"], m["h"]["recipe"])]
+    for c in m.get("comparisons", []):
+        pairs += [(c["comparator_run_id"], c["comparator"]), (c["challenger_run_id"], c["challenger"])]
+    for u in m.get("units", []):
+        pairs += list(zip(u["run_ids"], u["recipes"]))
+    return {rid: searches.recipe_hash(r) for rid, r in pairs}
+
+
+def failure_problems(records, bid, m):
+    """Review round 4, F2: every run_failure record naming a batch names a run that batch declares, with the recipe
+    hash its manifest gives that run; allocated batches or not."""
+    declared = feature_recipe_hashes(m)
+    out = []
+    for r in records:
+        if r.get("record") != "run_failure" or r.get("batch_id") != bid:
+            continue
+        rid = r.get("planned_run_id")
+        if rid not in declared:
+            out.append(f"{bid}: a run_failure record names the undeclared run {rid!r}")
+        elif r.get("recipe_sha256") != declared[rid]:
+            out.append(f"{bid}: the run_failure record of {rid} has a recipe hash other than its manifest's")
+    return out
+
+
 def feature_text(m, psha, manifest):
     return artifacts.dumps(dict(m, protocol_sha256=psha, source_manifest_sha256=manifest["manifest_sha256"]))
 
@@ -1405,7 +1431,7 @@ def audit_features(ctx, seeds, task, manifest, allow_incomplete=False):
         bid = b["batch_id"]
         evidence[bid] = execution_evidence(flog.records, b, m, first)
         problems += evidence_order(flog, b, evidence[bid]) + h_order(flog.records, m, first, evidence[bid]) \
-            + derived_order(flog.records, m, evidence[bid])
+            + derived_order(flog.records, m, evidence[bid]) + failure_problems(flog.records, bid, m)
         if bid not in flog.allocations:
             continue
         hs.add(m["h"]["run_id"])
