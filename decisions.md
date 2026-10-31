@@ -18,7 +18,7 @@ Rows dated before 2026-10-30's migration were copied on that day from the record
 | 2026-10-29 | "Yeah, but I intend to execute this plan. This is good." | chat, in `reviews/2026-10-29-p2.0b-search-amendment.md` |
 | 2026-10-29 | "Yeah, don't assume anything. Use tests and actual data to draw conclusions." | chat, in `doc/llm_usage/2026-10-29-p2.8-consultation/README.md` |
 | 2026-10-30 | "Prioritise gap hunt" and "Yes, start P2.8" | chat, in `doc/llm_usage/2026-10-29-p2.8-consultation/README.md` |
-| 2026-10-30 | "Take what you can get out of the old project and then update your plan and your current working, and from then on just don't depend on the old project anymore. I may remove it later." | chat, in `reviews/2026-10-30-p2.8-gap-hunt.md` and `doc/plans/modeling_strategy.md` |
+| 2026-10-30 | "Take what you can get out of the old project and then update your plan and your current working, and from then on just don't depend on the old project anymore. I may remove it later." | chat, in `reviews/2026-10-30-p2.8-gap-hunt.md` and `doc/plans/phase2-models-features.md` section 16 (in full), `doc/plans/modeling_strategy.md` (in part) |
 | 2026-10-30 | "Do B" (P2.2: accept the 19 tie-sensitive forest runs by the amended verification of plan section 15.7) | chat, in `doc/plans/phase2-models-features.md` section 15.7 |
 | 2026-10-30 | "Okay, 2P2.3 and 2.4, and then pause after you finish." | chat, in `doc/README.md` (status) |
 | 2026-10-30 | "Yes, continue" (P2.4, after its readiness round 3) | chat, in `reviews/2026-10-30-p2.4-features.md` |

@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-30, 19:40 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-30, 19:52 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
@@ -52,7 +52,7 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 Work is paused until Sam resumes it ("Don't start any new work", 2026-10-30). Then, for P2.4, per the decision of 2026-10-30:
 
 1. Fix F2 in `scripts/run_experiments.py` (`audit_features`, about line 1425): validate each `run_failure` record's `planned_run_id` and `recipe_sha256` against the named batch's manifest, unallocated batches too; add rejection tests for an undeclared run id and a wrong recipe hash; legitimate failed-fit and resume records must still pass. Run the full `scripts.check_phase2`.
-2. A source edit makes the timing, the batch record and the manifest stale: move the 7 P2.4 lines of `artifacts/phase2/experiments.jsonl` and `artifacts/phase2/batches/p24_features_1_9c42d59efbc9.json` to `artifacts/phase2/stale/p24_r4/` (as `p24_r1` to `p24_r3` were), redo the timing (`analysis/p24_make_timing.py`) and `--plan-features 1 --task P2.4`, then `--audit-features P2.4 --allow-incomplete`. Commit.
+2. A source edit makes the timing, the batch record and the manifest stale: move the 7 P2.4 lines of `artifacts/phase2/experiments.jsonl` and `artifacts/phase2/batches/p24_features_1_9c42d59efbc9.json` to `artifacts/phase2/stale/p24_r4/` (as `p24_r1` to `p24_r3` were), rewrite the timing cases with `analysis/p24_make_timing.py` (it writes `configs/phase2/p2.4/timing.json` and measures nothing), measure them with `--timing configs/phase2/p2.4/timing.json --task P2.4`, then `--plan-features 1 --task P2.4` and `--audit-features P2.4 --allow-incomplete` (commands of plan section 18.10, run as `.venv/bin/python -m scripts.run_experiments`). Commit.
 3. Execute with `analysis/p24_execute.py`, then the audit, `--verify --task P2.4`, `analysis/p24_summary.py` into `analysis/p24_summary_output.txt`, and Findings 022 and 023 as draft. Results stay provisional until they feed the final selection (R1).
 4. Then the rest of phase 2 (`doc/plans/phase2-models-features.md`).
 
