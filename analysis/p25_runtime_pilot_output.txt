@@ -1,0 +1,12 @@
+1. torch's first matrix product after another library, each in a fresh process (exit code; 139 is SIGSEGV):
+   import lightgbm              then torch: exit 139
+   import xgboost               then torch: exit 139
+   import catboost              then torch: exit 0
+   import interpret.glassbox    then torch: exit 0
+   import sklearn.ensemble      then torch: exit 0
+   (torch alone)                then torch: exit 0
+   import torch first, then lightgbm: exit 0
+2. the representative TabM configuration on the training part of split seed 155, fold 0, fitted through the worker in two separate fitting processes (LightGBM loaded in each):
+   process 1: {"seconds": 18.4, "chosen_epoch": 67, "epochs_evaluated": 87, "stopped_by": "patience", "lightgbm_loaded": true, "torch_loaded": false, "validation_sha256": "ea1a8493bfd9cc990c3296550bf5bd8bb0a34d7f78f21c36deb96bc925399c67", "test_sha256": "82cedd9b87952e8bc8aca900b44bbed2b3894c3b687d0d365dd02409409c340a"} (wall 22.7 s)
+   process 2: {"seconds": 18.1, "chosen_epoch": 67, "epochs_evaluated": 87, "stopped_by": "patience", "lightgbm_loaded": true, "torch_loaded": false, "validation_sha256": "ea1a8493bfd9cc990c3296550bf5bd8bb0a34d7f78f21c36deb96bc925399c67", "test_sha256": "82cedd9b87952e8bc8aca900b44bbed2b3894c3b687d0d365dd02409409c340a"} (wall 22.5 s)
+   prediction bytes and chosen epoch identical across processes: True
