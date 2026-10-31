@@ -1,0 +1,40 @@
+$ .venv/bin/python -m scripts.run_experiments --timing configs/phase2/p2.5/timing.json --task P2.5  [21:26:31]
+  tabm           light             101.68 s  15 fits  0 warnings  p25_time_tabm_light_a58929adff16
+  tabm           representative    155.72 s  15 fits  0 warnings  p25_time_tabm_representative_efed179842b1
+  tabm           expensive         759.16 s  15 fits  0 warnings  p25_time_tabm_expensive_802a7c5afcfa
+  exit 0 after 1021 s
+$ .venv/bin/python -m scripts.run_experiments --reserve --task P2.5  [21:43:32]
+  tabm           mean case  338.85 s  initial   45.2 min  ceiling   90.4 min  extended case None s
+  all families: initial 45.2 min, ceilings 90.4 min; the full refit adds the fitting done
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --plan-wave 1 --task P2.5  [21:43:36]
+  lightgbm_w1_initial_4f4c5be33ab7: 1 configurations, saved in artifacts/phase2/batches/lightgbm_w1_initial_4f4c5be33ab7.json
+  tabm_w1_initial_c71d8641daaa: 8 configurations, saved in artifacts/phase2/batches/tabm_w1_initial_c71d8641daaa.json
+  exit 0 after 4 s
+$ .venv/bin/python -m scripts.run_experiments --run-wave 1 --anchors-only --task P2.5  [21:43:40]
+batch lightgbm_w1_initial_4f4c5be33ab7 (initial, 1 of 1 configurations to fit)
+  p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5       0.8315  repeats [0.833456, 0.83095, 0.830016]  (21.9 s, 0 warnings)
+  H check: p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5 against p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af: all ten arrays equal
+batch tabm_w1_initial_c71d8641daaa (initial, 1 of 8 configurations to fit)
+  p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783           0.8015  repeats [0.804166, 0.80297, 0.797445]  (172.8 s, 0 warnings)
+  exit 0 after 200 s
+$ .venv/bin/python -m scripts.run_experiments --run-wave 1 --task P2.5  [21:47:00]
+batch lightgbm_w1_initial_4f4c5be33ab7 (initial, 0 of 1 configurations to fit)
+  p2_p25_lightgbm_anchor_seeds155-2026-1029_e12e61b791d5       0.8315  repeats [0.833456, 0.83095, 0.830016]  (21.9 s, 0 warnings)  already logged
+  allocation: 0 configurations meet a route; progress False; allowance None -> 0
+batch tabm_w1_initial_c71d8641daaa (initial, 7 of 8 configurations to fit)
+  p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783           0.8015  repeats [0.804166, 0.80297, 0.797445]  (172.8 s, 0 warnings)  already logged
+  p2_p25_tabm_b1_0_000_seeds155-2026-1029_9bd19fcacf88         0.8021  repeats [0.807636, 0.800362, 0.79824]  (199.6 s, 0 warnings)
+  p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2         0.8011  repeats [0.806455, 0.80012, 0.796685]  (237.2 s, 0 warnings)
+  p2_p25_tabm_b1_0_002_seeds155-2026-1029_bf6b99d9a2c2         0.8031  repeats [0.806292, 0.80248, 0.800415]  (346.1 s, 0 warnings)
+  p2_p25_tabm_b1_0_003_seeds155-2026-1029_11ed90d4922d         0.8013  repeats [0.804576, 0.801603, 0.797684]  (597.4 s, 0 warnings)
+  p2_p25_tabm_b1_0_004_seeds155-2026-1029_4344dc9f8cd4         0.8009  repeats [0.805748, 0.801236, 0.795622]  (115.1 s, 0 warnings)
+  p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c         0.8034  repeats [0.808356, 0.803567, 0.798265]  (242.0 s, 0 warnings)
+  p2_p25_tabm_b1_0_006_seeds155-2026-1029_029e6a90f119         0.8007  repeats [0.802454, 0.799573, 0.800007]  (179.3 s, 0 warnings)
+  allocation: 0 configurations meet a route; progress False; allowance None -> 0
+  exit 0 after 1925 s
+$ .venv/bin/python -m scripts.run_experiments --plan-wave 2 --task P2.5  [22:19:05]
+  wave 2: no family has allowance left below its ceiling; P2.5's search is complete
+  exit 0 after 4 s
+wave 2: nothing planned; the search is complete
+exit 0
