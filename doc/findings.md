@@ -794,7 +794,7 @@ Evidence:
 
 Uncertainty:
 
-As Finding 022. Re-tuning around already tuned parents found nothing measurable, which bounds what local search adds at these features, not what a wider search could find. `--verify --task P2.4` (the full refit) runs after this commit.
+As Finding 022. Re-tuning around already tuned parents found nothing measurable, which bounds what local search adds at these features, not what a wider search could find. `--verify --task P2.4`, the full refit at 9731e7f, reproduces all 220 runs and all 82 matched comparisons exactly (`../artifacts/phase2/verify_task_p24.txt`).
 
 Review status:
 
