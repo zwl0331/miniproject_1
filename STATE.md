@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, 03:05 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
+Updated 2026-10-31, 03:50 PDT. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. The dated history up to the migration is in `doc/README.md` (status) and the phase plans.
 
 ## Brief (at most 10 lines)
 
@@ -32,8 +32,9 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.5 | TabM: 8 configurations, best 0.8034 (H 0.8315); best blend with H 0.8320; no allocation progress; full refit exact | provisional | Findings 024, 025 (draft) | 80a2635 |
 | P2.6a | Learned-procedure engine, cache, selector, nested evaluator (with `executable_menu`); isolation checks; cost pilot within the plan's formulas | reviewed with the P2.6b freeze | Finding 026 (reviewed); `scripts/check_phase2.py` "(P2.6a)" | fd48199 |
 | P2.6b | Menu of 12 frozen (`configs/phase2/menu.json`); production selection the equal average of four channels, 0.8411 (H* 0.8366, anchor 0.8315); learned procedures 0.8400 to 0.8410 | reviewed (R2 `APPROVED` at fd48199, round 2); every P2.6b run and the learned procedures replay exactly | Findings 026 to 028 (reviewed); `reviews/2026-10-31-p2.6b-menu.md` | fd48199 |
-| P2.6b | Submission file `2026-10-31_p2.6b_blend_eq_all.csv` (the frozen rule's first, CV 0.8411; sha256 d2b5c461…) | reviewed (R1 `APPROVED` at fe70fc4); awaiting Sam's upload | `reviews/2026-10-31-p2.6b-submission.md`; `submissions/README.md` | fe70fc4 |
-| Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30) | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
+| P2.6b | Submission file `2026-10-31_p2.6b_blend_eq_all.csv` (the frozen rule's first, CV 0.8411; sha256 d2b5c461…); public AUC 0.85377, a check only | released (R1 `APPROVED` at fe70fc4; Sam uploaded it 2026-10-31) | `reviews/2026-10-31-p2.6b-submission.md`; `submissions/README.md` | af7a466 |
+| Brainstorm | A separate read-only Claude Fable 5.1 session with three sub-agents (2026-10-30/31) on raising the AUC; checked here: the test file is an 80/20 row split with every train track removed (no shared uri), and on singleton validation rows every menu candidate scores 0.003 to 0.004 lower with the ranking and the production selection kept | provisional (recorded; nothing adopted into the models or the frozen menu); Finding 029 draft | `doc/llm_usage/2026-10-31-auc-brainstorm/`; `analysis/brainstorm_checks_output.txt` | af7a466 |
+| Workflow | agent-workflow v1, homework profile; reviewer Codex gpt-6-astra xhigh (Fable 5.1 briefly, 2026-10-30); primary agent Claude Opus 5.5 to 308b795, Claude Fable 5.1 from 2026-10-31 | reviewed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md` | ce04746 |
 
 Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 passed, 0 failed, 0 staged (`artifacts/phase2/check_phase2.txt`). Codex consultation rounds S to V adopted (`doc/llm_usage/2026-10-30-p2.5-consultation/`, `-p2.6-consultation/`). A rehearsal of P2.6b's evaluate stage with seed-0 stand-ins ran without error; its outputs were discarded and its scores are not used.
 
@@ -48,6 +49,8 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 - The course-group arrangement is not recorded (the assignment asks for groups of two to four); the exact Kaggle team-name string is to be confirmed.
 - `reviews/2026-10-29-project-plan-assessment.md` comes from Sam's separate Codex chat: a request with no verdict, part of no task, kept uncommitted.
 - Commits fe51507 to 21c3c4b carry a Co-Authored-By trailer contrary to `AGENTS.md` ("no AI trailers"); left as they are because P2.4's banks record 878a6f7.
+- The public leaderboard showed 4 entries for Sam at 22:35 PDT on 2026-10-30 (`doc/llm_usage/2026-10-31-auc-brainstorm/scratchpad/me/leaderboard_2026-10-30_2235PDT.md`) when the project had logged 2 uploads; the other entries are not in `submissions/README.md` (Sam to identify them; they belong in the report's record and count toward the 10 a day).
+- The brainstorm's recommendations that need Sam's decision (`doc/llm_usage/2026-10-31-auc-brainstorm/README.md`): report the singleton-row score beside the official metric in phase 3 (a diagnostic; the frozen rule unchanged); reopen the frozen pool for extra channels (kNN anchor, CatBoost with date blocks, LightGBM without date blocks), a score-driven revision that plan section 11 forbids without Sam's decision and an R2; transductive uses of `test.csv` (boosting the 22 duplicate-pair rows, pseudo-labelling), a course-rule call.
 
 ## Running
 
@@ -59,9 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 Paused (Sam, 2026-10-30: "finish P2.5 and 2.6 then pause"). Nothing runs. For Sam:
 
-1. Optional upload of `submissions/2026-10-31_p2.6b_blend_eq_all.csv` (R1-approved; Kaggle description in `submissions/README.md`), then report the public score; it is a check only.
-2. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). It must first measure its cost without concurrent jobs and choose the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision). Then phase 3.
+1. Go-ahead for P2.7: the restricted nested evaluation of `configs/phase2/menu.json` through `nested.executable_menu`, `nested.run` and `decide` (plan section 8). No driver exists yet: the engine is built and checked with stand-ins, so P2.7 starts with the Codex consultation, then a driver that saves the outer split, measures the cost without concurrent jobs and chooses the full or the reduced path before any outer score (the menu's projection, 8.48 hours from times measured under load, is not that decision; the eight-hour reservation was sized for a Sunday slot, and raising it is Sam's call). Then phase 3.
+2. Sam's decisions on the brainstorm's three questions (open questions above). The primary agent's recommendation: report the singleton score as a diagnostic only, do not reopen the frozen pool, no transductive use of the test file.
 
 Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7).
-
-Scratchpad (`/private/tmp/claude-501/-Users-zwl0331-Desktop-Mini-project-1/c06b0ee0-23ee-47b0-8274-723d2960347b/scratchpad/`):  `r2_request_draft.md`; `merge_log.py`.
