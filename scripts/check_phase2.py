@@ -2459,6 +2459,70 @@ def _():
     return f"selected per fold {dec['selected']}; {len(seen)} fits, all inside their outer training parts"
 
 
+@check("P2.6b pool rule on synthetic banks: H* the strongest; three family representatives, two contribution recipes "
+       "(another configuration of a represented family allowed), the anchor, leading-family configurations within 0.002, "
+       "at most eight atoms; one channel per family with the within-family average for H*'s family; at most 32 "
+       "procedures; complexity ranks by kind, atoms, transformations, regularization, id; a family left out of learned "
+       "channels keeps its fixed blends")
+def _():
+    sys.path.insert(0, str(ROOT / "analysis"))
+    import p26_pool as Pp
+    from songpop.phase2 import procedures as P
+    rng = np.random.default_rng(5)
+    n = 300
+    y, g = rng.integers(0, 2, n), np.arange(n)
+    F = np.vstack([P.population_folds(y, g, g, 5, s_) for s_ in (155, 2026, 1029)])
+    base = rng.normal(0, 1, (3, n))
+
+    near = rng.normal(0, 1, (3, n))
+
+    def entry(name, family, strength, own, roles=(), blocks=(), like=None):
+        z = strength * y + 0.6 * base + (own * near + 0.02 * rng.normal(0, 1, (3, n)) if like else
+                                         own * rng.normal(0, 1, (3, n)))
+        oof = 1 / (1 + np.exp(-z))
+        auc = np.array([[roc_auc_score(y[F[r] == k], oof[r, F[r] == k]) for k in range(5)] for r in range(3)])
+        b = PredictionBank(g, y, g, np.array([155, 2026, 1029]), F, oof, np.arange(4), np.full((3, 5, 4), 0.5),
+                           np.full(4, 0.5), auc, {"run_id": f"run_{name}"})
+        rec = recipe(name=name, params=dict(TINY_LGBM, num_leaves=3 + sum(map(ord, name)) % 50), blocks=list(blocks))
+        return {"name": name, "run_id": f"run_{name}", "family": family, "roles": list(roles),
+                "atom_id": name, "recipe": rec, "recipe_id": f"{name}_x", "bank_sha256": name,
+                "mean": float(auc.mean()), "bank": b}
+    fin = [entry("h", "lightgbm", 1.3, 0.3, ("reference",), ("date_te30",), like=True),
+           entry("l2", "lightgbm", 1.3, 0.3, (), ("date_te10",), like=True), entry("l3", "lightgbm", 1.3, 0.3, like=True),
+           entry("lmusic", "lightgbm", 1.0, 1.2),
+           entry("anchor", "lightgbm", 1.1, 0.3, ("anchor",)), entry("anchor_s3", "lightgbm", 1.1, 0.3,
+                                                                   ("anchor_three_seeds",)),
+           entry("cb", "catboost", 1.2, 0.6), entry("xg", "xgboost", 1.15, 0.6), entry("et", "extra_trees", 1.0, 1.4),
+           entry("ebm", "ebm", 0.9, 1.5), entry("knn", "knn", 0.6, 1.6)]
+    hstar, contrib, rep, cwin, pool, why, fam_avg, anc, a3 = Pp.build(fin)
+    m = {e["name"]: e["mean"] for e in fin}
+    assert hstar["name"] == max((e for e in fin if "anchor" not in e["name"]), key=lambda e: e["mean"])["name"]
+    names = [e["name"] for e in pool]
+    assert len(names) <= 8 and len({e["atom_id"] for e in pool}) == len(names) and "anchor" in names
+    reps3 = sorted(rep.values(), key=lambda e: (-e["mean"], e["recipe_id"]))[:3]
+    assert names[:3] == [e["name"] for e in reps3]
+    assert all(why[e["run_id"]].startswith("contribution") for e in pool[3:5] if e["name"] != "anchor")
+    assert all(hstar["mean"] - e["mean"] <= 0.002 for e in fam_avg) and fam_avg[0] is hstar and len(fam_avg) > 1
+    chans = Pp.channels_of(pool, rep, cwin, hstar, fam_avg, anc)
+    fams = [c["family"] for c in chans]
+    assert len(set(fams)) == len(fams) and "anchor" not in [r for c in chans for r in c["run_ids"]]
+    lead = next(c for c in chans if c["family"] == "lightgbm")
+    assert lead["run_ids"] == [e["run_id"] for e in fam_avg]
+    procs = Pp.procedures(pool, chans, hstar, fam_avg, anc, a3, [c for c in chans if c["family"] != "catboost"])
+    learned = [p for p in procs if p["kind"] == "learned"]
+    assert sum(p["kind"] != "atomic" for p in procs) <= 32 and len(learned) == 6
+    assert all(p["atomic_recipes"] == sum(len(c["run_ids"]) for c in chans if c["family"] != "catboost") for p in learned)
+    ranks = sorted(procs, key=lambda p: p["complexity_rank"])
+    kinds = [Pp.KIND_ORDER[p["kind"] if p["kind"] != "learned" else p["setting"][0]] for p in ranks]
+    assert kinds == sorted(kinds) and [p["id"] for p in ranks if p["kind"] == "learned"][:3] == [
+        "constrained_l0.1", "constrained_l0.01", "constrained_l0"]
+    assert any(p["kind"] == "blend" and any(mm["run_id"] == "run_cb" for mm in p["members"]) for p in procs)
+    fa = next(p for p in procs if p["id"] == "family_average")
+    assert fa["supervised_transformations"] == len({b_ for e in fam_avg for b_ in e["recipe"]["blocks"]
+                                                    if b_.startswith("date_te")})
+    return f"pool {names}; {len(procs)} candidates"
+
+
 @check("deployment (P2.6a): a learned procedure's bank is its own schema, refused as a fitted bank; its test mean "
        "is the average of its fold procedures' test predictions")
 def _():
