@@ -407,7 +407,7 @@ def procedure_bank(arrays, y, row_ids, groups, fold_id, split_seeds, test_ids, m
 
 
 PROCEDURE_KEYS = ("schema", "run_id", "task_id", "procedure", "identity", "states", "meta_receipts", "source_manifest",
-                  "environment", "split_seeds", "selection_eligible")
+                  "environment", "split_seeds", "selection_eligible", "channel_runs", "prediction_kind")
 
 
 def validate_procedure_metadata(bank):
