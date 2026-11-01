@@ -1,0 +1,980 @@
+/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/interpret/glassbox/_ebm/_ebm.py:871: UserWarning: Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]
+  warn(
+/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/interpret/glassbox/_ebm/_ebm.py:871: UserWarning: Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]
+  warn(
+/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/interpret/glassbox/_ebm/_ebm.py:871: UserWarning: Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]
+  warn(
+/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/interpret/glassbox/_ebm/_ebm.py:871: UserWarning: Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]
+  warn(
+/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/interpret/glassbox/_ebm/_ebm.py:871: UserWarning: Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]
+  warn(
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 1840, in <module>
+    @check("P2.4 feature commands in memory: plan, an interrupted run and its resume, expansions until closed, both "
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 60, in wrap
+    note = fn()
+           ^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 1956, in _
+    assert not audited(moved(rec2, start1)) and not audited(moved(rec2, alloc1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 1900, in audited
+    return rx.audit_features(CTX, seeds, task, MANIFEST, allow_incomplete=incomplete)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/run_experiments.py", line 1487, in audit_features
+    ok &= all(compare(ctx, r["a"], r["b"], None, seeds=r["seeds"], verify=True, comparison_id=r["comparison_id"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/run_experiments.py", line 1487, in <genexpr>
+    ok &= all(compare(ctx, r["a"], r["b"], None, seeds=r["seeds"], verify=True, comparison_id=r["comparison_id"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/run_experiments.py", line 1650, in compare
+    res = paired_cluster_bootstrap(ba, bb, n_boot=ident["n_boot"], seed=ident["seed"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/songpop/metrics.py", line 96, in paired_cluster_bootstrap
+    mult = rng.multinomial(G, np.full(G, 1.0 / G)).astype("float64")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+search probe_spy_527739113b15: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_527739113b15.json
+search probe_spy_b07a8b74540a: 3 configurations, saved in /memfs-check-phase2/searches/probe_spy_b07a8b74540a.json
+  p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65              0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)
+  p2_tinyfeat_L_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)
+  p2_tinyfeat_Ldc_seeds155-2026-1029_b433de55fe0b              0.7283  repeats [0.728455, 0.727443, 0.729001]  (0.4 s, 0 warnings)
+  p2_tinyfeat_E_seeds155-2026-1029_f64450c4a8de                0.7182  repeats [0.713727, 0.724039, 0.716894]  (0.9 s, 0 warnings)
+  p24_features_1_dd7f96b20711: initial, 2 comparisons, omitted [{'id': 'T3', 'reason': 'test omission'}]; saved in /memfs-check-phase2/batches/p24_features_1_dd7f96b20711.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65       0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65       0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de       0.7182  repeats [0.713727, 0.724039, 0.716894]  (0.9 s, 0 warnings)
+  p2_p24_T1_seeds155-2026-1029_004789f5995e                    0.7492  repeats [0.749167, 0.74953, 0.749036]  (7.7 s, 0 warnings)
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1                    0.7243  repeats [0.723464, 0.719002, 0.730447]  (1.0 s, 0 warnings)
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000
+  p24_features_1_dd7f96b20711: judged; progress True, 1 comparisons meeting a route, allowance -> 2
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  runs: 5 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p24_features_2_618b4f7ddc61: expansion, 4 comparisons; saved in /memfs-check-phase2/batches/p24_features_2_618b4f7ddc61.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65       0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  p2_p24_T1_seeds155-2026-1029_004789f5995e                    0.7492  repeats [0.749167, 0.74953, 0.749036]  (7.7 s, 0 warnings)  already logged
+  p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de       0.7182  repeats [0.713727, 0.724039, 0.716894]  (0.9 s, 0 warnings)  already logged
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1                 0.7483  repeats [0.748882, 0.748116, 0.747822]  (7.8 s, 0 warnings)
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b                 0.7478  repeats [0.749232, 0.749653, 0.744526]  (7.7 s, 0 warnings)
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5                 0.7710  repeats [0.770932, 0.773935, 0.768129]  (1.2 s, 0 warnings)
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb                 0.7488  repeats [0.748197, 0.749095, 0.74905]  (7.9 s, 0 warnings)
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000
+  p24_features_2_618b4f7ddc61: judged; progress True, 1 comparisons meeting a route, allowance -> 2
+  p24_features_3_f775a65abba8: expansion, 4 comparisons; saved in /memfs-check-phase2/batches/p24_features_3_f775a65abba8.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65       0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5                 0.7710  repeats [0.770932, 0.773935, 0.768129]  (1.2 s, 0 warnings)  already logged
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e                 0.7490  repeats [0.748903, 0.748712, 0.749483]  (7.8 s, 0 warnings)
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077                 0.7769  repeats [0.773483, 0.778345, 0.778774]  (1.2 s, 0 warnings)
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032                 0.7493  repeats [0.750022, 0.749237, 0.748764]  (7.9 s, 0 warnings)
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b                 0.7490  repeats [0.749147, 0.749789, 0.747995]  (7.8 s, 0 warnings)
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000
+  p24_features_3_f775a65abba8: judged; progress True, 1 comparisons meeting a route, allowance -> 2
+  p24_features_4_83efe6d7ad85: expansion, 4 comparisons; saved in /memfs-check-phase2/batches/p24_features_4_83efe6d7ad85.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65       0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032                 0.7493  repeats [0.750022, 0.749237, 0.748764]  (7.9 s, 0 warnings)  already logged
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e                 0.7490  repeats [0.748903, 0.748712, 0.749483]  (7.8 s, 0 warnings)  already logged
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32                 0.7491  repeats [0.748681, 0.750152, 0.748322]  (7.8 s, 0 warnings)
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77                 0.7463  repeats [0.743739, 0.748738, 0.746522]  (7.7 s, 0 warnings)
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429                 0.7485  repeats [0.748271, 0.749365, 0.747963]  (7.9 s, 0 warnings)
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c                 0.7476  repeats [0.747599, 0.748319, 0.747011]  (7.8 s, 0 warnings)
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000
+  p24_features_4_83efe6d7ad85: judged; progress False, 0 comparisons meeting a route, allowance -> 1
+  p24_features_5_ee688f508648: expansion, 4 comparisons; saved in /memfs-check-phase2/batches/p24_features_5_ee688f508648.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32                 0.7491  repeats [0.748681, 0.750152, 0.748322]  (7.8 s, 0 warnings)  already logged
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b                 0.7490  repeats [0.749147, 0.749789, 0.747995]  (7.8 s, 0 warnings)  already logged
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077                 0.7769  repeats [0.773483, 0.778345, 0.778774]  (1.2 s, 0 warnings)  already logged
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5                 0.7710  repeats [0.770932, 0.773935, 0.768129]  (1.2 s, 0 warnings)  already logged
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9                 0.7498  repeats [0.750328, 0.75125, 0.747951]  (7.9 s, 0 warnings)
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c                 0.7478  repeats [0.747591, 0.748079, 0.747587]  (8.0 s, 0 warnings)
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de                 0.7801  repeats [0.782543, 0.780125, 0.777697]  (1.3 s, 0 warnings)
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9                 0.7724  repeats [0.772712, 0.774814, 0.769718]  (1.2 s, 0 warnings)
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000
+  p24_features_5_ee688f508648: judged; progress True, 1 comparisons meeting a route, allowance -> 2
+  p24_features_6_71b168b66077: expansion, 4 comparisons; saved in /memfs-check-phase2/batches/p24_features_6_71b168b66077.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb                 0.7488  repeats [0.748197, 0.749095, 0.74905]  (7.9 s, 0 warnings)  already logged
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429                 0.7485  repeats [0.748271, 0.749365, 0.747963]  (7.9 s, 0 warnings)  already logged
+  p2_p24_T1_seeds155-2026-1029_004789f5995e                    0.7492  repeats [0.749167, 0.74953, 0.749036]  (7.7 s, 0 warnings)  already logged
+  p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b       0.7283  repeats [0.728455, 0.727443, 0.729001]  (0.5 s, 0 warnings)
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29                 0.7478  repeats [0.747564, 0.748002, 0.747841]  (8.1 s, 0 warnings)
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7                 0.7469  repeats [0.748121, 0.749509, 0.743101]  (8.0 s, 0 warnings)
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b                 0.7489  repeats [0.747588, 0.750912, 0.74805]  (8.1 s, 0 warnings)
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4                 0.7302  repeats [0.732762, 0.730752, 0.727202]  (0.4 s, 0 warnings)
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000
+  p24_features_6_71b168b66077: judged; progress False, 0 comparisons meeting a route, allowance -> 1
+  p24_features_7_55861d1276d3: expansion, 2 comparisons; saved in /memfs-check-phase2/batches/p24_features_7_55861d1276d3.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b                 0.7489  repeats [0.747588, 0.750912, 0.74805]  (8.1 s, 0 warnings)  already logged
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1                 0.7483  repeats [0.748882, 0.748116, 0.747822]  (7.8 s, 0 warnings)  already logged
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b                 0.7474  repeats [0.748166, 0.74791, 0.746201]  (8.1 s, 0 warnings)
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af                 0.7473  repeats [0.748437, 0.747442, 0.746029]  (8.1 s, 0 warnings)
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000
+  p24_features_7_55861d1276d3: judged; progress False, 0 comparisons meeting a route, allowance -> 0
+  features 8: nothing is due (allowance)
+  p24_retune_1_55bb1103dfdf: retune, 6 configurations; saved in /memfs-check-phase2/batches/p24_retune_1_55bb1103dfdf.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_rt_fad053d0_b1_000_seeds155-2026-1029_d9d21516ada2    0.7894  repeats [0.787334, 0.78997, 0.790846]  (1.3 s, 0 warnings)
+  p2_p24_rt_fad053d0_b1_001_seeds155-2026-1029_d05c18e37034    0.7936  repeats [0.791832, 0.794616, 0.794234]  (1.2 s, 0 warnings)
+  p2_p24_rt_fad053d0_b1_002_seeds155-2026-1029_00df28d39cd8    0.7887  repeats [0.788995, 0.788708, 0.788331]  (1.2 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b1_000_seeds155-2026-1029_3269cd3414c1    0.7860  repeats [0.787766, 0.788415, 0.781768]  (1.2 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b1_001_seeds155-2026-1029_49ef060c22f7    0.7889  repeats [0.789192, 0.790959, 0.786499]  (1.2 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b1_002_seeds155-2026-1029_2da7232d91b2    0.7920  repeats [0.794721, 0.790532, 0.790726]  (1.2 s, 0 warnings)
+  p24_retune_1_55bb1103dfdf: judged; progress True
+  p24_retune_2_86fc6502e576: retune, 5 configurations; saved in /memfs-check-phase2/batches/p24_retune_2_86fc6502e576.json
+  p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65                0.7317  repeats [0.730183, 0.731722, 0.733249]  (0.3 s, 0 warnings)  already logged
+  H check: p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 against p2_tinyfeat_ref_seeds155-2026-1029_632d05bbca65: all ten arrays equal
+  p2_p24_rt_fad053d0_b2_000_seeds155-2026-1029_9d24128f9b5e    0.7945  repeats [0.792142, 0.796973, 0.794294]  (1.2 s, 0 warnings)
+  p2_p24_rt_fad053d0_b2_001_seeds155-2026-1029_9b0a2fff5dbe    0.7912  repeats [0.788866, 0.795083, 0.789598]  (1.2 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b2_000_seeds155-2026-1029_ef5eca42ef48    0.7887  repeats [0.788316, 0.788069, 0.789598]  (1.1 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b2_001_seeds155-2026-1029_ec73fe5e33c6    0.7918  repeats [0.793618, 0.794157, 0.787525]  (1.1 s, 0 warnings)
+  p2_p24_rt_f6e2ffaa_b2_002_seeds155-2026-1029_1e25151244c9    0.7900  repeats [0.792966, 0.790033, 0.787115]  (1.2 s, 0 warnings)
+  p24_retune_2_86fc6502e576: judged; progress True
+  retune 3: nothing is due (allowance)
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  p2_tinyfeat_late_seeds155-2026-1029_e2fdec765b7d             0.7378  repeats [0.736657, 0.738354, 0.738305]  (0.3 s, 0 warnings)
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: contributions of p2_p24_T1_seeds155-2026-1029_004789f5995e missing or differ
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['contribution'] logged after its allocation
+  incomplete or inconsistent: features 1: a contribution logged after the batch's first witness
+  incomplete or inconsistent: contributions outside the declared work or duplicated: []
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: matched comparisons: orphan [], missing ['b4e008665864268d'], duplicated False
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  DIFFERS from log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['comparison'] logged after its allocation
+  incomplete or inconsistent: features 1: a comparison logged after the batch's first witness
+  incomplete or inconsistent: matched comparisons: orphan [], missing [], duplicated True
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: DIFFERS
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: witness bootstraps: orphan [], missing ['a379dc71399b41cb'], duplicated False
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: witness bootstraps: orphan [], missing [], duplicated True
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: features 1: fits or records logged before H's check
+  incomplete or inconsistent: H checks [] do not match the judged batches' H runs ['p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65']
+  incomplete or inconsistent: H check of p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 missing or failed
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['h_check'] logged after its allocation
+  incomplete or inconsistent: features 1: a h_check logged after the batch's first witness
+  incomplete or inconsistent: H checks ['p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65', 'p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65'] do not match the judged batches' H runs ['p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65']
+  incomplete or inconsistent: H check of p2_tinyfeat_h_seeds155-2026-1029_632d05bbca65 missing or failed
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  log: duplicate feature_allocation records for p24_features_1_dd7f96b20711
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_2_618b4f7ddc61: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_3_f775a65abba8: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_4_83efe6d7ad85: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_5_ee688f508648: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_6_71b168b66077: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_7_55861d1276d3: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_retune_1_55bb1103dfdf: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_retune_2_86fc6502e576: execution evidence or an allocation without a batch_start record
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: witness bootstraps: orphan ['0000000000000000'], missing [], duplicated False
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: DIFFERS
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: DIFFERS
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  runs: 28 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  log: the feature_stop record must give a reason, follow the last feature batch's allocation, name that batch, and precede every re-tuning round
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  log: the feature_stop record must give a reason, follow the last feature batch's allocation, name that batch, and precede every re-tuning round
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  log: the feature_stop record must give a reason, follow the last feature batch's allocation, name that batch, and precede every re-tuning round
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  runs: 28 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: the feature_stop record's omitted expansion differs from its re-planning
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  log: the feature_stop record must give a reason, follow the last feature batch's allocation, name that batch, and precede every re-tuning round
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  allocation p24_features_2_618b4f7ddc61: re-judged equal, witnesses recomputed
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log
+  p2_p24_X4_02_seeds155-2026-1029_9725d4440b77 - p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 on seeds [155, 2026, 1029]: -0.0030  [-0.0058, -0.0003]  0.013  2000/2000  equals log
+  p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0168  [+0.0069, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_04_seeds155-2026-1029_beec2d33f37c - p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e on seeds [155, 2026, 1029]: -0.0014  [-0.0037, +0.0008]  0.111  2000/2000  equals log
+  p2_p24_X5_01_seeds155-2026-1029_2dbb2dd25ae9 - p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 on seeds [155, 2026, 1029]: +0.0008  [-0.0017, +0.0031]  0.745  2000/2000  equals log
+  p2_p24_X5_02_seeds155-2026-1029_bac8cdbbde4c - p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b on seeds [155, 2026, 1029]: -0.0012  [-0.0039, +0.0014]  0.175  2000/2000  equals log
+  p2_p24_X5_03_seeds155-2026-1029_a0316665d0de - p2_p24_X3_02_seeds155-2026-1029_25611ce29077 on seeds [155, 2026, 1029]: +0.0033  [-0.0026, +0.0091]  0.848  2000/2000  equals log
+  p2_p24_X5_04_seeds155-2026-1029_39cbeb9ca1d9 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0014  [-0.0052, +0.0081]  0.672  2000/2000  equals log
+  p2_p24_X6_01_seeds155-2026-1029_cb5f6369ab29 - p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb on seeds [155, 2026, 1029]: -0.0010  [-0.0037, +0.0017]  0.237  2000/2000  equals log
+  p2_p24_X6_02_seeds155-2026-1029_43d3965101b7 - p2_p24_X4_03_seeds155-2026-1029_4c7edd426429 on seeds [155, 2026, 1029]: -0.0016  [-0.0039, +0.0006]  0.067  2000/2000  equals log
+  p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0004  [-0.0025, +0.0016]  0.347  2000/2000  equals log
+  p2_p24_X6_04_seeds155-2026-1029_874c86f30ed4 - p2_p24_base_e89e12fc98_seeds155-2026-1029_b433de55fe0b on seeds [155, 2026, 1029]: +0.0019  [-0.0009, +0.0046]  0.912  2000/2000  equals log
+  p2_p24_X7_01_seeds155-2026-1029_34f61241f42b - p2_p24_X6_03_seeds155-2026-1029_e8e1ce19206b on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.114  2000/2000  equals log
+  p2_p24_X7_02_seeds155-2026-1029_a9cdb2f267af - p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 on seeds [155, 2026, 1029]: -0.0010  [-0.0038, +0.0017]  0.241  2000/2000  equals log
+  incomplete or inconsistent: p24_features_1_dd7f96b20711: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: p24_features_2_618b4f7ddc61: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: p24_features_3_f775a65abba8: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: p24_features_5_ee688f508648: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: p24_retune_1_55bb1103dfdf: ['bootstrap'] logged after its allocation
+  incomplete or inconsistent: p24_retune_2_86fc6502e576: ['bootstrap'] logged after its allocation
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  runs: 9 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  incomplete or inconsistent: p24_features_2_618b4f7ddc61 is partial (started, or with execution evidence)
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: equals its file, record and re-planning
+  runs: 9 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  incomplete or inconsistent: p24_features_2_618b4f7ddc61: execution evidence or an allocation without a batch_start record
+  incomplete or inconsistent: p24_features_2_618b4f7ddc61 is partial (started, or with execution evidence)
+  imports: the receipt, the P2.8 definitions, the banks and the route flags recompute; the aliases follow P2.3's handoff
+  p24_features_1_dd7f96b20711: equals its file, record and re-planning
+  allocation p24_features_1_dd7f96b20711: re-judged equal, witnesses recomputed
+  p24_features_2_618b4f7ddc61: DIFFERS: features 2 needs every earlier batch judged first: ['p24_features_1_dd7f96b20711']
+  p24_features_3_f775a65abba8: equals its file, record and re-planning
+  allocation p24_features_3_f775a65abba8: re-judged equal, witnesses recomputed
+  p24_features_4_83efe6d7ad85: equals its file, record and re-planning
+  allocation p24_features_4_83efe6d7ad85: re-judged equal, witnesses recomputed
+  p24_features_5_ee688f508648: equals its file, record and re-planning
+  allocation p24_features_5_ee688f508648: re-judged equal, witnesses recomputed
+  p24_features_6_71b168b66077: equals its file, record and re-planning
+  allocation p24_features_6_71b168b66077: re-judged equal, witnesses recomputed
+  p24_features_7_55861d1276d3: equals its file, record and re-planning
+  allocation p24_features_7_55861d1276d3: re-judged equal, witnesses recomputed
+  p24_retune_1_55bb1103dfdf: equals its file, record and re-planning
+  allocation p24_retune_1_55bb1103dfdf: re-judged equal, witnesses recomputed
+  p24_retune_2_86fc6502e576: equals its file, record and re-planning
+  allocation p24_retune_2_86fc6502e576: re-judged equal, witnesses recomputed
+  runs: 39 audited against their banks and records, 0 with problems
+  p2_p24_T1_seeds155-2026-1029_004789f5995e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0175  [+0.0075, +0.0280]  1.000  2000/2000  equals log
+  p2_p24_T2_seeds155-2026-1029_c3ac9829cfc1 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0061  [-0.0031, +0.0149]  0.916  2000/2000  equals log
+  p2_p24_X2_01_seeds155-2026-1029_b77bc3dba0b1 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0166  [+0.0067, +0.0267]  1.000  2000/2000  equals log
+  p2_p24_X2_02_seeds155-2026-1029_a570d833719b - p2_p24_T1_seeds155-2026-1029_004789f5995e on seeds [155, 2026, 1029]: -0.0014  [-0.0039, +0.0009]  0.120  2000/2000  equals log
+  p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 - p2_p24_base_b85a95506d_seeds155-2026-1029_f64450c4a8de on seeds [155, 2026, 1029]: +0.0528  [+0.0411, +0.0638]  1.000  2000/2000  equals log
+  p2_p24_X2_04_seeds155-2026-1029_aac04a61b8fb - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0171  [+0.0073, +0.0274]  1.000  2000/2000  equals log
+  p2_p24_X3_01_seeds155-2026-1029_5d7037d7cd0e - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0072, +0.0278]  1.000  2000/2000  equals log
+  p2_p24_X3_02_seeds155-2026-1029_25611ce29077 - p2_p24_X2_03_seeds155-2026-1029_2f09f575e8b5 on seeds [155, 2026, 1029]: +0.0059  [-0.0009, +0.0131]  0.958  2000/2000  equals log
+  p2_p24_X3_03_seeds155-2026-1029_6aaf547fe032 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0176  [+0.0075, +0.0277]  1.000  2000/2000  equals log
+  p2_p24_X3_04_seeds155-2026-1029_0908d5cea64b - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0075, +0.0272]  1.000  2000/2000  equals log
+  p2_p24_X4_01_seeds155-2026-1029_64bfe3204d32 - p2_p24_base_651e5ae739_seeds155-2026-1029_632d05bbca65 on seeds [155, 2026, 1029]: +0.0173  [+0.0067, +0.0283]  0.999  2000/2000  equals log

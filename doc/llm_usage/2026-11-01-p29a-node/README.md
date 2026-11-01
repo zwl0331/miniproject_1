@@ -37,7 +37,7 @@ The exact sharing question and approval are in decisions.md. The same read-only 
 | portability_cpu4_* | First-fold repeat diagnostics with all four thread variables explicit |
 | tree_replay*.log, migration_comparison.txt | Full historical tree refits, fresh node repeat and migration comparison |
 | check_foundation.txt | Existing foundation suite: 19 passed |
-| check_phase2.txt (pending, not in the migration review snapshot) | Existing phase-two suite is still running; no completed-suite claim |
+| check_phase2.txt (interrupted, outside the migration review snapshot) | SIGINT on Sam's session-wrap request after about 40 minutes, exit 130; no completed-suite claim |
 
 The installed environment is node-local at /tmp/miniproject_1-p29-venv-20261101, reached by .venv. The shared filesystem returned errno 122 (disk quota exceeded) after the first installation had written about 5.1 GiB. No project data or banks were moved. The exact same locked package transaction completed on scratch and passed the full inventory and pip consistency checks. Scratch is disposable; the committed lock and interpreter transaction are the rebuild inputs. REVIEW_PYTHON now points to the project interpreter.
 
@@ -58,3 +58,5 @@ Codex then built a score-free scalar B device prototype in `analysis/p29_tabm_de
 The first pilot failed after fitting when its source inventory tried to hash Torch's virtual `_ops.py`; the retained error log names the failure. Restricting the inventory to actual files fixed it, and the full pilot then completed. `phase2_stack_probe.txt` records a brief read-only debugger sample of the long-running legacy suite: grouped-bootstrap recomputation inside feature-audit rejection checks. The debugger detached without changing code or data. That sample is not a passing test receipt.
 
 Independent review: `reviews/2026-11-01-p29a-node-portability.md`, fresh Fable 5.1 xhigh thread 5af7c77e-80a9-4ab2-85dd-13fd7f4b305c. Round 1 requested a consistent portability amendment across its dependent plan sections. All five findings were fixed; round 2 at c6fa913 returned `VERDICT: APPROVED`. The device-policy JSON is byte-preserved so existing evidence retains its hash; its original proposed-status field is superseded by this review record. The reviewer did not review the boundary implementation or subsequent device-pilot result.
+
+Session wrap: Sam asked to save work for a new session. The remaining legacy phase-two suite was interrupted with SIGINT after about 40 minutes, exit 130; its log is retained without a passing verdict. The interruption occurred inside negative feature-audit fixtures, whose deliberately corrupted logs generate DIFFERS lines. All task processes exited. Resume details: `notes/2026-11-01-p29-node-session-handoff.md`. No new scientific search was launched.

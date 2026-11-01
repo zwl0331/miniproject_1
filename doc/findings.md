@@ -1031,7 +1031,7 @@ Evidence:
 
 Uncertainty:
 
-The full phase-two suite is still in progress at this initial record. The declared-four-thread first-fold CPU repeats passed in two fresh processes with identical prediction hashes and full node receipts for H and TabM B; this does not certify a full old/new-adapter gate. No new raw-row adapter, ordered executable family manifest, full-size/nested-size cost pilot or new search result exists. The smoke probes do not test unknown categories, all shapes, stopping, retrieved memory, every initialization or CPU/GPU equality. The historical P2.7 evaluation does not certify different node predictions. No compute speedup or total P2.9 duration is inferred.
+The full phase-two suite was in progress at the reviewed checkpoint. On Sam's later session-wrap request it was interrupted after about 40 minutes (exit 130), with no completed node-suite verdict; the raw log is retained. The declared-four-thread first-fold CPU repeats passed in two fresh processes with identical prediction hashes and full node receipts for H and TabM B; this does not certify a full old/new-adapter gate. No new raw-row adapter, ordered executable family manifest, full-size/nested-size cost pilot or new search result exists. The smoke probes do not test unknown categories, all shapes, stopping, retrieved memory, every initialization or CPU/GPU equality. The historical P2.7 evaluation does not certify different node predictions. No compute speedup or total P2.9 duration is inferred.
 
 Review status:
 

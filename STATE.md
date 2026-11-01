@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01. P2.9 resumed on Sam's instruction, on the GPU node. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
+Updated 2026-11-01. Paused at Sam's request to wrap up and start a new session. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
 
 ## Brief (at most 10 lines)
 
@@ -12,7 +12,7 @@ Updated 2026-11-01. P2.9 resumed on Sam's instruction, on the GPU node. Keep thi
 
 ## Decisions in force
 
-Pointers into `decisions.md`: resume on the GPU node, Fable 5.1 xhigh consultant and independent reviewer (2026-11-01), superseding the migration pause; Codex owns development (2026-10-31); P2.9 reopening supersedes the earlier candidate freeze; every submission gets R1 (2026-10-30); no pretrained models, report and Colab after development, Sam uploads, measured budgets and consultation before building (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
+Pointers into `decisions.md`: session wrap/pause (2026-11-01); resume on the GPU node, Fable 5.1 xhigh consultant and independent reviewer (2026-11-01), superseding the migration pause; Codex owns development (2026-10-31); P2.9 reopening supersedes the earlier candidate freeze; every submission gets R1 (2026-10-30); no pretrained models, report and Colab after development, Sam uploads, measured budgets and consultation before building (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
 
 ## Results
 
@@ -62,7 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| Phase-two checks; migration R2 approved. Consultations, tree replays and CPU/CUDA prototype pilots complete; no search fits | checks 45241 (PID 12288) | `doc/llm_usage/2026-11-01-p29a-node/`; `reviews/2026-11-01-p29a-node-portability.md` | 2026-11-01 |
+| None. Legacy phase-two suite interrupted on Sam's wrap request after about 40 min, exit 130; no complete node-suite verdict. All task processes exited. | none | `doc/llm_usage/2026-11-01-p29a-node/check_phase2.txt` | 2026-11-01 |
 
 ## Next action
 
@@ -70,7 +70,7 @@ Node setup, 2026-11-01: installed the four shared skills from `../agent-skills` 
 
 Sam resumed development on 2026-11-01. Codex owns development and STATE. Claude Fable 5.1 xhigh consults and reviews in separate sessions, with explicit model/effort and read-only plan mode. The old handoff is `notes/2026-10-31-p29-gpu-handoff.md`. Node environment installed and REVIEW_PYTHON corrected; .venv points to `/tmp/miniproject_1-p29-venv-20261101`, so rebuild after node loss. Historical locks remain unchanged.
 
-1. Finish the running legacy phase-two suite. Migration v1.3, node contracts and Finding 031 are R2 APPROVED at c6fa913 (`reviews/2026-11-01-p29a-node-portability.md`). Continue P2.9a/b recipe_v2/raw adapters, complete equivalence/isolation gates, executable manifests and representative cost pilots, followed by Sam's measured large-job proposal. Provisional starting code: boundary f420853; one-recipe device prototype aab2370. Neither substitutes for the full gates. Node consultation/evidence: `doc/llm_usage/2026-11-01-p29a-node/`. Coverage targets are not launch authorization. E's procedure, fallback trigger and tie band are unchanged.
+1. When Sam resumes, read `notes/2026-11-01-p29-node-session-handoff.md` and rerun the interrupted legacy phase-two suite with progress visibility. Migration v1.3, node contracts and Finding 031 are R2 APPROVED at c6fa913 (`reviews/2026-11-01-p29a-node-portability.md`). Continue P2.9a/b recipe_v2/raw adapters, complete equivalence/isolation gates, executable manifests and representative cost pilots, followed by Sam's measured large-job proposal. Provisional starting code: boundary f420853; one-recipe device prototype aab2370. Neither substitutes for the full gates. Node consultation/evidence: `doc/llm_usage/2026-11-01-p29a-node/`. Coverage targets are not launch authorization. E's procedure, fallback trigger and tie band are unchanged.
 2. Engine baseline: engine sources remain unchanged since P2.7 completion commit 1ffaddd; subsequent commits record the handoff and P2.9 plan. The separate `../Mini_project_1_p29` worktree was clean at 9693f11 on `p2.9-reopened` during the handoff. Integrate work deliberately from this completed baseline. Same-node adapter equivalence stays strict; cross-platform portability differs and awaits the explicit R2 amendment above.
 3. P2.7's saved result keeps fold averaging with no fallback (Finding 030, draft). Phase 3 and the two final selections still require their R1 review and Sam's decision. The singleton diagnostic and transductive proposals remain open as listed above. Migration fits are diagnostics; no new scientific search has launched. Consultation is distinct from formal approval.
 
