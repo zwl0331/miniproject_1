@@ -1,18 +1,18 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31, P2.9 comprehensive plan reviewed by Fable. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
+Updated 2026-10-31. PAUSED on Sam's instruction for migration to a GPU node. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
 
 ## Brief (at most 10 lines)
 
 - Objective: the strongest well-validated probability model for high popularity; two final Kaggle selections chosen on grouped cross-validation; a report and Colab demo that explain what was tried, why, how models were selected, and which features matter in which direction.
 - Constraints: the course rules and Sam's decisions in `AGENTS.md`; folds grouped by track (Finding 002); the public leaderboard is a check only.
 - Success criteria: two final selections by Monday 2026-11-02, 5:00 PM PST; report PDF and public Colab link on Gradescope by Tuesday 2026-11-03, 11:59 PM PST.
-- Next milestone: P2.9a implementation audit, manifests and score-free timing pilots under the reviewed comprehensive plan (`doc/plans/phase2-p29-other-methods.md`), then a measured launch proposal. Planning is complete; no training launched. P2.7 is complete (Finding 030 draft); report and Colab wait until development ends.
+- Next milestone after Sam resumes: GPU environment audit and P2.9a under the reviewed plan, then score-free pilots and a measured launch proposal. Handoff: `notes/2026-10-31-p29-gpu-handoff.md`. Planning is complete; no training launched. P2.7 is complete (Finding 030 draft); report and Colab wait until development ends.
 - Choices that could invalidate later work: the candidate freeze and the final selection rule (phase 2 plan, P2.6 and phase 3) need an R2 review before the selection is made.
 
 ## Decisions in force
 
-Pointers into `decisions.md`: Codex takes over development and Claude Fable 5.1 xhigh becomes reviewer (latest decision, 2026-10-31); development reopened as P2.9 (2026-10-31), superseding the earlier pause and candidate freeze for new exploration; every submission file gets R1 review (2026-10-30); no pretrained models, report and Colab only after development ends, Sam uploads every submission, search budgets from measured runtimes, test rather than assume, and consultation before building each task (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
+Pointers into `decisions.md`: pause and save for GPU-node migration (latest, 2026-10-31); Codex takes over development and Claude Fable 5.1 xhigh becomes reviewer (2026-10-31); development reopened as P2.9 (2026-10-31), superseding the earlier pause and candidate freeze for new exploration; every submission file gets R1 review (2026-10-30); no pretrained models, report and Colab only after development ends, Sam uploads every submission, search budgets from measured runtimes, test rather than assume, and consultation before building each task (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
 
 ## Results
 
@@ -59,13 +59,13 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| none; consultations and R2 review complete; no fitting launched | | | |
+| none; paused for GPU migration; training/review process check found no matches | | `notes/2026-10-31-p29-gpu-handoff.md` | 2026-10-31 |
 
 ## Next action
 
-Codex owns development and this state file from Sam's handoff of 2026-10-31. Claude Fable 5.1 xhigh is the independent reviewer through `.agent/review.conf`; the runner supplies `--model claude-fable-5-1 --effort xhigh` and uses read-only plan mode. The prior instruction that the finishing P2.7 session start nothing new does not pause this new development session.
+Codex owns development and this state file from Sam's handoff of 2026-10-31. Claude Fable 5.1 xhigh is the independent reviewer through `.agent/review.conf`; the runner supplies `--model claude-fable-5-1 --effort xhigh` and uses read-only plan mode. Sam explicitly paused this session on 2026-10-31 for GPU migration. Remain paused until Sam resumes; first read `notes/2026-10-31-p29-gpu-handoff.md`.
 
-1. Planning is complete: read the reviewed `doc/plans/phase2-p29-other-methods.md` and `reviews/2026-10-31-p2.9-other-methods-plan.md` (R2 APPROVED at fe9c54a, round 3). Two deep Fable consultations, Codex design/critique and integration are in `doc/llm_usage/2026-10-31-p2.9-plan/`. Proceed with P2.9a when directed: source audit, implementation contracts, ordered manifests and score-free pilots, then Sam's measured large-job proposal. Coverage targets are not launch authorization. E is the revised fallback; the 0.003/all-three-fold trigger and 0.001 tie band are unchanged.
+1. Planning is complete: read the reviewed `doc/plans/phase2-p29-other-methods.md` and `reviews/2026-10-31-p2.9-other-methods-plan.md` (R2 APPROVED at fe9c54a, round 3). Two deep Fable consultations, Codex design/critique and integration are in `doc/llm_usage/2026-10-31-p2.9-plan/`. After Sam resumes, proceed with P2.9a: source audit, implementation contracts, ordered manifests and score-free pilots, then Sam's measured large-job proposal. Coverage targets are not launch authorization. E is the revised fallback; the 0.003/all-three-fold trigger and 0.001 tie band are unchanged.
 2. Engine baseline: engine sources remain unchanged since P2.7 completion commit 1ffaddd; subsequent commits record the handoff and P2.9 plan. The separate `../Mini_project_1_p29` worktree is clean at 9693f11 on `p2.9-reopened`, as inspected during the handoff; it contains no subsequent tracked development. Integrate work deliberately from this completed baseline. Engine changes must reproduce the existing banks before the current menu is deployed again.
 3. P2.7's saved result keeps fold averaging with no fallback (Finding 030, draft). Phase 3 and the two final selections still require their R1 review and Sam's decision. The singleton diagnostic and transductive proposals remain open as listed above. No fitting job has launched in this planning turn; consultation is distinct from formal approval.
 

@@ -158,3 +158,7 @@ After the close: Sam asks (2026-10-31) for a read of the class's public Colab no
 ## 2026-10-31 P2.9 planning checkpoint
 
 The planning milestone and pending R2 entries are complete. Two deep Fable consultation rounds preceded an independent review at ad1ca96 and rechecks at abb6863 and fe9c54a. Round 3 approved with no findings; F1 to F11 are resolved. The reviewed plan is doc/plans/phase2-p29-other-methods.md and the complete record is reviews/2026-10-31-p2.9-other-methods-plan.md. No fitting job, package installation or submission preparation occurred. Next is P2.9a, followed by a measured large-job proposal.
+
+## 2026-10-31 pause for GPU migration
+
+The prior next action was P2.9a after completion of the reviewed plan at fe9c54a, with final status recorded at 8c54be0. Sam now pauses local work and moves to a GPU node. The handoff is notes/2026-10-31-p29-gpu-handoff.md. No fitting or GPU job has launched. Runtime/rental advice was provisional and did not establish a launch budget.
