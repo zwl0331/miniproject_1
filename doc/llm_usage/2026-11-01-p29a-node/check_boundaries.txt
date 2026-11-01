@@ -1,0 +1,13 @@
+test_crossfit_requires_complements_and_exactly_one_holdout (__main__.Boundaries.test_crossfit_requires_complements_and_exactly_one_holdout) ... ok
+test_heldout_label_isolation_and_known_wrong_encoder (__main__.Boundaries.test_heldout_label_isolation_and_known_wrong_encoder) ... ok
+test_injection_errors_rejected_before_encoding (__main__.Boundaries.test_injection_errors_rejected_before_encoding) ... ok
+test_legacy_features_and_receipts_unchanged_without_injection (__main__.Boundaries.test_legacy_features_and_receipts_unchanged_without_injection) ... ok
+test_partition_rejects_leaks_omissions_repetition_and_coercion (__main__.Boundaries.test_partition_rejects_leaks_omissions_repetition_and_coercion) ... ok
+test_population_rejects_misalignment_missing_and_repeated_identity (__main__.Boundaries.test_population_rejects_misalignment_missing_and_repeated_identity) ... ok
+test_query_values_cannot_refit_feature_state (__main__.Boundaries.test_query_values_cannot_refit_feature_state) ... ok
+test_worker_imports_do_not_load_model_runtimes (__main__.Boundaries.test_worker_imports_do_not_load_model_runtimes) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.544s
+
+OK

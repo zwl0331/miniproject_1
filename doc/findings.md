@@ -1040,3 +1040,23 @@ Review status:
 Downstream use:
 
 The measured migration facts justify the portability amendment and package/device contracts. Historical Mac runs that fail portability cannot be counted as P2.9 scientific controls. New method scoring waits for R2 and complete adapter correctness gates. Final selection and any submission still require R1, and the measured large-job proposal still needs Sam's approval.
+
+## Finding 032: provisional raw-feature partition boundary
+
+Question:
+
+Can the new raw-row adapters expose fixed encoder assignments for leakage tests while preserving the existing feature definitions?
+
+Current conclusion:
+
+The standalone `RawFeaturePipeline` preserves legacy feature values, inference values, lineage and encoder receipts exactly on the synthetic mixed-group fixture when assignments are generated normally. Explicit assignments must have the declared five complementary folds, cover every row once as a query, and keep primary groups whole. The partition validator also rejects omitted/duplicate rows, noninteger positions and invalid population identities. Stopping partitions additionally require both classes on the query side. These checks run before target encoding.
+
+With encoder assignments held fixed, changing a held-out fold's labels leaves that fold's training target encoding unchanged. Other folds' encodings change, a positive control. An intentionally leaky full-population encoder fails the same isolation assertion. A separate process verifies that importing the wrapper loads none of torch, LightGBM, XGBoost or CatBoost. Eight focused tests pass in 1.544 seconds.
+
+Evidence:
+
+`../songpop/phase2/raw_splits.py`, `../songpop/phase2/raw_features.py`, `../scripts/check_p29_boundaries.py`, and `llm_usage/2026-11-01-p29a-node/check_boundaries.txt`.
+
+Uncertainty and review status:
+
+`draft`, 2026-11-01. These modules are not connected to `engine.fit_recipe` or the neural worker. They are outside the migration R2 snapshot at 74fc0b3. No neural stopping, calibration, retrieval or new prediction-bank claim follows from these tests. Full raw-adapter tests and review remain required before scientific tuning depends on them. No legacy module was changed.
