@@ -1191,17 +1191,30 @@ The follow-up in this session is complete. Sam has assigned further experiments 
 
 Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising candidates need further seeds.
 
-Completed: 15. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
+Completed: 28. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
 
 | Trial | Standalone CV | Best addition CV | Weight | Delta | Positive splits |
 |---|---:|---:|---:|---:|---:|
+| x3_ebm_short_i10_lr0.003_r1000 | 0.819957 | 0.843908 | 0.10 | +0.000094 | 2/3 |
+| x3_ebm_short_i30_lr0.03_r100 | 0.823423 | 0.843886 | 0.10 | +0.000072 | 2/3 |
+| x3_ebm_short_i10_lr0.03_r300 | 0.815746 | 0.843883 | 0.10 | +0.000069 | 2/3 |
+| x3_ebm_short_i10_lr0.03_r500 | 0.810894 | 0.843751 | 0.10 | -0.000063 | 1/3 |
+| x3_tabm_f1_m1_standard | 0.829305 | 0.843736 | 0.10 | -0.000078 | 1/3 |
+| x3_ebm_short_i30_lr0.03_r300 | 0.813034 | 0.843714 | 0.10 | -0.000100 | 1/3 |
+| x3_tabm_f1_m1_quantile | 0.828661 | 0.843710 | 0.10 | -0.000104 | 1/3 |
 | x3_ebm_short_i0_lr0.03_r300 | 0.811985 | 0.843643 | 0.10 | -0.000171 | 2/3 |
+| x3_ebm_short_i0_lr0.003_r3000 | 0.811017 | 0.843627 | 0.10 | -0.000187 | 2/3 |
+| x3_ebm_short_i0_lr0.003_r1000 | 0.814040 | 0.843625 | 0.10 | -0.000189 | 1/3 |
+| x3_ebm_short_i10_lr0.03_r100 | 0.819987 | 0.843611 | 0.10 | -0.000203 | 0/3 |
 | x3_ebm_short_i0_lr0.03_r500 | 0.808303 | 0.843565 | 0.10 | -0.000249 | 1/3 |
+| x3_resnet_f1_m1_standard | 0.808902 | 0.843564 | 0.10 | -0.000250 | 0/3 |
 | x3_mlp_f1_m1_quantile | 0.817369 | 0.843480 | 0.10 | -0.000334 | 0/3 |
 | x3_ebm_i10_r1000 | 0.802191 | 0.843440 | 0.10 | -0.000374 | 0/3 |
 | x3_ebm_short_i0_lr0.03_r100 | 0.812264 | 0.843430 | 0.10 | -0.000385 | 0/3 |
 | x3_mlp_f1_m1_standard | 0.818074 | 0.843371 | 0.10 | -0.000443 | 0/3 |
 | x3_ebm_i0_r1000 | 0.801201 | 0.843309 | 0.10 | -0.000505 | 0/3 |
+| x3_resnet_f1_m1_quantile | 0.809254 | 0.843242 | 0.10 | -0.000572 | 0/3 |
+| x3_ebm_short_i10_lr0.003_r300 | 0.811590 | 0.843156 | 0.10 | -0.000658 | 0/3 |
 | x3_ebm_short_i0_lr0.003_r300 | 0.802816 | 0.843105 | 0.10 | -0.000709 | 0/3 |
 | x3_ebm_i0_r3000 | 0.788031 | 0.842680 | 0.10 | -0.001134 | 0/3 |
 | x3_ebm_i60_r1000 | 0.795697 | 0.842576 | 0.10 | -0.001238 | 0/3 |

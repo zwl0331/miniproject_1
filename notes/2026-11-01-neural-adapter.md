@@ -1,8 +1,8 @@
 # Fast neural adapter
 
 2026-11-01. Provisional development implementation. Sam authorized this session
-to finish the neural adapter under fast-mode rules. The development session
-retains STATE, decisions, running queues and final-file selection bookkeeping.
+to finish the neural adapter under fast-mode rules and then take ownership of
+development. Extended architecture tests are running; current status is in STATE.md.
 
 ## Use
 
@@ -14,6 +14,8 @@ from songpop.phase2.raw_neural import fit_raw, Worker
 recipe = make_recipe(
     "tabm", representation="ple", device="cuda",
     blocks=["date_count", "date_te3", "cyclic"],
+    features={"year_relative": True, "year_standardize": True, "date_counts": True},
+    layout="mixed_neural_v1", scaler="quantile", stopping_metric="auc",
     estimator_seeds=[0],
     params={"d_block": 128, "max_epochs": 200, "patience": 20},
 )
@@ -34,14 +36,29 @@ Models and their fitted transforms can be pickled within this environment.
 | `mlp` | `scalar`, `ple`, `periodic` | Single network; optional flattened numerical embeddings |
 | `resnet` | `scalar`, `ple`, `periodic` | Residual network; hidden width is twice block width |
 | `ft_transformer` | `scalar` | Native trainable feature tokenizer; four attention heads by default |
+| `retrieval` | `scalar`, `ple`, `periodic` | TabR-inspired adaptation; learned keys and label values; excludes query track group |
 
 `ple` means piecewise-linear embeddings. The default embedding dimension is 8
 and bin count is 16. Periodic embeddings use 16 frequencies with initial scale
 0.01. Override these with the `embedding` argument. Unknown fields are rejected.
-The feature representation is the existing numeric layout, including one-hot
+The default feature representation is the existing numeric layout, including one-hot
 categories and missing flags. Embeddings act on all of those coordinates.
 Constant coordinates use a unit-width interval centered on their training value.
 FT-Transformer uses all coordinates as numeric feature tokens.
+
+With `layout="mixed_neural_v1"`, continuous columns receive the numerical
+embeddings, missing flags stay binary and categories have explicit unknown codes.
+TabM uses native categorical inputs; MLP/ResNet/retrieval use learned category
+embeddings; FT-Transformer uses native category tokens. Extra year/count/round
+features fit inside the same stopping and final-training boundaries. Optional
+`stopping_metric="auc"` minimizes one minus the inner AUC. `pairwise_weight`
+mixes BCE with pairwise logistic loss, from 0 (BCE) to 1 (pure pairwise).
+
+Retrieval requires blocks without target encoding, for example
+`blocks=["date_count", "cyclic"]`. Its training memory contains only the current
+training partition. All candidates from the query's own track group are masked.
+Query/test rows never enter memory fitting. This is a compact project adaptation
+of the general TabR mechanism, not an exact reproduction of the published model.
 
 ## Running complete trials
 
@@ -53,19 +70,21 @@ FT-Transformer uses all coordinates as numeric feature tokens.
 The generated starter queue contains six configurations and does not launch
 training. Edit it to the intended bounded comparison before executing it.
 Each entry contains `id`, `recipe`, and `cutoff_utc`. The default cutoff is the
-current authorized follow-up end, 2026-11-01 06:31 UTC. The runner checks the
+original experiment deadline, 2026-11-01 20:00 UTC. The runner checks the
 cutoff before each outer fit; an already-started fit can finish. It never starts
 a trial after the project experiment deadline, 2026-11-01 20:00 UTC.
 
-One process uses one isolated GPU worker and four CPU threads. Run sequentially
-unless the development session coordinates additional capacity. No packages
+One process uses one isolated GPU worker and four CPU threads. The extended
+runner `analysis.extended_gpu --queue <path> --workers 4` coordinates four
+independent workers. Do not edit worker-bound sources while they run. No packages
 were installed. The pinned environment already contains Torch 2.14.1,
 TabM 0.0.3, rtdl-num-embeddings 0.0.12, and rtdl-revisiting-models 0.0.2.
 
 Results go to `artifacts/neural/<id>/`. A complete result includes its config,
 OOF and test bank, all 15 fold scores, mean per split seed, seed/stopping details,
 warnings, runtime and simple blend comparisons against existing references.
-The arrays use the same `PredictionBank` schema as fast exploration.
+The arrays use the same `PredictionBank` schema as fast exploration. Extended
+results also compare against follow-up trees (CV 0.843814).
 Partial cutoff runs are not scored. The runner does not update submissions or
 the shared fast-exploration notes table.
 
@@ -107,7 +126,10 @@ integration verification, not a nominated scientific configuration.
 
 These are correctness checks. They do not establish that any architecture
 improves AUC. Candidate selection still requires complete saved grouped folds
-with split seeds 155, 2026 and 1029. TabR and pretrained models are not implemented.
+with split seeds 155, 2026 and 1029. Pretrained models are prohibited. The extended
+checks in `doc/llm_usage/2026-11-01-extended-exploration/` cover stopping isolation,
+unknown categories, continuous-only PLE bins and retrieval group exclusion, with
+allowed-label positive controls. Three focused checks and six GPU smoke fits pass.
 
 Architecture APIs were checked against the installed packages and their primary
 documentation: [TabM](https://github.com/yandex-research/tabm),

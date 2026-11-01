@@ -1,0 +1,22 @@
+{
+  "id": "x3_ebm_i60_r1000",
+  "family": "ebm",
+  "params": {
+    "outer_bags": 4,
+    "inner_bags": 0,
+    "learning_rate": 0.03,
+    "max_bins": 256,
+    "max_interaction_bins": 32,
+    "min_samples_leaf": 4,
+    "interactions": 60,
+    "max_rounds": 1000
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "year_standardize": true
+  },
+  "estimator_seeds": [
+    0
+  ]
+}
