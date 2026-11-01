@@ -1191,35 +1191,91 @@ The follow-up in this session is complete. Sam has assigned further experiments 
 
 Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising candidates need further seeds.
 
-Completed: 28. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
+Completed: 84. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
 
 | Trial | Standalone CV | Best addition CV | Weight | Delta | Positive splits |
 |---|---:|---:|---:|---:|---:|
+| x3_ebm_short_i30_lr0.003_r1000 | 0.819698 | 0.844022 | 0.10 | +0.000208 | 2/3 |
+| x3_ebm_short_i60_lr0.03_r100 | 0.824612 | 0.843953 | 0.10 | +0.000139 | 2/3 |
+| x3_ebm_short_i10_lr0.003_r3000 | 0.814342 | 0.843938 | 0.10 | +0.000124 | 2/3 |
 | x3_ebm_short_i10_lr0.003_r1000 | 0.819957 | 0.843908 | 0.10 | +0.000094 | 2/3 |
+| x3_ebm_short_i30_lr0.03_r100_seed2 | 0.822789 | 0.843907 | 0.10 | +0.000093 | 2/3 |
+| x3_avg_ebm_short_i30_lr0.03_r100 | 0.828927 | 0.843896 | 0.10 | +0.000082 | 1/3 |
 | x3_ebm_short_i30_lr0.03_r100 | 0.823423 | 0.843886 | 0.10 | +0.000072 | 2/3 |
 | x3_ebm_short_i10_lr0.03_r300 | 0.815746 | 0.843883 | 0.10 | +0.000069 | 2/3 |
+| x3_ebm_short_i60_lr0.003_r1000 | 0.818650 | 0.843874 | 0.10 | +0.000060 | 1/3 |
+| x3_tabm_auc | 0.829740 | 0.843870 | 0.10 | +0.000056 | 2/3 |
+| x3_avg_ebm_short_i60_lr0.03_r100 | 0.830058 | 0.843842 | 0.10 | +0.000028 | 1/3 |
+| x3_ebm_short_i30_lr0.03_r100_seed3 | 0.821452 | 0.843834 | 0.10 | +0.000020 | 1/3 |
+| x3_ebm_short_i30_lr0.003_r1000_seed2 | 0.817051 | 0.843824 | 0.10 | +0.000009 | 2/3 |
+| x3_ebm_short_i30_lr0.03_r100_seed1 | 0.822789 | 0.843815 | 0.10 | +0.000001 | 1/3 |
+| x3_retrieval_c16_w64_scalar | 0.794431 | 0.843796 | 0.10 | -0.000018 | 2/3 |
+| x3_ebm_short_i60_lr0.03_r100_seed1 | 0.823675 | 0.843772 | 0.10 | -0.000043 | 1/3 |
+| x3_tabm_f1_m0_quantile | 0.828992 | 0.843766 | 0.10 | -0.000048 | 1/3 |
+| x3_xgb_trees_seed1 | 0.835627 | 0.843763 | 0.10 | -0.000052 | 2/3 |
+| x3_ebm_short_i30_lr0.03_r100_seed4 | 0.822603 | 0.843759 | 0.10 | -0.000055 | 1/3 |
+| x3_avg_tabm_auc | 0.831625 | 0.843758 | 0.10 | -0.000056 | 1/3 |
 | x3_ebm_short_i10_lr0.03_r500 | 0.810894 | 0.843751 | 0.10 | -0.000063 | 1/3 |
+| x3_tabm_f1_m0_standard | 0.829188 | 0.843740 | 0.10 | -0.000074 | 1/3 |
 | x3_tabm_f1_m1_standard | 0.829305 | 0.843736 | 0.10 | -0.000078 | 1/3 |
+| x3_ebm_short_i60_lr0.03_r100_seed4 | 0.822577 | 0.843727 | 0.10 | -0.000087 | 0/3 |
+| x3_tabm_auc_seed1 | 0.830665 | 0.843725 | 0.10 | -0.000089 | 1/3 |
 | x3_ebm_short_i30_lr0.03_r300 | 0.813034 | 0.843714 | 0.10 | -0.000100 | 1/3 |
 | x3_tabm_f1_m1_quantile | 0.828661 | 0.843710 | 0.10 | -0.000104 | 1/3 |
+| x3_ebm_short_i60_lr0.03_r100_seed2 | 0.822789 | 0.843700 | 0.10 | -0.000115 | 1/3 |
+| x3_ebm_short_i60_lr0.03_r100_seed3 | 0.822404 | 0.843680 | 0.10 | -0.000134 | 2/3 |
+| x3_ebm_short_i60_lr0.003_r300 | 0.823778 | 0.843667 | 0.10 | -0.000147 | 2/3 |
+| x3_xgb_trees_seed2 | 0.834434 | 0.843658 | 0.10 | -0.000156 | 1/3 |
+| x3_tabm_auc_seed2 | 0.829158 | 0.843655 | 0.10 | -0.000159 | 1/3 |
 | x3_ebm_short_i0_lr0.03_r300 | 0.811985 | 0.843643 | 0.10 | -0.000171 | 2/3 |
+| x3_ebm_short_i30_lr0.003_r3000 | 0.810631 | 0.843642 | 0.10 | -0.000172 | 1/3 |
 | x3_ebm_short_i0_lr0.003_r3000 | 0.811017 | 0.843627 | 0.10 | -0.000187 | 2/3 |
 | x3_ebm_short_i0_lr0.003_r1000 | 0.814040 | 0.843625 | 0.10 | -0.000189 | 1/3 |
+| x3_ebm_short_i30_lr0.003_r1000_seed1 | 0.817880 | 0.843612 | 0.10 | -0.000202 | 1/3 |
 | x3_ebm_short_i10_lr0.03_r100 | 0.819987 | 0.843611 | 0.10 | -0.000203 | 0/3 |
+| x3_ebm_short_i30_lr0.003_r300 | 0.819804 | 0.843596 | 0.10 | -0.000219 | 1/3 |
 | x3_ebm_short_i0_lr0.03_r500 | 0.808303 | 0.843565 | 0.10 | -0.000249 | 1/3 |
 | x3_resnet_f1_m1_standard | 0.808902 | 0.843564 | 0.10 | -0.000250 | 0/3 |
+| x3_ebm_short_i60_lr0.003_r3000 | 0.807222 | 0.843497 | 0.10 | -0.000317 | 1/3 |
+| x3_tabm_f0_m1_standard | 0.827125 | 0.843485 | 0.10 | -0.000329 | 0/3 |
 | x3_mlp_f1_m1_quantile | 0.817369 | 0.843480 | 0.10 | -0.000334 | 0/3 |
+| x3_tabm_f0_m1_quantile | 0.826565 | 0.843465 | 0.10 | -0.000349 | 0/3 |
 | x3_ebm_i10_r1000 | 0.802191 | 0.843440 | 0.10 | -0.000374 | 0/3 |
+| x3_mlp_f0_m0_quantile | 0.817621 | 0.843436 | 0.10 | -0.000378 | 0/3 |
 | x3_ebm_short_i0_lr0.03_r100 | 0.812264 | 0.843430 | 0.10 | -0.000385 | 0/3 |
+| x3_tabm_f0_m0_quantile | 0.825037 | 0.843420 | 0.10 | -0.000394 | 0/3 |
+| x3_mlp_f0_m1_quantile | 0.815211 | 0.843418 | 0.10 | -0.000396 | 0/3 |
+| x3_ft_transformer_f1_m1_standard | 0.814056 | 0.843394 | 0.10 | -0.000420 | 0/3 |
 | x3_mlp_f1_m1_standard | 0.818074 | 0.843371 | 0.10 | -0.000443 | 0/3 |
+| x3_tabm_f0_m0_standard | 0.826465 | 0.843369 | 0.10 | -0.000445 | 0/3 |
+| x3_mlp_f0_m0_standard | 0.818192 | 0.843363 | 0.10 | -0.000451 | 0/3 |
+| x3_mlp_auc | 0.818397 | 0.843356 | 0.10 | -0.000458 | 0/3 |
+| x3_ebm_short_i60_lr0.03_r300 | 0.807963 | 0.843326 | 0.10 | -0.000488 | 1/3 |
+| x3_ft_transformer_f1_m1_quantile | 0.814639 | 0.843322 | 0.10 | -0.000492 | 1/3 |
 | x3_ebm_i0_r1000 | 0.801201 | 0.843309 | 0.10 | -0.000505 | 0/3 |
+| x3_ebm_short_i30_lr0.03_r500 | 0.805620 | 0.843290 | 0.10 | -0.000524 | 1/3 |
+| x3_ft_transformer_auc | 0.811997 | 0.843277 | 0.10 | -0.000538 | 0/3 |
+| x3_ebm_short_i60_lr0.03_r500 | 0.804318 | 0.843256 | 0.10 | -0.000558 | 1/3 |
 | x3_resnet_f1_m1_quantile | 0.809254 | 0.843242 | 0.10 | -0.000572 | 0/3 |
 | x3_ebm_short_i10_lr0.003_r300 | 0.811590 | 0.843156 | 0.10 | -0.000658 | 0/3 |
+| x3_mlp_f0_m1_standard | 0.814790 | 0.843106 | 0.10 | -0.000708 | 0/3 |
 | x3_ebm_short_i0_lr0.003_r300 | 0.802816 | 0.843105 | 0.10 | -0.000709 | 0/3 |
+| x3_retrieval_c16_w64_ple | 0.801899 | 0.842864 | 0.10 | -0.000950 | 0/3 |
 | x3_ebm_i0_r3000 | 0.788031 | 0.842680 | 0.10 | -0.001134 | 0/3 |
 | x3_ebm_i60_r1000 | 0.795697 | 0.842576 | 0.10 | -0.001238 | 0/3 |
+| x3_ebm_variant6 | 0.795319 | 0.842438 | 0.10 | -0.001376 | 0/3 |
 | x3_ebm_i30_r1000 | 0.795700 | 0.842432 | 0.10 | -0.001382 | 0/3 |
+| x3_ebm_variant0 | 0.792950 | 0.842390 | 0.10 | -0.001424 | 0/3 |
+| x3_ebm_variant5 | 0.792673 | 0.842254 | 0.10 | -0.001561 | 0/3 |
 | x3_ebm_i0_r6000 | 0.780127 | 0.842135 | 0.10 | -0.001679 | 0/3 |
+| x3_ebm_variant1 | 0.785934 | 0.842092 | 0.10 | -0.001722 | 0/3 |
 | x3_ebm_i10_r3000 | 0.784801 | 0.841906 | 0.10 | -0.001908 | 0/3 |
+| x3_ebm_variant4 | 0.788183 | 0.841714 | 0.10 | -0.002100 | 0/3 |
 | x3_ebm_i30_r3000 | 0.784800 | 0.841708 | 0.10 | -0.002107 | 0/3 |
+| x3_ebm_variant3 | 0.785633 | 0.841691 | 0.10 | -0.002123 | 0/3 |
+| x3_ebm_variant7 | 0.783437 | 0.841548 | 0.10 | -0.002266 | 0/3 |
+| x3_ebm_variant2 | 0.785300 | 0.841446 | 0.10 | -0.002369 | 0/3 |
+| x3_ebm_i60_r6000 | 0.783145 | 0.841429 | 0.10 | -0.002385 | 0/3 |
+| x3_ebm_i60_r3000 | 0.784594 | 0.841353 | 0.10 | -0.002461 | 0/3 |
 | x3_ebm_i10_r6000 | 0.779571 | 0.841199 | 0.10 | -0.002616 | 0/3 |
+| x3_ebm_i30_r6000 | 0.778126 | 0.840944 | 0.10 | -0.002870 | 0/3 |

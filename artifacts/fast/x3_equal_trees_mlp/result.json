@@ -1,0 +1,71 @@
+{
+  "id": "x3_equal_trees_mlp",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "x3_equal_trees_mlp",
+    "family": "fixed_ensemble",
+    "components": [
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.25
+      }
+    ]
+  },
+  "cv": 0.8430391176586124,
+  "per_seed": [
+    0.8437150919996343,
+    0.8441358816120743,
+    0.8412663793641283
+  ],
+  "elapsed_seconds": 0.1292349873110652,
+  "prediction_sha256": "be378067536b68080493c094ac62d6e9d89cdd001dfeddece3af3a8dcf47d380",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8430391176586124,
+      "per_seed": [
+        0.8437150919996343,
+        0.8441358816120743,
+        0.8412663793641283
+      ],
+      "fold_auc": [
+        [
+          0.8452836025366242,
+          0.8483584301984266,
+          0.8603124633086768,
+          0.8384150816015028,
+          0.8262058823529412
+        ],
+        [
+          0.8313778347364312,
+          0.8392443055066338,
+          0.8464211283315722,
+          0.8470735294117647,
+          0.8565626100739696
+        ],
+        [
+          0.84302244220047,
+          0.832375,
+          0.857193700833627,
+          0.8436986321474697,
+          0.8300421216390746
+        ]
+      ],
+      "delta_E": 0.0019775122282749136,
+      "delta_reference": 0.0019775122282749136
+    }
+  ]
+}

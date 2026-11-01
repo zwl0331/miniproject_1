@@ -15,7 +15,7 @@ BASE = ROOT / "artifacts/fast/f2_blend_z5_et25/predictions.npz"
 def collect():
     baseline = load_arrays(BASE)["fold_auc"].mean(axis=1)
     results = []
-    for parent in (OUT, ROOT / "artifacts/neural"):
+    for parent in (OUT, ROOT / "artifacts/neural", ROOT / "artifacts/fast"):
         for path in sorted(parent.glob("x3_*/result.json")):
             result = json.loads(path.read_text())
             comparisons = [c for c in result["comparisons"] if c["reference"] == "followup_trees"]

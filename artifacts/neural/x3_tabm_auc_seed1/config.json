@@ -1,0 +1,68 @@
+{
+  "id": "x3_tabm_auc_seed1",
+  "recipe": {
+    "schema": "recipe_v2",
+    "name": "tabm_ple",
+    "family": "tabm",
+    "params": {
+      "k": 16,
+      "max_epochs": 400,
+      "patience": 25,
+      "tolerance": 1e-06,
+      "inner_folds": 5,
+      "threads": 4,
+      "n_blocks": 2,
+      "d_block": 128,
+      "dropout": 0.1,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_size": 128
+    },
+    "base": "F2",
+    "blocks": [
+      "date_count",
+      "date_te3",
+      "cyclic"
+    ],
+    "drop": [],
+    "preprocessing": {
+      "name": "tabm_numeric",
+      "scaler": "standard"
+    },
+    "training_weights": "none",
+    "estimator_seeds": [
+      1
+    ],
+    "iterations": "raw_stop_refit_v1",
+    "deployment": "fold_average",
+    "adapter": {
+      "name": "raw_neural_v2",
+      "numerical_policy": "linux_ieee_deterministic_v1",
+      "layout": "mixed_neural_v1",
+      "representation": "ple",
+      "initialization": "normal",
+      "optimizer": "legacy_adamw_v1",
+      "stopping_metric": "auc",
+      "seed_policy": "legacy_tabm_v1",
+      "last_batch": "keep",
+      "prediction_batch_rows": 256,
+      "device": "cuda"
+    },
+    "embedding": {
+      "d_embedding": 8,
+      "n_bins": 16
+    },
+    "extensions": {
+      "features": {
+        "year_relative": true,
+        "year_standardize": true,
+        "date_counts": true,
+        "round": true
+      },
+      "layout": "mixed_neural_v1",
+      "pairwise_weight": 0.0,
+      "stopping_metric": "auc"
+    }
+  },
+  "cutoff_utc": "2026-11-01T20:00:00+00:00"
+}

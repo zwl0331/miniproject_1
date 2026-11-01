@@ -56,3 +56,18 @@ are reused. This internal cross-fitting is needed to train and validate a stacke
 the dropped outer nested model-selection re-evaluation is not resumed.
 Two focused boundary checks pass, including a deliberately leaky global-label
 control and rejection of track groups crossing meta folds.
+
+At 06:30 UTC the three-seed AUC-stopped TabM average (CV 0.831625) entered
+outer-local meta-training on two GPU workers. Its fixed logit-blend gain was
+only +0.000048 with mixed split signs. Five-seed short EBM averages also show
+small gains with mixed split signs. At 06:37 UTC the completed short-EBM pool
+freed a CPU slot: two XGBoost seed confirmations then the first 32 classical
+meta tasks run sequentially in that slot. XGBoost is included because it remains
+a distinct component of the incumbent ensemble. The remaining classical meta
+tasks launch when the initial CPU queue finishes.
+
+Installed Interpret 0.7.8 source confirms the recorded validation_size=0 warning
+is unconditional when outer_bags>1. Explicit supplied bag columns are still used
+(_ebm.py lines 898-944), so these fits do use the intended whole-track bootstrap
+counts. The other recorded EBM warning concerns plots of missing-value terms,
+not invalid predictions. No warnings were suppressed by the scientific runner.

@@ -1,0 +1,23 @@
+{
+  "id": "x3_avg_tabm_auc",
+  "family": "tabm",
+  "estimator_seeds": [
+    0,
+    1,
+    2
+  ],
+  "components": [
+    {
+      "path": "artifacts/neural/x3_tabm_auc/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/neural/x3_tabm_auc_seed1/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/neural/x3_tabm_auc_seed2/predictions.npz",
+      "weight": 0.3333333333333333
+    }
+  ]
+}

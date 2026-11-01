@@ -142,6 +142,14 @@ def combine(spec):
     settings = [("constrained", x) for x in (0., .01, .1)] + [("stacker", x) for x in (.01, .1, 1.)]
     for setting in settings:
         name = f"x3_learned_{spec['id']}_{setting[0]}_{setting[1]:g}".replace(".", "p")
+        folder = ROOT / "artifacts/extended" / name
+        config = dict(id=name, family="learned_ensemble", setting=list(setting), pool=spec)
+        if (folder / "result.json").exists():
+            old = json.loads((folder / "result.json").read_text())
+            if old["config"] != config:
+                raise ValueError("learned ensemble id already belongs to another specification")
+            results.append(old)
+            continue
         started = time.monotonic()
         oof, test = np.full_like(base["oof"], np.nan), np.full_like(base["test_by_fold"], np.nan)
         states = []
@@ -166,8 +174,6 @@ def combine(spec):
         auc = score(data.y, folds, oof)
         arrays = dict(base, oof=oof, test_by_fold=test, test_mean=test.mean(axis=(0, 1)), fold_auc=auc)
         validate_bank(PredictionBank(**arrays))
-        folder = ROOT / "artifacts/extended" / name
-        config = dict(id=name, family="learned_ensemble", setting=list(setting), pool=spec)
         write_json(folder / "config.json", config)
         np.savez_compressed(folder / "predictions.npz", **arrays)
         result = dict(id=name, status="complete", config=config, cv=float(auc.mean()),

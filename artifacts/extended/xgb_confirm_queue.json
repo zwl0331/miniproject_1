@@ -1,0 +1,46 @@
+[
+  {
+    "id": "x3_xgb_trees_seed1",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.02,
+      "max_depth": 4,
+      "n_estimators": 1500,
+      "subsample": 0.8
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      1
+    ]
+  },
+  {
+    "id": "x3_xgb_trees_seed2",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.02,
+      "max_depth": 4,
+      "n_estimators": 1500,
+      "subsample": 0.8
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      2
+    ]
+  }
+]

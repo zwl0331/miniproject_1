@@ -19,7 +19,7 @@ def main():
     cache = json.loads(destination.read_text()) if destination.exists() else []
     done = {row["id"]: row["prediction_sha256"] for row in cache}
     results = list(cache)
-    for parent in (OUT, ROOT / "artifacts/neural"):
+    for parent in (OUT, ROOT / "artifacts/neural", ROOT / "artifacts/fast"):
         for path in sorted(parent.glob("x3_*/result.json")):
             result = json.loads(path.read_text())
             config = result["config"]
@@ -38,7 +38,7 @@ def main():
                         for w in (.05, .1, .25, .5)]
             variants += [(f"logit_{w:g}", w, expit((1-w)*logit(np.clip(base["oof"], 1e-6, 1-1e-6)) +
                          w*logit(np.clip(a["oof"], 1e-6, 1-1e-6)))) for w in (.1, .25)]
-            channel = "neural" if "recipe" in config else family
+            channel = "neural" if family in ("tabm", "mlp", "resnet", "ft_transformer", "retrieval") else family
             if channel in channels:
                 w = .1 if channel == "neural" else .25
                 variants.append(("replace_" + channel, w,
