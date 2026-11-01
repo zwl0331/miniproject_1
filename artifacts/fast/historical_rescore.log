@@ -1,0 +1,17 @@
+checked 100/678 saved banks
+checked 200/678 saved banks
+checked 300/678 saved banks
+checked 400/678 saved banks
+checked 500/678 saved banks
+checked 600/678 saved banks
+       family       cv   delta_E  weight  all_splits_positive                                                    run_id
+  extra_trees 0.841530  0.000469     0.1                 True              p2_p24_X3_15_seeds155-2026-1029_c10c0896847a
+          ebm 0.841361  0.000300     0.1                False                p2_p24_B19_seeds155-2026-1029_39920051ded0
+     catboost 0.841240  0.000178     0.1                 True p2_p24_rt_84c35bce_b2_001_seeds155-2026-1029_01a9b40edd28
+          knn 0.841183  0.000122     0.1                 True         p2_p22_knn_anchor_seeds155-2026-1029_b2e2fb776579
+     lightgbm 0.841054 -0.000008     0.1                False p2_p24_rt_0ec2239a_b1_006_seeds155-2026-1029_af202d6f369b
+random_forest 0.840947 -0.000114     0.1                False              p2_p24_X3_05_seeds155-2026-1029_974ad89c41f9
+         tabm 0.840899 -0.000162     0.1                False      p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2
+      hist_gb 0.840894 -0.000168     0.1                False   p2_p22_hist_gb_b1_0_000_seeds155-2026-1029_de73ca3251aa
+      xgboost 0.840808 -0.000254     0.1                False   p2_p22_xgboost_b1_0_020_seeds155-2026-1029_137391bd7fa6
+     logistic 0.840601 -0.000461     0.1                False              p2_p24_X4_13_seeds155-2026-1029_f4d5a178d25b

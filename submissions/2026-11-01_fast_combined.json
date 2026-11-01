@@ -1,0 +1,67 @@
+{
+  "name": "combined",
+  "purpose": "Check the combined contribution of year-relative/date-count LightGBM and MLP; fixed weights 0.65 E, 0.25 LightGBM, 0.10 MLP, both new models averaged over estimator seeds 0, 1, 2.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8428365469227956,
+  "cv_per_seed": [
+    0.8435928910033199,
+    0.8434877463328174,
+    0.8414290034322498
+  ],
+  "fold_auc": [
+    [
+      0.8451141996449905,
+      0.8480502230832453,
+      0.859197047082306,
+      0.8400515146178231,
+      0.8255514705882353
+    ],
+    [
+      0.8306044737094077,
+      0.8358099976517553,
+      0.842333714923095,
+      0.8499191176470589,
+      0.8587714277327697
+    ],
+    [
+      0.8400394782390939,
+      0.8334779411764706,
+      0.854074938358577,
+      0.8447553422566632,
+      0.834797317130445
+    ]
+  ],
+  "delta_E": 0.0017749414924581597,
+  "components": [
+    {
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "weight": 0.65,
+      "sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2"
+    },
+    {
+      "path": "artifacts/fast/lgb_year_counts_seeds012/predictions.npz",
+      "weight": 0.25,
+      "sha256": "b851230384700f70e5a530887e9b4f859add1267a2e109556414e788d5442c0b"
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.1,
+      "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.003673191237298412,
+    "max": 0.9898767295387574,
+    "correlation_current_best": 0.9973259445653754,
+    "current_best_file": "submissions/2026-10-31_p2.6b_blend_eq_all.csv",
+    "sha256": "fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T04:35:26.778709+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/combined/predictions.npz",
+  "prediction_sha256": "df16de0fe93b8e197498907881637c7d92c2cc598a26ff83b8ae2c8f0903dbc7",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

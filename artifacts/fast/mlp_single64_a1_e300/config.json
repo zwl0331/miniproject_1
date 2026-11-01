@@ -1,0 +1,27 @@
+{
+  "id": "mlp_single64_a1_e300",
+  "family": "mlp",
+  "params": {
+    "hidden_layer_sizes": [
+      64
+    ],
+    "alpha": 1.0,
+    "max_iter": 300,
+    "learning_rate_init": 0.001,
+    "batch_size": 128,
+    "tol": 1e-05,
+    "n_iter_no_change": 30
+  },
+  "features": {
+    "blocks": [
+      "date_count",
+      "date_te3",
+      "cyclic"
+    ],
+    "round": true
+  },
+  "scaler": "standard",
+  "estimator_seeds": [
+    0
+  ]
+}

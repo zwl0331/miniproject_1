@@ -1,0 +1,67 @@
+{
+  "id": "blend_initial_year0.1_mlp0.1",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "blend_initial_year0.1_mlp0.1",
+    "family": "fixed_blend",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.8
+      },
+      {
+        "path": "artifacts/fast/lgb_year_counts/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  "cv": 0.8423630870954713,
+  "per_seed": [
+    0.8432281842761189,
+    0.8430635264742927,
+    0.8407975505360019
+  ],
+  "elapsed_seconds": 0.12352987471967936,
+  "prediction_sha256": "29f2c7ce590cf9d9c6f2438a8d746a9c2703c3309b53537fe2612e4550772461",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8423630870954713,
+      "per_seed": [
+        0.8432281842761189,
+        0.8430635264742927,
+        0.8407975505360019
+      ],
+      "fold_auc": [
+        [
+          0.8439873021484705,
+          0.8478887812610074,
+          0.8590429435247153,
+          0.8394204238581661,
+          0.8258014705882353
+        ],
+        [
+          0.830044707632705,
+          0.8358760420335799,
+          0.8402423094986498,
+          0.850779411764706,
+          0.8583751614418224
+        ],
+        [
+          0.8389641381443754,
+          0.8345514705882353,
+          0.852827433368557,
+          0.8448654162263708,
+          0.8327792943524714
+        ]
+      ],
+      "delta_E": 0.0013014816651337746,
+      "delta_reference": 0.0013014816651337746
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+START lgb_year_relative_seeds012 2026-11-01T04:26:51.610573+00:00
+START lgb_year_counts_seeds012 2026-11-01T04:26:51.661240+00:00
+DONE lgb_year_relative_seeds012 CV=0.838513 best=0.841550 delta_E=+0.000488 seconds=103.7
+DONE lgb_year_counts_seeds012 CV=0.839308 best=0.841760 delta_E=+0.000698 seconds=104.9

@@ -1,0 +1,31 @@
+{
+  "id": "rescored_ebm",
+  "family": "ebm",
+  "recipe": {
+    "base": "F2",
+    "blocks": [
+      "music"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+      0
+    ],
+    "family": "ebm",
+    "iterations": "fixed",
+    "name": "p24_B19",
+    "params": {
+      "interactions": "declared3",
+      "learning_rate": 0.01,
+      "max_rounds": 603
+    },
+    "preprocessing": {
+      "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+  },
+  "source_path": "artifacts/phase2/bank/p2_p24_B19_seeds155-2026-1029_39920051ded0.npz",
+  "source_sha256": "b246e19e3806202f484185b67d102aaf03ead4b741176a9cb4b002d27baca2b7",
+  "note": "Historical saved-bank contribution winner; no new training. Selected exploratorily on existing CV."
+}

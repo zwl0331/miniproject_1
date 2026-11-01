@@ -1,0 +1,19 @@
+{
+  "id": "spline_k5_c0.1",
+  "family": "spline",
+  "params": {
+    "C": 0.1
+  },
+  "knots": 5,
+  "features": {
+    "blocks": [
+      "date_count",
+      "date_te3",
+      "cyclic"
+    ],
+    "round": true
+  },
+  "estimator_seeds": [
+    0
+  ]
+}

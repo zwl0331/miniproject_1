@@ -1,0 +1,62 @@
+{
+  "name": "mlp10",
+  "purpose": "Check neural diversity alone, using 0.90 E and 0.10 MLP averaged over estimator seeds 0, 1, 2.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8422989581036178,
+  "cv_per_seed": [
+    0.8433659249549523,
+    0.843136169651147,
+    0.8403947797047536
+  ],
+  "fold_auc": [
+    [
+      0.8437737071981499,
+      0.8488060643419044,
+      0.858654015498415,
+      0.8399487789127628,
+      0.8256470588235294
+    ],
+    [
+      0.829043020969132,
+      0.8364557649407068,
+      0.8396552483268757,
+      0.8507720588235294,
+      0.8597547551954913
+    ],
+    [
+      0.8382496998622682,
+      0.8342794117647058,
+      0.8532090231302101,
+      0.8436839556181753,
+      0.832551808148409
+    ]
+  ],
+  "delta_E": 0.0012373526732802897,
+  "components": [
+    {
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "weight": 0.9,
+      "sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2"
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.1,
+      "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.003285515198438492,
+    "max": 0.9897220735631649,
+    "correlation_current_best": 0.9986521582947033,
+    "current_best_file": "submissions/2026-10-31_p2.6b_blend_eq_all.csv",
+    "sha256": "eb51fbc991ee2dc387c01ab5807332f276e5581c2eed5c3e84b5e183d3c87365"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T04:35:27.286014+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/mlp10/predictions.npz",
+  "prediction_sha256": "6e8f0cf8e3c84c93447f7990409329cfaa2fcc095e906ef90dd2ef6592729562",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

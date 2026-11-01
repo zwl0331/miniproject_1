@@ -1,0 +1,21 @@
+{
+  "id": "lgb_year_leaf31",
+  "family": "lightgbm",
+  "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 20,
+    "n_estimators": 600,
+    "num_leaves": 31,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 1.0,
+    "subsample": 0.7,
+    "subsample_freq": 1
+  },
+  "features": {
+    "year_relative": true
+  },
+  "estimator_seeds": [
+    0
+  ]
+}

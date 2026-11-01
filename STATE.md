@@ -4,7 +4,7 @@ Updated 2026-11-01, 04:20 UTC. Fast exploration mode, owner-directed. Codex owns
 
 ## Objective and rules
 
-- Improve generalizing AUC with quick feature and model trials. Select on mean fold AUC over saved grouped splits, seeds 155, 2026, 1029. Treat gains below about 0.002 as noise and prefer simpler models in a tie.
+- Improve generalizing AUC with quick feature and model trials. Select on mean fold AUC over saved grouped splits, seeds 155, 2026, 1029. Small gains remain useful and eligible, per Sam's latest clarification. Check split/model-seed consistency; prefer simplicity when evidence is tied. The 0.002 threshold is an early-update trigger, not an eligibility cutoff.
 - Only provided training data. No external data, pretrained models, Spotify lookups, dataset-specific external code, fitting on test features or pseudo-labels. Every fitted transform stays inside its training fold.
 - Fast-mode override in `AGENTS.md`; full owner prompt: `doc/llm_usage/2026-11-01-fast-mode/prompt.md`. Exploration compute on this node is authorized. No P2.9 gates, consultation, replay, nested evaluation or coverage targets.
 - New experiments stop 2026-11-01 20:00 UTC (12:00 PST). Files ready 2026-11-02 20:00 UTC (12:00 PST). Kaggle closes 2026-11-03 01:00 UTC (Monday 17:00 PST).
@@ -31,9 +31,15 @@ P2.7 restricted nested result: selected procedure 0.8398 versus H 0.8306; saved 
 
 ## Running
 
-Initial 12 feature trials complete. Best new standalone: year-relative audio LightGBM, 0.838242; best fixed addition 0.841616 (+0.000554 over E, below the noise threshold). Six feature follow-ups and the small model-family grid are next. Logs under `artifacts/fast/`.
+2026-11-01T04:37:41.287510+00:00: 48 fresh 15-fold trials complete. Only the three original-adapter TabM runs remain, in session 3532; `artifacts/fast/models.log` and each TabM directory's `progress.json`. No new search batches will be launched.
+
+Seeded LightGBM (year-relative audio plus date counts): 0.839308 standalone. Seeded MLP: 0.810332 standalone, useful as a 10% addition. Combined CV 0.842837; adding the recovered Extra Trees recipe gives 0.842945. All three split means improve versus E. Three automatically checked public-check files are ready under `submissions/2026-11-01_fast_*.csv`, not uploaded or final-selected.
+
+Historical scan: 678 saved runs examined; best recovered addition is Extra Trees, +0.000469 at weight 0.10, positive on all three splits. No training in this scan. All scores remain exploratory.
 
 ## Next action
+
+Sam asked to finish quickly. No further search expansion. Finish the already-running batches and the saved-bank rescore, then prepare 2 or 3 files and final recommendations. The earlier action list below describes the work already launched.
 
 1. Read `notes/2026-11-01-fast-exploration.md`. Run feature additions on the best LightGBM recipe using the saved production folds and existing fold-local date encoders.
 2. Try small grids of cheap non-menu families or distinct variants, using installed tools and the existing TabM adapter. Skip new framework/adapter work.

@@ -1,0 +1,72 @@
+{
+  "name": "combined_et10",
+  "purpose": "Check the small extra contribution of the recovered date-feature Extra Trees recipe; weights 0.55 E, 0.25 LightGBM, 0.10 MLP, 0.10 Extra Trees.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.84294483145351,
+  "cv_per_seed": [
+    0.8436915989704984,
+    0.8437251457796368,
+    0.841417749610395
+  ],
+  "fold_auc": [
+    [
+      0.8452173144485936,
+      0.8486372842550195,
+      0.8585512797933545,
+      0.8397506457672889,
+      0.8263014705882353
+    ],
+    [
+      0.8300226116033614,
+      0.836338352706352,
+      0.8432656745332863,
+      0.8500882352941177,
+      0.8589108547610662
+    ],
+    [
+      0.8412252984805296,
+      0.8325147058823528,
+      0.8552123693788893,
+      0.8446892978748385,
+      0.8334470764353645
+    ]
+  ],
+  "delta_E": 0.0018832260231724796,
+  "components": [
+    {
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "weight": 0.55,
+      "sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2"
+    },
+    {
+      "path": "artifacts/fast/lgb_year_counts_seeds012/predictions.npz",
+      "weight": 0.25,
+      "sha256": "b851230384700f70e5a530887e9b4f859add1267a2e109556414e788d5442c0b"
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.1,
+      "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b"
+    },
+    {
+      "path": "artifacts/fast/rescored_extra_trees/predictions.npz",
+      "weight": 0.1,
+      "sha256": "3be8d12091240dbe874c72d6f774b9d6e6db9baf21726cbe6bf750da172c74ec"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.0034856411423525593,
+    "max": 0.9891483647338505,
+    "correlation_current_best": 0.9963539899170056,
+    "current_best_file": "submissions/2026-10-31_p2.6b_blend_eq_all.csv",
+    "sha256": "2a3b9410323df175188e7d1802f544c11ec1a9c0c7fcd8183858533b915cf16d"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T04:35:27.081472+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/combined_et10/predictions.npz",
+  "prediction_sha256": "5416ff4b1bf6e8420d9af0201bdba8b98a6bc7f8fa9a4df93ba0b874d049fd89",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

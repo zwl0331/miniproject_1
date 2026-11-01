@@ -1,0 +1,18 @@
+{
+  "id": "svm_c30.0_g0.01",
+  "family": "svm",
+  "params": {
+    "C": 30.0,
+    "gamma": 0.01
+  },
+  "features": {
+    "blocks": [
+      "cyclic",
+      "music"
+    ],
+    "round": true
+  },
+  "estimator_seeds": [
+    0
+  ]
+}

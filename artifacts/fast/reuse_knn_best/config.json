@@ -1,0 +1,33 @@
+{
+  "id": "reuse_knn_best",
+  "family": "knn",
+  "recipe": {
+    "base": "F1",
+    "blocks": [],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+      0
+    ],
+    "family": "knn",
+    "iterations": "fixed",
+    "name": "p26_knn_230fcf76",
+    "params": {
+      "metric": "manhattan",
+      "n_neighbors": 60,
+      "weights": "distance"
+    },
+    "preprocessing": {
+      "alpha": 1.0,
+      "audio_scaler": "robust",
+      "category_weight": 0.5,
+      "name": "knn_blocks_v2",
+      "normalization": "l1"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+  },
+  "source_path": "artifacts/phase2/bank/p2_p26_knn_230fcf76_seeds155-2026-1029_b0d6ed8364c2.npz",
+  "source_sha256": "ea35a9960c136c83151b08b0e80ba5e65a677373a8aa0a32c0525e42e0a1ffee",
+  "note": "Reused historical fit, same saved folds, no new training."
+}

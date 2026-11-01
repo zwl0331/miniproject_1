@@ -1,0 +1,18 @@
+{
+  "valid": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.003673191237298412,
+    "max": 0.9898767295387574,
+    "correlation_current_best": 0.9973259445653754,
+    "current_best_file": "submissions/2026-10-31_p2.6b_blend_eq_all.csv",
+    "sha256": "fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751"
+  },
+  "rejections": {
+    "wrong_ids": "submission IDs differ from test.csv order",
+    "missing_row": "submission columns or row count differ from the sample",
+    "nan": "submission probabilities are not finite in [0, 1]",
+    "above_one": "submission probabilities are not finite in [0, 1]"
+  }
+}

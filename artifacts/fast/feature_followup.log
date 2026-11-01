@@ -1,0 +1,12 @@
+START lgb_year_counts 2026-11-01T04:24:39.917306+00:00
+START lgb_year_round 2026-11-01T04:24:39.918069+00:00
+START lgb_year_leaf31 2026-11-01T04:24:39.962150+00:00
+START lgb_year_dense 2026-11-01T04:24:39.998530+00:00
+DONE lgb_year_leaf31 CV=0.837256 best=0.841324 delta_E=+0.000263 seconds=24.9
+START lgb_year_slow 2026-11-01T04:25:05.052321+00:00
+DONE lgb_year_dense CV=0.833081 best=0.841112 delta_E=+0.000050 seconds=35.1
+START lgb_year_counts_leaf31 2026-11-01T04:25:15.256436+00:00
+DONE lgb_year_round CV=0.837237 best=0.841271 delta_E=+0.000209 seconds=36.9
+DONE lgb_year_counts CV=0.838696 best=0.841702 delta_E=+0.000640 seconds=38.8
+DONE lgb_year_counts_leaf31 CV=0.836231 best=0.841155 delta_E=+0.000094 seconds=25.2
+DONE lgb_year_slow CV=0.838307 best=0.841505 delta_E=+0.000444 seconds=60.1

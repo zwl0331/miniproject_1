@@ -1,0 +1,18 @@
+{
+  "id": "blend_initial_year0.25_mlp0.1",
+  "family": "fixed_blend",
+  "components": [
+    {
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "weight": 0.65
+    },
+    {
+      "path": "artifacts/fast/lgb_year_counts/predictions.npz",
+      "weight": 0.25
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard/predictions.npz",
+      "weight": 0.1
+    }
+  ]
+}

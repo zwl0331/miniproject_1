@@ -1,0 +1,35 @@
+{
+  "id": "rescored_catboost",
+  "family": "catboost",
+  "recipe": {
+    "base": "F2",
+    "blocks": [
+      "date_count",
+      "date_te3"
+    ],
+    "deployment": "fold_average",
+    "drop": [],
+    "estimator_seeds": [
+      0
+    ],
+    "family": "catboost",
+    "iterations": "fixed",
+    "name": "p24_rt_84c35bce_b2_001",
+    "params": {
+      "boosting_type": "Plain",
+      "depth": 6,
+      "iterations": 843,
+      "l2_leaf_reg": 3.0,
+      "learning_rate": 0.0168,
+      "random_strength": 1.0
+    },
+    "preprocessing": {
+      "name": "none"
+    },
+    "schema": "recipe_v1",
+    "training_weights": "none"
+  },
+  "source_path": "artifacts/phase2/bank/p2_p24_rt_84c35bce_b2_001_seeds155-2026-1029_01a9b40edd28.npz",
+  "source_sha256": "3c54323c7c32778cfa24dca07c032f18b0d1f7473adab126f77b5a4457659e19",
+  "note": "Historical saved-bank contribution winner; no new training. Selected exploratorily on existing CV."
+}
