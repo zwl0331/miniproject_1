@@ -58,7 +58,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| none; R2 round 1 approved at ad1ca96; non-blocking clarifications prepared for recheck | | `reviews/2026-10-31-p2.9-other-methods-plan.md` | 2026-10-31 |
+| none; round 2 approved at abb6863; final accounting clarifications prepared for recheck | | `reviews/2026-10-31-p2.9-other-methods-plan.md` | 2026-10-31 evening PDT |
 
 ## Next action
 

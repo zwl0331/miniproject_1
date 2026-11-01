@@ -11,7 +11,7 @@ Initial count remains 274 across 12 families.
 Additional reserved work: 48 core-refinement configurations; ten stopping variants; 24 feature comparisons plus controls; up to 58 extra seed runs for 29 nominees; replacement-nominee confirmations; replay and nested evaluation.
 Sam chose E as fallback; the 0.003/all-three-fold trigger and 0.001 selection tie band are unchanged.
 Full-refit path retained; weighted E is represented by its four historical channels in learned combiners.
-Plan sha256 for R2 submission: 999f7d923238d8c619afb4b9631ff4bd86074d998bbf2e976375cbc04c5c5305
+Plan sha256 for R2 round 1 submission: 999f7d923238d8c619afb4b9631ff4bd86074d998bbf2e976375cbc04c5c5305
 
 R2 round 1 clarifications for recheck:
 274 distinct scientific configurations; six adapter-equivalence runs separate.
@@ -21,3 +21,10 @@ At most four admitted new atoms from distinct families; no second recipe from th
 Statistical ceiling 18 allows no expansion; GP floor 12 plus one eight-run batch gives 20 within ceiling 24.
 HIER row-count denominators and separate date_count distinct-group feature disambiguated.
 Outcome, stage and reason fields separated. STATE/README pointers refreshed.
+
+R2 round 2 clarifications for recheck:
+Plan sha256 for R2 round 2 submission (v1.1 at abb6863): 90e0a2cefe310601f92b0f0ea552f0225e67c683a03943c6580dda0fff48194d
+Section 8 explicitly names the fresh final-policy [0,1,2] run and deterministic exception.
+The 24 feature comparisons plus missing matched controls are outside family floors and ceilings; extra combinations use the applicable refinement ceiling.
+Initial 274 and ceiling 694 counts unchanged. No training or implementation change.
+Plan sha256 for R2 round 3 submission (v1.2): 43695aff3c480ada1669bfd20912d5d9229744b355854e4cd8f78ded16cdbdcb
