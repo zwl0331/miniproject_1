@@ -2,6 +2,16 @@
 
 Owner: Weilong (Sam) Zhou. Workflow: agent-workflow v1, profile homework, set up 2026-10-30 by migration from the review-gated rules of 2026-10-28 (`decisions.md`). Codex reads this file as `AGENTS.md`; Claude Code reads it as `CLAUDE.md`, which is a link to it. By the owner's decision these rules replace any global review loop for this project, and `doc/review_policy.md`, under which the records of P0.1 to P2.4 round 4 were made.
 
+## Fast exploration mode (Sam, 2026-11-01)
+
+In force until development ends (`decisions.md`, 2026-11-01; the prompt verbatim in `doc/llm_usage/2026-11-01-fast-mode/prompt.md`). It overrides the Review section, the R1 rule for every submission file, the Codex consultation convention and the review-first findings rule below. Goal: the best AUC on the public and, above all, the private board, through quick tests of features and methods. P2.9 is paused on branch `p2.9-paused`.
+
+- **Kept:** the course rules under "Binding constraints"; no fitting on `test.csv` features (no pseudo-labels or transductive tricks). Folds grouped by track, split seeds 155, 2026 and 1029, the same split code as the saved banks; every preprocessing step and encoder fitted inside the training folds. Choose by mean fold AUC over the three split seeds; the public board is a check only. Every submission file passes the automatic file check and is logged in `submissions/README.md` (CV, sha256, later the public score). Save each result's out-of-fold and test predictions with its config; fixed seeds; commit code with results; note LLM use briefly.
+- **Dropped:** R2 reviews of exploration; consultation before building; R1 review of each submission file; byte-exact or cross-platform replay; receipt validators; nested re-evaluation; manifests and coverage targets; measured launch proposals; findings in `doc/findings.md` before code. Compute on this node is pre-authorized within the time box. Do not ask Sam to approve reversible steps.
+- **Time box:** new experiments stop Sunday 2026-11-01, 12:00 PM PST; final files ready Monday 2026-11-02, 12:00 PM PST. A short update to Sam every 2 to 3 hours, or sooner for a gain above 0.002 CV.
+- **End:** 2 or 3 files proposed for public checks and a recommendation for the two final selections; Sam decides and uploads; one quick Fable review of the two final files, limited to leakage and file correctness, one round. Then the report and Colab.
+- **Records:** the results table is `notes/2026-11-01-fast-exploration.md`.
+
 ## Every session, and after a compaction
 
 1. Read this file, then `STATE.md`, then the files named under "Next action".
