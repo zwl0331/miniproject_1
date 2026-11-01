@@ -2,7 +2,15 @@
   "owner": "Sam",
   "decision": "Combined + original ensemble (Recommended)",
   "selected_utc": "2026-11-01T04:42:27.750579+00:00",
-  "status": "owner selected; one Fable leakage/file-correctness review pending",
+  "status": "owner selected; Fable leakage/file-correctness review APPROVED; development closed",
+  "review": {
+    "record": "reviews/2026-11-01-fast-final-files.md",
+    "verdict": "APPROVED",
+    "commit": "c04f3404b3ffcc4b30f8e0401e8ad258f6e51c06",
+    "round": 1,
+    "completed_utc": "2026-11-01T04:48:14+00:00",
+    "csv_bytes_unchanged": true
+  },
   "files": [
     {
       "path": "submissions/2026-11-01_fast_combined.csv",

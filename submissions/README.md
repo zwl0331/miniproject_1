@@ -6,6 +6,16 @@ correlation with the current best file. The per-file R1 requirement below is
 historical during this mode. Sam decides and uploads, at most 10 per day.
 Only the two final files receive the one-round Fable leakage/correctness review.
 
+Final selection, 2026-11-01: Sam chose `2026-11-01_fast_combined.csv` and
+`2026-10-31_p2.6b_blend_eq_all.csv`. The authoritative selection and review status
+is [`final_selection.json`](../artifacts/fast/final_selection.json). The new
+file's sidecar and saved result retain the status of their preparation event,
+before Sam selected it. Both selected CSVs passed the single Fable review at
+`c04f340` with verdict APPROVED; see the
+[review record](../reviews/2026-11-01-fast-final-files.md). CSV bytes are unchanged.
+Development is closed. The new file has not been uploaded; the original file's
+previous public score is 0.85377. Sam performs uploads and final Kaggle selections.
+
 Every file here is written once by `../scripts/prepare_submission.py` (through `songpop.artifacts.write_submission`: exclusive create, read back, validated), next to a sidecar JSON with its provenance and its Kaggle description. Each submission file gets an R1 review before Sam uploads it (`../AGENTS.md`; Sam's decision of 2026-10-30 in `../decisions.md`; before then, a gated action under `../doc/review_policy.md` section 4.3). Sam uploads every file and reports the public score.
 
 ## Log
@@ -46,3 +56,5 @@ Events, newest last. A file reviewed and ready for Sam, a file uploaded, and a p
 | 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Prepared for public check under fast mode. CV 0.842837; per seed 0.843593/0.843488/0.841429. Automatic IDs/count/probability checks passed; correlation with 2026-10-31_p2.6b_blend_eq_all.csv: 0.997326. Purpose: Check the combined contribution of year-relative/date-count LightGBM and MLP; fixed weights 0.65 E, 0.25 LightGBM, 0.10 MLP, both new models averaged over estimator seeds 0, 1, 2.. Sam decides and uploads; public score pending. |
 | 2026-11-01 | `2026-11-01_fast_combined_et10.csv` | `2a3b9410323df175188e7d1802f544c11ec1a9c0c7fcd8183858533b915cf16d` | Prepared for public check under fast mode. CV 0.842945; per seed 0.843692/0.843725/0.841418. Automatic IDs/count/probability checks passed; correlation with 2026-10-31_p2.6b_blend_eq_all.csv: 0.996354. Purpose: Check the small extra contribution of the recovered date-feature Extra Trees recipe; weights 0.55 E, 0.25 LightGBM, 0.10 MLP, 0.10 Extra Trees.. Sam decides and uploads; public score pending. |
 | 2026-11-01 | `2026-11-01_fast_mlp10.csv` | `eb51fbc991ee2dc387c01ab5807332f276e5581c2eed5c3e84b5e183d3c87365` | Prepared for public check under fast mode. CV 0.842299; per seed 0.843366/0.843136/0.840395. Automatic IDs/count/probability checks passed; correlation with 2026-10-31_p2.6b_blend_eq_all.csv: 0.998652. Purpose: Check neural diversity alone, using 0.90 E and 0.10 MLP averaged over estimator seeds 0, 1, 2.. Sam decides and uploads; public score pending. |
+| 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Sam selected for the final pair. Fable 5.1 xhigh APPROVED at c04f340, round 1, leakage and file correctness only. CV 0.842837; correlation with original E 0.997326. CSV unchanged; ready for Sam. Public score pending. |
+| 2026-11-01 | `2026-10-31_p2.6b_blend_eq_all.csv` | `d2b5c461c21f03591d72b716f007e93c43900e9f0d048355b4a883a2482ac3cc` | Sam selected for the final pair. Fable 5.1 xhigh APPROVED at c04f340, round 1, leakage and file correctness only. CV 0.841062; prior public score 0.85377. CSV unchanged; original uploaded entry can be selected by Sam. |

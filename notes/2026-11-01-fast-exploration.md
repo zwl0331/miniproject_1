@@ -482,6 +482,12 @@ matching IDs and finite probabilities in [0, 1]; hashes and correlations are in
 submissions/README.md and sidecars. Malformed ID/count/probability controls were
 rejected. No upload was performed. Public scores remain pending.
 
+The single Fable 5.1 xhigh review returned APPROVED at c04f340 on 2026-11-01,
+04:48 UTC, limited to leakage and file correctness. Its one non-blocking finding
+concerned preparation-time status labels; submissions/README.md now identifies
+final_selection.json as authoritative. CSVs, code and predictions are unchanged.
+Development is closed. The report and Colab are next.
+
 All scores are exploratory on repeatedly used folds. Three split seeds are
 consistency checks, not independent datasets. No new nested evaluation or replay
 was performed, following Sam's fast-mode instruction.

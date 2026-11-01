@@ -22,3 +22,12 @@ No design consultation or exploration review is required in this mode.
 Codex wrote `analysis/fast_features.py`, `fast_exploration.py`, `check_fast.py`, `fast_reuse.py` and `fast_submission.py`. The runner reuses saved grouped splits and existing encoders. New features are fitted only on training rows. All 12 initial feature trials completed; results, configs and probabilities are saved under `artifacts/fast/` and summarized in the requested notes table. No consultation or review was run.
 
 Completion: 51 fresh 15-fold runs and a 68.7-second rescore of 678 saved runs (658 distinct predictions), with no new packages. Small gains were retained after Sam clarified their value; his later instruction stopped search expansion. Three public-check CSVs were prepared with automatic checks. Sam chose the new combined CSV and original E for the one final Fable leakage/file review. Full results and limitations are in the requested notes table.
+
+Final review: Claude Fable 5.1 xhigh returned `VERDICT: APPROVED` in one fresh,
+read-only round at commit c04f340. The request and verbatim response are in
+`reviews/2026-11-01-fast-final-files.md`. The reviewer inspected fold-local fitting,
+group boundaries, class orientation, component arrays, CSVs, hashes and reported
+CV. Its one non-blocking status-label finding was resolved by identifying
+`artifacts/fast/final_selection.json` as authoritative in `submissions/README.md`.
+No model, prediction, CSV or scientific claim changed after review. Development
+closed 2026-11-01, about 04:49 UTC; report and Colab are next.

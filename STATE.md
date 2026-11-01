@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01, 04:42 UTC. Fast exploration is finished. Sam selected the new combined model and original ensemble. One quick Fable review is next; no jobs or searches remain.
+Updated 2026-11-01, 04:49 UTC. Development is closed. Sam selected the new combined model and original ensemble. The single Fable leakage/file-correctness review returned APPROVED at c04f340. No training or review jobs remain.
 
 ## Rules and ownership
 
@@ -17,7 +17,7 @@ All new scores are exploratory; the repeated CV folds have been used for model d
 | Candidate | Mean CV | Per seed 155 / 2026 / 1029 | Gain vs E | Status |
 |---|---:|---|---:|---|
 | Original E | 0.841062 | 0.842493 / 0.841728 / 0.838964 | 0 | Sam's second final pick; public 0.85377 |
-| New combined: 0.65 E + 0.25 year-relative/date-count LightGBM + 0.10 MLP | 0.842837 | 0.843593 / 0.843488 / 0.841429 | +0.001775 | Sam's first final pick; review pending |
+| New combined: 0.65 E + 0.25 year-relative/date-count LightGBM + 0.10 MLP | 0.842837 | 0.843593 / 0.843488 / 0.841429 | +0.001775 | Sam's first final pick; leakage/file review APPROVED |
 | Combined with 0.10 extra date-feature Extra Trees, E reduced to 0.55 | 0.842945 | 0.843692 / 0.843725 / 0.841418 | +0.001883 | optional public check |
 | 0.90 E + 0.10 MLP | 0.842299 | 0.843366 / 0.843136 / 0.840395 | +0.001237 | optional public check |
 
@@ -36,6 +36,6 @@ All new scores are exploratory; the repeated CV folds have been used for model d
 
 ## Next action
 
-1. One fresh Claude Fable 5.1 xhigh review of the two owner-selected files, limited to leakage and file correctness, one round. Record under `reviews/2026-11-01-fast-final-files.md`. No exploration or method review.
-2. Report the verdict and deliver paths. Sam uploads and reports public scores; log them without using them to tune models. Final Kaggle selections remain his action.
-3. After review, development ends. Report and Colab are next. LLM-use evidence is in `doc/llm_usage/2026-11-01-fast-mode/` and the integration index.
+1. Sam uploads the checked files and reports public scores; log them without using them to tune models. Final Kaggle selections remain his action. The selected CSVs are unchanged from reviewed commit c04f3404b3ffcc4b30f8e0401e8ad258f6e51c06; `reviews/2026-11-01-fast-final-files.md` records APPROVED and the response to the one non-blocking status-label finding.
+2. Move to the report and public Colab. Read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and LLM-use integration index. Do not reopen model development or P2.9.
+3. LLM-use evidence is in `doc/llm_usage/2026-11-01-fast-mode/` and `doc/llm_usage/integration_index.md`. The authoritative final-pair status is `artifacts/fast/final_selection.json`; preparation sidecars preserve their earlier event status.
