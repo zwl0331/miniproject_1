@@ -1085,3 +1085,55 @@ Evidence:
 Uncertainty and review status:
 
 `draft`, 2026-11-01. This is one recipe and two population sizes, not the three-recipe/all-15-fold CPU equivalence gate, a final recipe_v2 adapter, fitted D-arm isolation, other-family timing or a search budget. Worker startup and serialization are included in process time. No GPU concurrency scaling, persistent-worker optimization, full nested path, all-shape determinism or model-performance claim is established. No scientific search, production bank or submission was generated.
+
+## Finding 034: resumed node verification and deferred receipt checks
+
+Question:
+
+What explains the first failures in the resumed unchanged legacy suite, and can
+the deferred metadata validators reject inconsistent records without changing
+historical fits?
+
+Current conclusion:
+
+- The kNN assertion at `scripts/check_phase2.py:321` requires exact equality for
+  identical query rows in different batch positions. The observed difference is
+  2.7755575615628914e-17, two float64 ULPs for this fixture. The numerical kernel
+  causing the difference has not been traced. The production duplicate-input
+  check already uses an absolute 1e-12 tolerance.
+- The anchor's exact Mac-bank assertion differs in four OOF entries by at most
+  5.551115123125783e-17 and twelve per-fold test entries by at most
+  1.1102230246251565e-16. Fold AUCs and averaged test probabilities are identical.
+  This corroborates the earlier migration receipt. The portability amendment
+  already separates historical comparisons at 1e-12 from same-node replay.
+- The comparison test fails before comparing models because blend log entries
+  have a null recipe_id and the test calls startswith on it. Filtering null
+  recipe IDs fixes this fixture bug.
+- Isolated corrections use the existing absolute 1e-12 criterion with zero
+  relative tolerance, exact row/group/fold checks, exact same-node seed-2026
+  replay, and known-wrong 1e-10 perturbations that must fail. All three targeted
+  checks pass. Their execution leaves all historical banks and submissions
+  unchanged, including the P1.3 submission-byte comparison.
+- Provisional stopping-receipt validation reconstructs permitted row partitions
+  and seed streams, checks loss/epoch/update consistency and transform digest
+  structure, and preserves historical recipe_v1 records. The procedure validator
+  now checks each saved lambda or C against its declared setting. Five focused
+  tests pass, including altered epochs, rows, seeds, losses, counts, hashes,
+  versions and regularization, and historical-record positive controls.
+
+Evidence:
+
+`../analysis/p29_trace_checks.py`; `llm_usage/2026-11-01-p29a-readiness/` holds the
+original isolated failures, tracebacks/numerical measurements, passing corrected
+checks and receipt tests. Implementation is developed in the isolated worktree
+`/tmp/miniproject_1-p29-adapters-20261101` while the root suite's sources stay
+unchanged. The implementation commit will bind the code and final evidence.
+
+Uncertainty and review status:
+
+`draft`, 2026-11-01. The complete original suite is still running and has no final
+verdict. These corrections do not certify new raw adapters, all-fold neural
+equivalence, CUDA determinism or scientific search readiness. The receipt tests
+validate stored metadata, not a new training method. Independent review is
+pending. No tolerance is inferred from model scores or loosened after a failed
+same-node neural gate.
