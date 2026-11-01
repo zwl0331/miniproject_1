@@ -1,0 +1,79 @@
+[
+  {
+    "name": "lecture-notes",
+    "installed": "/home/wzhou2/.codex/skills/lecture-notes",
+    "source": "/exp/mu2e/app/users/wzhou2/projects/agent-skills/lecture-notes",
+    "verified_files": 14,
+    "sha256": {
+      "SKILL.md": "8b6d560e5480c43ed909f79272abc79041613033d23cbaf000bcd7eba3f9020e",
+      "assets/lecnotes-caltech.def": "f766b1529ab626534cfbaa98f3eecf1a73ebe7545e17a5f74648a52f278f751b",
+      "assets/lecnotes-chalk.def": "ae466b1a1f0b2af5539908b9016ab09b7f5d6e311afecf1526d8f330d196d845",
+      "assets/lecnotes-folio.def": "dd7a669e41c3e03897b02e0d2739504a347aad9621ec1c24774f2e21fb60b638",
+      "assets/lecnotes-grid.def": "cb7a132e0997d97dae27d73583604496a3a09a57b53efac401ebbe2c0e5321e8",
+      "assets/lecnotes.sty": "fd5dfe92d4277d4b9cc9ff54d702a5e82f0e88fedfff8c5aec88427d1d323cad",
+      "references/example-compress.tex": "f03bee1a3c34f09454a06cf4ed001daa39c87f0365c5cc3df0dabe593e53599e",
+      "references/example-transcribe.tex": "ab8e2d7939089c7784a89b49d17b81764cc1340d28a92c375ba1383863c83fd5",
+      "references/figures/gr-twinparadox.png": "ed8631718661e7a1e0df6baaed4d3d5989520243067436dce748ed148d5374ca",
+      "references/style-spec.md": "0ab007f1b445df713539607347c77781c29872e61f4f33714c4f4b2d8e596bd3",
+      "scripts/build.sh": "f55676adffc98dc1443e420b4b5c0e83d88a1c7334426b8f811e95c4da2d1e9d",
+      "scripts/check.py": "8a4a5117a6af680090eb9e420387bcbceb77c5d4b0f5326e142b81eb2424cfd0",
+      "scripts/crop_figure.py": "01619e94e15f732f2866f1f8015987834b4650daa894fb93e8eb46421025aed8",
+      "scripts/figqa.py": "86596ea15c2fb2921729aa44f181b6d12901658ec009cbca7ebe125d7e630cc7"
+    }
+  },
+  {
+    "name": "make-presentation",
+    "installed": "/home/wzhou2/.codex/skills/make-presentation",
+    "source": "/exp/mu2e/app/users/wzhou2/projects/agent-skills/make-presentation",
+    "verified_files": 20,
+    "sha256": {
+      "SKILL.md": "becc738f7b71340537bf101eb9cee16a27c72c36aefdf0f738bd6a057b70ae70",
+      "assets/template.tex": "a5d3d817f814ff36b2d1a73a5b47fecb14fc34fd163248efa1d79cbf880946fa",
+      "assets/themes/README.md": "799c4b6cde23506f45dd914d6621fafdbd301808eeeb62126948dd0b3bb93ccd",
+      "assets/themes/beamerthemeCaltechBanner.sty": "bce5595f91c4a3b8f4af4bdaf23e23491cafcb4aa41de3411450d2b5e0e3044d",
+      "assets/themes/beamerthemeCaltechCharcoal.sty": "29703fde006c954b734648248ab396b0c7a68ea6d01270aed5cd80c7f31415bd",
+      "assets/themes/beamerthemeCaltechClean.sty": "f30b31aad34790b9381dbfeb30b40ea8cd4fd788822a4b19364ba70aeaf82df9",
+      "assets/themes/beamerthemeCaltechConference.sty": "d30cd83e8fd4c41245e2e714f09ae3837920d10bf82aacc5c3fc64a6f5fdeff3",
+      "assets/themes/beamerthemeCaltechCorner.sty": "97b29163abb65b552ae7a7b7584445186a458a068685c45281f207d5b8daffc9",
+      "assets/themes/caltechmu2e-common.sty": "36034d2d00243e3a998436b545dd8f5595be8715edb091338e1409ca78a9913c",
+      "assets/themes/logos/PROVISIONAL-WORDMARKS.txt": "1c70f78bd1de66be793e4e8eca34ad86aa5f362530b24eeb5cc29d1bf33a7ffc",
+      "assets/themes/logos/caltech-wordmark-black.pdf": "922809c52814e64da1e22147bea760f0f920a44506cd170250f91aecae9abdf0",
+      "assets/themes/logos/caltech-wordmark-orange.pdf": "6ff6b5a557d3dfffff4031b0e361ad8beb7272b75ff7ed68a638eef1223da04b",
+      "assets/themes/logos/caltech-wordmark-source.pdf": "2bb51b67892af5206b773d0e1e05c7d6dd2ca5a91e2da4dd3f05f6195cd64070",
+      "assets/themes/logos/caltech-wordmark-white.pdf": "8ee3b16d4dc35df223caa20334cd793d43864af6ac81c160177295ecba29b266",
+      "assets/themes/logos/mu2e-logo.png": "9abfa0b8be8cf78f14dd3665d52dc83a294c927acbfecc485a7baae3a7659c03",
+      "assets/themes/logos/recolor_pdf.py": "90f1b96362bef52995b6f62ad691944fc251480e67efe3990b53d6ac112d10cf",
+      "references/beamer-style.md": "5f8caf41e162397a28a38bdc1c5addbd8338e42ea29e9fe5d588a80d1f13470e",
+      "references/example-frames.tex": "0b77cd5f69052d815a4aefd4d95e93e517c94423d5c64f808ab9e5168b06a153",
+      "scripts/build.py": "aa7088d690205c95c88c4187743807779c08772f8451c7c474643393fa02a3a8",
+      "scripts/new_deck.py": "dccb40f2f97895884107baba47309d09caec94daa383f83628f3b645d17b8646"
+    }
+  },
+  {
+    "name": "project-setup",
+    "installed": "/home/wzhou2/.codex/skills/project-setup",
+    "source": "/exp/mu2e/app/users/wzhou2/projects/agent-skills/project-setup",
+    "verified_files": 8,
+    "sha256": {
+      "SKILL.md": "56a114363b16a20f30aaf1c39a134a337db9ed1ab717ea6a6f7f5906c3c8f872",
+      "scripts/new_project.sh": "26df71e6b6a3702adb1ec6a06a6ddacd417c4f535d7f1214b897951472972e2c",
+      "templates/AGENTS.md": "620d2148abb92e8c50fffad9d3abcd9c2429b1e372f2ad4fd3e68997501419d7",
+      "templates/STATE.md": "88671386d9dfa43dfbfe0ff31b5ad7d3ed3ee5bc92133497a146ece5708911cd",
+      "templates/decisions.md": "fd715c3962f5c8702ff9cc6b1005c980c7207ef5fec5ea6017ef2dca03ef0817",
+      "templates/gitignore": "43b8092cdec017b7e29d7c054342ae46e9291011e3dcfefc730237c9fdec0197",
+      "templates/review.conf": "2fe9c9a26b85ddf924d62b9e9801292ed4566e606e4ba5fdcc0da66d4e98e99f",
+      "templates/reviews_README.md": "c22f183ce10138e96f194eb7431f428a63dc84cebb66e740b0e37fc9dbab378f"
+    }
+  },
+  {
+    "name": "cross-review",
+    "installed": "/home/wzhou2/.codex/skills/cross-review",
+    "source": "/exp/mu2e/app/users/wzhou2/projects/agent-skills/cross-review",
+    "verified_files": 3,
+    "sha256": {
+      "SKILL.md": "52c131a46b505980aa967a092b97b3ca73afce73bb828e2f30d2293a322ed321",
+      "scripts/review.sh": "0c29d89291d3668674c49b8e5a0df2043638eeb2560981e5a09dd584b5f39191",
+      "templates/request.md": "8399cf6b252edf5109cc5be34de53b617d5bb2eb99b46466defe0c49e15b3700"
+    }
+  }
+]

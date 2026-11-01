@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-10-31. PAUSED on Sam's instruction for migration to a GPU node. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
+Updated 2026-11-01. PAUSED on Sam's instruction for migration to a GPU node. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
 
 ## Brief (at most 10 lines)
 
@@ -62,6 +62,8 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 | none; paused for GPU migration; training/review process check found no matches | | `notes/2026-10-31-p29-gpu-handoff.md` | 2026-10-31 |
 
 ## Next action
+
+Node setup, 2026-11-01: installed the four shared skills from `../agent-skills` into `/home/wzhou2/.codex/skills` at Sam's request. Links and all 45 file hashes verified; built-in skill files unchanged. Evidence: `doc/llm_usage/2026-11-01-skill-installation/`. No model development resumed.
 
 Codex owns development and this state file from Sam's handoff of 2026-10-31. Claude Fable 5.1 xhigh is the independent reviewer through `.agent/review.conf`; the runner supplies `--model claude-fable-5-1 --effort xhigh` and uses read-only plan mode. Sam explicitly paused this session on 2026-10-31 for GPU migration. Remain paused until Sam resumes; first read `notes/2026-10-31-p29-gpu-handoff.md`.
 
