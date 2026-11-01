@@ -1,0 +1,34 @@
+{
+  "id": "x3_equal_expanded7",
+  "family": "fixed_ensemble",
+  "components": [
+    {
+      "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/x3_avg_xgb3/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/x3_avg_ebm_short_i30_lr0.03_r100/predictions.npz",
+      "weight": 0.14285714285714285
+    },
+    {
+      "path": "artifacts/fast/x3_avg_tabm_auc/predictions.npz",
+      "weight": 0.14285714285714285
+    }
+  ]
+}

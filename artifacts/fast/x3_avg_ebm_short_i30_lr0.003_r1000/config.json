@@ -1,0 +1,33 @@
+{
+  "id": "x3_avg_ebm_short_i30_lr0.003_r1000",
+  "family": "ebm",
+  "estimator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "components": [
+    {
+      "path": "artifacts/extended/x3_ebm_short_i30_lr0.003_r1000/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_ebm_short_i30_lr0.003_r1000_seed1/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_ebm_short_i30_lr0.003_r1000_seed2/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_ebm_short_i30_lr0.003_r1000_seed3/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_ebm_short_i30_lr0.003_r1000_seed4/predictions.npz",
+      "weight": 0.2
+    }
+  ]
+}

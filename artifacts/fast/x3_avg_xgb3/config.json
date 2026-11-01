@@ -1,0 +1,23 @@
+{
+  "id": "x3_avg_xgb3",
+  "family": "xgboost",
+  "estimator_seeds": [
+    0,
+    1,
+    2
+  ],
+  "components": [
+    {
+      "path": "artifacts/fast/f2_xgboost_3/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/extended/x3_xgb_trees_seed1/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/extended/x3_xgb_trees_seed2/predictions.npz",
+      "weight": 0.3333333333333333
+    }
+  ]
+}

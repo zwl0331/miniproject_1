@@ -71,3 +71,18 @@ is unconditional when outer_bags>1. Explicit supplied bag columns are still used
 (_ebm.py lines 898-944), so these fits do use the intended whole-track bootstrap
 counts. The other recorded EBM warning concerns plots of missing-value terms,
 not invalid predictions. No warnings were suppressed by the scientific runner.
+
+At 06:49 UTC all 16 EBM seed checks were complete. The five-seed 30-interaction,
+100-round EBM supplies the strongest confirmed marginal addition, +0.000196
+for a 10% logit blend, mixed across split seeds. It enters the seven-channel
+learned pool with five-seed LightGBM/Extra Trees/CatBoost, three-seed sklearn MLP,
+three-seed XGBoost and three-seed AUC-stopped TabM. Core-five and expanded-seven
+pool specs are saved. CPU meta work is split into A=32, B-early=20 (one worker
+each, running) and C=38 (four workers after the initial CPU queue completes).
+The older full B queue is superseded and must not also be launched.
+
+At 06:42 UTC the other session relayed Sam's request for an ETA. Codex replied
+07:45-08:30 UTC for modeling plus submission preparation, most likely near 08:00,
+moderate confidence. Late useful candidates needing extra seeds or another meta
+channel are the main uncertainty. Report/Colab and the owner-dependent final-pair
+review are separate. This is an estimate, not a new owner deadline.
