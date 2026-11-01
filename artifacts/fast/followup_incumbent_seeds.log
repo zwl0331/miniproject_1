@@ -1,0 +1,4 @@
+START f2_lgb_incumbent_extra34 2026-11-01T05:07:23.832285+00:00
+START f2_mlp_incumbent_extra34 2026-11-01T05:07:23.890284+00:00
+DONE f2_lgb_incumbent_extra34 CV=0.838905 best=0.842758 delta_E=+0.001696 seconds=64.0
+DONE f2_mlp_incumbent_extra34 CV=0.807986 best=0.842597 delta_E=+0.001536 seconds=196.3

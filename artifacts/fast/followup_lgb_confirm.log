@@ -1,0 +1,4 @@
+START f2_lgb_zscore_extra1234 2026-11-01T05:08:55.370826+00:00
+DONE f2_lgb_zscore_extra1234 CV=0.840258 best=0.842929 delta_E=+0.001867 seconds=107.1
+START f2_lgb_tune04_extra1234 2026-11-01T05:10:42.764013+00:00
+DONE f2_lgb_tune04_extra1234 CV=0.839162 best=0.842763 delta_E=+0.001702 seconds=116.4

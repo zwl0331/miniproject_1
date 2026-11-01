@@ -1,0 +1,86 @@
+{
+  "id": "f2_blend_z5_replace_et_cat",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_blend_z5_replace_et_cat",
+    "components": [
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.1625
+      }
+    ]
+  },
+  "cv": 0.84269691919251,
+  "per_seed": [
+    0.8440981979929874,
+    0.8434411623031342,
+    0.8405513972814085
+  ],
+  "elapsed_seconds": 0.1153662446886301,
+  "prediction_sha256": "5816789ea00ed65e11f445ce199bf102c3f3c1238bcc615ee65e7c3bbedc8c8a",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.84269691919251,
+      "per_seed": [
+        0.8440981979929874,
+        0.8434411623031342,
+        0.8405513972814085
+      ],
+      "fold_auc": [
+        [
+          0.845209949105479,
+          0.8482923858166022,
+          0.8602244041329107,
+          0.8403010156158272,
+          0.8264632352941177
+        ],
+        [
+          0.8297132671925522,
+          0.83717491487613,
+          0.8444838264647175,
+          0.8488382352941177,
+          0.8569955676881531
+        ],
+        [
+          0.840650801717598,
+          0.8288014705882353,
+          0.8545812786192322,
+          0.8447186509334272,
+          0.83400478454855
+        ]
+      ],
+      "delta_E": 0.001635313762172519,
+      "delta_reference": 0.001635313762172519
+    }
+  ]
+}

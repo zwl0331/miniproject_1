@@ -103,5 +103,26 @@
         "weight": 0.8
       }
     ]
+  },
+  {
+    "id": "f2_avg_cat5",
+    "family": "catboost",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/f2_catboost_2/predictions.npz",
+        "weight": 0.2
+      },
+      {
+        "path": "artifacts/fast/f2_catboost_2_extra1234/predictions.npz",
+        "weight": 0.8
+      }
+    ]
   }
 ]

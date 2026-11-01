@@ -1,0 +1,72 @@
+{
+  "name": "followup_trees",
+  "purpose": "Check the confirmed year-standardized LightGBM and new Extra Trees contribution; fixed weights 0.40 original E, 0.25 five-seed LightGBM, 0.10 original three-seed MLP, 0.25 five-seed Extra Trees. Compare against the approved combined file without changing the previous final selection.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8438141645188025,
+  "cv_per_seed": [
+    0.8447079922204648,
+    0.8445195729119144,
+    0.8422149284240288
+  ],
+  "fold_auc": [
+    [
+      0.8461748090534797,
+      0.8513597804391219,
+      0.8609362158036866,
+      0.838583861688388,
+      0.826485294117647
+    ],
+    [
+      0.8301920144949952,
+      0.836587853704356,
+      0.8441095749677117,
+      0.8508455882352942,
+      0.860862833157215
+    ],
+    [
+      0.8425142335255688,
+      0.8344264705882353,
+      0.8569808911588588,
+      0.8452396677233767,
+      0.8319133791241048
+    ]
+  ],
+  "delta_E": 0.0027525590884650564,
+  "components": [
+    {
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "weight": 0.4,
+      "sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2"
+    },
+    {
+      "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+      "weight": 0.25,
+      "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec"
+    },
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.1,
+      "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b"
+    },
+    {
+      "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+      "weight": 0.25,
+      "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.0029559120657796025,
+    "max": 0.9888932599870569,
+    "correlation_current_best": 0.9977821440723428,
+    "current_best_file": "submissions/2026-11-01_fast_combined.csv",
+    "sha256": "a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T05:16:05.283979+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/followup_trees/predictions.npz",
+  "prediction_sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01, 05:14 UTC. Sam authorized one more fast exploration block. Cutoff 06:31 UTC (90 minutes). Running session 22615, log `artifacts/fast/followup.log`, six workers plus incumbent seed-average session 34476 (two workers, `artifacts/fast/followup_incumbent_seeds.log`); 48 targeted configurations: 10 LightGBM tuning, six feature variants, 10 tree transfers, 12 MLP, four SVM, four Gaussian processes and two TabM. Previously approved submission files remain unchanged.
+Updated 2026-11-01, 05:30 UTC. Sam authorized one more fast exploration block. Cutoff 06:31 UTC (90 minutes). Running session 22615, log `artifacts/fast/followup.log`, six workers plus incumbent seed-average session 34476 (two workers, `artifacts/fast/followup_incumbent_seeds.log`); 48 targeted configurations: 10 LightGBM tuning, six feature variants, 10 tree transfers, 12 MLP, four SVM, four Gaussian processes and two TabM. Previously approved submission files remain unchanged.
 
 ## Rules and ownership
 
@@ -13,7 +13,7 @@ Updated 2026-11-01, 05:14 UTC. Sam authorized one more fast exploration block. C
 ## Follow-up checkpoint
 
 - Best completed fixed blend: `artifacts/fast/f2_blend_z5_et25/`, CV 0.843814, per split 0.844708 / 0.844520 / 0.842215. +0.000978 versus approved combined, all splits up. Uses five-seed year-standardized LightGBM and new Extra Trees; still exploratory.
-- Initial batch session 22615 and tree-confirmation session 56888 remain active. Incumbent extra-seed session 34476 finished. LGB confirmation session 14305 finished. Kernel and MLP trials continue.
+- All 48 initial CPU trials and six additional-seed runs are complete, no errors. Six five-seed averages saved. Optional CatBoost addition scores 0.843988 (+0.000174 vs tree blend, mixed split signs). GPU queues are the only running experiments.
 
 ## Results and files
 
@@ -34,11 +34,11 @@ All new scores are exploratory; the repeated CV folds have been used for model d
 
 ## Parallel adapter work
 
-- Session `01a19580-8f99-7492-9bc9-409b9774fb23` reports Sam explicitly assigned it to finish neural adapters in fast mode. It owns an isolated worktree/branch, not the running queue or root records. GPU is unused by this batch. Coordinate a runnable commit before integration; no old P2.9 gates.
+- Session `01a19580-8f99-7492-9bc9-409b9774fb23` reports Sam explicitly assigned it to finish neural adapters in fast mode. Adapter commits bf9aa18 and 2b463c1 integrated as e9eb1fe/a85b3ca. Eight scientific neural configurations run on GPU in two processes: sessions 79367 and 47454; queues/logs `artifacts/neural/followup_{0,1}.*`. Includes embedded TabM, MLP, ResNet and FT-Transformer. Cutoff remains 06:31 UTC; max 150 epochs and patience 15. No old P2.9 gates.
 
 ## Preserved work
 
-- P2.9 stopped, saved on `p2.9-paused` at 1b47c17; main initial snapshot 8c03e05. Adapter worktree is clean. No integration or further P2.9 work.
+- P2.9 stopped, saved on `p2.9-paused` at 1b47c17; main initial snapshot 8c03e05. Adapter worktree is clean. The paused branch remains unchanged; only the separately authorized neural adapter has now been integrated.
 - Old suite PID 25623 exited without a final verdict. Its log is committed. The 135-fit P2.9 gate never ran.
 - `.venv`: node-local Python 3.12.16, 32 CPU equivalents, 45 GiB RAM, A100 MIG 2g.20gb. No new packages installed.
 - Older STATE snapshots and outstanding course/team/upload bookkeeping are preserved in `notes/state-archive.md`.
@@ -46,5 +46,5 @@ All new scores are exploratory; the repeated CV folds have been used for model d
 ## Next action
 
 1. Run `analysis.fast_followup` for the small boundary check and queue. Run the 48 configurations with `analysis.fast_exploration --queue artifacts/fast/followup_queue.json --workers 6`, retaining all three saved split seeds. Cutoff 06:31 UTC.
-2. LightGBM confirmation session 14305 (`artifacts/fast/followup_lgb_confirm.log`), one worker: z-score year residuals and zero-L2 variant, estimator seeds 1–4. Initial z-score replacement CV 0.843284, +0.000447 over combined, all split means up; provisional. Compare each addition with the approved 0.842837 combined bank, E and the existing constrained reference. Average additional estimator seeds only for a few promising candidates. No repeated reviews or P2.9 work.
+2. LightGBM confirmation session 14305 (`artifacts/fast/followup_lgb_confirm.log`), one worker: z-score year residuals and zero-L2 variant, estimator seeds 1–4. Initial z-score replacement CV 0.843284, +0.000447 over combined, all split means up; provisional. Compare each addition with the approved 0.842837 combined bank, E and the existing constrained reference. Average additional estimator seeds only for a few promising candidates. No repeated reviews or old P2.9 process gates.
 3. Save results in the same notes table and commit code/results. Prepare improved public-check candidates if justified; Sam retains final-file selection. Existing review only covers the unchanged previous pair.

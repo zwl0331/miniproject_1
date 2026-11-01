@@ -1,0 +1,28 @@
+{
+  "id": "f2_mlp_lbfgs64_tanh_a1",
+  "family": "mlp",
+  "params": {
+    "hidden_layer_sizes": [
+      64
+    ],
+    "activation": "tanh",
+    "solver": "lbfgs",
+    "alpha": 1.0,
+    "max_iter": 600,
+    "max_fun": 6000,
+    "tol": 1e-05
+  },
+  "features": {
+    "blocks": [
+      "date_count",
+      "date_te3",
+      "cyclic"
+    ],
+    "round": true
+  },
+  "estimator_seeds": [
+    0
+  ],
+  "cutoff_utc": "2026-11-01T06:31:00+00:00",
+  "scaler": "standard"
+}

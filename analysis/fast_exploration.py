@@ -296,7 +296,8 @@ def model_configs():
 
 def render_table():
     rows = []
-    for file in sorted(OUT.glob("*/result.json")):
+    result_files = list(OUT.glob("*/result.json")) + list((ROOT / "artifacts/neural").glob("f2_*/result.json"))
+    for file in sorted(result_files):
         result = json.loads(file.read_text())
         for c in result["comparisons"]:
             label = result["id"] if c["reference"] == "standalone" else f"{c['reference']} + {c['weight']:.2f} {result['id']}"

@@ -1,0 +1,28 @@
+{
+  "id": "f2_catboost_2_extra1234",
+  "family": "catboost",
+  "params": {
+    "boosting_type": "Plain",
+    "depth": 5,
+    "iterations": 1000,
+    "l2_leaf_reg": 6.0,
+    "learning_rate": 0.03,
+    "random_strength": 1.0
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "blocks": [
+      "music",
+      "date_count",
+      "date_te3"
+    ]
+  },
+  "estimator_seeds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "cutoff_utc": "2026-11-01T06:31:00+00:00"
+}

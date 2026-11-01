@@ -1,0 +1,13 @@
+{
+  "id": "f2_blend_tree_cat10",
+  "components": [
+    {
+      "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+      "weight": 0.9
+    },
+    {
+      "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+      "weight": 0.1
+    }
+  ]
+}

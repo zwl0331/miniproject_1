@@ -1,0 +1,4 @@
+START f2_extra_trees_3_extra1234 2026-11-01T05:11:01.364131+00:00
+DONE f2_extra_trees_3_extra1234 CV=0.834494 best=0.843181 delta_E=+0.002119 seconds=104.2
+START f2_catboost_2_extra1234 2026-11-01T05:12:46.115144+00:00
+DONE f2_catboost_2_extra1234 CV=0.836117 best=0.842907 delta_E=+0.001846 seconds=141.5
