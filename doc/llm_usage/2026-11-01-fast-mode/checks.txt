@@ -1,0 +1,4 @@
+2026-11-01 04:21 UTC, analysis.check_fast
+PASS: saved folds, row IDs, labels, groups and test IDs match both reference banks
+PASS: grouped hierarchical encoding excludes held-out labels; deliberately leaky full-fit control fails
+PASS: feature shapes and fitted state survive query poisoning; no test features fitted

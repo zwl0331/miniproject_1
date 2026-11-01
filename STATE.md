@@ -31,7 +31,7 @@ P2.7 restricted nested result: selected procedure 0.8398 versus H 0.8306; saved 
 
 ## Running
 
-No experiments launched yet. Preparing the standalone fast runner and feature trials.
+Feature batch: 12 LightGBM configurations, all 15 saved folds, four workers with four threads each. Launch 2026-11-01 04:22 UTC; log `artifacts/fast/features.log`. Quick saved-fold and leakage checks passed before launch.
 
 ## Next action
 
