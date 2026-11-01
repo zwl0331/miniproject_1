@@ -13,7 +13,7 @@ Preparation sidecars/results retain their earlier event status. The original
 selection is preserved in `final_selection_initial.json`. One final leakage/file
 review of the updated pair returned APPROVED at 91050e5, one round, in
 [`the review record`](../reviews/2026-11-01-fast-followup-final-files.md).
-No new file has been uploaded; Sam performs
+Sam uploaded follow-up trees and reported public AUC 0.86153. Sam performs
 uploads and final Kaggle selections. The optional CatBoost variant remains a
 public-check candidate only.
 

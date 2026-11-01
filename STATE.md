@@ -1,13 +1,13 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 05:53 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural feature/representation/objective/retrieval extensions are being implemented. Original 20:00 UTC experiment deadline applies.
+Updated 2026-11-01 06:06 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural extensions passed focused boundary checks and six GPU smoke fits. The 64-trial GPU queue launched at 06:01 UTC with four workers, log `artifacts/extended/gpu.log`. Worker-bound neural sources remain fixed during this queue. A 24-trial shorter EBM follow-up launches with two CPU workers; log `artifacts/extended/cpu_short.log`. Original 20:00 UTC experiment deadline applies.
 
 ## Rules and ownership
 
 - Receiving Codex session `01a19580-8f99-7492-9bc9-409b9774fb23` owns development, STATE.md and decisions.md after this handoff. Fast-mode override: AGENTS.md; owner prompts and steering: `doc/llm_usage/2026-11-01-fast-mode/`.
 - Provided data only; no external data, pretrained models, identifier lookups, dataset-specific external code, fitted test features or pseudo-labels.
 - Saved track-grouped folds; split seeds 155, 2026, 1029; all fitted transforms inside training folds. Rank by mean of 15 fold AUCs. Small gains remain eligible; public scores are checks only.
-- Sam selects and uploads, at most 10 per day. Automatic file checks; one quick Fable review of the selected final pair, leakage and file correctness only, one round. This session launches no further modeling or reviews; Sam separately authorized the receiving session to continue exploration, as reported in decisions.md.
+- Sam selects and uploads, at most 10 per day. Automatic file checks; one quick Fable review of the selected final pair, leakage and file correctness only, one round. The preceding session has finished. This receiving session continues the owner-authorized exploration, as recorded in decisions.md.
 - Follow-up cap was 06:31 UTC; training finished about 05:40 UTC. Original experiment deadline 2026-11-01 20:00 UTC; file deadline 2026-11-02 20:00 UTC; Kaggle closes 2026-11-03 01:00 UTC. Report and Colab due 2026-11-03 23:59 PST.
 
 ## Final candidates
@@ -36,7 +36,7 @@ All scores are exploratory on repeatedly used grouped folds.
 
 ## Next action
 
-1. Monitor `artifacts/extended/cpu.log` and result directories. Finish the raw-neural feature transfer, mixed input representations, AUC/pairwise objectives and learned retrieval with focused boundary checks, then launch GPU comparisons. Keep saved 15-fold validation and seed-confirm promising candidates. Read `doc/llm_usage/2026-11-01-extended-exploration/README.md` for the new scope.
+1. Monitor `artifacts/extended/cpu.log`, `cpu_short.log`, `gpu.log` and their result directories. The 40 initial CPU, 24 shorter EBM and 64 GPU configurations are running. Keep saved 15-fold validation and seed-confirm promising candidates. Read `doc/llm_usage/2026-11-01-extended-exploration/README.md` for the new scope.
 2. Review evidence: `reviews/2026-11-01-fast-followup-final-files.md`. One round, APPROVED, no blocking finding; F1 only clarified the pair-correlation record. No model replay or further review. Full final hashes: `artifacts/fast/final_selection.json`.
 3. Sam uploads and reports public scores; log them without tuning models to the board. Sam reported 0.86153 for follow-up trees; rank and private score are unknown.
 4. After the receiving session finishes, report and Colab: read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`.

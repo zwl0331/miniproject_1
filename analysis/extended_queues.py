@@ -37,6 +37,20 @@ def cpu_queue():
     return queue
 
 
+def shorter_ebm_queue():
+    """Follow-up to the measured deterioration from 1,000 to 6,000 rounds."""
+    template = cpu_queue()[0]
+    queue = []
+    for interactions in (0, 10, 30, 60):
+        for lr, rounds in ((.03, 100), (.03, 300), (.03, 500),
+                           (.003, 300), (.003, 1000), (.003, 3000)):
+            config = copy.deepcopy(template)
+            config["id"] = f"x3_ebm_short_i{interactions}_lr{lr}_r{rounds}"
+            config["params"].update(interactions=interactions, learning_rate=lr, max_rounds=rounds)
+            queue.append(config)
+    return queue
+
+
 if __name__ == "__main__":
     write_json(OUT / "cpu_queue.json", cpu_queue())
     print("Saved 40 configurations: 20 EBM, 8 pairwise CatBoost, 12 neighborhood-feature comparisons")

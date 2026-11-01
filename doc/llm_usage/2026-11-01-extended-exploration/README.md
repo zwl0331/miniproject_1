@@ -25,3 +25,23 @@ probabilities and neighborhood query immutability checks passed before launch.
 Full results/configs/OOF/test predictions live under artifacts/extended.
 
 This work is provisional exploration under the owner's fast-mode rules.
+
+Neural extension commit f809c43: fold-fitted year-relative/count/round features,
+mixed continuous/categorical representation, quantile scaling, AUC stopping,
+pairwise loss and a TabR-inspired project retrieval implementation. The retrieval
+network excludes the entire query track group and rejects supervised candidate
+features. It is not an exact published TabR reproduction. General algorithm
+reference: https://github.com/yandex-research/tabular-dl-tabr. No pretrained weights.
+Three focused leakage/category/retrieval checks pass (check_boundaries_final.txt);
+six tiny new-route GPU fits pass (neural_smoke.txt). An initial category test
+failed because its fixture assumed the wrong category-column order; the fixture
+was corrected and rerun. The adapter implementation did not change for that fix.
+
+64 GPU configurations launched at 06:01 UTC with four process-isolated workers.
+The first EBM results deteriorated when increasing rounds from 1,000 to 6,000,
+so 24 shorter/smaller-learning-rate comparisons were added at 06:06 UTC with
+two CPU workers. Full configs are in artifacts/extended/*queue.json. Worker-bound
+neural sources are held fixed during the running GPU queue.
+
+Sam reported public AUC 0.86153 for the unchanged fast_followup_trees CSV. The
+score is logged; continued model selection uses grouped CV, not public feedback.
