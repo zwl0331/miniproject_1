@@ -1,13 +1,13 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01, 04:49 UTC. Development is closed. Sam selected the new combined model and original ensemble. The single Fable leakage/file-correctness review returned APPROVED at c04f340. No training or review jobs remain.
+Updated 2026-11-01, 05:01 UTC. Sam authorized one more fast exploration block. Cutoff 06:31 UTC (90 minutes). Building 46 targeted configurations; no training launched yet. Previously approved submission files remain unchanged.
 
 ## Rules and ownership
 
 - Codex owns development. Fast-mode override in AGENTS.md and owner prompt in `doc/llm_usage/2026-11-01-fast-mode/prompt.md`.
 - Train only on provided data; no external data, pretrained models, identifier lookups, external dataset-specific code, fitted test features or pseudo-labels.
 - Retained validation: saved track-grouped folds, split seeds 155, 2026, 1029; fit all transforms inside training folds; choose by mean of 15 fold AUCs. Small gains remain eligible. Public scores are checks only.
-- Sam asked to finish quickly: no further search expansion. He selects and uploads, at most 10 per day. Automatic file checks replace per-file exploration R1; only two final files get one quick Fable review, leakage and file correctness only, one round.
+- Sam authorized a bounded follow-up after asking what remained worth testing. The fast-mode rules continue for this block. He selects and uploads, at most 10 per day. Automatic file checks replace per-file exploration R1; only two final files get one quick Fable review, leakage and file correctness only, one round.
 - Experiments deadline 2026-11-01 20:00 UTC; files deadline 2026-11-02 20:00 UTC; Kaggle close 2026-11-03 01:00 UTC. Work finished ahead of those limits. Report and public Colab due 2026-11-03 23:59 PST.
 
 ## Results and files
@@ -36,6 +36,6 @@ All new scores are exploratory; the repeated CV folds have been used for model d
 
 ## Next action
 
-1. Sam uploads the checked files and reports public scores; log them without using them to tune models. Final Kaggle selections remain his action. The selected CSVs are unchanged from reviewed commit c04f3404b3ffcc4b30f8e0401e8ad258f6e51c06; `reviews/2026-11-01-fast-final-files.md` records APPROVED and the response to the one non-blocking status-label finding.
-2. Move to the report and public Colab. Read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and LLM-use integration index. Do not reopen model development or P2.9.
-3. LLM-use evidence is in `doc/llm_usage/2026-11-01-fast-mode/` and `doc/llm_usage/integration_index.md`. The authoritative final-pair status is `artifacts/fast/final_selection.json`; preparation sidecars preserve their earlier event status.
+1. Run `analysis.fast_followup` for the small boundary check and queue. Run the 46 configurations with `analysis.fast_exploration --queue artifacts/fast/followup_queue.json --workers 6`, retaining all three saved split seeds. Cutoff 06:31 UTC.
+2. Compare each addition with the approved 0.842837 combined bank, E and the existing constrained reference. Average additional estimator seeds only for a few promising candidates. No repeated reviews or P2.9 work.
+3. Save results in the same notes table and commit code/results. Prepare improved public-check candidates if justified; Sam retains final-file selection. Existing review only covers the unchanged previous pair.

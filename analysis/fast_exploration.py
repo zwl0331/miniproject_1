@@ -36,7 +36,7 @@ from songpop.data import load_dataset, sha256_file
 from songpop.evaluate import PredictionBank, validate_bank, validate_cv_inputs
 from songpop.phase2.encoders import FitContext, inner_group_splits
 from songpop.phase2.engine import raw_rows
-from songpop.phase2.models import make_preprocessing
+from songpop.phase2.models import make_preprocessing, make_estimator, prediction_threads, prediction_view
 from songpop.phase2.tabm import TabMClassifier
 from songpop.splits import FoldSet, SPLIT_SEEDS
 
@@ -61,8 +61,12 @@ def load_arrays(path):
 
 def references():
     menu = json.loads((ROOT / "configs/phase2/menu.json").read_text())
-    return {c["id"]: load_arrays(ROOT / "artifacts/phase2/bank" / (c["run_id"] + ".npz"))
+    refs = {c["id"]: load_arrays(ROOT / "artifacts/phase2/bank" / (c["run_id"] + ".npz"))
             for c in menu["candidates"] if c["id"] in ("blend_eq_all", "constrained_l0.1")}
+    current = OUT / "final_candidates/combined/predictions.npz"
+    if current.exists():
+        refs["fast_combined"] = load_arrays(current)
+    return refs
 
 
 def data_inputs():
@@ -109,6 +113,18 @@ def model(config, columns, groups, y, ctx, seed):
                               force_col_wise=True, verbosity=-1)
     if family == "hist_gb":
         return HistGradientBoostingClassifier(**params, random_state=seed, early_stopping=False)
+    if family in ("xgboost", "catboost", "extra_trees"):
+        return make_estimator(family, params, seed, columns)
+    if family == "gaussian_process":
+        from sklearn.gaussian_process import GaussianProcessClassifier
+        from sklearn.gaussian_process.kernels import RBF, Matern
+        scale = params["length_scale"]
+        kernel = RBF(scale, length_scale_bounds="fixed") if params["kernel"] == "rbf" else \
+            Matern(scale, length_scale_bounds="fixed", nu=1.5)
+        # Fixed kernels bound the work; Laplace inference uses training rows only.
+        prep = make_preprocessing({"name": "log_standard"}, columns)
+        return make_pipeline(prep, GaussianProcessClassifier(kernel=kernel, optimizer=None,
+                             max_iter_predict=50, random_state=seed, n_jobs=1))
     if family == "mlp":
         if config.get("scaler") == "quantile":
             prep = make_pipeline(SimpleImputer(strategy="median", keep_empty_features=True),
@@ -149,7 +165,8 @@ def run_trial(config):
         if existing["config"] != config:
             raise ValueError(f"refusing to reuse {trial_id} with a different config")
         return existing
-    if datetime.now(timezone.utc) >= CUTOFF:
+    cutoff = min(CUTOFF, datetime.fromisoformat(config.get("cutoff_utc", CUTOFF.isoformat())))
+    if datetime.now(timezone.utc) >= cutoff:
         return {"id": trial_id, "status": "not_started_cutoff"}
     start = time.monotonic()
     write_json(folder / "config.json", config)
@@ -163,7 +180,7 @@ def run_trial(config):
     with threadpool_limits(limits=4):
         for r, split_seed in enumerate(SPLIT_SEEDS):
             for k in range(5):
-                if datetime.now(timezone.utc) >= CUTOFF:
+                if datetime.now(timezone.utc) >= cutoff:
                     raise TimeoutError("experiment cutoff reached; incomplete result is not scored")
                 tr, va = np.flatnonzero(folds[r] != k), np.flatnonzero(folds[r] == k)
                 assert not set(groups[tr]) & set(groups[va])
@@ -175,6 +192,8 @@ def run_trial(config):
                 with warnings.catch_warnings(record=True) as caught:
                     warnings.simplefilter("always")
                     for seed in config.get("estimator_seeds", [0]):
+                        if datetime.now(timezone.utc) >= cutoff:
+                            raise TimeoutError("experiment cutoff reached before the next fit")
                         est = model(config, list(X.columns), groups[tr], data.y[tr], ctx, seed)
                         if config["family"] == "tabm":
                             est.fit(X, data.y[tr], groups=groups[tr], context=ctx)
@@ -182,8 +201,10 @@ def run_trial(config):
                             est.fit(X, data.y[tr])
                         if list(est.classes_) != [0, 1]:
                             raise ValueError("unexpected class orientation")
-                        vp.append(est.predict_proba(V)[:, 1])
-                        tp.append(est.predict_proba(T)[:, 1])
+                        with prediction_threads(config["family"], [est]):
+                            predictor = prediction_view(config["family"], est)
+                            vp.append(predictor.predict_proba(V)[:, 1])
+                            tp.append(predictor.predict_proba(T)[:, 1])
                         inner = est.steps[-1][1] if hasattr(est, "steps") else est
                         info = {"split_seed": split_seed, "fold": k, "estimator_seed": seed,
                                 "train_rows": len(tr), "validation_rows": len(va)}
@@ -208,7 +229,9 @@ def run_trial(config):
               "feature_columns": list(X.columns), "warnings": sorted(warning_text),
               "data_hashes": data.hashes, "split_sha256": sha256_file(ROOT / "artifacts/splits/production_v1.csv"),
               "code_sha256": sources, "code_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-              "packages": {p: importlib.metadata.version(p) for p in ("numpy", "pandas", "scikit-learn", "lightgbm")},
+              "packages": {p: importlib.metadata.version(p) for p in
+                           ("numpy", "pandas", "scikit-learn", "lightgbm") +
+                           ((config["family"],) if config["family"] in ("xgboost", "catboost") else ())},
               "finished_utc": datetime.now(timezone.utc).isoformat(),
               "prediction_sha256": sha256_file(folder / "predictions.npz"),
               "comparisons": summaries(arrays, references())}
@@ -281,13 +304,15 @@ def render_table():
     text = NOTES.read_text()
     before, after = text.split("## Results\n", 1)
     _, checkpoint = after.split("## Checkpoint\n", 1)
-    table = "\n| Model or feature change | CV mean | Seed 155 | Seed 2026 | Seed 1029 | Change vs E | Runtime |\n|---|---:|---:|---:|---:|---:|---:|\n"
-    for name, a in references().items():
+    refs = references()
+    current_cv = float(refs.get("fast_combined", refs["blend_eq_all"])["fold_auc"].mean())
+    table = "\n| Model or feature change | CV mean | Seed 155 | Seed 2026 | Seed 1029 | Change vs E | Change vs combined | Runtime |\n|---|---:|---:|---:|---:|---:|---:|---:|\n"
+    for name, a in refs.items():
         cv = a["fold_auc"]
         delta = float(cv.mean() - references()["blend_eq_all"]["fold_auc"].mean())
-        table += f"| Historical {name} | {cv.mean():.6f} | " + " | ".join(f"{v:.6f}" for v in cv.mean(axis=1)) + f" | {delta:+.6f} | existing |\n"
+        table += f"| Reference {name} | {cv.mean():.6f} | " + " | ".join(f"{v:.6f}" for v in cv.mean(axis=1)) + f" | {delta:+.6f} | {cv.mean()-current_cv:+.6f} | existing |\n"
     for label, c, seconds in rows:
-        table += f"| {label} | {c['cv']:.6f} | " + " | ".join(f"{v:.6f}" for v in c["per_seed"]) + f" | {c['delta_E']:+.6f} | {seconds:.1f} s |\n"
+        table += f"| {label} | {c['cv']:.6f} | " + " | ".join(f"{v:.6f}" for v in c["per_seed"]) + f" | {c['delta_E']:+.6f} | {c['cv']-current_cv:+.6f} | {seconds:.1f} s |\n"
     NOTES.write_text(before + "## Results\n" + table + "\nRuntime is the model's complete 15-fold fit, shared by its blend rows.\n\n## Checkpoint\n" + checkpoint)
 
 

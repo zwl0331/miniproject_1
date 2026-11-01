@@ -99,7 +99,11 @@ class FastFeatures:
             values = {}
             for c in self.relative_columns:
                 mean = keys.map(self.year_means[c]).fillna(self.global_means[c]).to_numpy()
-                values[c + "_year_relative"] = rows[c].to_numpy() - mean
+                residual = rows[c].to_numpy() - mean
+                if self.options.get("year_standardize"):
+                    scale = keys.map(self.year_scales[c]).fillna(self.global_scales[c]).to_numpy()
+                    residual = residual / scale
+                values[c + "_year_relative"] = residual
             parts.append(pd.DataFrame(values, index=rows.index))
         return parts
 
@@ -113,9 +117,28 @@ class FastFeatures:
             self.relative_columns = [c for c in AUDIO if c not in ("key", "mode", "time_signature")]
             self.global_means = rows[self.relative_columns].mean().to_dict()
             self.year_means = {}
+            self.year_scales, self.global_scales = {}, {}
+            shrinkage = float(self.options.get("year_shrinkage", 20))
+            radius = int(self.options.get("year_window", 0))
+            if shrinkage <= 0 or radius < 0:
+                raise ValueError("year shrinkage must be positive and window nonnegative")
             for c in self.relative_columns:
                 stats = rows[c].groupby(rows[DATE].str[:4]).agg(["sum", "count"])
-                self.year_means[c] = ((stats["sum"] + 20 * self.global_means[c]) / (stats["count"] + 20)).to_dict()
+                stats["sum2"] = rows[c].pow(2).groupby(rows[DATE].str[:4]).sum()
+                if radius:
+                    # The grid and all moments are determined by the training rows.
+                    stats.index = stats.index.astype(int)
+                    stats = stats.reindex(range(stats.index.min(), stats.index.max() + 1), fill_value=0)
+                    stats = stats.rolling(2 * radius + 1, center=True, min_periods=1).sum()
+                    stats.index = stats.index.astype(str)
+                means = (stats["sum"] + shrinkage * self.global_means[c]) / (stats["count"] + shrinkage)
+                self.year_means[c] = means.to_dict()
+                if self.options.get("year_standardize"):
+                    global_second = float(rows[c].pow(2).mean())
+                    global_scale = max(float(rows[c].std(ddof=0)), 1e-8)
+                    second = (stats["sum2"] + shrinkage * global_second) / (stats["count"] + shrinkage)
+                    self.year_scales[c] = np.sqrt((second - means.pow(2)).clip(lower=(global_scale * .05) ** 2)).to_dict()
+                    self.global_scales[c] = global_scale
         parts = [self.base.fit_transform(rows, y, groups, ctx)] + self._extra(rows, groups)
         if self.hier:
             parts.append(self.hier.fit_transform(rows, y, groups, ctx))
