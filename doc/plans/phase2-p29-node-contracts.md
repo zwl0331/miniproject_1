@@ -1,6 +1,6 @@
 # P2.9a node migration and implementation contracts
 
-2026-11-01. Draft. The reviewed P2.9 plan remains authoritative. This document specifies the next implementation and records the migration boundary. It does not authorize the 274-configuration launch or claim new model performance.
+2026-11-01. Method contracts R2 APPROVED at c6fa913, round 2, by Claude Fable 5.1 xhigh (`reviews/2026-11-01-p29a-node-portability.md`). Implementation remains provisional. The reviewed P2.9 plan remains authoritative. This document specifies the next implementation and records the migration boundary. It does not authorize the 274-configuration launch or claim new model performance.
 
 ## Environment route
 

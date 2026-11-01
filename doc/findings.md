@@ -1035,7 +1035,7 @@ The full phase-two suite is still in progress at this initial record. The declar
 
 Review status:
 
-`draft`, 2026-11-01. Version 1.3 of the P2.9 plan proposes an explicit R2 amendment: hard old/new adapter equivalence on the same node; separately reported cross-platform portability; compatible fresh final-source node E for new contribution comparisons. Formal review is independent of the completed Fable consultation.
+`reviewed`, 2026-11-01. Finding 031 and the version 1.3 migration amendment were R2 APPROVED at c6fa913 in round 2 of `../reviews/2026-11-01-p29a-node-portability.md` by a separate Fable 5.1 xhigh reviewer. The same-node old/new adapter gate remains strict; cross-platform portability is reported separately; new contribution comparisons use compatible final-source node E. This approval does not cover the subsequent raw-feature implementation or device prototype (Findings 032 and 033).
 
 Downstream use:
 

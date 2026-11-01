@@ -1,6 +1,6 @@
 # P2.9a GPU-node startup
 
-2026-11-01. Primary developer: Codex. Consultant and separate reviewer: Claude Fable 5.1 at xhigh. Status: environment and migration diagnostics completed; protocol amendment awaiting independent R2. No new-method search, submission or final selection.
+2026-11-01. Primary developer: Codex. Consultant and separate reviewer: Claude Fable 5.1 at xhigh. Status: environment, migration evidence and protocol amendment R2 APPROVED at c6fa913, round 2. Subsequent boundary code and device prototype remain provisional. No new-method search, submission or final selection.
 
 Owner instructions, verbatim:
 
@@ -49,10 +49,12 @@ Codex wrote the environment/diagnostic scripts and Linux lock, corrected the rev
 
 The general-purpose PyPI neural implementations and CUDA dependencies contain no pretrained models or external training data. Their licenses and source hashes were audited. Versioned official PyTorch and author documentation was consulted; links are in the node contracts. No Spotify lookups, external datasets, benchmark data, competitor notebooks or pretrained weights were accessed.
 
-Pending: fresh R2, new adapter/schema implementation and rejection tests, executable ordered manifests, full-route and nested-size cost pilots, and the measured large-job proposal. This checkpoint does not complete P2.9a.
+Pending: new adapter/schema implementation and rejection tests, executable ordered manifests, full-route and nested-size cost pilots, and the measured large-job proposal. This checkpoint does not complete P2.9a.
 
 While the independent migration R2 at 74fc0b3 runs, Codex added a separate provisional raw-feature boundary (`songpop/phase2/raw_splits.py`, `raw_features.py`). Eight focused checks in `scripts.check_p29_boundaries.py` pass, including a known-wrong leaky encoder, permitted-label positive control, exact legacy feature/receipt comparison, rejected malformed/group-overlapping assignments and safe worker imports. Output: check_boundaries.txt; draft Finding 032. These modules are not wired into the engine or included in that review snapshot.
 
 Codex then built a score-free scalar B device prototype in `analysis/p29_tabm_device_pilot.py`, reusing the installed TabM network, legacy seeds, preprocessing, optimizer and stop rule while moving feature fitting inside S and D. One historical recipe at production-fold and smaller fitting sizes ran twice per device in fresh processes; full state/prediction/receipt repetitions passed, and the production CPU prototype matched the old node adapter exactly. CUDA process times were about 2.24 and 2.37 times shorter for these two cases, with different stopping trajectories. Draft Finding 033 scopes this result. The pilot is outside the migration R2 snapshot and cannot stand in for full adapter gates or a measured whole-search proposal.
 
 The first pilot failed after fitting when its source inventory tried to hash Torch's virtual `_ops.py`; the retained error log names the failure. Restricting the inventory to actual files fixed it, and the full pilot then completed. `phase2_stack_probe.txt` records a brief read-only debugger sample of the long-running legacy suite: grouped-bootstrap recomputation inside feature-audit rejection checks. The debugger detached without changing code or data. That sample is not a passing test receipt.
+
+Independent review: `reviews/2026-11-01-p29a-node-portability.md`, fresh Fable 5.1 xhigh thread 5af7c77e-80a9-4ab2-85dd-13fd7f4b305c. Round 1 requested a consistent portability amendment across its dependent plan sections. All five findings were fixed; round 2 at c6fa913 returned `VERDICT: APPROVED`. The device-policy JSON is byte-preserved so existing evidence retains its hash; its original proposed-status field is superseded by this review record. The reviewer did not review the boundary implementation or subsequent device-pilot result.

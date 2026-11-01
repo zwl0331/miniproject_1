@@ -1,6 +1,6 @@
 # P2.9: comprehensive development of other methods
 
-Version 1.3, 2026-11-01. Owner: Sam Zhou. Author: Codex. Status: Linux portability amendment provisional, pending R2; the prior version 1.2 was R2 APPROVED at fe9c54a, round 3, by Claude Fable 5.1 at xhigh. [Prior review](../../reviews/2026-10-31-p2.9-other-methods-plan.md). New contracts: [node migration](phase2-p29-node-contracts.md). This is a plan, not a training launch or a claim of improved performance.
+Version 1.3, 2026-11-01. Owner: Sam Zhou. Author: Codex. Status: version 1.3 Linux portability amendment R2 APPROVED at c6fa913, round 2, by Claude Fable 5.1 xhigh (`reviews/2026-11-01-p29a-node-portability.md`); the prior version 1.2 was R2 APPROVED at fe9c54a, round 3. [Prior review](../../reviews/2026-10-31-p2.9-other-methods-plan.md). New contracts: [node migration](phase2-p29-node-contracts.md). This is a plan, not a training launch or a claim of improved performance.
 
 ## 1. Scope and authority
 
