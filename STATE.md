@@ -62,7 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| Legacy full suite, fixed sources/four threads; preliminary kNN/anchor assertion failures under diagnosis. Eight boundary tests passed again. Fable adapter consultation also running, read-only. | suite session 87959, PID 25623; consultation session 20358 | `doc/llm_usage/2026-11-01-p29a-readiness/check_phase2.txt`; `doc/llm_usage/2026-11-01-p29b-adapters/` | 2026-11-01 03:25 UTC (suite) |
+| Legacy full suite in the main checkout remains pending with fixed sources. Verification fixes reviewed at d7786f4; eight follow-up receipt tests and seven isolated raw-scalar tests passed. Fable consultation is complete. | suite session 87959, PID 25623 | Main checkout `doc/llm_usage/2026-11-01-p29a-readiness/check_phase2.txt`; adapter work isolated in `/tmp/miniproject_1-p29-adapters-20261101` | 2026-11-01 03:25 UTC (suite) |
 
 ## Next action
 
@@ -74,6 +74,6 @@ Sam resumed development on 2026-11-01. Codex owns development and STATE. Claude 
 2. Engine baseline: engine sources remain unchanged since P2.7 completion commit 1ffaddd; subsequent commits record the handoff and P2.9 plan. The separate `../Mini_project_1_p29` worktree was clean at 9693f11 on `p2.9-reopened` during the handoff. Integrate work deliberately from this completed baseline. Same-node adapter equivalence stays strict; cross-platform portability is reported separately under the approved v1.3 amendment.
 3. P2.7's saved result keeps fold averaging with no fallback (Finding 030, draft). Phase 3 and the two final selections still require their R1 review and Sam's decision. The singleton diagnostic and transductive proposals remain open as listed above. Migration fits are diagnostics; no new scientific search has launched. Consultation is distinct from formal approval.
 
-Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7); the procedure-bank validator's check of each stored combiner state's regularization value against its declared setting, with rejection tests (R1 public-checks round 1, F3, non-blocking), also at the next source revision.
+Former deferred items (WEIGHT_CLEANUP comment, structural TabM receipts and combiner regularization) implemented and R2 APPROVED at d7786f4. Follow-up policy/cache and positive-test changes await recheck. The two-ULP kNN batch-position kernel remains untraced (Finding 034). Standalone scalar v2 is provisional and not yet connected to run/cache/engine dispatch; full gates remain pending.
 
 After the close: Sam asks (2026-10-31) for a read of the class's public Colab notebooks, posted in public Piazza notes from Tuesday 2026-11-03, against the rules (external data, lookups by identifier, code written for this dataset, pretrained models if the staff rule them out) and against each team's numbers on the private board; factual observations for Sam, who decides what to do with them; nothing from those notebooks enters the project's models or report beyond the Challenges discussion.

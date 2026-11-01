@@ -34,6 +34,7 @@ SCALERS = ("standard", "quantile")
 ITERATIONS = "early_stop_refit_v1"  # the recipe's iteration policy for this family
 PREDICTION_BATCH = 256
 ADAMW = {"betas": (0.9, 0.999), "eps": 1e-8, "amsgrad": False, "foreach": False, "fused": False}
+LEGACY_FIT_POLICY = {"k": 16, "max_epochs": 300, "patience": 20, "tolerance": 1e-6, "inner_folds": 5}
 
 
 def log_columns(X):

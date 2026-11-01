@@ -1,0 +1,52 @@
+{
+  "source_sha256": {
+    "songpop/phase2/tabm.py": "3dfa5f5dfeb217607f52c2b9134e8a9d12254a5d3491887ca231f0f16a35e2f5",
+    "songpop/phase2/models.py": "5e34c864990abdc074e66eda9ab2d9d5bbb91ddafee36998e72c93286ff22648",
+    "songpop/phase2/receipts.py": "303d08f80c02082852448f97df65635dc65fcb3ebdd2d832859a02247a2c20ce",
+    "songpop/phase2/banks.py": "cfacb94dc4f4f00505648a1a6a5ce8e30839ada13d8a5de73b608e51ca959349",
+    "songpop/phase2/procedures.py": "ef6b069ca071b8642288b92f413581ef478ffc34fc7345f7b3d23075f0002c16",
+    "scripts/check_p29_receipts.py": "f9d5bdc8dedb3cbd12b43f5ebd1f6b9a462ca069995e06b3ac0aead80d8d4014"
+  },
+  "loads": [
+    {
+      "bank": "p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783.npz",
+      "seconds": 11.452961078844965
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_000_seeds155-2026-1029_9bd19fcacf88.npz",
+      "seconds": 0.24023073818534613
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_001_seeds155-2026-1029_1afa1b0f1bf2.npz",
+      "seconds": 0.10142903588712215
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_002_seeds155-2026-1029_bf6b99d9a2c2.npz",
+      "seconds": 0.11835323553532362
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_003_seeds155-2026-1029_11ed90d4922d.npz",
+      "seconds": 0.315612668171525
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_004_seeds155-2026-1029_4344dc9f8cd4.npz",
+      "seconds": 0.10003265086561441
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_005_seeds155-2026-1029_b8a3c65b817c.npz",
+      "seconds": 0.1343947984278202
+    },
+    {
+      "bank": "p2_p25_tabm_b1_0_006_seeds155-2026-1029_029e6a90f119.npz",
+      "seconds": 0.12320779915899038
+    },
+    {
+      "bank": "p2_p26_tabm_54f94b43_seeds155-2026-1029_67202ff0db8d.npz",
+      "seconds": 0.13529121410101652
+    },
+    {
+      "bank": "p2_p26_tabm_f84a691f_seeds155-2026-1029_de01fe44d223.npz",
+      "seconds": 0.10213016346096992
+    }
+  ]
+}

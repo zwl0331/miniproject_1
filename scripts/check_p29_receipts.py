@@ -1,6 +1,7 @@
 """P2.9 receipt gates: historical compatibility and corrupted-state rejection."""
 import copy
 import json
+import math
 from pathlib import Path
 import unittest
 
@@ -10,6 +11,7 @@ from songpop.evaluate import PredictionBank
 from songpop.phase2 import banks, procedures
 from songpop.phase2.encoders import FitContext
 from songpop.phase2.receipts import legacy_tabm
+from songpop.phase2 import models, tabm
 
 ROOT = Path(__file__).resolve().parents[1]
 TABM = ROOT / "artifacts/phase2/bank/p2_p25_tabm_anchor_seeds155-2026-1029_984d3248a783.npz"
@@ -27,6 +29,45 @@ class Receipts(unittest.TestCase):
     def test_historical_receipts_remain_valid(self):
         legacy_tabm(self.recipe, self.receipt, *self.args)
         banks.validate_v2(self.bank)
+
+    def test_factory_and_validator_share_legacy_policy(self):
+        from songpop.phase2.features import feature_columns
+        self.assertIs(models.TABM_FIXED, tabm.LEGACY_FIT_POLICY)
+        expected = tabm.TabMClassifier(**self.recipe["params"], **tabm.LEGACY_FIT_POLICY,
+            scaler=self.recipe["preprocessing"]["scaler"], random_state=0).get_params()
+        self.assertEqual(expected, models.make_model(self.recipe, 0, feature_columns(self.recipe)).get_params())
+
+    def test_positive_max_epoch_and_multiple_seed_receipts(self):
+        recipe, receipt = copy.deepcopy(self.recipe), copy.deepcopy(self.receipt)
+        st = receipt["tabm"][0]
+        epochs, batch = tabm.LEGACY_FIT_POLICY["max_epochs"], recipe["params"]["batch_size"]
+        st.update(validation_losses=[1.0 - 0.001 * i for i in range(epochs)], epochs_evaluated=epochs,
+                  chosen_epoch=epochs, best_epoch=epochs, stopped_by="max_epochs",
+                  stopping_updates=math.ceil(st["inner_train_rows"] / batch) * epochs,
+                  final_updates=math.ceil(len(self.args[0]) / batch) * epochs)
+        legacy_tabm(recipe, receipt, *self.args)
+        recipe["estimator_seeds"] = [0, 1]
+        second = copy.deepcopy(st)
+        second.update(estimator_seed=1, seeds=tabm.stage_seeds(self.args[-1], 1))
+        receipt["tabm"].append(second)
+        legacy_tabm(recipe, receipt, *self.args)
+        receipt["tabm"].reverse()
+        with self.assertRaises(ValueError):
+            legacy_tabm(recipe, receipt, *self.args)
+
+    def test_cached_splits_bind_labels_groups_seed_and_fold_count(self):
+        from songpop.phase2.receipts import _stopping_split
+        _stopping_split.cache_clear()
+        y = tuple([0, 1] * 50)
+        groups = tuple(range(100))
+        first = _stopping_split(y, groups, 5, 155)
+        self.assertEqual(first, _stopping_split(y, groups, 5, 155))
+        self.assertEqual(_stopping_split.cache_info().hits, 1)
+        for request in ((tuple(1 - v for v in y), groups, 5, 155),
+                        (y, tuple(range(100, 200)), 5, 155), (y, groups, 5, 156), (y, groups, 4, 155)):
+            _stopping_split(*request)
+        self.assertEqual(_stopping_split.cache_info().misses, 5)
+        self.assertIsInstance(first[0], tuple)
 
     def test_corrupt_neural_receipts_are_refused(self):
         st = self.receipt["tabm"][0]

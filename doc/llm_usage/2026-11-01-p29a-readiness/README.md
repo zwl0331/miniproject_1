@@ -27,3 +27,12 @@ procedure reconstruction, neural-worker repeatability and held-out-label
 isolation. Five new receipt tests pass (`check_receipts.txt`) against historical
 records and deliberately corrupted copies. No stored bank or prediction is
 modified. Finding 034 is draft pending independent review.
+
+2026-11-01 follow-up: `check_fixes.txt` is an intermediate uncommitted test
+revision (31a9821c...), not the reviewed source. `check_affected.txt` binds
+the committed test source at d7786f4. That unit received R2 APPROVED. Eight
+receipt tests now pass in `check_receipts_v2.txt`, adding shared-policy,
+max-epoch, multiple-seed and complete cache-key checks. The pure stopping
+split is memoized; every receipt is still validated. `receipt_cost_v2.json`
+records source hashes and repeated-load costs on all historical TabM banks.
+The two-ULP kNN numerical kernel remains untraced (Finding 034).

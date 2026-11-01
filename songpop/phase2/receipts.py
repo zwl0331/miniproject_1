@@ -6,11 +6,23 @@ This validates provenance without rerunning neural optimization.
 """
 import math
 import re
+from functools import lru_cache
 
 import numpy as np
 
 from songpop.phase2 import tabm
 from songpop.phase2.raw_splits import partition, population
+
+
+@lru_cache(maxsize=128)
+def _stopping_split(labels, groups, folds, seed):
+    """Memoize only the pure split construction, keyed by its complete inputs.
+
+Immutable tuples prevent a caller from mutating a cached assignment. Receipts,
+row hashes and label/group validity are still checked on every validation.
+"""
+    fit, valid = tabm.inner_split(np.asarray(labels), np.asarray(groups), folds, seed)
+    return tuple(map(int, fit)), tuple(map(int, valid))
 
 
 def positive_integer(value, name, minimum=1):
@@ -69,14 +81,15 @@ def legacy_tabm(recipe, fit_receipt, row_ids, y, groups, context):
     for seed, receipt in zip(recipe["estimator_seeds"], records):
         if not isinstance(receipt, dict):
             raise ValueError("TabM stopping receipt must be an object")
-        p = tabm.TabMClassifier(**recipe["params"], scaler=recipe["preprocessing"]["scaler"],
-                               random_state=seed).get_params()
+        p = tabm.TabMClassifier(**recipe["params"], **tabm.LEGACY_FIT_POLICY,
+                               scaler=recipe["preprocessing"]["scaler"], random_state=seed).get_params()
         seeds = tabm.stage_seeds(context, seed)
         if receipt.get("policy") != tabm.ITERATIONS or receipt.get("seeds") != seeds:
             raise ValueError("TabM stopping policy or context-derived seed streams differ")
         if positive_integer(receipt.get("estimator_seed"), "estimator_seed", minimum=0) != seed:
             raise ValueError("TabM estimator seed differs from recipe order")
-        fit, valid = partition(y, groups, tabm.inner_split(y, groups, p["inner_folds"], seeds["inner_split"]))
+        fit, valid = partition(y, groups, _stopping_split(tuple(y.tolist()), tuple(groups.tolist()),
+                                                        p["inner_folds"], seeds["inner_split"]))
         expected = {
             "inner_train_rows_sha256": tabm.rows_sha256(row_ids, fit),
             "inner_validation_rows_sha256": tabm.rows_sha256(row_ids, valid),

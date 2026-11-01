@@ -1,0 +1,13 @@
+test_cached_splits_bind_labels_groups_seed_and_fold_count (__main__.Receipts.test_cached_splits_bind_labels_groups_seed_and_fold_count) ... ok
+test_corrupt_neural_receipts_are_refused (__main__.Receipts.test_corrupt_neural_receipts_are_refused) ... ok
+test_factory_and_validator_share_legacy_policy (__main__.Receipts.test_factory_and_validator_share_legacy_policy) ... ok
+test_full_bank_validation_reaches_receipts (__main__.Receipts.test_full_bank_validation_reaches_receipts) ... ok
+test_historical_receipts_remain_valid (__main__.Receipts.test_historical_receipts_remain_valid) ... ok
+test_missing_seed_and_reused_fold_receipts_are_refused (__main__.Receipts.test_missing_seed_and_reused_fold_receipts_are_refused) ... ok
+test_older_procedure_banks_and_regularization_rejections (__main__.Receipts.test_older_procedure_banks_and_regularization_rejections) ... ok
+test_positive_max_epoch_and_multiple_seed_receipts (__main__.Receipts.test_positive_max_epoch_and_multiple_seed_receipts) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 25.617s
+
+OK

@@ -16,7 +16,7 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, RobustScal
 from threadpoolctl import threadpool_limits
 
 from songpop.models import LOG100
-from songpop.phase2.tabm import TabMClassifier, TabMPreprocessor  # in every run's manifest from the start
+from songpop.phase2.tabm import LEGACY_FIT_POLICY, TabMClassifier, TabMPreprocessor  # in every run's manifest
 
 THREADS = 4
 CATEGORICAL = ["key", "mode", "time_signature"]  # one-hot under log_standard, spline and knn_blocks, never splined
@@ -40,7 +40,7 @@ ALLOWED = {
     "tabm": {"n_blocks", "d_block", "dropout", "learning_rate", "weight_decay", "batch_size"},  # P2.5
 }
 # TabM settings fixed by the factory (plan section 5.5), written out so an omitted argument cannot change the method.
-TABM_FIXED = {"k": 16, "max_epochs": 300, "patience": 20, "tolerance": 1e-6, "inner_folds": 5}
+TABM_FIXED = LEGACY_FIT_POLICY  # the factory and receipt validator share the explicit recipe_v1 policy
 KNN_METRICS = {"euclidean": "l2", "manhattan": "l1"}  # each metric with the block normalization it requires
 # EBM pair terms (plan section 5.2): "none" fits main effects only; "declared3" adds these three pairs, resolved to
 # column indices after the recipe's feature construction. interpret's default ("3x", automatic pairs) is never used.
