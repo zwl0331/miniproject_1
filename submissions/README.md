@@ -11,7 +11,9 @@ and the unchanged `2026-11-01_fast_combined.csv`. The authoritative selection an
 review status is [`final_selection.json`](../artifacts/fast/final_selection.json).
 Preparation sidecars/results retain their earlier event status. The original
 selection is preserved in `final_selection_initial.json`. One final leakage/file
-review of the updated pair is pending. No new file has been uploaded; Sam performs
+review of the updated pair returned APPROVED at 91050e5, one round, in
+[`the review record`](../reviews/2026-11-01-fast-followup-final-files.md).
+No new file has been uploaded; Sam performs
 uploads and final Kaggle selections. The optional CatBoost variant remains a
 public-check candidate only.
 
@@ -61,3 +63,5 @@ Events, newest last. A file reviewed and ready for Sam, a file uploaded, and a p
 | 2026-11-01 | `2026-11-01_fast_followup_trees_cat.csv` | `748e5cfac5d294eeff1c72517e674f33dd64f7c8e52affff4af0a80c2b5126bd` | Prepared for public check under fast mode. CV 0.843988; per seed 0.845335/0.844740/0.841890. Automatic IDs/count/probability checks passed; correlation with 2026-11-01_fast_followup_trees.csv: 0.999776. Purpose: Optional check of adding 10% five-seed CatBoost to the follow-up tree blend; CV edge is small and mixed across split seeds.. Sam decides and uploads; public score pending. |
 | 2026-11-01 | `2026-11-01_fast_followup_trees.csv` | `a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338` | Sam selected for the updated final pair; one final leakage/file review pending. CV 0.843814; automatic file checks passed. CSV bytes unchanged since preparation; public score pending. |
 | 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Sam selected for the updated final pair; one final leakage/file review pending. CV 0.842837; automatic file checks passed. CSV bytes unchanged since preparation; public score pending. |
+| 2026-11-01 | `2026-11-01_fast_followup_trees.csv` | `a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338` | Updated owner-selected pair: Fable 5.1 xhigh APPROVED at 91050e5, round 1, leakage and file correctness only. CV 0.843814; pair correlation 0.997782. CSV unchanged; ready for Sam. Public score pending. |
+| 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Updated owner-selected pair: Fable 5.1 xhigh APPROVED at 91050e5, round 1, leakage and file correctness only. CV 0.842837; pair correlation 0.997782. CSV unchanged; ready for Sam. Public score pending. |

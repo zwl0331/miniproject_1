@@ -31,7 +31,7 @@ tree blend. This is evidence about the tested configurations, not an exhaustive
 rejection of those families. The same applies to the four fixed-kernel GP and
 four broader SVM cases. Detailed comparisons are saved in
 `artifacts/fast/followup_current_contributions.{json,csv}`. One final selected-pair
-review is pending; no exploration reviews or repeated full suites were run.
+review returned APPROVED at 91050e5; no exploration reviews or repeated full suites were run.
 
 ## Results
 
@@ -1177,4 +1177,10 @@ processes and the existing TabM adapter. All three saved split seeds are retaine
 The combined reference (CV 0.842837) remains frozen; the table now also prints
 changes against it. Existing approved CSVs are preserved. Initial confirmed tree blend: CV 0.843814, per split 0.844708 / 0.844520 / 0.842215, +0.000978 over approved combined on all splits. Five-estimator-seed year-standardized LightGBM and transferred Extra Trees supply the gain. The broader SVM and four fixed-kernel Gaussian-process tests did not add to the approved combined blend; the best longer-MLP replacement gained only 0.000028 with mixed split signs.
 
-Sam also assigned the parallel session to finish the neural adapter. Its code and focused checks were integrated, without repeating them. Eight completed scientific GPU trials cover scalar/embedded TabM, embedded MLP/ResNet and FT-Transformer; the separate two-epoch adapter smoke is excluded from model selection. Training finished before the 06:31 UTC cutoff. `submissions/2026-11-01_fast_followup_trees.csv` is checked and prepared as an additional public candidate; previous owner selections remain unchanged.
+Sam also assigned the parallel session to finish the neural adapter. Its code and focused checks were integrated, without repeating them. Eight completed scientific GPU trials cover scalar/embedded TabM, embedded MLP/ResNet and FT-Transformer; the separate two-epoch adapter smoke is excluded from model selection. Training finished before the 06:31 UTC cutoff. Sam then selected `submissions/2026-11-01_fast_followup_trees.csv` and the unchanged previous combined CSV as the updated final pair. The previous selection record is preserved in `artifacts/fast/final_selection_initial.json`.
+
+## Follow-up closeout and handoff, 2026-11-01 05:50 UTC
+
+The owner-selected follow-up trees and previous combined CSVs received one Fable 5.1 xhigh review, leakage and file correctness only: APPROVED at 91050e5. F1 was a non-blocking correlation-record clarification, now addressed without changing CSVs, models or predictions. Both hashes remain unchanged. No uploads or pushes.
+
+The follow-up in this session is complete. Sam has assigned further experiments to Codex session `01a19580-8f99-7492-9bc9-409b9774fb23`, as reported by that session; it takes development and project-state ownership after this handoff. The two reviewed files remain a preserved checkpoint.

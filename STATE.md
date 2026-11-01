@@ -1,13 +1,13 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01, 05:41 UTC. The authorized follow-up is finished. Sam selected follow-up trees plus previous combined. One final leakage/file review is pending; all training jobs have exited.
+Updated 2026-11-01 05:50 UTC. This session completed its follow-up and one final review: APPROVED at 91050e5. Sam selected follow-up trees plus previous combined. Development ownership transfers to the other Codex session below; all jobs from this session have exited.
 
 ## Rules and ownership
 
-- Codex owns the project. Fast-mode override: AGENTS.md; owner prompts and steering: `doc/llm_usage/2026-11-01-fast-mode/`.
+- Receiving Codex session `01a19580-8f99-7492-9bc9-409b9774fb23` owns development, STATE.md and decisions.md after this handoff. Fast-mode override: AGENTS.md; owner prompts and steering: `doc/llm_usage/2026-11-01-fast-mode/`.
 - Provided data only; no external data, pretrained models, identifier lookups, dataset-specific external code, fitted test features or pseudo-labels.
 - Saved track-grouped folds; split seeds 155, 2026, 1029; all fitted transforms inside training folds. Rank by mean of 15 fold AUCs. Small gains remain eligible; public scores are checks only.
-- Sam selects and uploads, at most 10 per day. Automatic file checks; one quick Fable review of the selected final pair, leakage and file correctness only, one round. No further modeling or review loops.
+- Sam selects and uploads, at most 10 per day. Automatic file checks; one quick Fable review of the selected final pair, leakage and file correctness only, one round. This session launches no further modeling or reviews; Sam separately authorized the receiving session to continue exploration, as reported in decisions.md.
 - Follow-up cap was 06:31 UTC; training finished about 05:40 UTC. Original experiment deadline 2026-11-01 20:00 UTC; file deadline 2026-11-02 20:00 UTC; Kaggle closes 2026-11-03 01:00 UTC. Report and Colab due 2026-11-03 23:59 PST.
 
 ## Final candidates
@@ -16,8 +16,8 @@ All scores are exploratory on repeatedly used grouped folds.
 
 | File | CV mean | Per split 155 / 2026 / 1029 | Status |
 |---|---:|---|---|
-| `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Sam's first final pick; review pending |
-| `2026-11-01_fast_combined.csv` | 0.842837 | 0.843593 / 0.843488 / 0.841429 | Sam's second final pick; bytes unchanged |
+| `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Sam's first final pick; APPROVED at 91050e5 |
+| `2026-11-01_fast_combined.csv` | 0.842837 | 0.843593 / 0.843488 / 0.841429 | Sam's second final pick; APPROVED at 91050e5 |
 | `2026-11-01_fast_followup_trees_cat.csv` | 0.843988 | 0.845335 / 0.844740 / 0.841890 | Optional public check; small mixed CatBoost gain |
 | Original `2026-10-31_p2.6b_blend_eq_all.csv` | 0.841062 | 0.842493 / 0.841728 / 0.838964 | Earlier reference; public 0.85377 |
 
@@ -36,6 +36,7 @@ All scores are exploratory on repeatedly used grouped folds.
 
 ## Next action
 
-1. Run and collect the one fresh Fable review of the selected pair: `reviews/2026-11-01-fast-followup-final-files.md`. Scope is leakage and file correctness. Do not launch more training or repeated reviews.
-2. Deliver files and verdict. Sam uploads and reports public scores; log them without tuning models to the board. Final Kaggle selections remain his action.
-3. Then report and Colab. Read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`. Model development is finished.
+1. Receiving session continues Sam's separately requested testing from preserved commit 91050e5 and this handoff. Its reported owner instruction is recorded in decisions.md. The reviewed CSVs remain unchanged; any later final-pair change remains Sam's choice. No training or review job remains from this session.
+2. Review evidence: `reviews/2026-11-01-fast-followup-final-files.md`. One round, APPROVED, no blocking finding; F1 only clarified the pair-correlation record. No model replay or further review. Full final hashes: `artifacts/fast/final_selection.json`.
+3. Sam uploads and reports public scores; log them without tuning models to the board. No new public scores have been received.
+4. After the receiving session finishes, report and Colab: read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`.

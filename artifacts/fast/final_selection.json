@@ -2,7 +2,7 @@
   "owner": "Sam",
   "decision": "Follow-up trees + previous combined (Recommended)",
   "selected_utc": "2026-11-01T05:42:38.860556+00:00",
-  "status": "owner selected updated pair; one final leakage/file review pending",
+  "status": "owner selected; APPROVED for leakage and file correctness; ready for Sam; not uploaded",
   "files": [
     {
       "path": "submissions/2026-11-01_fast_followup_trees.csv",
@@ -16,5 +16,18 @@
     }
   ],
   "review_scope": "Only the selected pair, leakage and file correctness, one round. Previous combined CSV bytes are unchanged.",
-  "previous_selection_record": "artifacts/fast/final_selection_initial.json"
+  "previous_selection_record": "artifacts/fast/final_selection_initial.json",
+  "review": {
+    "verdict": "APPROVED",
+    "record": "reviews/2026-11-01-fast-followup-final-files.md",
+    "commit": "91050e51203607978ae7581786d64be09a3de2af",
+    "round": 1,
+    "model": "claude-fable-5-1",
+    "effort": "xhigh",
+    "recorded_utc": "2026-11-01T05:50:20.390154+00:00",
+    "blocking_findings": 0,
+    "nonblocking_findings": [
+      "F1: explicit pair-correlation references added to the check record; CSVs unchanged"
+    ]
+  }
 }
