@@ -11,6 +11,7 @@ In force until development ends (`decisions.md`, 2026-11-01; the prompt verbatim
 - **Time box:** new experiments stop Sunday 2026-11-01, 12:00 PM PST; final files ready Monday 2026-11-02, 12:00 PM PST. A short update to Sam every 2 to 3 hours, or sooner for a gain above 0.002 CV.
 - **End:** 2 or 3 files proposed for public checks and a recommendation for the two final selections; Sam decides and uploads; one quick Fable review of the two final files, limited to leakage and file correctness, one round. Then the report and Colab.
 - **Records:** the results table is `notes/2026-11-01-fast-exploration.md`.
+- **File checks and selection:** match every submission's row count and IDs to `test.csv`, require finite probabilities in [0, 1], print correlation with the current best file, and allow at most 10 uploads per day. Treat CV differences below about 0.002 as noise and prefer the simpler model in a tie. Try features first, then small cheap-family grids, then blend comparisons.
 
 ## Every session, and after a compaction
 
