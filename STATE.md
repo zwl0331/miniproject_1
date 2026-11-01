@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01. Resumed readiness and implementation on Sam's instruction. No broad-search launch authorized. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
+Updated 2026-11-01. Development paused at Sam's session-wrap request. CPU gate approval explicitly left pending. No broad-search launch authorized. Keep this file under 80 lines. It is a snapshot and an index, not a log: move old material to `notes/state-archive.md` instead of deleting it. Earlier clock corrections and the pre-handoff snapshot are archived there.
 
 ## Brief (at most 10 lines)
 
@@ -12,7 +12,7 @@ Updated 2026-11-01. Resumed readiness and implementation on Sam's instruction. N
 
 ## Decisions in force
 
-Pointers into `decisions.md`: development resume (2026-11-01), superseding the session-wrap pause; Fable 5.1 xhigh consultant and independent reviewer (2026-11-01); Codex owns development (2026-10-31); P2.9 reopening supersedes the earlier candidate freeze; every submission gets R1 (2026-10-30); no pretrained models, report and Colab after development, Sam uploads, measured budgets and consultation before building (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
+Pointers into `decisions.md`: session wrap-up and CPU gate approval pending (2026-11-01), superseding the earlier resume; Fable 5.1 xhigh consultant and independent reviewer (2026-11-01); Codex owns development (2026-10-31); P2.9 reopening supersedes the earlier candidate freeze; every submission gets R1 (2026-10-30); no pretrained models, report and Colab after development, Sam uploads, measured budgets and consultation before building (2026-10-29); no dependence on the earlier audio-only project (2026-10-30).
 
 ## Results
 
@@ -62,7 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| Legacy full suite unchanged; fixes/receipt guards R2 APPROVED at isolated d7786f4. Fable consultation complete. Raw scalar adapter checks and non-blocking review follow-ups running in isolation. | suite 87959/PID 25623; scalar checks 47509; receipt checks see live note | `notes/2026-11-01-p29-live-progress.md` indexes logs and worktree | 2026-11-01 03:25 UTC (suite) |
+| Existing fixed-source legacy suite only; Fable follow-up APPROVED at 369e762. No new training. Scalar gate launch rejected, approval left pending. | suite 87959/PID 25623 | `notes/2026-11-01-p29-session-handoff.md` | suite 03:25 UTC; handoff 04:08 UTC |
 
 ## Next action
 
@@ -70,10 +70,10 @@ Node setup, 2026-11-01: installed the four shared skills from `../agent-skills` 
 
 Sam resumed development on 2026-11-01. Codex owns development and STATE. Claude Fable 5.1 xhigh consults and reviews in separate sessions, with explicit model/effort and read-only plan mode. The old handoff is `notes/2026-10-31-p29-gpu-handoff.md`. Node environment installed and REVIEW_PYTHON corrected; .venv points to `/tmp/miniproject_1-p29-venv-20261101`, so rebuild after node loss. Historical locks remain unchanged.
 
-1. Read `notes/2026-11-01-p29-live-progress.md` for active sessions and the isolated worktree; finish verification, consultation and R2. Migration v1.3, node contracts and Finding 031 remain APPROVED at c6fa913. Continue P2.9a/b recipe_v2/raw adapters, complete equivalence/isolation gates, executable manifests and representative cost pilots, followed by Sam's measured large-job proposal. Provisional starting code: boundary f420853; device prototype aab2370. Coverage targets are not launch authorization. E's procedure, fallback trigger and tie band are unchanged.
+1. On Sam's resume, read `notes/2026-11-01-p29-session-handoff.md`. Inspect the existing suite and recheck before editing their sources. Development is committed through 7dbfc6d and protected by local branch `checkpoint/p29-scalar-20261101`; worktree `/tmp/miniproject_1-p29-adapters-20261101`. Seven scalar and eight receipt checks pass. Full equivalence, CUDA, engine/runtime/cache integration and pilots remain. The 135-fit gate did not start; Sam explicitly left approval pending. No broad scientific search is authorized. E's rule and fallback remain unchanged.
 2. Engine baseline: engine sources remain unchanged since P2.7 completion commit 1ffaddd; subsequent commits record the handoff and P2.9 plan. The separate `../Mini_project_1_p29` worktree was clean at 9693f11 on `p2.9-reopened` during the handoff. Integrate work deliberately from this completed baseline. Same-node adapter equivalence stays strict; cross-platform portability is reported separately under the approved v1.3 amendment.
 3. P2.7's saved result keeps fold averaging with no fallback (Finding 030, draft). Phase 3 and the two final selections still require their R1 review and Sam's decision. The singleton diagnostic and transductive proposals remain open as listed above. Migration fits are diagnostics; no new scientific search has launched. Consultation is distinct from formal approval.
 
-Former deferred items (WEIGHT_CLEANUP comment, TabM receipt structure and combiner regularization) implemented and R2 APPROVED at isolated d7786f4; integration awaits the fixed-source suite. Non-blocking follow-ups: shared legacy policy, max-epoch/multiple-seed positive controls, validation cost and documentation. The tiny kNN batch-position difference remains untraced; Finding 034 reports its magnitude.
+Former deferred items (WEIGHT_CLEANUP comment, TabM receipts and combiner regularization) implemented and R2 APPROVED at isolated d7786f4; follow-ups APPROVED at 369e762. Integration awaits the fixed-source suite. Non-blocking F7/F8 follow-ups are in the handoff. Standalone scalar adapter at 7dbfc6d is provisional. The tiny kNN kernel remains untraced (Finding 034).
 
 After the close: Sam asks (2026-10-31) for a read of the class's public Colab notebooks, posted in public Piazza notes from Tuesday 2026-11-03, against the rules (external data, lookups by identifier, code written for this dataset, pretrained models if the staff rule them out) and against each team's numbers on the private board; factual observations for Sam, who decides what to do with them; nothing from those notebooks enters the project's models or report beyond the Challenges discussion.

@@ -1,5 +1,10 @@
 # P2.9 live continuation index
 
+Superseded at session wrap-up by `notes/2026-11-01-p29-session-handoff.md`.
+The narrative below is preserved as history. Fable recheck is now APPROVED at
+369e762, seven scalar and eight receipt tests passed, and the 135-fit CPU gate
+did not start. Sam explicitly left its approval pending. Development is paused.
+
 2026-11-01. Codex primary. Sam resumed development and requested Fable for
 consultation and separate review, then asked to accelerate and optimize public
 and private AUC. The reviewed selection protocol and measured large-job gate

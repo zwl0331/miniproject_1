@@ -1,0 +1,12 @@
+Original test sha256 31a9821c3dce7e8f46f7ca328dbd56d9d50d7e8633c73a6d315175a42551c2ce
+Filters ['kNN:', 'anchor:', 'comparisons:']; only decorator instrumentation
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_7ac636ad571d on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_7ac636ad571d on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  already logged
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_7ac636ad571d on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  equals log
+PASS    kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+        29 columns; block weights 1/sqrt(10), alpha, beta/sqrt(3) (1/10, alpha, beta/6 under Manhattan); exact matches, ties, batch positions and unseen categories behave as declared
+PASS    anchor: historical LightGBM F2 arrays match at 1e-12; same-node seed replay is exact
+        mean fold AUC 0.8314739289, historical numerical arrays within 1e-12, identities exact; submission bytes equal the P1.3 file; seed 2026 alone repeats node arrays exactly
+PASS    comparisons: seed-restricted, matched, logged once, verified
+        a three-seed and a one-seed bank compared on seed 155, logged once, verified; nothing written
+3 passed, 0 failed, 0 skipped, 0 staged
