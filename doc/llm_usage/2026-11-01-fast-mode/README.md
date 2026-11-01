@@ -20,3 +20,5 @@ Integration row describes the preceding session, not current ownership.
 No design consultation or exploration review is required in this mode.
 
 Codex wrote `analysis/fast_features.py`, `fast_exploration.py`, `check_fast.py`, `fast_reuse.py` and `fast_submission.py`. The runner reuses saved grouped splits and existing encoders. New features are fitted only on training rows. All 12 initial feature trials completed; results, configs and probabilities are saved under `artifacts/fast/` and summarized in the requested notes table. No consultation or review was run.
+
+Completion: 51 fresh 15-fold runs and a 68.7-second rescore of 678 saved runs (658 distinct predictions), with no new packages. Small gains were retained after Sam clarified their value; his later instruction stopped search expansion. Three public-check CSVs were prepared with automatic checks. Sam chose the new combined CSV and original E for the one final Fable leakage/file review. Full results and limitations are in the requested notes table.

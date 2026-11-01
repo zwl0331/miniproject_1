@@ -502,3 +502,54 @@ Sam resumed development on 2026-11-01. Codex owns development and STATE. Claude 
 Former deferred items (WEIGHT_CLEANUP comment, TabM receipts and combiner regularization) implemented and R2 APPROVED at isolated d7786f4; follow-ups APPROVED at 369e762. Integration awaits the fixed-source suite. Non-blocking F7/F8 follow-ups are in the handoff. Standalone scalar adapter at 7dbfc6d is provisional. The tiny kNN kernel remains untraced (Finding 034).
 
 After the close: Sam asks (2026-10-31) for a read of the class's public Colab notebooks, posted in public Piazza notes from Tuesday 2026-11-03, against the rules (external data, lookups by identifier, code written for this dataset, pretrained models if the staff rule them out) and against each team's numbers on the private board; factual observations for Sam, who decides what to do with them; nothing from those notebooks enters the project's models or report beyond the Challenges discussion.
+
+
+## Fast-mode running snapshot, 2026-11-01
+
+# State: CS 155 Miniproject 1
+
+Updated 2026-11-01, 04:20 UTC. Fast exploration mode, owner-directed. Codex owns development; Sam confirmed the other session is paused. P2.9 is saved and stopped.
+
+## Objective and rules
+
+- Improve generalizing AUC with quick feature and model trials. Select on mean fold AUC over saved grouped splits, seeds 155, 2026, 1029. Small gains remain useful and eligible, per Sam's latest clarification. Check split/model-seed consistency; prefer simplicity when evidence is tied. The 0.002 threshold is an early-update trigger, not an eligibility cutoff.
+- Only provided training data. No external data, pretrained models, Spotify lookups, dataset-specific external code, fitting on test features or pseudo-labels. Every fitted transform stays inside its training fold.
+- Fast-mode override in `AGENTS.md`; full owner prompt: `doc/llm_usage/2026-11-01-fast-mode/prompt.md`. Exploration compute on this node is authorized. No P2.9 gates, consultation, replay, nested evaluation or coverage targets.
+- New experiments stop 2026-11-01 20:00 UTC (12:00 PST). Files ready 2026-11-02 20:00 UTC (12:00 PST). Kaggle closes 2026-11-03 01:00 UTC (Monday 17:00 PST).
+- Sam uploads, at most 10 per day, and decides the two final selections. Each file gets automatic ID/count/probability checks, correlation with the current best file, and a CV/hash/public-score log. One quick Fable review of the two owner-selected final files, leakage and file correctness only, one round.
+- Report and public Colab follow development, due 2026-11-03 23:59 PST. Preserve brief LLM-use evidence.
+
+## Baselines
+
+| Candidate | Mean CV | Per seed: 155 / 2026 / 1029 | Public | Evidence |
+|---|---:|---|---:|---|
+| Current equal blend E | 0.841062 | 0.842493 / 0.841728 / 0.838964 | 0.85377 | `configs/phase2/menu.json`, `submissions/README.md` |
+| Existing constrained blend, lambda 0.1 | 0.841003 | 0.842426 / 0.841618 / 0.838964 | 0.85415 | same menu, existing learned-procedure bank |
+| Strongest earlier single-seed LightGBM | about 0.8368 | see P2.4 bank | not submitted alone | date_count + date_te3; Findings 022/023, draft |
+
+P2.7 restricted nested result: selected procedure 0.8398 versus H 0.8306; saved replay passed. Historical evidence, still provisional. No nested reevaluation in fast mode.
+
+## Saved work and environment
+
+- Main pre-exploration snapshot: `8c03e05`, including pending records and the incomplete legacy-suite log.
+- `p2.9-paused` protects `1b47c17`, including d7786f4, 369e762 and the standalone adapter at 7dbfc6d. `/tmp/miniproject_1-p29-adapters-20261101` is clean. Do not continue or integrate it.
+- Legacy suite PID 25623 no longer exists. Its saved log has no final verdict and three diagnosed failures. No restart. The 135-fit scalar gate never ran and is abandoned with P2.9.
+- `.venv` is node-local Python 3.12.16. Use it for project code. Node allocation: 32 CPU equivalents, 45 GiB RAM, A100 MIG 2g.20gb. No installs planned.
+- Previous STATE is preserved in `notes/state-archive.md`. Historical banks, data and submission files stay unchanged.
+
+## Running
+
+2026-11-01T04:37:41.287510+00:00: 48 fresh 15-fold trials complete. Only the three original-adapter TabM runs remain, in session 3532; `artifacts/fast/models.log` and each TabM directory's `progress.json`. No new search batches will be launched.
+
+Seeded LightGBM (year-relative audio plus date counts): 0.839308 standalone. Seeded MLP: 0.810332 standalone, useful as a 10% addition. Combined CV 0.842837; adding the recovered Extra Trees recipe gives 0.842945. All three split means improve versus E. Three automatically checked public-check files are ready under `submissions/2026-11-01_fast_*.csv`, not uploaded or final-selected.
+
+Historical scan: 678 saved runs examined; best recovered addition is Extra Trees, +0.000469 at weight 0.10, positive on all three splits. No training in this scan. All scores remain exploratory.
+
+## Next action
+
+Sam asked to finish quickly. No further search expansion. Finish the already-running batches and the saved-bank rescore, then prepare 2 or 3 files and final recommendations. The earlier action list below describes the work already launched.
+
+1. Read `notes/2026-11-01-fast-exploration.md`. Run feature additions on the best LightGBM recipe using the saved production folds and existing fold-local date encoders.
+2. Try small grids of cheap non-menu families or distinct variants, using installed tools and the existing TabM adapter. Skip new framework/adapter work.
+3. For every candidate report standalone CV and fixed-weight additions to E and the existing constrained blend; save OOF/test predictions, config and runtime. Keep one results table, commit code with results.
+4. Propose 2 or 3 public-check files and two final recommendations. Sam decides. Apply the single final-file review only after his selections.

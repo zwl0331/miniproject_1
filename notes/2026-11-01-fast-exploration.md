@@ -424,12 +424,64 @@ weights on validation labels. Report every weight, even when it loses.
 | constrained_l0.1 + 0.10 svm_c30.0_g0.05 | 0.840797 | 0.841993 | 0.841451 | 0.838947 | -0.000265 | 29.6 s |
 | constrained_l0.1 + 0.25 svm_c30.0_g0.05 | 0.838083 | 0.839106 | 0.838829 | 0.836314 | -0.002978 | 29.6 s |
 | constrained_l0.1 + 0.50 svm_c30.0_g0.05 | 0.824254 | 0.824937 | 0.824465 | 0.823361 | -0.016807 | 29.6 s |
+| tabm_quantile_w128 | 0.802784 | 0.805694 | 0.800547 | 0.802113 | -0.038277 | 604.2 s |
+| blend_eq_all + 0.10 tabm_quantile_w128 | 0.840866 | 0.842572 | 0.841147 | 0.838880 | -0.000195 | 604.2 s |
+| blend_eq_all + 0.25 tabm_quantile_w128 | 0.839211 | 0.841069 | 0.839013 | 0.837553 | -0.001850 | 604.2 s |
+| blend_eq_all + 0.50 tabm_quantile_w128 | 0.832540 | 0.835120 | 0.831370 | 0.831130 | -0.008522 | 604.2 s |
+| constrained_l0.1 + 0.10 tabm_quantile_w128 | 0.840770 | 0.842407 | 0.841116 | 0.838787 | -0.000292 | 604.2 s |
+| constrained_l0.1 + 0.25 tabm_quantile_w128 | 0.839161 | 0.841085 | 0.838932 | 0.837465 | -0.001901 | 604.2 s |
+| constrained_l0.1 + 0.50 tabm_quantile_w128 | 0.832454 | 0.834991 | 0.831382 | 0.830991 | -0.008607 | 604.2 s |
+| tabm_quantile_w256 | 0.801506 | 0.802993 | 0.800047 | 0.801478 | -0.039556 | 628.8 s |
+| blend_eq_all + 0.10 tabm_quantile_w256 | 0.840838 | 0.842503 | 0.841188 | 0.838824 | -0.000223 | 628.8 s |
+| blend_eq_all + 0.25 tabm_quantile_w256 | 0.839163 | 0.841077 | 0.838884 | 0.837528 | -0.001899 | 628.8 s |
+| blend_eq_all + 0.50 tabm_quantile_w256 | 0.832298 | 0.834555 | 0.831098 | 0.831242 | -0.008763 | 628.8 s |
+| constrained_l0.1 + 0.10 tabm_quantile_w256 | 0.840711 | 0.842299 | 0.841100 | 0.838734 | -0.000351 | 628.8 s |
+| constrained_l0.1 + 0.25 tabm_quantile_w256 | 0.839057 | 0.840938 | 0.838803 | 0.837429 | -0.002005 | 628.8 s |
+| constrained_l0.1 + 0.50 tabm_quantile_w256 | 0.832178 | 0.834450 | 0.830958 | 0.831124 | -0.008884 | 628.8 s |
+| tabm_standard_w128 | 0.803291 | 0.805724 | 0.803454 | 0.800696 | -0.037770 | 661.6 s |
+| blend_eq_all + 0.10 tabm_standard_w128 | 0.840730 | 0.842388 | 0.841259 | 0.838541 | -0.000332 | 661.6 s |
+| blend_eq_all + 0.25 tabm_standard_w128 | 0.838923 | 0.840886 | 0.839033 | 0.836852 | -0.002138 | 661.6 s |
+| blend_eq_all + 0.50 tabm_standard_w128 | 0.832457 | 0.834574 | 0.832174 | 0.830622 | -0.008605 | 661.6 s |
+| constrained_l0.1 + 0.10 tabm_standard_w128 | 0.840613 | 0.842203 | 0.841136 | 0.838500 | -0.000449 | 661.6 s |
+| constrained_l0.1 + 0.25 tabm_standard_w128 | 0.838853 | 0.840774 | 0.839011 | 0.836774 | -0.002209 | 661.6 s |
+| constrained_l0.1 + 0.50 tabm_standard_w128 | 0.832345 | 0.834522 | 0.832048 | 0.830464 | -0.008717 | 661.6 s |
 
 Runtime is the model's complete 15-fold fit, shared by its blend rows.
 
 ## Checkpoint
 
-2026-11-01 04:20 UTC: P2.9 saved on `p2.9-paused` at 1b47c17; main pending
-records committed at 8c03e05. The old suite has exited without a final verdict.
-No further P2.9 work. Sam confirmed Codex owns development and the other session
-is paused. No new experiment result yet.
+Completed 2026-11-01, about 04:40 UTC. No jobs remain and no further search is planned.
+51 complete fresh 15-fold runs: 18 feature configurations/follow-ups, 25 cheap-family
+trials, two LightGBM seed averages, and six MLP follow-ups including two seed averages.
+All use the saved track-grouped folds. No external data or fitted test features.
+
+Useful changes: year-relative audio features plus year/month group counts, and
+MLP ensemble diversity. The selected new combined file uses 0.65 E, 0.25 new
+LightGBM, and 0.10 MLP; both new components average estimator seeds 0, 1, 2.
+Its CV is 0.842837, with per-split gains +0.001100 / +0.001760 / +0.002465 over E.
+Adding a saved Extra Trees variant reaches 0.842945; its 0.000108 edge over the
+simpler combination is not established as a generalizing advantage. Both are
+available for public checks. The MLP-only addition scores 0.842299.
+
+The small RBF SVM, spline-logistic, HistGB and existing-adapter TabM grids did not
+improve E at the tested blend weights. This is a result for these settings, not
+a broad rejection of the families. Optimizer warnings are saved in each result;
+fixed-budget MLP runs need not satisfy the optimizer's convergence tolerance.
+
+Historical-threshold check: allocation.py used 0.003 for clear progress and
+routes down to 0.0005, with additional repeat/incumbent conditions. P2.5's best
+blend gained about 0.000533 over H yet received no expansion. The saved-bank
+rescore examined 678 runs (658 distinct prediction sets) in 68.7 seconds with no
+training. It recovered an Extra Trees addition of +0.000469 over E, positive on
+every split. Full scan: artifacts/fast/historical_rescore.csv. Nothing proves
+what unrun past experiments would have achieved.
+
+Sam selected the new combined file and the original E for the single final
+Fable review. See artifacts/fast/final_selection.json. Every new CSV has 863
+matching IDs and finite probabilities in [0, 1]; hashes and correlations are in
+submissions/README.md and sidecars. Malformed ID/count/probability controls were
+rejected. No upload was performed. Public scores remain pending.
+
+All scores are exploratory on repeatedly used folds. Three split seeds are
+consistency checks, not independent datasets. No new nested evaluation or replay
+was performed, following Sam's fast-mode instruction.
