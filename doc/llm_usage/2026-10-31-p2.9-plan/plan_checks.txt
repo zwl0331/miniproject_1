@@ -1,0 +1,14 @@
+P2.9 document checks, 2026-10-31
+Method families: 12
+Initial configurations: 274
+Initial ceilings: 694
+STATE.md: 73 lines
+Plan sha256 (draft for consultation): 7bbecd879d48c72e99869c62d989b1d2d2cb9ac4a0df390ac399fdcb0d3eb4e2
+No training, code tests or package installation performed.
+
+Post-consultation checks:
+Initial count remains 274 across 12 families.
+Additional reserved work: 48 core-refinement configurations; ten stopping variants; 24 feature comparisons plus controls; up to 58 extra seed runs for 29 nominees; replacement-nominee confirmations; replay and nested evaluation.
+Sam chose E as fallback; the 0.003/all-three-fold trigger and 0.001 selection tie band are unchanged.
+Full-refit path retained; weighted E is represented by its four historical channels in learned combiners.
+Plan sha256 for R2 submission: 999f7d923238d8c619afb4b9631ff4bd86074d998bbf2e976375cbc04c5c5305

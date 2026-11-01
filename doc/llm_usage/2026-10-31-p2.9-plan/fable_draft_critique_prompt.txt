@@ -1,0 +1,24 @@
+Continue the P2.9 design consultation. Sam additionally said, verbatim: "Consult deeply with Fable as well". This is still consultation, not formal review or approval; the eventual reviewer will be a separate fresh run.
+
+Read the complete current draft doc/plans/phase2-p29-other-methods.md and Codex's independent design and hard self-critique under doc/llm_usage/2026-10-31-p2.9-plan/. The first draft was written independently before your initial response was read. Inspect relevant actual adapters where needed. Remain read-only. Do not launch fits, install dependencies, write files, or delegate.
+
+Provide a hard design critique and concrete replacement text or rules, not general agreement. Address these questions in depth:
+1. Does the 274-configuration initial inventory actually give each major family fair representation/feature/optimization coverage? Which branches are missing, redundant, or superficially covered? Sam explicitly rejects prematurely eliminating non-tree methods.
+2. Are the neural stopping, target-encoding, calibration and TabR query/reference contracts sufficient? Work through a training query, stopping-validation query and outer-validation query, including indirect label routes through retrieval memory. Are any stated label-flip requirements impossible or incorrectly specified?
+3. Is the nomination/expansion/seed confirmation policy concrete and internally consistent? Identify allocation traps, unbounded hidden work, cost assumptions, or ambiguity between minimum coverage, rescue batches and ceilings.
+4. Does the revised menu and nested evaluation account for E's six atoms, calibration, stopping, seeds and caching? Are the frozen rule, fallback and simplicity metadata preserved correctly?
+5. Can the plan honestly be called comprehensive if the deadline forces omissions? Suggest an executable structure preserving meaningful coverage and a useful fallback without implying it will all fit. No new runtime guesses.
+6. Are any requirements that need Sam's authority being silently changed? Separate blocking method flaws from non-blocking planning improvements. Distinguish claims about measured project results from conjectures about competitors or expected gains.
+
+Give numbered findings, the evidence, proposed corrections, disagreements with your earlier positions, and any issue requiring an explicit owner choice. Do not use VERDICT: APPROVED; you are the consultant.
+
+Codex response to your initial positions, for an evidence-based exchange:
+- Adopted: raw-row feature parity, complete inner-boundary reconstruction, historical reproduction, seed-averaged nominees, contribution against E, and an explicit revised-menu cost reservation.
+- Disagree on initial coverage: two FT-Transformer configurations with one-seed screening and a TabR trigger based on another architecture's 0.820 score repeat the undercoverage concern Sam raised. The draft instead gives full 15-fold initial coverage targets, direct TabR feasibility measurement, and honest incomplete statuses if measured costs cannot fit. Please assess this substantive disagreement without assuming a priori that compute is cheap or too expensive.
+- Do not adopt your central expected AUC/gain estimates or a fixed public-minus-CV translation as predictions. These are not measured for the new mechanisms. Nor are the proposed build-hour estimates validated. The draft separates historical measurements from new pilots.
+- Keep E's ingredients unchanged as the reference. Dropping two LightGBM atoms changes the predictor; any such change would be a new candidate, not a free saving or the same E. Your claimed 0.8 hour saving per pass needs evidence before it could enter a budget.
+- Your old-menu multipliers are useful historical context. Calibration, stopping and retrieval can change nested route cost and cache sharing, so the draft requires an operation graph and smaller-population pilots.
+- Calibrating only SVMs chosen for standalone AUC can miss a complementary weak standalone. The draft evaluates calibrated contribution broadly; please suggest a cheaper complete procedure only if it preserves contribution-based discovery and remains group-safe.
+- An audio-neighbour block is not a substitute that demonstrates TabR coverage. TabR's training query label can also leak indirectly through retrieved target-encoded memory, beyond exact self-row exclusion. The draft explicitly covers that route.
+- The prior P2.5 best blend gain over H is approximately 0.00053 (0.8320068223 minus 0.8314739289), not 0.0007 overall. Do not integrate rounded or speculative quantities as new facts.
+- The draft preserves Sam's authority over any reduced-evidence final selection and large launch. It does not pre-authorize a new candidate B without nested evidence.

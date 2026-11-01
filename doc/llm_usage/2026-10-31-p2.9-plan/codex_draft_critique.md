@@ -1,0 +1,16 @@
+# Codex hard critique of draft v1, 2026-10-31
+
+Primary-agent critique, not independent approval. Written after the initial independent design and before the new Fable response was read.
+
+1. Coverage is substantial, but 274 complete 15-fold configurations plus feature controls, seed confirmation and replay may exceed the calendar. The plan must not represent those counts as a measured runnable schedule. Actual launch admission remains conditional on pilots and Sam's approved large-job budget.
+2. The present engine fits FeaturePipeline before the neural wrapper chooses its stopping split. Merely allowing date blocks there is unsafe. The raw-row adapter and regression tests are prerequisites, not a late cleanup task.
+3. Calibrating precomputed globally encoded margins would repeat the same leak inside another layer. Every calibration fold must rerun the whole recipe. The initial sigmoid solver and regularization should be made exact before review, rather than left to the implementer.
+4. TabR's D arm is not a trivial reuse of the tree features. A training query's target can enter retrieved neighbours through their encodings even if the exact query is excluded from nearest-neighbour retrieval. The prescribed group-held-out query/reference construction must be tested and costed. Unsafe or unfinished feature parity cannot become a negative TabR finding.
+5. Three-seed nomination evaluates the same data again. Neither it nor a new outer partition proves independent generalization after adaptive model discovery. Preserve the caveat in all result templates and final claims.
+6. Neural architecture and representation comparisons need explicit paired IDs. A merely balanced mixture of B and D recipes can still confound hyperparameter differences. Four matched B/D pairs per major architecture are mandatory.
+7. The broad initial batch is an exploration floor, while continuation thresholds are allocation heuristics. Do not turn a noisy 0.0005 threshold into a statistical discovery claim or silently reject a family for a budget omission.
+8. The expanded menu must recursively count E's six atoms. Calibration and neural stopping add lower-level operations. Applying the old 3.2*C_all + 16.2*C_L formula unchanged would under-reserve the revised evaluation.
+9. The existing 0.001 tie band and simplicity rule may choose a smaller candidate with a slightly lower score. Preserve this explicitly rather than quietly using leaderboard score or wall time as a tie-break.
+10. The schedule must protect the already usable E candidate if the new pipeline cannot finish validation. P2.7 cannot certify any new atom, and a reduced-path final selection cannot be adopted without its own method decision.
+11. Model packages and defaults have changed over time. The installed pinned versions are authoritative for implementation. New libraries need a verified lock and cannot silently upgrade the old environment or download benchmark data/weights.
+12. R1 approval applies to final use, not every provisional experiment. R2 applies to consequential method contracts before dependent tuning. Avoid reinstating the old per-task gate for routine implementation or interpreting this planning request as a compute launch.
