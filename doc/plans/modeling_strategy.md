@@ -1,6 +1,6 @@
 # Modeling strategy
 
-Current extension, 2026-10-31: [P2.9: comprehensive development of other methods](phase2-p29-other-methods.md) adds neural, kernel, retrieval and statistical coverage after P2.7, on Sam's instructions. It is provisional until its R2 review. Existing course constraints and historical evidence remain in force.
+Current extension, 2026-10-31: [P2.9: comprehensive development of other methods](phase2-p29-other-methods.md) adds neural, kernel, retrieval and statistical coverage after P2.7, on Sam's instructions. The plan is R2 reviewed at fe9c54a, with no open findings ([review record](../../reviews/2026-10-31-p2.9-other-methods-plan.md)). Existing course constraints and historical evidence remain in force.
 
 v0.1, 2026-10-29. Owner: Sam Zhou. Status: approved in P0.2 after two review rounds (`../../reviews/2026-10-29-p0.2-modeling-strategy.md`) and committed 2026-10-29 (f29267b). Development was paused until Sam's go-ahead (Sam, 2026-10-29: "Okay, don't do development today. Yet. Just finish the plan and then pause.") and started the same day (phase 1, `phase1-data-baseline.md`). Phase 1 complete 2026-10-29. Amended in P2.0 with the phase 2 plan (`phase2-models-features.md` section 12; History), approved after two review rounds and committed (3e24fe6, df11816). Amended again in P2.0b on Sam's refinements (`phase2-models-features.md` section 14; History), approved in one review round and committed (ee557e2, 281a014). Amended in P2.8 (`phase2-models-features.md` section 16; History), in review.
 

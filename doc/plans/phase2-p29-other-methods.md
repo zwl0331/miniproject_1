@@ -1,6 +1,6 @@
 # P2.9: comprehensive development of other methods
 
-Version 1.2, 2026-10-31. Owner: Sam Zhou. Author: Codex. Status: R2 round 2 approved at abb6863; version 1.2 accounting clarifications await recheck by Claude Fable 5.1 at xhigh. This is a plan, not a training launch or a claim of improved performance.
+Version 1.2, 2026-10-31. Owner: Sam Zhou. Author: Codex. Status: reviewed, R2 APPROVED at fe9c54a, round 3, by Claude Fable 5.1 at xhigh. [Review record](../../reviews/2026-10-31-p2.9-other-methods-plan.md). This is a plan, not a training launch or a claim of improved performance.
 
 ## 1. Scope and authority
 

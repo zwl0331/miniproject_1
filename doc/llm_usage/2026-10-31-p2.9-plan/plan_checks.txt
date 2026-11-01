@@ -28,3 +28,10 @@ Section 8 explicitly names the fresh final-policy [0,1,2] run and deterministic 
 The 24 feature comparisons plus missing matched controls are outside family floors and ceilings; extra combinations use the applicable refinement ceiling.
 Initial 274 and ceiling 694 counts unchanged. No training or implementation change.
 Plan sha256 for R2 round 3 submission (v1.2): 43695aff3c480ada1669bfd20912d5d9229744b355854e4cd8f78ded16cdbdcb
+
+Final delivery checks:
+Substantive plan exactly matches reviewed fe9c54a; only line 3 status/link changed.
+STATE.md: 74 lines; git diff --check passed.
+All F1 to F11 resolved by reviewer; round 3 VERDICT: APPROVED.
+Final plan sha256 (review-status header updated): b529eb574200907d7b2c8a7fde0aea4d26e9b7425eb1fbb53fce13099b57b73e
+No training, source, data, package or submission changes.

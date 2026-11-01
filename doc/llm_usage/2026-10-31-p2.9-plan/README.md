@@ -1,6 +1,6 @@
 # P2.9 comprehensive-plan consultation
 
-Date: 2026-10-31. Primary developer: Codex. Consultant and eventual independent reviewer: Claude Fable 5.1 at xhigh, with the model and effort passed explicitly. Status: two deep consultation rounds complete; formal R2 review pending. The first run used 48 turns and about 10.3 minutes; its response metadata identifies claude-fable-5-1. The second continued the same consultation thread; the formal reviewer will start fresh.
+Date: 2026-10-31. Primary developer: Codex. Consultant and eventual independent reviewer: Claude Fable 5.1 at xhigh, with the model and effort passed explicitly. Status: two deep consultation rounds complete; independent R2 review APPROVED at fe9c54a, round 3, with all 11 findings resolved. [Review record](../../../reviews/2026-10-31-p2.9-other-methods-plan.md). The first run used 48 turns and about 10.3 minutes; its response metadata identifies claude-fable-5-1. The second continued the same consultation thread; the formal reviewer started a separate fresh review thread and continued that review thread for two rechecks.
 
 Owner requests, verbatim:
 
@@ -26,7 +26,7 @@ This turn writes and reviews a plan. It launches no model training, installs no 
 | plan_checks.txt | Count, status and document consistency checks |
 | environment_inventory.txt | Read-only package inventory; no installation |
 
-The actual plan is ../../plans/phase2-p29-other-methods.md. Earlier handoffs are advisory inputs, not formal approval. The formal reviewer will be a fresh run that has not participated in this consultation. Its request/verdict belong under ../../../reviews/.
+The actual plan is ../../plans/phase2-p29-other-methods.md. Earlier handoffs are advisory inputs, not formal approval. The formal reviewer was a fresh run that had not participated in this consultation. Its requests and verdicts are in the linked review record.
 
 Sources were checked through the web tool against the authors' repositories and official scikit-learn documentation. Only general methods and implementation references were read. No external dataset, weights, Spotify lookup or competitor notebook was accessed. Technical links appear beside their purposes in the plan's source list. Public-source performance statements are not used to predict this project's score.
 
