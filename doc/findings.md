@@ -1010,3 +1010,33 @@ Review status:
 Downstream use:
 
 Phase 3's selection evidence: the honest estimate of the frozen rule's procedure and of its margin over the anchor; the deployment of the production selection by fold averaging, with no fallback and no refit file; the report's validation and selection sections. A revised menu from P2.9 needs its own nested evaluation before this conclusion is extended to it.
+
+## Finding 031: Linux GPU-node readiness and historical portability
+
+Question:
+
+Can the reviewed P2.9 implementation start on the GPU node with preserved package versions, reproducible local execution and an honest comparison to the historical Mac results?
+
+Current conclusion:
+
+- The allocation is A100 MIG 2g.20gb, a 32-core-equivalent cgroup CPU quota, and 45 GiB RAM. Python 3.12.16 and 85 distributions were installed from an audited Linux wheel lock. All historical version constraints that apply to the installed set are preserved. The exact before/after inventory check and pip check pass. The generated environment exceeded the shared storage quota and was moved to node-local scratch, with .venv as a symlink. A node loss requires rebuilding it.
+- The foundation suite passes 19 of 19 checks. Six synthetic CUDA probes (scalar, PLE and periodic TabM; MLP; ResNet; FT-Transformer) give byte-identical weights, losses and predictions in two fresh processes. This confirms those installed APIs and tiny deterministic computations, not full-adapter correctness, family coverage, speedup or model quality.
+- H and E's six historical tree atoms were each refitted over all 15 saved folds twice, with four independent workers and four threads per worker. Every node prediction and fold-AUC array is byte-identical between fresh runs. H and the three LightGBM atoms agree with their Mac arrays within 1e-12. XGBoost, CatBoost and Extra Trees do not: maximum differences across stored arrays are 0.160356, 0.0958362 and 0.0327778 respectively. The exact unrounded values and array-specific errors are in the receipts.
+- The unchanged E procedure reconstructed from node atoms has diagnostic mean fold AUC 0.8408963553682736 against the historical 0.8410616054303375, a difference of -0.00016525006206391524. The maximum OOF probability difference is 0.04011682693777918; the maximum final-test mean difference is 0.0065578632039640095. This is a platform comparison of a fixed procedure, not a new selection or a submitted candidate. The historical bank and submission files are unchanged.
+- A separate first-fold historical TabM B refit has maximum validation/test probability differences 0.009554322387635206 / 0.011391424825494434. Its platform-independent TabM receipts match, including preprocessing digests, seeds, row hashes, update counts and chosen epoch 67. Only the loss trajectory and Torch runtime string differ. Distribution version is 2.14.1 on both platforms; this node's runtime is 2.14.1+cu130. Different numerical kernels are a plausible explanation, not a traced cause. No claim of historical TabM reproduction is made.
+
+Evidence:
+
+`../analysis/p29_environment.py`, `p29_node_probe.py`, `p29_references.py`, `p29_portability.py`, `p29_replay.py`, `p29_compare_migration.py`; the exact lock and historical reference manifest under `../configs/phase2/p2.9/`; inventories, logs, source/license audit, probes and consultation under `llm_usage/2026-11-01-p29a-node/`; both full tree replays and the comparison at `../artifacts/phase2/p29/portability/`, `portability_repeat/` and `migration_comparison.json`. The replay diagnostics have their own paths and do not register or overwrite production banks.
+
+Uncertainty:
+
+The full phase-two suite is still in progress at this initial record. The declared-four-thread first-fold CPU repeats passed in two fresh processes with identical prediction hashes and full node receipts for H and TabM B; this does not certify a full old/new-adapter gate. No new raw-row adapter, ordered executable family manifest, full-size/nested-size cost pilot or new search result exists. The smoke probes do not test unknown categories, all shapes, stopping, retrieved memory, every initialization or CPU/GPU equality. The historical P2.7 evaluation does not certify different node predictions. No compute speedup or total P2.9 duration is inferred.
+
+Review status:
+
+`draft`, 2026-11-01. Version 1.3 of the P2.9 plan proposes an explicit R2 amendment: hard old/new adapter equivalence on the same node; separately reported cross-platform portability; compatible fresh final-source node E for new contribution comparisons. Formal review is independent of the completed Fable consultation.
+
+Downstream use:
+
+The measured migration facts justify the portability amendment and package/device contracts. Historical Mac runs that fail portability cannot be counted as P2.9 scientific controls. New method scoring waits for R2 and complete adapter correctness gates. Final selection and any submission still require R1, and the measured large-job proposal still needs Sam's approval.

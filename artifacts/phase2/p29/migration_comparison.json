@@ -1,0 +1,189 @@
+{
+  "E": {
+    "historical_mean_fold_auc": 0.8410616054303375,
+    "max_oof_probability_difference": 0.04011682693777918,
+    "mean_fold_auc_difference": -0.00016525006206391524,
+    "node_diagnostic_fold_auc": [
+      [
+        0.8427941165639201,
+        0.8483731067277211,
+        0.8574285253023364,
+        0.8388480392156863,
+        0.8242941176470587
+      ],
+      [
+        0.8257212512244883,
+        0.8353697017729247,
+        0.8380408301044968,
+        0.8496176470588237,
+        0.8592043853469531
+      ],
+      [
+        0.8367103431513359,
+        0.832720588235294,
+        0.8503984677703417,
+        0.8424437888928026,
+        0.8314804215099214
+      ]
+    ],
+    "node_diagnostic_mean_fold_auc": 0.8408963553682736,
+    "node_diagnostic_repeat_means": [
+      0.8423475810913444,
+      0.8415907631015372,
+      0.838750721911939
+    ]
+  },
+  "all_node_repeats_byte_equal": true,
+  "atoms": [
+    {
+      "family": "lightgbm",
+      "first_sha256": "f6404e6fa1f6a2a2ea708c7a07f5e3588bec4fe833c6947d22c81610d5c9f06a",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 5.551115123125783e-17,
+        "test_by_fold": 1.1102230246251565e-16,
+        "test_mean": 0.0
+      },
+      "historical_mean_fold_auc": 0.8314739289455241,
+      "node_mean_fold_auc": 0.8314739289455241,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "f6404e6fa1f6a2a2ea708c7a07f5e3588bec4fe833c6947d22c81610d5c9f06a",
+      "run_id": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4"
+    },
+    {
+      "family": "lightgbm",
+      "first_sha256": "efc1188fd649322de3abe8d14b15cf9d621e6ac56c5b9bb9489f62b01b70fb63",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 1.1102230246251565e-16,
+        "test_by_fold": 1.1102230246251565e-16,
+        "test_mean": 0.0
+      },
+      "historical_mean_fold_auc": 0.836588454972697,
+      "node_mean_fold_auc": 0.836588454972697,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "efc1188fd649322de3abe8d14b15cf9d621e6ac56c5b9bb9489f62b01b70fb63",
+      "run_id": "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5"
+    },
+    {
+      "family": "lightgbm",
+      "first_sha256": "a1546983fb55577d758e8c24a55b5419eb4795409bdb5c4a1a2f62ab54cd5636",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 1.1102230246251565e-16,
+        "test_by_fold": 5.551115123125783e-17,
+        "test_mean": 0.0
+      },
+      "historical_mean_fold_auc": 0.8364413023890719,
+      "node_mean_fold_auc": 0.8364413023890719,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "a1546983fb55577d758e8c24a55b5419eb4795409bdb5c4a1a2f62ab54cd5636",
+      "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221"
+    },
+    {
+      "family": "lightgbm",
+      "first_sha256": "3c81e670cf52b9e77ae6bc31fd7c587cb3775ec258b36595d0b26f67d0399490",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 1.1102230246251565e-16,
+        "test_by_fold": 2.220446049250313e-16,
+        "test_mean": 1.1102230246251565e-16
+      },
+      "historical_mean_fold_auc": 0.8361880002782944,
+      "node_mean_fold_auc": 0.8361880002782944,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "3c81e670cf52b9e77ae6bc31fd7c587cb3775ec258b36595d0b26f67d0399490",
+      "run_id": "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d"
+    },
+    {
+      "family": "xgboost",
+      "first_sha256": "09c5febb88ad48375c3d105bce4bcb5371601968e751308b899b0e8748debb0b",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0023970588235293633,
+        "oof": 0.16035618384679162,
+        "test_by_fold": 0.15870918830235792,
+        "test_mean": 0.023727926777468766
+      },
+      "historical_mean_fold_auc": 0.8325210479374078,
+      "node_mean_fold_auc": 0.832290243931499,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "09c5febb88ad48375c3d105bce4bcb5371601968e751308b899b0e8748debb0b",
+      "run_id": "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023"
+    },
+    {
+      "family": "catboost",
+      "first_sha256": "c478c6b2f46ac1cb4b6eadbcb5360a0ffd12318faced3c00558854932d17f94a",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.00393382352941174,
+        "oof": 0.07154940999139142,
+        "test_by_fold": 0.09583624399172913,
+        "test_mean": 0.013606657503264119
+      },
+      "historical_mean_fold_auc": 0.8320583352107739,
+      "node_mean_fold_auc": 0.8322287900792006,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "c478c6b2f46ac1cb4b6eadbcb5360a0ffd12318faced3c00558854932d17f94a",
+      "run_id": "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3"
+    },
+    {
+      "family": "extra_trees",
+      "first_sha256": "6956b7693b4c667f42ed0a6b16bb8feb60f3a41bcf3ed09c2901184ea0294f1d",
+      "historical_max_absolute_error": {
+        "fold_auc": 0.0014448529411764666,
+        "oof": 0.03277777777777757,
+        "test_by_fold": 0.029277777777777736,
+        "test_mean": 0.005918518518518712
+      },
+      "historical_mean_fold_auc": 0.8291305995652859,
+      "node_mean_fold_auc": 0.8287694670766274,
+      "node_repeat_byte_equal": true,
+      "node_repeat_max_absolute_error": {
+        "fold_auc": 0.0,
+        "oof": 0.0,
+        "test_by_fold": 0.0,
+        "test_mean": 0.0
+      },
+      "repeat_sha256": "6956b7693b4c667f42ed0a6b16bb8feb60f3a41bcf3ed09c2901184ea0294f1d",
+      "run_id": "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4"
+    }
+  ],
+  "schema": "p29_migration_comparison_v1",
+  "scope": "same unchanged historical recipes; migration diagnostic, not new candidate selection",
+  "script_sha256": "befe402c3ba55b79db071aa79270f988ef37f8fdc824e2b3c103900e7c3bca26"
+}

@@ -1,0 +1,1283 @@
+{
+  "catboost": {
+    "license": "Apache License, Version 2.0",
+    "license_classifiers": [],
+    "license_expression": null,
+    "license_files": {
+      "../../../share/jupyter/labextensions/catboost-widget/static/543.e8dd5ef129981f7df1b4.js.LICENSE.txt": {
+        "first_nonempty_lines": [
+          "/**",
+          "* @license",
+          "* Lodash <https://lodash.com/>"
+        ],
+        "sha256": "d33efbdf4d309bfa4448199551371ff81d5f57661b781faf79d256554e038595"
+      },
+      "../../../share/jupyter/labextensions/catboost-widget/static/692.400b4d789438c01ed84d.js.LICENSE.txt": {
+        "first_nonempty_lines": [
+          "/*!",
+          "* Sizzle CSS Selector Engine v2.3.6",
+          "* https://sizzlejs.com/"
+        ],
+        "sha256": "90df5fb90a66efeeba4a18886bb6c62bdc1389f8ea14d8e1531acd42f160d344"
+      },
+      "../../../share/jupyter/labextensions/catboost-widget/static/708.97a415b7d9904d46a391.js.LICENSE.txt": {
+        "first_nonempty_lines": [
+          "/*",
+          "* @copyright 2016 Sean Connelly (@voidqk), http://syntheti.cc",
+          "* @license MIT"
+        ],
+        "sha256": "99b8afca26f4f995419fd5646383cda95b92d0d5198974937e64935b0abb6c5b"
+      }
+    },
+    "project_urls": [
+      "GitHub, https://github.com/catboost/catboost",
+      "Bug Tracker, https://github.com/catboost/catboost/issues",
+      "Documentation, https://catboost.ai/docs/",
+      "Benchmarks, https://catboost.ai/#benchmark"
+    ],
+    "version": "1.2.10"
+  },
+  "interpret-core": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": null,
+    "license_files": {
+      "interpret/root/bld/lib/interpret-inline.js.LICENSE.txt": {
+        "first_nonempty_lines": [
+          "/*!",
+          "Embeddable Minimum Strictly-Compliant Promises/A+ 1.1.1 Thenable",
+          "Copyright (c) 2013-2014 Ralf S. Engelschall (http://engelschall.com)"
+        ],
+        "sha256": "068cfda95e1c6aa945f43be4ebe564d59fe5cfba4d0f65f8d61cd0c5be94e55d"
+      }
+    },
+    "project_urls": [],
+    "version": "0.7.8"
+  },
+  "lightgbm": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "MIT",
+    "license_files": {
+      "lightgbm-4.7.0.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License (MIT)",
+          "Copyright (c) Microsoft Corporation",
+          "Copyright (c) The LightGBM developers"
+        ],
+        "sha256": "ca70f15d841f7e76c8bbd284d25300cd4ae2ef1035e7e5252b13b73449464305"
+      }
+    },
+    "project_urls": [
+      "homepage, https://github.com/lightgbm-org/LightGBM",
+      "documentation, https://lightgbm.readthedocs.io/en/latest/",
+      "repository, https://github.com/lightgbm-org/LightGBM.git",
+      "changelog, https://github.com/lightgbm-org/LightGBM/releases"
+    ],
+    "version": "4.7.0"
+  },
+  "numpy": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+    "license_files": {
+      "numpy-2.5.4.dist-info/licenses/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2005-2025, NumPy Developers.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "4860083caa0de2ac3292ca98bd074bd8f45d8b32624e37b1e70a240bff61e488"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "zlib License",
+          "------------",
+          "Copyright (C) 2010 - 2019 ridiculous_fish, <libdivide@ridiculousfish.com>"
+        ],
+        "sha256": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING": {
+        "first_nonempty_lines": [
+          "BSD Zero Clause License",
+          "Copyright Contributors to the pythoncapi_compat project.",
+          "Permission to use, copy, modify, and/or distribute this software for any"
+        ],
+        "sha256": "3f2c1ffa76383a55ae0aac01c9737cd70050dff63e1f026694fbe9d662573c98"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/src/highway/LICENSE": {
+        "first_nonempty_lines": [
+          "This project is primarily dual-licensed under your choice of either the Apache",
+          "License 2.0 or the BSD 3-Clause License.",
+          "The following files are licensed under different terms:"
+        ],
+        "sha256": "e340270d4f64384569a91d546acb5b094d69ce47f0c015db77abb74dc6f815af"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2014 Ryan Juckett",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy",
+          "of this software and associated documentation files (the \"Software\"), to"
+        ],
+        "sha256": "f7b14309e5f54e5022b26448eefd419988ada2aec01d3c1162d84a0ea8f21f2c"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2022, Intel. All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "211e7d737d6179a08f791ebb0a99897ce7cd2457410c542876d125576edfe910"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2005-2021, NumPy Developers.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md": {
+        "first_nonempty_lines": [
+          "Copyright (C) 2010-2018 Max-Planck-Society",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without modification,"
+        ],
+        "sha256": "a85ca13fdf90160b64a0698215868c13b74d835ad0a4e2ba44713b8c5058a056"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 1992-2013 The University of Tennessee and The University",
+          "of Tennessee Research Foundation.  All rights",
+          "reserved."
+        ],
+        "sha256": "a14cc25e10d40a3aa705b7de2fb764a6535d8ee9b2db4e1724900585457dfd55"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/ma/LICENSE": {
+        "first_nonempty_lines": [
+          "* Copyright (c) 2006, University of Georgia and Pierre G.F. Gerard-Marchant",
+          "* All rights reserved.",
+          "* Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/LICENSE.md": {
+        "first_nonempty_lines": [
+          "**This software is dual-licensed under the The University of Illinois/NCSA",
+          "Open Source License (NCSA) and The 3-Clause BSD License**",
+          "# NCSA Open Source License"
+        ],
+        "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/distributions/LICENSE.md": {
+        "first_nonempty_lines": [
+          "## NumPy",
+          "Copyright (c) 2005-2017, NumPy Developers.",
+          "All rights reserved."
+        ],
+        "sha256": "469778be8f33d54e1bcaab28c281cc472916d2d273f835e55bc487d30503face"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md": {
+        "first_nonempty_lines": [
+          "# MT19937",
+          "Copyright (c) 2003-2005, Jean-Sebastien Roy (js@jeannot.org)",
+          "The rk_random and rk_seed functions algorithms and the original design of"
+        ],
+        "sha256": "0e111337b25494a773106695f0e799f642b8567aaacca4f116a74a8177179156"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md": {
+        "first_nonempty_lines": [
+          "# PCG64",
+          "## The MIT License",
+          "PCG Random Number Generation for C."
+        ],
+        "sha256": "e7d4f4fb20358f314210a892ae17351e04993813646f697ec387385ca2a36918"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/philox/LICENSE.md": {
+        "first_nonempty_lines": [
+          "# PHILOX",
+          "Copyright 2010-2012, D. E. Shaw Research.",
+          "All rights reserved."
+        ],
+        "sha256": "6f5828a57223d4cc7f8ea505a2623e7b978b242752c1515e355f46ba2cec1800"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md": {
+        "first_nonempty_lines": [
+          "# SFC64",
+          "## The MIT License",
+          "Adapted from a C++ implementation of Chris Doty-Humphrey's SFC PRNG."
+        ],
+        "sha256": "9d4098846018319cd68e228ee6220361787f73bccbf00237a85e4fc9621b998f"
+      },
+      "numpy-2.5.4.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md": {
+        "first_nonempty_lines": [
+          "# SPLITMIX64",
+          "Written in 2015 by Sebastiano Vigna (vigna@acm.org)",
+          "To the extent possible under law, the author has dedicated all copyright"
+        ],
+        "sha256": "268b0ca06759d31ea3ca68dd35f20e877916e927b1c2a835e4592a3c4354b1f9"
+      },
+      "numpy/_core/include/numpy/random/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "zlib License",
+          "------------",
+          "Copyright (C) 2010 - 2019 ridiculous_fish, <libdivide@ridiculousfish.com>"
+        ],
+        "sha256": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec"
+      },
+      "numpy/ma/LICENSE": {
+        "first_nonempty_lines": [
+          "* Copyright (c) 2006, University of Georgia and Pierre G.F. Gerard-Marchant",
+          "* All rights reserved.",
+          "* Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6"
+      },
+      "numpy/random/LICENSE.md": {
+        "first_nonempty_lines": [
+          "**This software is dual-licensed under the The University of Illinois/NCSA",
+          "Open Source License (NCSA) and The 3-Clause BSD License**",
+          "# NCSA Open Source License"
+        ],
+        "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f"
+      }
+    },
+    "project_urls": [
+      "homepage, https://numpy.org",
+      "documentation, https://numpy.org/doc/",
+      "source, https://github.com/numpy/numpy",
+      "download, https://pypi.org/project/numpy/#files",
+      "tracker, https://github.com/numpy/numpy/issues",
+      "release notes, https://numpy.org/doc/stable/release"
+    ],
+    "version": "2.5.4"
+  },
+  "pandas": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "BSD-3-Clause",
+    "license_files": {
+      "pandas-3.1.0.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2008-2011, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team",
+          "All rights reserved."
+        ],
+        "sha256": "9850f6b5bdef7346503065807b878deb8058b976c5c329f4c4d23bf4796ce9ae"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/BOTTLENECK_LICENCE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2010-2019 Keith Goodman",
+          "Copyright (c) 2019 Bottleneck Developers",
+          "All rights reserved."
+        ],
+        "sha256": "053a90e30580f5d9d79817add1567f88b4a3eeb11bcded9ecf74619d17768066"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/DATEUTIL_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2017- Paul Ganssle <paul@ganssle.io>",
+          "Copyright 2017- dateutil contributors (see AUTHORS file)",
+          "Licensed under the Apache License, Version 2.0 (the \"License\");"
+        ],
+        "sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/HAVEN_LICENSE": {
+        "first_nonempty_lines": [
+          "# MIT License",
+          "Copyright (c) 2019 Hadley Wickham; RStudio; and Evan Miller",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "48216b40b3d1b19452923dd6fd74655bf5c0df9d76b51eb0efade7e0b88bfbcc"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/HAVEN_MIT": {
+        "first_nonempty_lines": [
+          "Based on http://opensource.org/licenses/MIT",
+          "This is a template. Complete and ship as file LICENSE the following 2",
+          "lines (only)"
+        ],
+        "sha256": "87217d0a79195441ab615a3abb3ab6777502e57804ea83f973df975a67ebd720"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/KLIB_LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License",
+          "Copyright (c) 2008-     Attractive Chaos <attractor@live.co.uk>",
+          "Permission is hereby granted, free of charge, to any person obtaining"
+        ],
+        "sha256": "7463172c3a23321c1838896eba437f70a6de80ac5a840b2960966c8c5444abf1"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/MUSL_LICENSE": {
+        "first_nonempty_lines": [
+          "musl as a whole is licensed under the following standard MIT license:",
+          "----------------------------------------------------------------------",
+          "Copyright \u00a9 2005-2020 Rich Felker, et al."
+        ],
+        "sha256": "50a343c1ce9e27cd6c58023f13b91d2cd679861fe7fb6bbbbfbec3dcafc3583f"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/NUMPY_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2005-2023, NumPy Developers.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "81d42da02a56b611c35abc83d2241564b46bec3a5b1960b395d55cebca68fb6f"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/PACKAGING_LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "1871330068a18f1f07c3f147a41c008e59f367f217041ca6eb20b0298639a128"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/PSF_LICENSE": {
+        "first_nonempty_lines": [
+          "A. HISTORY OF THE SOFTWARE",
+          "==========================",
+          "Python was created in the early 1990s by Guido van Rossum at Stichting"
+        ],
+        "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/PYPERCLIP_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2014, Al Sweigart",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "eafcd440e3570c6bc7b77dcec15dec398d13bc9b5e897336b221ff81ff19f345"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/PYUPGRADE_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 Anthony Sottile",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy",
+          "of this software and associated documentation files (the \"Software\"), to deal"
+        ],
+        "sha256": "70aedcd6928272bd176e4fdc3384af22ee759d006fb15105d994756e4f2d1b7a"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/SAS7BDAT_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2015-2019 Jared Hobbs",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy of",
+          "this software and associated documentation files (the \"Software\"), to deal in"
+        ],
+        "sha256": "458d5fd4175825440ad32d6bf6af45d1a19d4adb316b557d869c6560b6692e00"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/STATSBASE_JL_LICENSE": {
+        "first_nonempty_lines": [
+          "StatsBase.jl is licensed under the MIT License:",
+          "> Copyright (c) 2012-2016: Dahua Lin, Simon Byrne, Andreas Noack,",
+          "> Douglas Bates, John Myles White, Simon Kornblith, and other contributors."
+        ],
+        "sha256": "f371ccf0fb892a4cd9f2e550c4b8cf4362793d17028dc642ad55c1e01a41dfe1"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/ULTRAJSON_LICENSE": {
+        "first_nonempty_lines": [
+          "Developed by ESN, an Electronic Arts Inc. studio.",
+          "Copyright (c) 2014, Electronic Arts Inc.",
+          "All rights reserved."
+        ],
+        "sha256": "2bfbb5bb8ec66d136ec62d836ddc0c0019d44ef4d9389f1f6cab1c1109d774a2"
+      },
+      "pandas-3.1.0.dist-info/licenses/LICENSES/XSIMD_LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2016, Johan Mabille, Sylvain Corlay, Wolf Vollprecht and Martin Renou",
+          "Copyright (c) 2016, QuantStack",
+          "Copyright (c) 2018, Serge Guelton"
+        ],
+        "sha256": "501352acba62cc54e8e3d293754d606f919c9b425b962193c211f9fa29cd9940"
+      },
+      "pandas-3.1.0.dist-info/licenses/subprojects/fast_float-8.2.10/LICENSE-APACHE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "097a889aa954d04e088b790b10a4014d6189561d0a6013935a73ce3d4ddaaf06"
+      },
+      "pandas-3.1.0.dist-info/licenses/subprojects/fast_float-8.2.10/LICENSE-BOOST": {
+        "first_nonempty_lines": [
+          "Boost Software License - Version 1.0 - August 17th, 2003",
+          "Permission is hereby granted, free of charge, to any person or organization",
+          "obtaining a copy of the software and accompanying documentation covered by"
+        ],
+        "sha256": "8d8291caf1cee26d23acf3eb67c9f9a2d58f1c681b16a4fbe8cbfb9e3c0b5a9b"
+      },
+      "pandas-3.1.0.dist-info/licenses/subprojects/fast_float-8.2.10/LICENSE-MIT": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2021 The fast_float authors",
+          "Permission is hereby granted, free of charge, to any"
+        ],
+        "sha256": "e562f3f974ced7e69dd1db77b820b36bcf8f30377f1aa105723fba449c53c4e6"
+      }
+    },
+    "project_urls": [
+      "homepage, https://pandas.pydata.org",
+      "source, https://github.com/pandas-dev/pandas",
+      "documentation, https://pandas.pydata.org/docs/",
+      "changelog, https://pandas.pydata.org/docs/whatsnew/index.html",
+      "issues, https://github.com/pandas-dev/pandas/issues",
+      "funding, https://opencollective.com/pandas"
+    ],
+    "version": "3.1.0"
+  },
+  "rtdl-num-embeddings": {
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "license_expression": null,
+    "license_files": {
+      "rtdl_num_embeddings-0.0.12.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+      }
+    },
+    "project_urls": [
+      "Code, https://github.com/yandex-research/rtdl-num-embeddings/tree/main/package/README.md",
+      "Documentation, https://github.com/yandex-research/rtdl-num-embeddings/tree/main/package/README.md"
+    ],
+    "version": "0.0.12"
+  },
+  "rtdl-revisiting-models": {
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "license_expression": null,
+    "license_files": {
+      "rtdl_revisiting_models-0.0.2.dist-info/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+      }
+    },
+    "project_urls": [
+      "Code, https://github.com/yandex-research/tabular-dl-revisiting-models/tree/main/package/README.md",
+      "Documentation, https://github.com/yandex-research/tabular-dl-revisiting-models/tree/main/package/README.md"
+    ],
+    "version": "0.0.2"
+  },
+  "scikit-learn": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "BSD-3-Clause",
+    "license_files": {
+      "scikit_learn-1.9.1.dist-info/licenses/COPYING": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2007-2026 The scikit-learn developers.",
+          "All rights reserved."
+        ],
+        "sha256": "8752dfe82d4a768e76ee309b202e7b33906d1ea9004d68cc61564391cc6b1a96"
+      },
+      "sklearn/externals/array_api_compat/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2022 Consortium for Python Data API Standards",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "4ffd978e3fa18d058d98c66771cfea7ed634aaf7023cf9612b8b55eee9a8f0fe"
+      },
+      "sklearn/externals/array_api_extra/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2024 Consortium for Python Data API Standards",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "58494398fe147fdce76a68b2decd4c08ce3a1ea237b6d6785001c15f822c6ed6"
+      }
+    },
+    "project_urls": [
+      "homepage, https://scikit-learn.org",
+      "source, https://github.com/scikit-learn/scikit-learn",
+      "download, https://pypi.org/project/scikit-learn/#files",
+      "tracker, https://github.com/scikit-learn/scikit-learn/issues",
+      "release notes, https://scikit-learn.org/stable/whats_new"
+    ],
+    "version": "1.9.1"
+  },
+  "tabm": {
+    "license": null,
+    "license_classifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "license_expression": null,
+    "license_files": {
+      "tabm-0.0.3.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "24330ebf083bc17c1db833b0109ef6ffc9019449330e9e4ec9797c061185c7a6"
+      }
+    },
+    "project_urls": [
+      "Code, https://github.com/yandex-research/tabm",
+      "Documentation, https://github.com/yandex-research/tabm/tree/main/README.md"
+    ],
+    "version": "0.0.3"
+  },
+  "torch": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT",
+    "license_files": {
+      "torch-2.14.1.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "From PyTorch:",
+          "Copyright (c) 2016-     Facebook, Inc            (Adam Paszke)",
+          "Copyright (c) 2014-     Facebook, Inc            (Soumith Chintala)"
+        ],
+        "sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/FP16/LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License (MIT)",
+          "Copyright (c) 2017 Facebook Inc.",
+          "Copyright (c) 2017 Georgia Institute of Technology"
+        ],
+        "sha256": "17e4f539024be2749ee729d1e2f01d24cef12ece8c9bf18e91a4349be29c80bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/FXdiv/LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License (MIT)",
+          "Copyright (c) 2017 Facebook Inc.",
+          "Copyright (c) 2016-2017 Marat Dukhan"
+        ],
+        "sha256": "7cac00006125b1486a27e4801ed66357236e984c540bd323945ab7b66b078ec3"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/NNPACK/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 Facebook Inc.",
+          "Copyright (c) 2015-2017, Georgia Institute of Technology",
+          "All rights reserved."
+        ],
+        "sha256": "ab09e33621f513ebdd1ef685b324f39c1f6bee9221d15600bafd958322df1231"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/NVTX/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "==============================================================================",
+          "NVTX is under the Apache License v2.0 with LLVM Exceptions:",
+          "=============================================================================="
+        ],
+        "sha256": "abdfd8a6738b27cd1504e091f77b682dbae928339f040b8a6f59a548245991a0"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/NVTX/docs/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "==============================================================================",
+          "NVTX is under the Apache License v2.0 with LLVM Exceptions:",
+          "=============================================================================="
+        ],
+        "sha256": "abdfd8a6738b27cd1504e091f77b682dbae928339f040b8a6f59a548245991a0"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/NVTX/python/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "==============================================================================",
+          "NVTX is under the Apache License v2.0 with LLVM Exceptions:",
+          "=============================================================================="
+        ],
+        "sha256": "abdfd8a6738b27cd1504e091f77b682dbae928339f040b8a6f59a548245991a0"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/NVTX/rust/LICENSE": {
+        "first_nonempty_lines": [
+          "==============================================================================",
+          "nvtx-rs is under the Apache License v2.0 with LLVM Exceptions:",
+          "=============================================================================="
+        ],
+        "sha256": "e165ed77854f47fb208850d23d935a9f0ab8bb4527381466beeb16025e2f6e9e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/VulkanMemoryAllocator/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017-2025 Advanced Micro Devices, Inc. All rights reserved.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy",
+          "of this software and associated documentation files (the \"Software\"), to deal"
+        ],
+        "sha256": "8d70e4cf2a9941f6454da71cd60e38484dd3e34810c824760d550e982af6d97a"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/XNNPACK/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For XNNPACK software",
+          "Copyright (c) Facebook, Inc. and its affiliates. All rights reserved."
+        ],
+        "sha256": "63f519e15726f4c4f830bd958f694c84fecb4e0a4cacc527d2696bb71ef95ada"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/aiter/3rdparty/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/aiter/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright \u00a9 Advanced Micro Devices, Inc. All rights reserved.",
+          "MIT License",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "0baca809927cad448401b252ce3bae12687c2987597ad7088cf3423f872d5bcd"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/benchmark/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cpp-httplib/LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License (MIT)",
+          "Copyright (c) 2017 yhirose",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "4b45cbe16d7b71b89ae6127e26e0d90a029198ca5e958ad8e3d0b8bbed364d8b"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cpuinfo/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2019 Google LLC",
+          "Copyright (c) 2017-2018 Facebook Inc.",
+          "Copyright (C) 2012-2017 Georgia Institute of Technology"
+        ],
+        "sha256": "8e7e60636c3aa0cb03571a1a841ce5697f9551ff92b3c426c2561613d15ade70"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cpuinfo/deps/clog/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (C) 2018 Marat Dukhan",
+          "Copyright (c) 2017-2018 Facebook Inc.",
+          "Copyright (c) 2017 Georgia Institute of Technology"
+        ],
+        "sha256": "68a14c3e79add023eecd83d611e73f05b8bf1d16852efeb7eb4033a96736da9e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cudnn_frontend/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "/*",
+          "* Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.",
+          "*"
+        ],
+        "sha256": "3fc4b473a2c08768a8066bf7e4a58a1185060f3ad674f2ca9e2011bca4adf2ce"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cutlass/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "ad1513ca983da737a6843364ad19e8424a56d860736c2da773b8c5be527e1475"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/cutlass/python/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "00bf1806f664ac1afe4221f5f04b384fb6f1ca6eb33efcb6dccf599eb06d08b9"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For FBGEMM software",
+          "Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved."
+        ],
+        "sha256": "12c2370ec32e78115dcd71ba22cdcb1297320fdc4ade81f798136d42357c58b8"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cpuinfo/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2019 Google LLC",
+          "Copyright (c) 2017-2018 Facebook Inc.",
+          "Copyright (C) 2012-2017 Georgia Institute of Technology"
+        ],
+        "sha256": "8e7e60636c3aa0cb03571a1a841ce5697f9551ff92b3c426c2561613d15ade70"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cpuinfo/deps/clog/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (C) 2018 Marat Dukhan",
+          "Copyright (c) 2017-2018 Facebook Inc.",
+          "Copyright (c) 2017 Georgia Institute of Technology"
+        ],
+        "sha256": "68a14c3e79add023eecd83d611e73f05b8bf1d16852efeb7eb4033a96736da9e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cutlass/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "80a7a18b73d41f64dd9ca881af35938f8de88b18c728703251f4c94d1299884d"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/cutlass/python/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "42fec630f410aa308f70a51a89fadcd19586fa620f9831a32bee528a9a10000e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/external/hipify_torch/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2021-2024, Advanced Micro Devices, Inc. All rights reserved.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "ecf819d55b17c2f091b3ba0934d044368aa0680d8a81374860306aa2b91aa1eb"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/experimental/hstu/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2022, the respective contributors, as shown by the AUTHORS file.",
+          "All rights reserved."
+        ],
+        "sha256": "8c9ccb96c065e706135b6cbad279b721da6156e51f3a5f27c6b3329af9416d73"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/src/quantize_ops/mx/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) Microsoft Corporation.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fbgemm/fbgemm_gpu/test/quantize/mx/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) Microsoft Corporation.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2022, the respective contributors, as shown by the AUTHORS file.",
+          "All rights reserved."
+        ],
+        "sha256": "8c9ccb96c065e706135b6cbad279b721da6156e51f3a5f27c6b3329af9416d73"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/cutlass/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "80a7a18b73d41f64dd9ca881af35938f8de88b18c728703251f4c94d1299884d"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/csrc/cutlass/python/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "42fec630f410aa308f70a51a89fadcd19586fa620f9831a32bee528a9a10000e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/flash_attn/cute/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2022, the respective contributors, as shown by the AUTHORS file.",
+          "All rights reserved."
+        ],
+        "sha256": "8c9ccb96c065e706135b6cbad279b721da6156e51f3a5f27c6b3329af9416d73"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/third_party/aiter/3rdparty/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flash-attention/third_party/aiter/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright \u00a9 Advanced Micro Devices, Inc. All rights reserved.",
+          "MIT License",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "0baca809927cad448401b252ce3bae12687c2987597ad7088cf3423f872d5bcd"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flatbuffers/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flatbuffers/dart/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "edd9b3459bee4c79b549a5ef66d06d12bd144ddb8d08e0b448fb421267f43dd5"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/flatbuffers/swift/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/fmt/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2012 - present, Victor Zverovich and {fmt} contributors",
+          "Permission is hereby granted, free of charge, to any person obtaining",
+          "a copy of this software and associated documentation files (the"
+        ],
+        "sha256": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/gemmlowp/gemmlowp/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/gloo/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For Gloo software",
+          "Copyright (c) 2017-present, Facebook, Inc. All rights reserved."
+        ],
+        "sha256": "2afbc572cf7f60888159bc2ca48ba58f8adec06682ae5de820d61449d1eeea81"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/ideep/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018 Intel Corporation.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy",
+          "of this software and associated documentation files (the \"Software\"), to deal"
+        ],
+        "sha256": "a26add03107a53a605a89711b9b7dbd4f5dd668ae193a912e01a879366a23b0e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "e9fc874fc09801b9acf3411ba72394098473704d832d713404b6c4861a086318"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/third_party/gtest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/ideep/mkl-dnn/third_party/opencl/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/kineto/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For Kineto software",
+          "Copyright (c) Meta Platforms, Inc. and affiliates."
+        ],
+        "sha256": "6f3d59b9103e72e5c977eecf61b261c2e1546a9be2995847e3ee2d31021fd39b"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/dynolog_headers/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) Facebook, Inc. and its affiliates.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/fmt/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2012 - present, Victor Zverovich and {fmt} contributors",
+          "Permission is hereby granted, free of charge, to any person obtaining",
+          "a copy of this software and associated documentation files (the"
+        ],
+        "sha256": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/kineto/libkineto/third_party/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/llvm-openmp/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "macOS wheels comes bundled with libomp.dylib from LLVM project and uses",
+          "pre-built binaries from conda-forge",
+          "=============================================================================="
+        ],
+        "sha256": "68395143f21a9aa29b8232168c71892af5ec4f1ae2529571cd250a71c9e37a03"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mimalloc/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2018-2025 Microsoft Corporation, Daan Leijen",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "82ade5d7d9b029044b5fbbc326207fc47c2d44ee4dd71e8a559c36d728217de9"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/miniz-3.0.2/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2013-2014 RAD Game Tools and Valve Software",
+          "Copyright 2010-2014 Rich Geldreich and Tenacious Software LLC",
+          "All Rights Reserved."
+        ],
+        "sha256": "0115478d567121238cf6cc1c0c361926cf07a49d9e4c9e66da97fac6a01646b3"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For MSLK software",
+          "Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved."
+        ],
+        "sha256": "44519cbe722d7bf092cd7e0fa26558b9e3905b88fca4c0c278e2733a9f6b4cf9"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/external/composable_kernel/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2018-    , Advanced Micro Devices, Inc. (Chao Liu, Jing Zhang)",
+          "Copyright (c) 2019-    , Advanced Micro Devices, Inc. (Letao Qin, Qianfeng Zhang, Liang Huang, Shaojie Wang)",
+          "Copyright (c) 2022-    , Advanced Micro Devices, Inc. (Anthony Chang, Chunyu Lai, Illia Silin, Adam Osewski, Poyen Chen, Jehandad Khan)"
+        ],
+        "sha256": "20f3b83dfda01bd18d285e0edbb9d044be6dde04cdf76a1ec18d9fc7127936bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/external/cutlass/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "80a7a18b73d41f64dd9ca881af35938f8de88b18c728703251f4c94d1299884d"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/external/cutlass/python/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2017 - 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.",
+          "SPDX-License-Identifier: BSD-3-Clause",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "42fec630f410aa308f70a51a89fadcd19586fa620f9831a32bee528a9a10000e"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/external/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/external/hipify_torch/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2021-2024, Advanced Micro Devices, Inc. All rights reserved.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "ecf819d55b17c2f091b3ba0934d044368aa0680d8a81374860306aa2b91aa1eb"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/mslk/mslk/attention/flash_attn/LICENSE": {
+        "first_nonempty_lines": [
+          "BSD 3-Clause License",
+          "Copyright (c) 2022, the respective contributors, as shown by the AUTHORS file.",
+          "All rights reserved."
+        ],
+        "sha256": "8c9ccb96c065e706135b6cbad279b721da6156e51f3a5f27c6b3329af9416d73"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/onnx/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/onnx/third_party/pybind11/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without",
+          "modification, are permitted provided that the following conditions are met:"
+        ],
+        "sha256": "83965b843b98f670d3a85bd041ed4b372c8ec50d7b4a5995a83ac697ba675dcb"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/perfetto/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "9a682a56cffc9524dfa9b0b1c0dca9cb81a19e96d5bd0793aaf02c08a95ee7ca"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008 Google Inc.  All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without",
+          "modification, are permitted provided that the following conditions are"
+        ],
+        "sha256": "6e5e117324afd944dcf67f36cf329843bc1a92229a8cd9bb573d7a83130fea7d"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/benchmark/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googlemock/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googlemock/scripts/generator/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "5e0df8c845c742e76f2f64d2d9ce1b7e74a2422fddbc577ae6a56319083de0bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/googletest/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/protobuf/third_party/utf8_range/LICENSE": {
+        "first_nonempty_lines": [
+          "MIT License",
+          "Copyright (c) 2019 Yibo Cai",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy"
+        ],
+        "sha256": "5a629d2b868081d8af08bbce5d038116f3a0e2e0d4ce9adf4d53f14e76b6b2e0"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/psimd/LICENSE": {
+        "first_nonempty_lines": [
+          "The MIT License (MIT)",
+          "Copyright (c) 2017 Facebook Inc.",
+          "Copyright (c) 2014-2017 Georgia Institute of Technology"
+        ],
+        "sha256": "984ce1e0b8ee89d234e28b960381f240e03a07a8031f35012f9c3256f56964e2"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/pthreadpool/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2019 Google LLC",
+          "Copyright (c) 2017 Facebook Inc.",
+          "Copyright (c) 2015-2017 Georgia Institute of Technology"
+        ],
+        "sha256": "57814a606b4d0fb087d9a534919084b6c11b58a4174cb5a4aef200187780dc3a"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/pybind11/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without",
+          "modification, are permitted provided that the following conditions are met:"
+        ],
+        "sha256": "83965b843b98f670d3a85bd041ed4b372c8ec50d7b4a5995a83ac697ba675dcb"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/python-peachpy/LICENSE.rst": {
+        "first_nonempty_lines": [
+          "==============================",
+          "PeachPy license (2-clause BSD)",
+          "=============================="
+        ],
+        "sha256": "e6d6fdbfc09c9cc1bfc55946ca9690dd9276deeaed2b72ac7fc5c79bde80ff32"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/sleef/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "Boost Software License - Version 1.0 - August 17th, 2003",
+          "Permission is hereby granted, free of charge, to any person or organization",
+          "obtaining a copy of the software and accompanying documentation covered by"
+        ],
+        "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/LICENSE.txt": {
+        "first_nonempty_lines": [
+          "BSD License",
+          "For TensorPipe software",
+          "Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved."
+        ],
+        "sha256": "f4dcef0d1f0520b414d5bfaeed8df02f188e4ec05c0a17bf1c18f25f6cc66245"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googlemock/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googlemock/scripts/generator/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "5e0df8c845c742e76f2f64d2d9ce1b7e74a2422fddbc577ae6a56319083de0bf"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/googletest/googletest/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2008, Google Inc.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/libnop/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright 2017 The Native Object Protocols Authors",
+          "Licensed under the Apache License, Version 2.0 (the \"License\");",
+          "you may not use this file except in compliance with the License."
+        ],
+        "sha256": "876e8f7432440974ee5543a2aa1344370ef1f2f7949ad98a1f3899cf722d5631"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/libuv/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2015-present libuv project contributors.",
+          "Permission is hereby granted, free of charge, to any person obtaining a copy",
+          "of this software and associated documentation files (the \"Software\"), to"
+        ],
+        "sha256": "16de0c32b265cb7d46a6d3bd614f259dd4d693a5e26b3407b04aae8d73041f0c"
+      },
+      "torch-2.14.1.dist-info/licenses/third_party/tensorpipe/third_party/pybind11/LICENSE": {
+        "first_nonempty_lines": [
+          "Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without",
+          "modification, are permitted provided that the following conditions are met:"
+        ],
+        "sha256": "9a37ea54aa3cf12c7f3292799f20822ffd4b9b7142b36a7a9997b28c39264dc9"
+      },
+      "torch/_vendor/packaging/LICENSE": {
+        "first_nonempty_lines": [
+          "This software is made available under the terms of *either* of the licenses",
+          "found in LICENSE.APACHE or LICENSE.BSD. Contributions to this software is made",
+          "under the terms of *both* these licenses."
+        ],
+        "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+      },
+      "torch/_vendor/packaging/LICENSE.APACHE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+      },
+      "torch/_vendor/packaging/LICENSE.BSD": {
+        "first_nonempty_lines": [
+          "Copyright (c) Donald Stufft and individual contributors.",
+          "All rights reserved.",
+          "Redistribution and use in source and binary forms, with or without"
+        ],
+        "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+      },
+      "torch/_vendor/quack/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      }
+    },
+    "project_urls": [
+      "Homepage, https://pytorch.org",
+      "Repository, https://github.com/pytorch/pytorch",
+      "Documentation, https://pytorch.org/docs",
+      "Issue Tracker, https://github.com/pytorch/pytorch/issues",
+      "Forum, https://discuss.pytorch.org"
+    ],
+    "version": "2.14.1"
+  },
+  "xgboost": {
+    "license": null,
+    "license_classifiers": [],
+    "license_expression": "Apache-2.0",
+    "license_files": {
+      "xgboost-3.4.1.dist-info/licenses/LICENSE": {
+        "first_nonempty_lines": [
+          "Apache License",
+          "Version 2.0, January 2004",
+          "http://www.apache.org/licenses/"
+        ],
+        "sha256": "b96f9cead5f4ea4c0a217bd9d879427443a353598fb72694f2d8c4428b53a6af"
+      }
+    },
+    "project_urls": [
+      "documentation, https://xgboost.readthedocs.io/en/stable/",
+      "repository, https://github.com/dmlc/xgboost"
+    ],
+    "version": "3.4.1"
+  }
+}

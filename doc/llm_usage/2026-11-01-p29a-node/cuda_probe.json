@@ -1,0 +1,245 @@
+{
+  "byte_identical": true,
+  "fresh_processes": 2,
+  "ok": true,
+  "runs": [
+    {
+      "api_signatures": {
+        "FTTransformer": "(*, n_cont_features: int, cat_cardinalities: List[int], _is_default: bool = False, **backbone_kwargs) -> None",
+        "MLP": "(*, d_in: int, d_out: Optional[int], n_blocks: int, d_block: int, dropout: float) -> None",
+        "PeriodicEmbeddings": "(n_features: int, d_embedding: int = 24, *, n_frequencies: int = 48, frequency_init_scale: float = 0.01, activation: bool = True, lite: bool) -> None",
+        "PiecewiseLinearEmbeddings": "(bins: list[torch.Tensor], d_embedding: int, *, activation: bool, version: Literal[None, 'A', 'B'] = None) -> None",
+        "ResNet": "(*, d_in: int, d_out: Optional[int], n_blocks: int, d_block: int, d_hidden: Optional[int] = None, d_hidden_multiplier: Optional[float], dropout1: float, dropout2: float) -> None"
+      },
+      "capability": [
+        8,
+        0
+      ],
+      "cuda_runtime": "13.0",
+      "device": "NVIDIA A100 80GB PCIe MIG 2g.20gb",
+      "device_memory_bytes": 20937965568,
+      "policy": {
+        "cublas_workspace_config": ":4096:8",
+        "deterministic_algorithms": true,
+        "fp32_precision": "ieee",
+        "mixed_precision": false,
+        "threads": 4
+      },
+      "probes": {
+        "ft_transformer": {
+          "elapsed_seconds": 0.2880123173817992,
+          "losses": [
+            0.6990749835968018,
+            0.6892538070678711,
+            0.6864745616912842
+          ],
+          "parameters": 9333,
+          "prediction_sha256": "30d71a8121e19ef317b275fea563a00f65324cd2f3179f134bf2747a827f3945",
+          "state_sha256": "a49757ffa4dfd77a059e55747589acf3b034fc9f76f6836464053e026d498b50"
+        },
+        "mlp": {
+          "elapsed_seconds": 0.028691157698631287,
+          "losses": [
+            0.6913526058197021,
+            0.6908853650093079,
+            0.6890773773193359
+          ],
+          "parameters": 5057,
+          "prediction_sha256": "1b73908835392cf928af0f89900e698f79947e1451546e29b49f2fcbfa5321f9",
+          "state_sha256": "9f5c4cdfc999631f9453a541763214efaa64c6fcf43c16db64e25ebdc162ac91"
+        },
+        "resnet": {
+          "elapsed_seconds": 0.044084073044359684,
+          "losses": [
+            0.708069920539856,
+            0.665320873260498,
+            0.6366018056869507
+          ],
+          "parameters": 34433,
+          "prediction_sha256": "17a9ed398125341bf287803ef50ab09fec8edd80bcdef94c96655b8f79188b14",
+          "state_sha256": "36e23513b1ac268641acc98337ff7192603a743d4af9ab28b6eb945f2e28a4fc"
+        },
+        "tabm_periodic": {
+          "elapsed_seconds": 0.038895522244274616,
+          "losses": [
+            0.694506049156189,
+            0.693285346031189,
+            0.693248450756073
+          ],
+          "parameters": 19664,
+          "prediction_sha256": "ce26d729e6a998a78f38592859bdd3e7f43df99e661a1e9ea455e4ac0a2f43b1",
+          "state_sha256": "785dc5281ab614552a04e9820b818538584c00149796d357ba7593b8c1998a03"
+        },
+        "tabm_ple": {
+          "elapsed_seconds": 0.029613184742629528,
+          "losses": [
+            0.6954893469810486,
+            0.6937884092330933,
+            0.692547619342804
+          ],
+          "parameters": 18896,
+          "prediction_sha256": "8fd7c9eda54ea28379f9e470ab500225acef65c53e0cea69f8faf19f88d85908",
+          "state_sha256": "0fba6c945c8f1c8f9997bb8c1762bd88b5c729dcb2e42b71e63a50377fb93255"
+        },
+        "tabm_scalar": {
+          "elapsed_seconds": 1.5471315421164036,
+          "losses": [
+            0.6979537606239319,
+            0.695937991142273,
+            0.6945907473564148
+          ],
+          "parameters": 11216,
+          "prediction_sha256": "81ae5ff68a21536e32fb6e9198d041235de2f4af173716f324031be60ef62b5f",
+          "state_sha256": "c818cba2e107a831b6396a444fd81993de1023076dfb923d12b9ad5b0f76afb3"
+        }
+      },
+      "sources": {
+        "rtdl-num-embeddings": {
+          "license": null,
+          "license_files_sha256": {
+            "rtdl_num_embeddings-0.0.12.dist-info/licenses/LICENSE": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+          },
+          "source_sha256": "48dfc019d447e0cd225deb8b8145b3efa8b42cde9aa314772d6e234753e1cee1",
+          "version": "0.0.12"
+        },
+        "rtdl-revisiting-models": {
+          "license": null,
+          "license_files_sha256": {
+            "rtdl_revisiting_models-0.0.2.dist-info/LICENSE": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+          },
+          "source_sha256": "ca7cef3b44cd54b1aeb51f2cc733bef01fbfe3eff00b5c2bd28ca4b4db6b01b2",
+          "version": "0.0.2"
+        },
+        "tabm": {
+          "license": null,
+          "license_files_sha256": {
+            "tabm-0.0.3.dist-info/licenses/LICENSE": "24330ebf083bc17c1db833b0109ef6ffc9019449330e9e4ec9797c061185c7a6"
+          },
+          "source_sha256": "fc654af6a16bac53d893a8265c79d7af4ebddcb95ad0d600cc6b6bc6b7317ade",
+          "version": "0.0.3"
+        }
+      },
+      "torch": "2.14.1+cu130"
+    },
+    {
+      "api_signatures": {
+        "FTTransformer": "(*, n_cont_features: int, cat_cardinalities: List[int], _is_default: bool = False, **backbone_kwargs) -> None",
+        "MLP": "(*, d_in: int, d_out: Optional[int], n_blocks: int, d_block: int, dropout: float) -> None",
+        "PeriodicEmbeddings": "(n_features: int, d_embedding: int = 24, *, n_frequencies: int = 48, frequency_init_scale: float = 0.01, activation: bool = True, lite: bool) -> None",
+        "PiecewiseLinearEmbeddings": "(bins: list[torch.Tensor], d_embedding: int, *, activation: bool, version: Literal[None, 'A', 'B'] = None) -> None",
+        "ResNet": "(*, d_in: int, d_out: Optional[int], n_blocks: int, d_block: int, d_hidden: Optional[int] = None, d_hidden_multiplier: Optional[float], dropout1: float, dropout2: float) -> None"
+      },
+      "capability": [
+        8,
+        0
+      ],
+      "cuda_runtime": "13.0",
+      "device": "NVIDIA A100 80GB PCIe MIG 2g.20gb",
+      "device_memory_bytes": 20937965568,
+      "policy": {
+        "cublas_workspace_config": ":4096:8",
+        "deterministic_algorithms": true,
+        "fp32_precision": "ieee",
+        "mixed_precision": false,
+        "threads": 4
+      },
+      "probes": {
+        "ft_transformer": {
+          "elapsed_seconds": 0.059816488064825535,
+          "losses": [
+            0.6990749835968018,
+            0.6892538070678711,
+            0.6864745616912842
+          ],
+          "parameters": 9333,
+          "prediction_sha256": "30d71a8121e19ef317b275fea563a00f65324cd2f3179f134bf2747a827f3945",
+          "state_sha256": "a49757ffa4dfd77a059e55747589acf3b034fc9f76f6836464053e026d498b50"
+        },
+        "mlp": {
+          "elapsed_seconds": 0.019742390140891075,
+          "losses": [
+            0.6913526058197021,
+            0.6908853650093079,
+            0.6890773773193359
+          ],
+          "parameters": 5057,
+          "prediction_sha256": "1b73908835392cf928af0f89900e698f79947e1451546e29b49f2fcbfa5321f9",
+          "state_sha256": "9f5c4cdfc999631f9453a541763214efaa64c6fcf43c16db64e25ebdc162ac91"
+        },
+        "resnet": {
+          "elapsed_seconds": 0.037723335437476635,
+          "losses": [
+            0.708069920539856,
+            0.665320873260498,
+            0.6366018056869507
+          ],
+          "parameters": 34433,
+          "prediction_sha256": "17a9ed398125341bf287803ef50ab09fec8edd80bcdef94c96655b8f79188b14",
+          "state_sha256": "36e23513b1ac268641acc98337ff7192603a743d4af9ab28b6eb945f2e28a4fc"
+        },
+        "tabm_periodic": {
+          "elapsed_seconds": 0.04068690538406372,
+          "losses": [
+            0.694506049156189,
+            0.693285346031189,
+            0.693248450756073
+          ],
+          "parameters": 19664,
+          "prediction_sha256": "ce26d729e6a998a78f38592859bdd3e7f43df99e661a1e9ea455e4ac0a2f43b1",
+          "state_sha256": "785dc5281ab614552a04e9820b818538584c00149796d357ba7593b8c1998a03"
+        },
+        "tabm_ple": {
+          "elapsed_seconds": 0.02834577951580286,
+          "losses": [
+            0.6954893469810486,
+            0.6937884092330933,
+            0.692547619342804
+          ],
+          "parameters": 18896,
+          "prediction_sha256": "8fd7c9eda54ea28379f9e470ab500225acef65c53e0cea69f8faf19f88d85908",
+          "state_sha256": "0fba6c945c8f1c8f9997bb8c1762bd88b5c729dcb2e42b71e63a50377fb93255"
+        },
+        "tabm_scalar": {
+          "elapsed_seconds": 0.893475410528481,
+          "losses": [
+            0.6979537606239319,
+            0.695937991142273,
+            0.6945907473564148
+          ],
+          "parameters": 11216,
+          "prediction_sha256": "81ae5ff68a21536e32fb6e9198d041235de2f4af173716f324031be60ef62b5f",
+          "state_sha256": "c818cba2e107a831b6396a444fd81993de1023076dfb923d12b9ad5b0f76afb3"
+        }
+      },
+      "sources": {
+        "rtdl-num-embeddings": {
+          "license": null,
+          "license_files_sha256": {
+            "rtdl_num_embeddings-0.0.12.dist-info/licenses/LICENSE": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+          },
+          "source_sha256": "48dfc019d447e0cd225deb8b8145b3efa8b42cde9aa314772d6e234753e1cee1",
+          "version": "0.0.12"
+        },
+        "rtdl-revisiting-models": {
+          "license": null,
+          "license_files_sha256": {
+            "rtdl_revisiting_models-0.0.2.dist-info/LICENSE": "35381b68041ebc3408e1b76ab24ce5eed1f7ea93afd62d109ffdabf1b0daa324"
+          },
+          "source_sha256": "ca7cef3b44cd54b1aeb51f2cc733bef01fbfe3eff00b5c2bd28ca4b4db6b01b2",
+          "version": "0.0.2"
+        },
+        "tabm": {
+          "license": null,
+          "license_files_sha256": {
+            "tabm-0.0.3.dist-info/licenses/LICENSE": "24330ebf083bc17c1db833b0109ef6ffc9019449330e9e4ec9797c061185c7a6"
+          },
+          "source_sha256": "fc654af6a16bac53d893a8265c79d7af4ebddcb95ad0d600cc6b6bc6b7317ade",
+          "version": "0.0.3"
+        }
+      },
+      "torch": "2.14.1+cu130"
+    }
+  ],
+  "scope": "synthetic architecture/API smoke test only; no data or AUC",
+  "script_sha256": "313b13d88b1737aead86be9a22809efea87277e335bfd1c9239b7d7b457b284f"
+}

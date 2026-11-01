@@ -1,0 +1,657 @@
+{
+  "E": "p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9",
+  "E_members": [
+    {
+      "run_id": "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5",
+      "weight": 0.08333333333333333
+    },
+    {
+      "run_id": "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221",
+      "weight": 0.08333333333333333
+    },
+    {
+      "run_id": "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d",
+      "weight": 0.08333333333333333
+    },
+    {
+      "run_id": "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023",
+      "weight": 0.25
+    },
+    {
+      "run_id": "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3",
+      "weight": 0.25
+    },
+    {
+      "run_id": "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4",
+      "weight": 0.25
+    }
+  ],
+  "E_reconstruction_max_absolute_error": {
+    "oof": 0.0,
+    "test_by_fold": 0.0,
+    "test_mean": 2.220446049250313e-16
+  },
+  "H": "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4",
+  "banks": {
+    "p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9": {
+      "config_sha256": "375767dd7ee968ee8d346b9cb5ecf0b350e4f5f7d8bad2fe55adb9b277f87f86",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8410616054303375,
+      "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+      "sha256": "f7aa58819dc518d2b7093dc331b19ccbfe6b409577fb2b2e52133a2bbb5ab2a2",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4": {
+      "config_sha256": "f9c91d9e98d4106e0ba5fa6289491f7bc5fbcc0588b9c1563b809b95ea401213",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8314739289455241,
+      "path": "artifacts/phase2/bank/p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0
+        ],
+        "family": "lightgbm",
+        "iterations": "fixed",
+        "name": "p26_anchor",
+        "params": {
+          "colsample_bytree": 0.8,
+          "learning_rate": 0.02,
+          "min_child_samples": 20,
+          "n_estimators": 600,
+          "num_leaves": 15,
+          "subsample": 0.8,
+          "subsample_freq": 1
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "08732fab4a5606bf1797465d3186d283e69b1aa90f175ef4d663ef2b9e0b933b",
+      "sha256": "a15575d7f9a4f4fd781352a983d673f3bfc77e2cac2991b4d7c24f2cd0f02864",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3": {
+      "config_sha256": "6fc9d3e21de3d95c67563ba059cd846db4242278ff4b940f0407ecec56198799",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8320583352107739,
+      "path": "artifacts/phase2/bank/p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "music"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "catboost",
+        "iterations": "fixed",
+        "name": "p26_catboost_a9a13819",
+        "params": {
+          "boosting_type": "Plain",
+          "depth": 6,
+          "iterations": 1000,
+          "l2_leaf_reg": 3.0,
+          "learning_rate": 0.0168,
+          "random_strength": 1.0
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "521aff921bc850f607bd69f2afbfbdd53bf633967c1fd17087acee32e9a11d30",
+      "sha256": "2b7575e619673e4c4c8d964306e68f5f27e4d05d52f8125061e42fd0d80f51e5",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": {
+      "config_sha256": "f4735b0f52a45f6e925d8091dca9a39411200a72e687c5e0f33a8cdf179062c5",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8291305995652859,
+      "path": "artifacts/phase2/bank/p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "interactions"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "extra_trees",
+        "iterations": "fixed",
+        "name": "p26_extra_trees_aafa66ea",
+        "params": {
+          "max_features": 1.0,
+          "min_samples_leaf": 2,
+          "n_estimators": 500
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "b17207b0c46ad6bd636eab6eab3862d3951083c1b4c1e9bf600ef383a9455b03",
+      "sha256": "84a39fd7cee5f3d55e9734bee4376516457abbc1ab009fe04a5cd90162ab10fd",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": {
+      "config_sha256": "2a19c00b222152d96ed9e0c6bb1f3ff0b7121b3815131ab3e4d85da94b501045",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8364413023890719,
+      "path": "artifacts/phase2/bank/p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "date_count",
+          "date_te3"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "lightgbm",
+        "iterations": "fixed",
+        "name": "p26_lightgbm_415b649d",
+        "params": {
+          "colsample_bytree": 0.7,
+          "learning_rate": 0.01,
+          "min_child_samples": 10,
+          "n_estimators": 600,
+          "num_leaves": 63,
+          "reg_alpha": 0.0714,
+          "reg_lambda": 1,
+          "subsample": 0.7,
+          "subsample_freq": 1
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "fe7fa5b5448c246a42f32bbe274779b7b7fb37987f6bc66bffedbf7831d33be4",
+      "sha256": "0f0559a7cb3f0c861bb715d023f1b562d7da2ac093cbb7c43a6634e39619c909",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": {
+      "config_sha256": "33118bb1182d3c891b48c8b9184fd78069d81f4799895d1aebecb71ae1e69718",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8361880002782944,
+      "path": "artifacts/phase2/bank/p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "date_count",
+          "date_te3"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "lightgbm",
+        "iterations": "fixed",
+        "name": "p26_lightgbm_6aefed81",
+        "params": {
+          "colsample_bytree": 0.7,
+          "learning_rate": 0.01,
+          "min_child_samples": 10,
+          "n_estimators": 600,
+          "num_leaves": 63,
+          "reg_alpha": 0.0652,
+          "reg_lambda": 0.53,
+          "subsample": 0.7,
+          "subsample_freq": 1
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "309c9be5bf2bbb2c6bab34ecd06a40364a206e5bf88d9ad990076a983b11739f",
+      "sha256": "683e0f86c3ebe926b6bac02d908636cd3ab7e199974a1ef45aa60cefe9a48146",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": {
+      "config_sha256": "312912f99ea5afa53d1a8bef51d4f1c94e18dc00daa4683c2d6cd83fd3d9a78a",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.836588454972697,
+      "path": "artifacts/phase2/bank/p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "date_count",
+          "date_te3"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "lightgbm",
+        "iterations": "fixed",
+        "name": "p26_lightgbm_a8ce5635",
+        "params": {
+          "colsample_bytree": 0.7,
+          "learning_rate": 0.01,
+          "min_child_samples": 10,
+          "n_estimators": 600,
+          "num_leaves": 63,
+          "reg_alpha": 0.0714,
+          "reg_lambda": 0.53,
+          "subsample": 0.7,
+          "subsample_freq": 1
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "65ff62cae6b47f1bdeeba290eebcccafab50fd3bab11710461c56975ed5f6967",
+      "sha256": "88129b048a38349e674cd25386f1eb0ad15c08a08ba9e05ca4ef4fbc422ea82f",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    },
+    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023": {
+      "config_sha256": "b732e23db023b8dcd65d3a9c0910c622d8dbece68e74e2df846e8dd675b3cf83",
+      "data_hashes": {
+        "sample": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+        "test": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+        "train": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+      },
+      "mean_fold_auc": 0.8325210479374078,
+      "path": "artifacts/phase2/bank/p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023.npz",
+      "recipe": {
+        "base": "F2",
+        "blocks": [
+          "date_te3"
+        ],
+        "deployment": "fold_average",
+        "drop": [],
+        "estimator_seeds": [
+          0,
+          1,
+          2
+        ],
+        "family": "xgboost",
+        "iterations": "fixed",
+        "name": "p26_xgboost_3aad74aa",
+        "params": {
+          "colsample_bytree": 0.8,
+          "learning_rate": 0.03,
+          "max_depth": 4,
+          "n_estimators": 1000,
+          "subsample": 0.8
+        },
+        "preprocessing": {
+          "name": "none"
+        },
+        "schema": "recipe_v1",
+        "training_weights": "none"
+      },
+      "recipe_sha256": "c5eda24cebb7886cdaa9425d17520182560404d0531900b9ae911d14aa015d4b",
+      "sha256": "fe81fd9a2bb1615f8f53e70d15d3a46c681c81d67c76ea83cc9ff14114e39a3f",
+      "source_files_differ_from_current": [],
+      "source_manifest": {
+        "files": {
+          "scripts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "scripts/run_experiments.py": "4ed076893ffbf2922ebac29c03ecad845ab9747e45b956bca7044a8724af4fc4",
+          "songpop/__init__.py": "d90b79ae32dc8e25461c1943469ca23e8365be85debe361167e1ae741075567e",
+          "songpop/artifacts.py": "8b434dfe25ffffd06d932cb44e2cdc528c376a7e227b7e70dd22cbcc0313bcb1",
+          "songpop/data.py": "d5c62326c88aeb4cee950037d3cbcfbcab5f82b1edf65e339013f5f32e2f7423",
+          "songpop/evaluate.py": "6f497e7bdd74dff20f090546f6aa241751b7d9f9e94b6b64bf6115fed2bca72e",
+          "songpop/features.py": "d921df191de72d910157af3152254ce847c25fe9cc66893a92ffe002d099ee7f",
+          "songpop/metrics.py": "62a8a0df4f30b1820b3c1dfad08b62f2c925295a0991ca07826bacc852fcac02",
+          "songpop/models.py": "556c57f8422795ca887da613eee0c36dabcb2db345a482e73cab1c8cd231921b",
+          "songpop/phase2/__init__.py": "b9794e4fa224f8b2d2aff16b47b80f17301d6cf553d209ffbe2cb0ad882d6dcc",
+          "songpop/phase2/allocation.py": "cd109d5c1f5e1040e77bee21e861eaeacab3c0616caf8a49551d4d184846a016",
+          "songpop/phase2/banks.py": "98b9c3a08d8400850d4b23896d3224a77e4211812dff50adfe9b1578b3cc0507",
+          "songpop/phase2/batches.py": "a2eba1468b893e7be11ea16a61df8192b79d9128312ac4d426f7d59b78122d79",
+          "songpop/phase2/encoders.py": "70fc493261818edcb58064d7a2085b5eabcfcd87fe26d1c1262e201359a2cfc6",
+          "songpop/phase2/engine.py": "d825c8515ca3b3b9b3c2a8e2955b2998156d1070478c2c61dceb55e5f94fb2bc",
+          "songpop/phase2/ensembles.py": "6d286c5272aacd99faf76cde664769400e0359f9ab7155b72793428608850cd4",
+          "songpop/phase2/feature_stage.py": "419f13d081e252c26bf0c8ecd1817e8b0e765dbbf6cd93a26be2d0ada2842140",
+          "songpop/phase2/features.py": "890cf52ad302b68c369e29c35ee9e8a4feeb7c0c6e160b50f7ab27707ae36633",
+          "songpop/phase2/models.py": "e16020eb0d8ded14d8bd362c7f3031bdb0e187b636f8853bf80dc962cf79d87d",
+          "songpop/phase2/procedures.py": "c1bfdf88b436f900c0b763234ec580cdd4a095409b0fea63aab9ea7862c8008a",
+          "songpop/phase2/protocol.py": "398504adc89bf29f06edb532d76786218460638a8751c15e195dd62fffd3c5ca",
+          "songpop/phase2/recipes.py": "3516121d8295425408da235c5e1accbf7bae37cd34b2c277d02c3b7e1a88fdca",
+          "songpop/phase2/refine.py": "5f5463dfba196be1b693668cd4237a0172a0d6a6c48aca297cc7409e376ef54e",
+          "songpop/phase2/runs.py": "56acafe94f8c738dbb9f6859fdfb1ec2453cba36bd15a50d0489ac6bb085a9f4",
+          "songpop/phase2/searches.py": "bc8a1b487f0fd7df81b295c847339352de97967e3286fa9df497dfecc58586cb",
+          "songpop/phase2/tabm.py": "1a5a7e94a7d58a2659f98db9cfa930f7fc64d033fb495bc92cbbe7e75ed68e4e",
+          "songpop/splits.py": "4004df70ecad7611fc3994963d39a17deed6c8b0c35a2dec1b590a8cee9d8b35"
+        },
+        "manifest_sha256": "89ee9d3b1c629a7a1c2f8c3909d4feab419ebcbf4c24a5c099d88ea724faf00e"
+      },
+      "split_seeds": [
+        155,
+        2026,
+        1029
+      ]
+    }
+  },
+  "input_sha256": {
+    "artifacts/phase2/p27/decision.json": "090051fc1ea520dda35f01aec1ffbe38409ee61051653d0f55f5d5d8ebe85ab6",
+    "artifacts/phase2/p27/verification.json": "d3dc8c7594d4a504858cea48066a6b6a189fc13781c57c5e9a1e41d169780be7",
+    "artifacts/phase2/splits/nested_outer_v1.csv": "376fe54e20a4b1a0d6746e2a395c53740a068685b31a30724cf999d2f2088a36",
+    "artifacts/splits/production_v1.csv": "b2cba98d49b27c7c57e18cb211c3cd4a2a96509a58203a6214a51f2eb22939ee",
+    "configs/phase2/menu.json": "6a6ea04af63dc85c5dd256549072c4b15655c7b4715630571f0ae2387ea76298",
+    "configs/phase2/p2.6/procedures.json": "be4fd6c698c1a6bfbf0efe40ff67f9c8e666b1a3f2673886a52bf4d4a6c16868",
+    "data/sample_submission.csv": "35afd1abf23cb89279d1e10ef4d12d27b86d4406ae9b56984c1725b674835ca8",
+    "data/test.csv": "70f1502ccae76396b45961a0e0c9f96c5ba213d5b99a101015c32ddc65d020e3",
+    "data/train.csv": "d14b372deff47aa791242875ac5c134ce2497695bb190479b159b8ec49d68407"
+  },
+  "schema": "p29_references_v1",
+  "scope": "historical artifacts validated and hashed; no node refit or new performance claim"
+}

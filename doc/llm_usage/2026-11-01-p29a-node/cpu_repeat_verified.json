@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "H": {
+      "node_receipt": true,
+      "packages": true,
+      "prediction_sha256": true,
+      "test_prediction_sha256": true
+    },
+    "TabM_B": {
+      "node_receipt": true,
+      "packages": true,
+      "prediction_sha256": true,
+      "test_prediction_sha256": true
+    }
+  },
+  "ok": true,
+  "scope": "first production fold only; old CPU adapter on the node, no new adapter gate",
+  "source_sha256": {
+    "doc/llm_usage/2026-11-01-p29a-node/portability_cpu4_a.json": "436af20916fbe040fd541b1755314e1bece4ea425393a65bff5e7211041916d4",
+    "doc/llm_usage/2026-11-01-p29a-node/portability_cpu4_b.json": "ab70b7d3aefa96b3e150fc941d95a194a5f5b95fc0347734652792c06cfae9c5"
+  }
+}

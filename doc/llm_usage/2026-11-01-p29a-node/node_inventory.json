@@ -1,0 +1,43 @@
+{
+  "at_utc": "2026-11-01T02:19:56.909351+00:00",
+  "platform": "Linux-5.14.0-721.el9.x86_64-x86_64-with-glibc2.34",
+  "bootstrap_python": "3.11.17",
+  "cpu_affinity_count": 127,
+  "cgroup": {
+    "cpu.max": "3200000 100000",
+    "memory.max": "48318382080",
+    "memory.current": "4798922752"
+  },
+  "commands": {
+    "python3": "/opt/pixi/.pixi/envs/default/bin/python3",
+    "python3.12": null,
+    "uv": null,
+    "conda": "/opt/pixi/.pixi/envs/default/bin/conda",
+    "mamba": "/opt/pixi/.pixi/envs/default/bin/mamba",
+    "claude": "/home/wzhou2/.npm-global/bin/claude",
+    "nvidia-smi": "/usr/bin/nvidia-smi"
+  },
+  "system_packages": {
+    "pip": "26.2.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "lightgbm": null,
+    "xgboost": null,
+    "torch": "2.12.0",
+    "tabm": null,
+    "rtdl-num-embeddings": null,
+    "scipy": "1.17.1"
+  },
+  "project_python_exists": false,
+  "resource_environment": {
+    "CUDA_VISIBLE_DEVICES": null,
+    "NVIDIA_VISIBLE_DEVICES": "MIG-0f37c6cb-6276-5f1d-b8e5-16a477eb4627",
+    "SLURM_JOB_ID": null,
+    "SLURM_CPUS_PER_TASK": null,
+    "SLURM_JOB_END_TIME": null,
+    "OMP_NUM_THREADS": "2"
+  },
+  "nvidia_smi": "Sun Nov  1 02:19:56 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.104.02             Driver Version: 595.104.02     CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA A100 80GB PCIe          On  |   00000000:05:00.0 Off |                   On |\n| N/A   33C    P0             82W /  300W |                  N/A   |     N/A      Default |\n|                                         |                        |              Enabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| MIG devices:                                                                            |\n+------------------+----------------------------------+-----------+-----------------------+\n| GPU  GI  CI  MIG |              Shared Memory-Usage |        Vol|        Shared         |\n|      ID  ID  Dev |                Shared BAR1-Usage | SM     Unc| CE ENC  DEC  OFA  JPG |\n|                  |                                  |        ECC|                       |\n|==================+==================================+===========+=======================|\n|  0    5   0   0  |              57MiB / 19968MiB    | 28      0 |  2   0    1    0    0 |\n|                  |               0MiB / 12304MiB    |           |                       |\n+------------------+----------------------------------+-----------+-----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+  "gpu_devices": "GPU 0: NVIDIA A100 80GB PCIe (UUID: GPU-d6f7ae73-d142-a9ab-0eac-31ba37d15204)\n  MIG 2g.20gb     Device  0: (UUID: MIG-0f37c6cb-6276-5f1d-b8e5-16a477eb4627)\n"
+}

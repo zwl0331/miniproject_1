@@ -1,0 +1,22 @@
+{
+  "E_maximum_absolute_error": {
+    "oof": 0.04011682693777918,
+    "test_by_fold": 0.04007185018801884,
+    "test_mean": 0.0065578632039640095
+  },
+  "all_atoms_within_1e_12": false,
+  "atom_count": 7,
+  "records": {
+    "p2_p26_anchor_seeds155-2026-1029_f9c91d9e98d4": "aff3f37eaa652474044a1510edaad08bb93bbd7d79f2c090e2e83bf1995b0b1c",
+    "p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3": "7c32cc7eea45ed7eb817729652c029b04209744616da248eca0cdd425a9f274b",
+    "p2_p26_extra_trees_aafa66ea_seeds155-2026-1029_f4735b0f52a4": "bb7591a332e83044e3729008c6bd69b238384bb4b838e1175e39fb37c3af3132",
+    "p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221": "bcaccc61580a6b95abbbdd58fca94f66a90101aac360e221219f6dd6f08e3caf",
+    "p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d": "33fb1fac22a2d6ea982844d9b9f6b583f21138515e1351760173ac5113dc81ba",
+    "p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5": "64198791b8904a0422803ca9483f806a14ff34b98545992b4c7a8b09f26e7754",
+    "p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023": "9a5795bde1bc8087d27e7f6ff1107d0ef40d82e5dbca6c661872360c4b8ac5a4"
+  },
+  "schema": "p29_tree_portability_v1",
+  "scope": "historical tree recipes only; no candidate selection",
+  "threads_per_worker": 4,
+  "workers": 4
+}

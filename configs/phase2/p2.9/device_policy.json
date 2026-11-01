@@ -1,0 +1,44 @@
+{
+  "schema": "p29_device_policy_v1",
+  "status": "proposed_for_R2_before_scoring",
+  "policy_id": "linux_ieee_deterministic_v1",
+  "python": "3.12.16",
+  "lock": "configs/phase2/p2.9/install/linux-cuda.txt",
+  "torch_distribution": "2.14.1",
+  "torch_runtime": "2.14.1+cu130",
+  "threads_per_cpu_fit": 4,
+  "worker_environment": {
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "VECLIB_MAXIMUM_THREADS": "4",
+    "PYTHONHASHSEED": "0",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "cuda": {
+    "deterministic_algorithms": true,
+    "warn_only": false,
+    "fp32_precision": "ieee",
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "mixed_precision": false,
+    "compile": false,
+    "optimizer_foreach": false,
+    "optimizer_fused": false,
+    "prediction_batch_rows": 256,
+    "prediction_padding": "zeros_then_discard",
+    "batch_permutation_generator": "cpu_context_seeded",
+    "stopping_and_probability_arithmetic": "cpu_float64",
+    "same_route_replay": "byte_identical_states_receipts_and_predictions"
+  },
+  "same_node_old_new_cpu_adapter_tolerance": 1e-12,
+  "historical_cross_platform_comparison_tolerance": 1e-12,
+  "historical_mismatch_policy": "report_non_reproduction_and_exclude_old_scientific_controls",
+  "initial_concurrency": {
+    "gpu_fit_workers": 1,
+    "cpu_fit_workers": 4,
+    "larger_concurrency_requires_measured_load_and_repeatability_check": true
+  },
+  "hardware_serials_in_recipe_identity": false,
+  "hardware_and_build_information_required_in_receipts": true
+}

@@ -1,0 +1,128 @@
+I have everything I need from the repository; no further reads are required. Below is the consultation. Nothing was written, installed, run or delegated, and nothing here is approval.
+
+## What the audit found
+
+**Headline.** The plan is implementable on the existing engine with one dispatch point and one new module, and the old/new adapter gate on arm B should pass bitwise, not merely within 1e-12. The real risks are identity traps in the metadata machinery and an environment decision that Codex's new lock script has already half made by side effect.
+
+**Fit boundary, confirmed.** `fit_recipe` in `songpop/phase2/engine.py:67` fits the whole `FeaturePipeline` on D before the estimator sees anything. TabM's inner split then happens on that encoded matrix in `fit_state` at `songpop/phase2/tabm.py:237`. That is exactly why `validate_recipe` refuses stateful blocks for TabM. Every other consumer, including `atomic_cv`, `refit_predict` and the nested evaluator, reaches a fit only through `fit_recipe`, so one dispatch there puts the new boundary inside calibration, meta and nested populations for free.
+
+**Why arm B equivalence is exact.** Base columns and the stateless blocks are pure functions of the raw rows. The inner split in `inner_split` depends only on labels, groups and the context seed. So a raw-row adapter that splits first and fits the legacy `TabMPreprocessor` on S reproduces the legacy matrices byte for byte, and `train` is then called with identical arguments. Expect bitwise agreement; treat any difference as a bug.
+
+**Identity traps in the current code.** These decide what Codex may touch.
+
+| Trap | Where | Consequence | Rule |
+|---|---|---|---|
+| Recipe keys are exact | `recipes.py:38` requires `sorted(recipe) == sorted(KEYS)`; `canonical` drops only the name | Adding any key changes every historical recipe hash, E's channel checks and cache keys | Never extend `recipe_v1`; add `recipe_v2` with its own validator branch |
+| Requirements hash is in the run identity | `runs.py:95` records `requirements_sha256` in `fitted_config` | Editing `requirements.txt` changes every new run id and makes `compare_v2` report `metadata:config` for old banks | Do not edit `requirements.txt`; put Linux locks under `configs/phase2/install/linux-x86_64/` |
+| Source manifest covers every loaded module | `banks.source_manifest` hashes all project `.py` files in `sys.modules` | Any edit to a legacy module makes `verify_run` of old banks raise `SourceMismatch` and name the replay commit | Node replay of historical banks must happen before the first source edit |
+| Package versions are compared exactly | `runs.check_sources` compares `python` and `packages` to the recorded ones | A `+cpu` torch or a different joblib version blocks every historical verify attempt | Pin the eight recorded distributions and Python 3.12.16 exactly |
+
+**Environment facts from the files.** `node_inventory.json` shows the project interpreter absent at 02:19 UTC, while `python_install.json` records a later mamba transaction creating `.venv` as a conda-forge Python 3.12.16 prefix. Verify which state holds now. The Mac interpreter was also 3.12.16, so Python equality can hold. The node exports `OMP_NUM_THREADS=2` globally; the P2.7 measurement on the Mac recorded ten OpenMP threads and no thread variables. Codex's `analysis/p29_environment.py:58` accepts wheels only from `files.pythonhosted.org`. For Linux that excludes the CPU-only torch index and leaves the PyPI build, which for recent torch releases is the CUDA-enabled wheel with its nvidia dependencies. That is a defensible choice, but it must be declared, not inherited. `analysis/p29_node_probe.py` is empty and should not be committed as is.
+
+**What I could not check.** The installed `tabm` and `rtdl_num_embeddings` APIs are not present on this node, so every API-dependent statement below is marked to verify. Wheel availability for the pins on Linux is unverified until the dry-run report exists.
+
+## Positions by priority item
+
+**1. Minimal raw-row adapter boundary.**
+
+- **One dispatch line.** At the top of `fit_recipe`, before `FeaturePipeline(recipe)` is built: if the recipe is `recipe_v2` with a `fit_policy`, return `make_adapter(recipe).fit(rows, y, groups, ctx)`. The adapter satisfies the interface `run_recipe_cv` already uses: `features` with `columns_`, `lineage_`, `receipts_`; `receipt`; `family`; `model_inputs`; `predict_each`; `predict_high`. No change to `run_recipe_cv`, the cache, procedures or nested.
+- **New module `songpop/phase2/raw_adapters.py`**, fitting-process side, sklearn only, never torch. Two classes now, retrieval later as its own adapter, as Codex also argued.
+- **Stopping adapter contract.** Split first with `inner_split` under the legacy purpose string `tabm_stop`, so S/V equals the legacy split on identical D. Fit a `FeaturePipeline` on S under a sub-context such as `FitContext(ctx.split_seed, f"{ctx.fold}/S")`, so S's encoder folds derive deterministically and differ from D's. Transform V with S's state only. Fit the input layout on S, send Z_S, y_S, Z_V, y_V to the worker for the stopping stage, then discard everything from S. Fit a fresh `FeaturePipeline` and layout on D, send Z_D for the final stage with the chosen epoch. Features and layouts are fitted once per fold and shared across estimator seeds; networks are per seed with the existing `stage_seeds`.
+- **Worker change.** Add one request kind to `tabm.serve`, say `stop_then_final`, that takes matrices and the architecture spec and returns state plus receipt. Leave the legacy `fit` request untouched. Quantile bins for PLE and periodic embeddings are computed in the worker from Z_S for the stopping stage and from Z_D for the final stage, label-free, with bin-edge digests in the receipt.
+- **Sigmoid calibration adapter contract.** Five grouped calibration splits from `inner_group_splits` under purpose `calib`. For each split, a fresh `FeaturePipeline` under its own sub-context plus the base pipeline with `SVC(probability=False)`, margins from `decision_function` on the held-out part transformed with that split's state. Standardize the out-of-fold margins, fit the declared logistic sigmoid with `ConvergenceWarning` promoted to an error, then refit features and base model on D. `model_inputs` returns the matrix entering the SVC after D's preprocessing, so the engine's identical-input check still holds because the sigmoid is monotone. Record slope, intercept, iterations, class orientation and six sub-fit receipts.
+- **Schema.** `recipe_v2` keeps `base`, `blocks`, `drop`, `estimator_seeds`, `deployment` with unchanged meaning so `feature_columns` and `validate_v2_metadata` work, and adds `fit_policy`, `device`, `arch`, `embeddings`, `layout`, `stopping`, `optimizer`. The bank's `features` stay the FeaturePipeline columns; layout output columns go in the receipt as `encoded_columns` already does. Give the adapter a `get_params` so `describe` captures the spec in `resolved_parameters`.
+- **Regression guard.** A check that every recipe under `configs/phase2/` and every logged bank's stored `recipe_sha256` still equals `recipe_hash` of its recipe after the validator gains the v2 branch.
+
+**2. Environment, locks, CUDA route, licenses.**
+
+- **Order.** Install the classical pins first from the Mac `inventory_protected.json` versions, run the full check script, then the node baseline replay described under item 6, then the tabm route. The classical environment is independent of torch and unblocks most development.
+- **Lock tooling.** Codex's `p29_environment.py` has the right shape: dry-run report, `install_locks.additions`, hashed lock, before and expected-after receipt, `verify`. Add a `licenses` step that records each distribution's `License`, `License-Expression`, license classifiers and project URLs from METADATA into the receipt. Leave `scripts/install_locks.py` untouched; its fixed Mac paths and `write_once` make it unusable on the node without edits, and edits buy nothing.
+- **Torch build decision.** One environment with the PyPI `torch==2.14.1` build, device declared per recipe with `cpu` the default route. Reasons: the version string matches the Mac record so `check_sources` can compare; the CPU-only index build carries a `+cpu` local version that fails that comparison and Codex's origin rule; a second environment would need identical sklearn and numpy for the pickled layout objects crossing the worker pipe. The "separate declared CUDA route" then lives in the recipe, the receipts and the device policy, not in a second package set. Conditions to confirm from the dry-run report: no pinned version changes in the closure, disk space for the nvidia wheels, and the wheel's CUDA runtime requirement against driver 595.104.02.
+- **If a historical pin is unavailable or nonportable.** Record a feasibility issue as plan 6.4 directs. Resolve the nearest version under a new route id with its own lock. State in the findings that the P2.5 TabM banks are Mac evidence not reproduced on the node. Run the old-versus-new adapter gate under the node's versions; it remains valid for the node. Claim no historical reproduction. The same wording applies if versions resolve but the node replay of P2.5 banks fails numerically.
+- **Other sources.** `rtdl-revisiting-models` for MLP, ResNet and FT-Transformer as a declared route with its own lock and license record, after checking it imports against the pinned torch; otherwise a manual port with provenance notes. TabR has no package; the compact port needs upstream URL, commit, license text and modification notes stored in the project, plus the fixed-example equivalence checks the plan requires.
+- **Threads.** Set `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS` and `MKL_NUM_THREADS` to 4 explicitly in every fitting process the run scripts launch, and record them. The global value of 2 would otherwise govern BLAS inside SVC, logistic regression, GP and LDA, affecting timing and possibly low-order numerics.
+
+**3. GPU determinism policy, frozen before scoring.**
+
+- **Where it lives.** A `configs/phase2/p2.9/device_policy.json` cited by every receipt, plus the extended worker hello: device name, MIG UUID, driver, CUDA runtime, cuDNN version, TF32 flags and matmul precision.
+- **Flags.** Keep the existing worker isolation and `use_deterministic_algorithms(True, warn_only=False)`. Add `cudnn.deterministic=True`, `cudnn.benchmark=False`, both `allow_tf32` flags False, `set_float32_matmul_precision("highest")`, and `CUBLAS_WORKSPACE_CONFIG=:4096:8` in the worker's environment at `Popen` time, before CUDA initializes. No autocast, no compile, and the existing `foreach` and `fused` False.
+- **Precision and seeding.** Float32 parameters on the device. Move logits to CPU as float64 for the ensemble log loss, the stop rule and the output probabilities, so the stopping decision is a CPU float64 computation on every device. Keep the batch permutation on the CPU generator and move it as an index tensor. Dropout masks come from the device RNG, so CPU/GPU parity is not expected with dropout and is not required.
+- **Repeatability criterion.** Bitwise equality of state bytes, the validation loss list, chosen epoch, update counts and prediction bytes, across two fresh worker processes, a repeat after unrelated CUDA work, a worker restart, and concurrent execution with a second GPU worker. Run it on the light, central and expensive configuration of every neural family at full and nested fold sizes. Tolerance zero. With deterministic kernels enforced, fixed shapes and padded prediction batches, there is no legitimate source of variation on one device; a difference is a bug or a missed nondeterministic op. If bitwise fails, do not loosen: identify the op, and if one is unavoidable, propose a measured tolerance from at least five repeats and route it through R2 before any score, as plan 10 requires.
+- **Distinct from the other checks.** CPU routes and the old/new adapter gate keep 1e-12. A GPU recipe is a new identity through the `device` field. CPU/GPU parity is a diagnostic only, on dropout-free configurations if cheap.
+- **Tiny-model overhead and concurrency.** Decide the device per family from the score-free pilot, CPU at four threads against the GPU, and freeze it in the manifest. Small MLPs may lose on the GPU; measure. Run the freeze test with one GPU worker. Cap concurrent four-thread CPU processes by the 32-core quota minus headroom and by measured peak memory against the 45 GiB limit, then confirm with a load test that per-run times do not inflate the way the Mac timings did.
+
+**4. The 274 manifests and matched pairs.**
+
+- **Generator.** A new `songpop/phase2/p29_manifest.py` with declare space, mandatory pairs, space-filling fill under seed 20261031, canonical dedupe, validate. Output per family under `configs/phase2/p2.9/manifests/` with blocks 1 to 3, and per entry `pair_id`, `factor`, `arm`, `role` and a `scientific` flag that is false for the six gate runs.
+- **Validators.** Per-family counts equal the table; scientific total 274; canonical hashes unique within and across families; each pair's canonical dictionaries differ in exactly the declared factor path; representation floors asserted; gate runs in a separate list; HIER and ROUND comparisons in a separate feature manifest outside counts and ceilings but inside the cost manifest.
+- **Feasibility arithmetic.** MLP and ResNet floors need overlap: eight plain/embedded pairs are 16 recipes, four B/D pairs are 8, plus one control is 25 against a cap of 24. The generator must construct the overlap explicitly and assert the count rather than hope.
+
+Plan gaps to settle in the protocol JSON before manifests depend on them. None alters an owner decision.
+
+| # | Gap | Proposed resolution |
+|---|---|---|
+| 1 | Section 6.1 requires replaying the old adapter against historical banks; a cross-platform mismatch is possible | The hard 1e-12 requirement is old versus new on the node; the historical replay is measured and reported; a mismatch excludes P2.5 runs as P2.9 scientific controls and does not block the adapter |
+| 2 | Section 4 blends against E; section 9 re-evaluates E under the final source | Node-E under the final source is the discovery comparator; the Mac bank is the reproduction check |
+| 3 | Section 10 keeps E and H as comparators, but `nested.run` carries one `anchor_id` | Add a comparator list to `run`, `check_result`, `decide` and the receipt; report-only |
+| 4 | Section 9 counts HIER, NCA and the sigmoid as supervised transformations; `p26_pool.supervised` counts date TE only | Extend and test before any procedure evaluation; `device` must not affect complexity |
+| 5 | Section 7 varies k and uses normal start scaling for embedded TabM; `TABM_FIXED` pins k and `network` pins random-signs | Expose both in `recipe_v2`; verify against the installed `make` signature |
+| 6 | Flags "through an explicit unembedded path"; the legacy `make` call shows numeric and categorical inputs only | Declare flags as cardinality-2 categoricals in `layout`, or a thin wrapper; verify the API first |
+| 7 | AUC stopping tolerance is unstated in AUC units | Declare it explicitly |
+| 8 | Nested-size pilot population undefined | One inner fold inside outer fold 0's training part of the saved assignment |
+| 9 | `completed_fits` counts estimators only | Add `adapter_subfits` to receipts now so the cost graph uses real fits |
+| 10 | Section 11 clock targets assumed a Saturday start | Recompute the admissibility inequality at the first checkpoint and record it |
+
+**5. Score-free pilots and the cost graph.**
+
+- **Pilot harness.** `run_experiments.time_recipe` already fits, predicts and builds model inputs without scoring. Extend it for `recipe_v2`, and record `adapter_subfits`, worker startup, device, peak RSS of the fitting process and worker, and the worker's CUDA peak memory. Add a `timing_nested_v1` spec for the nested-size case. Run with nothing else fitting, reusing the idle check from `p27_execute.measure`.
+- **Operation counter.** Generalize `expected_fresh_cross_fits` into a per-recipe-kind count. Per fold: a classical atom is one feature fit plus one estimator fit per seed; a stopping adapter is two feature fits, two layout fits and per seed one stopping run plus one final run, plus two bin computations if embedded; a sigmoid adapter is six feature fits, six base fits and one sigmoid. Multiply by 15 for production, by the seed and final-policy counts for nominees, by the Finding 026 multipliers for learned procedures and the nested levels, and double the uncached work for replay. Validate the counter on the smoke case against actual cache misses and sub-fit sums.
+- **Cost.** Measured route cost times non-shared counts, low and high from the light and expensive cases, a 25 percent margin, replay explicit, review and submission time reserved. No projection before the pilots exist.
+- **Work that can progress now, before torch exists.** `recipe_v2` and its regression guard; `raw_adapters.py` with all sklearn-only tests; the manifest generator and validators; the operation counter; the nested comparator extension; the complexity-count extension; the two deferred receipt validators against the existing banks; the protocol JSON; the device policy document; the license capture step. All of it needs the classical pins installed, since `songpop.artifacts` imports lightgbm and xgboost at module level.
+
+**6. Tests, deferred validation, and keeping old banks usable.**
+
+| Test | Known-wrong variant it must fail on |
+|---|---|
+| V-label flip with fixed S/V and fixed encoder folds: S and V matrices, encoder receipts, layout digests and a fixed-horizon stopping trajectory unchanged | Features fitted on D before the split, the legacy path with stateful blocks |
+| S-label flip on a shared-date fixture: affected `date_te` values change, V's `date_count` does not | An adapter that ignores S labels in the encoder |
+| Outer held-out label flip through the engine: that fold's predictions unchanged, other folds change | Any D-wide label use; pattern exists at `check_phase2.py:2839` |
+| Held-out feature poisoning: fitted state identical, predictions for those rows free to change | Preprocessing fitted on the wrong population |
+| Calibration held-out label flip with fixed splits: that part's margins unchanged, the sigmoid changes | Features fitted once on D and sliced across calibration folds |
+| Non-grouped or straddling calibration split | `check_inner_splits` must raise |
+| Sigmoid nonconvergence, `probability=True`, test-distribution scaling | Must raise or must leave the scaler unchanged |
+| Forged receipts: wrong chosen epoch for the losses, wrong row hashes, missing versions | TabM structural validator rejects |
+| Forged combiner state with a lambda or C other than the setting | `validate_procedure_metadata` rejects |
+| Fixed-seed replay across processes, CPU bitwise and GPU bitwise | Any hidden global state |
+| Old versus new adapter on 400 rows with tiny epochs, then the six 15-fold gate runs | Any layout or seed drift |
+| Fresh three-seed run equals the mean of the three single-seed runs under fixed contexts | A seed-derivation bug |
+
+- **Deferred validators.** `tabm.validate_receipt` checks key set, seeds equal to `stage_seeds`, row-hash consistency, chosen epoch equal to the stop rule on the stored losses, update counts against batch arithmetic, and version presence. Run it against the ten existing TabM banks before wiring it into `validate_v2_metadata`; a failure there is either a validator error or a real defect to investigate. The combiner check is two lines in `validate_procedure_metadata` plus a rejection test, and plan 9 requires it before any new procedure bank.
+- **Identity preservation.** Run the node baseline replay before the first source edit: `verify_run` on H and E's six atoms, then the P2.5 verify after the tabm route, recording pass or fail and the maximum absolute difference. Confine legacy-module edits to one adapter commit and put new code in new modules. After that commit, refit H and E's atoms under the final source; the new banks have new run ids and are compared to the Mac banks with `compare_v2` at 1e-12. Those node banks are the usable historical controls; the Mac banks stay immutable evidence. `check_channel_bank` compares only rows, folds and recipe hashes, so the historical E bank still serves the historical menu. The content-addressed cache misses under a new manifest by design.
+
+## Open decisions and the sequence
+
+Consequential and unresolved; the owner or R2 decides.
+
+| Decision | My recommendation |
+|---|---|
+| One environment with the PyPI CUDA-enabled torch build and CPU as default device, or two environments | One environment, pending the dry-run report |
+| Which E is the discovery comparator if node-E differs from Mac-E | Node-E under the final source; report the magnitude as a finding |
+| Proceed on node-only evidence if a pin is unavailable or the historical replay fails | Proceed with explicit labelling; the plan's outcome vocabulary covers it |
+| Fresh three-seed final-policy runs reproduce the single-seed networks exactly under context-derived seeds, so they cost one more 15-fold run per nominee for provenance alone | Keep them, as the reviewed plan says; any change is a plan amendment through R2 |
+| GPU tolerance if bitwise repeatability fails | Nothing now; R2 before scoring, per plan 10 |
+| Concurrency ceiling on the shared cgroup | A measured number from the load test, inside the large-job proposal |
+| `REVIEW_PYTHON` in `.agent/review.conf` | Update to the node interpreter once it exists; a settings change, not a method change |
+
+Ordered sequence.
+
+1. Classical pins installed and verified; full check script; node baseline replay of H and E's atoms before any source edit, recorded.
+2. Tabm route lock with license record; P2.5 verify as a measurement; `.agent/review.conf` path.
+3. Deferred validators with rejection tests, run against existing banks.
+4. `recipe_v2`, `raw_adapters.py`, the engine dispatch, the worker request, the test table above; the 400-row equivalence check; then the six 15-fold gate runs on CPU.
+5. Final-source refit of H and E's atoms; comparison with the Mac banks; the comparator decision recorded.
+6. GPU flags, hello extension, bitwise repeatability tests, device policy frozen; CPU versus GPU timing per family.
+7. Manifest generator, the 274 manifests, pairs, the feature-comparison manifest, the operation counter validated on the smoke case.
+8. Score-free full-size and nested-size pilots for every family's three cases; cost graph; the measured launch proposal to Sam.
+9. R2 on the method-bearing changes, meaning `recipe_v2` semantics, the adapter boundary and the device policy, before tuning depends on them, in the separate fresh review session.
+
+The E fallback, the 0.003 trigger, the 0.001 tie band and the no-external-data rule are unchanged by anything above.
