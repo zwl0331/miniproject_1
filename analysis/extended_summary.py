@@ -53,7 +53,7 @@ def main():
     write_json(OUT / "summary.json", dict(updated_utc=datetime.now(timezone.utc).isoformat(),
                reference=str(BASE.relative_to(ROOT)), results=rows, unresolved_errors=errors))
     with (OUT / "summary.csv").open("w") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]) if rows else ["id"])
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]) if rows else ["id"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     notes = ROOT / "notes/2026-11-01-fast-exploration.md"

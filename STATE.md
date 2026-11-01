@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 06:04 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural extensions passed focused boundary checks and six GPU smoke fits. The 64-trial GPU queue launched at 06:01 UTC with four workers, log `artifacts/extended/gpu.log`. Worker-bound neural sources remain fixed during this queue. A 24-trial shorter EBM follow-up launches with two CPU workers; log `artifacts/extended/cpu_short.log`. Original 20:00 UTC experiment deadline applies.
+Updated 2026-11-01 06:20 UTC. This session owns development after the clean handoff at 32e7c5d. Sam reported public AUC 0.86153 for follow-up trees and asked about learned ensembles. The 40 initial CPU, 24 shorter EBM and 64 GPU trials continue. Two extra TabM AUC seeds launched at 06:20 UTC (`artifacts/extended/gpu_confirm.log`); 16 EBM seed confirmations are prepared. Worker-bound neural sources stay fixed. New learned-ensemble code passed focused leakage controls; its first full meta-training task completed. Original 20:00 UTC experiment deadline applies.
 
 ## Rules and ownership
 
@@ -36,7 +36,7 @@ All scores are exploratory on repeatedly used grouped folds.
 
 ## Next action
 
-1. Monitor `artifacts/extended/cpu.log`, `cpu_short.log`, `gpu.log` and their result directories. The 40 initial CPU, 24 shorter EBM and 64 GPU configurations are running. Keep saved 15-fold validation and seed-confirm promising candidates. Read `doc/llm_usage/2026-11-01-extended-exploration/README.md` for the new scope.
+1. Monitor `artifacts/extended/{cpu,cpu_short,gpu,gpu_confirm}.log`. After the shorter EBM queue finishes, run `cpu_confirm_queue.json` with two workers, then `stacking_cpu_queue_a.json` with two workers. Launch stacking part b when the initial CPU pool frees capacity. Learned combiners use outer-local five-fold meta predictions, never global OOF for training. Read the extended-exploration LLM README and current contributions table. Once extra TabM seeds finish, average seeds 0/1/2 and build its meta channel. Add confirmed EBM and other useful channels, then compare six learned combiners and fixed blends.
 2. Review evidence: `reviews/2026-11-01-fast-followup-final-files.md`. One round, APPROVED, no blocking finding; F1 only clarified the pair-correlation record. No model replay or further review. Full final hashes: `artifacts/fast/final_selection.json`.
 3. Sam uploads and reports public scores; log them without tuning models to the board. Sam reported 0.86153 for follow-up trees; rank and private score are unknown.
 4. After the receiving session finishes, report and Colab: read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`.

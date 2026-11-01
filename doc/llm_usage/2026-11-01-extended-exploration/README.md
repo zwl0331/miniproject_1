@@ -45,3 +45,14 @@ neural sources are held fixed during the running GPU queue.
 
 Sam reported public AUC 0.86153 for the unchanged fast_followup_trees CSV. The
 score is logged; continued model selection uses grouped CV, not public feedback.
+
+At 06:15 UTC Sam asked about learned ensembles. Earlier constrained weights and
+logistic stacking used the old pool. Codex adds a comparison using the new
+five-seed LightGBM/Extra Trees/CatBoost and three-seed MLP channels, followed by
+promising new channels. All five meta folds are rebuilt inside each outer training
+fold. Global OOF arrays supply only outer validation predictions. The existing
+constrained-log-loss combiners (lambda 0, .01, .1) and L2 logit stackers (C .01, .1, 1)
+are reused. This internal cross-fitting is needed to train and validate a stacker;
+the dropped outer nested model-selection re-evaluation is not resumed.
+Two focused boundary checks pass, including a deliberately leaky global-label
+control and rejection of track groups crossing meta folds.
