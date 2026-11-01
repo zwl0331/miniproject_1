@@ -1,0 +1,6 @@
+test_scalar_cpu_matches_legacy_training_receipt_and_predictions (scripts.check_p29_raw_neural.RawNeural.test_scalar_cpu_matches_legacy_training_receipt_and_predictions) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 20.883s
+
+OK
