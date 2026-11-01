@@ -38,7 +38,8 @@ Rules:
 
 - Sam: owner of this repository; final authority under `../AGENTS.md` (external actions, consequential method choices, unsettled disputes, the two final Kaggle selections, changes to the rules).
 - Kaggle membership: Sam alone, as Sam reported on 2026-10-29, verbatim: "Kaggle team is my name . I am the only member: Weilong (Sam) Zhou." The course-group arrangement is not recorded.
-- Reviewer: Codex, gpt-6-astra at reasoning effort xhigh, through the cross-review skill (`../.agent/review.conf`).
+- Primary developer: Codex, following Sam's handoff of 2026-10-31 (`../decisions.md`); current work and next action in `../STATE.md`.
+- Reviewer: Claude Fable 5.1 at reasoning effort xhigh, passed explicitly through the cross-review skill (`../.agent/review.conf`), in a separate review session.
 
 ## Risks
 
@@ -58,3 +59,4 @@ Rules:
 - v0.2, 2026-10-29: P0.1 done; P0.2 added to phase 0; the modeling strategy added to the plan structure, the phases and the risks (pretrained models, leaderboard noise). Sam's decision on pretrained models, verbatim: "pre-trained models certainly include data that is external to the project." Sam's instruction on timing, verbatim: "Okay, don't do development today. Yet. Just finish the plan and then pause." Phase 1 starts on Sam's go-ahead; the phase dates above are targets. Status line updated with P1.1: P0.2 committed, phase 1 started; no strategy change. With P1.3, Sam's decision, verbatim: "No, from now on, don't worry about the collab or the report itself until the very end. Focus on development." Phase 4 moved to after the Kaggle close.
 - v0.3, 2026-10-29, with P2.0: status line; phase 2 starts Thursday, a day early, because phase 1 finished early; its plan is `plans/phase2-models-features.md`; feature influence and the stress tests moved from phase 2 to phase 4 under Sam's decision quoted in v0.2; Kaggle membership recorded as Sam alone, as Sam reported. Status line updated with P2.1; no change to the phases, roles or risks. With P2.0b: the status line and phase 2's work, after Sam's decision, verbatim in part: "Use measured runtimes to set sensible budgets; do not assume computation or agent effort is the main bottleneck." Status line updated with P2.2; no change to the phases, roles or risks. Status line updated with P2.8 (the gap hunt, phase 2 plan section 16), a phase 2 task inside the existing phase; no change to the phases, roles or risks. Status line updated with P2.3 and P2.4; no change to the phases, roles or risks.
 - v0.4, 2026-10-30: the migration to agent-workflow v1 on Sam's approval (`../decisions.md`): the status line, the second plan rule, the roles of Sam and the reviewer, and the review, submission and course-rule rows of the risks; no change to the phases.
+- 2026-10-31: Sam hands development to Codex and sets Claude Fable 5.1 at xhigh as reviewer. Roles updated; the phase structure and review triggers are unchanged.
