@@ -1,0 +1,21 @@
+{
+  "id": "f2_avg_mlp_base5",
+  "family": "mlp",
+  "estimator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "components": [
+    {
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "weight": 0.6
+    },
+    {
+      "path": "artifacts/fast/f2_mlp_incumbent_extra34/predictions.npz",
+      "weight": 0.4
+    }
+  ]
+}

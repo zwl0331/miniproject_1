@@ -1,0 +1,107 @@
+[
+  {
+    "id": "f2_avg_lgb_base5",
+    "family": "lightgbm",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/lgb_year_counts_seeds012/predictions.npz",
+        "weight": 0.6
+      },
+      {
+        "path": "artifacts/fast/f2_lgb_incumbent_extra34/predictions.npz",
+        "weight": 0.4
+      }
+    ]
+  },
+  {
+    "id": "f2_avg_mlp_base5",
+    "family": "mlp",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.6
+      },
+      {
+        "path": "artifacts/fast/f2_mlp_incumbent_extra34/predictions.npz",
+        "weight": 0.4
+      }
+    ]
+  },
+  {
+    "id": "f2_avg_lgb_zscore5",
+    "family": "lightgbm",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/f2_lgb_zscore/predictions.npz",
+        "weight": 0.2
+      },
+      {
+        "path": "artifacts/fast/f2_lgb_zscore_extra1234/predictions.npz",
+        "weight": 0.8
+      }
+    ]
+  },
+  {
+    "id": "f2_avg_lgb_zero_l2_5",
+    "family": "lightgbm",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/f2_lgb_tune04/predictions.npz",
+        "weight": 0.2
+      },
+      {
+        "path": "artifacts/fast/f2_lgb_tune04_extra1234/predictions.npz",
+        "weight": 0.8
+      }
+    ]
+  },
+  {
+    "id": "f2_avg_et5",
+    "family": "extra_trees",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/f2_extra_trees_3/predictions.npz",
+        "weight": 0.2
+      },
+      {
+        "path": "artifacts/fast/f2_extra_trees_3_extra1234/predictions.npz",
+        "weight": 0.8
+      }
+    ]
+  }
+]

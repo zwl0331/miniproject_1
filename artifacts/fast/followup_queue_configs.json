@@ -1,0 +1,1167 @@
+[
+  {
+    "id": "f2_tabm_b3_lr0.001",
+    "family": "tabm",
+    "params": {
+      "batch_size": 128,
+      "d_block": 128,
+      "dropout": 0.1,
+      "learning_rate": 0.001,
+      "n_blocks": 3,
+      "weight_decay": 0.01
+    },
+    "features": {
+      "blocks": [],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "quantile"
+  },
+  {
+    "id": "f2_tabm_b2_lr0.0003",
+    "family": "tabm",
+    "params": {
+      "batch_size": 128,
+      "d_block": 128,
+      "dropout": 0.1,
+      "learning_rate": 0.0003,
+      "n_blocks": 2,
+      "weight_decay": 0.01
+    },
+    "features": {
+      "blocks": [],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "quantile"
+  },
+  {
+    "id": "f2_lgb_tune00",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 31,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune01",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 127,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune02",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 5,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune04",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.0,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune05",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 2.0,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune07",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.5,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune10",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 1000,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune11",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 1500,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune14",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 5,
+      "n_estimators": 600,
+      "num_leaves": 127,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 2.0,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_tune15",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 5,
+      "n_estimators": 1000,
+      "num_leaves": 31,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_shrink5",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_shrinkage": 5
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_shrink100",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_shrinkage": 100
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_window1",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_window": 1
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_window2",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_window": 2
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_zscore",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_lgb_window2_zscore",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_window": 2,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_xgboost_0",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.03,
+      "max_depth": 4,
+      "n_estimators": 1000,
+      "subsample": 0.8
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_xgboost_1",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.03,
+      "max_depth": 3,
+      "n_estimators": 1000,
+      "subsample": 0.8
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_xgboost_2",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.03,
+      "max_depth": 5,
+      "n_estimators": 1000,
+      "subsample": 0.8,
+      "reg_lambda": 5.0
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_xgboost_3",
+    "family": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "learning_rate": 0.02,
+      "max_depth": 4,
+      "n_estimators": 1500,
+      "subsample": 0.8
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "date_te3",
+        "date_count"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_catboost_0",
+    "family": "catboost",
+    "params": {
+      "boosting_type": "Plain",
+      "depth": 6,
+      "iterations": 1000,
+      "l2_leaf_reg": 3.0,
+      "learning_rate": 0.0168,
+      "random_strength": 1.0
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "music",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_catboost_1",
+    "family": "catboost",
+    "params": {
+      "boosting_type": "Plain",
+      "depth": 4,
+      "iterations": 1000,
+      "l2_leaf_reg": 3.0,
+      "learning_rate": 0.03,
+      "random_strength": 1.0
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "music",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_catboost_2",
+    "family": "catboost",
+    "params": {
+      "boosting_type": "Plain",
+      "depth": 5,
+      "iterations": 1000,
+      "l2_leaf_reg": 6.0,
+      "learning_rate": 0.03,
+      "random_strength": 1.0
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "music",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_extra_trees_0",
+    "family": "extra_trees",
+    "params": {
+      "max_features": 1.0,
+      "min_samples_leaf": 2,
+      "n_estimators": 500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "interactions",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_extra_trees_1",
+    "family": "extra_trees",
+    "params": {
+      "max_features": 0.7,
+      "min_samples_leaf": 1,
+      "n_estimators": 500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "interactions",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_extra_trees_3",
+    "family": "extra_trees",
+    "params": {
+      "max_features": 0.7,
+      "min_samples_leaf": 2,
+      "n_estimators": 500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "blocks": [
+        "interactions",
+        "date_count",
+        "date_te3"
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_mlp_w64_e600",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64,
+        32
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_w64_e1000",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64,
+        32
+      ],
+      "alpha": 1.0,
+      "max_iter": 1000,
+      "learning_rate_init": 0.0003,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_tanh64",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64,
+        32
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30,
+      "activation": "tanh"
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_year64",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64,
+        32
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_w128_e600",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_w128_e1000",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 1.0,
+      "max_iter": 1000,
+      "learning_rate_init": 0.0003,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_tanh128",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30,
+      "activation": "tanh"
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_year128",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 1.0,
+      "max_iter": 600,
+      "learning_rate_init": 0.001,
+      "batch_size": 128,
+      "tol": 1e-05,
+      "n_iter_no_change": 30
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_lbfgs32_tanh_a1",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        32
+      ],
+      "activation": "tanh",
+      "solver": "lbfgs",
+      "alpha": 1.0,
+      "max_iter": 600,
+      "max_fun": 6000,
+      "tol": 1e-05
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_lbfgs64_tanh_a1",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64
+      ],
+      "activation": "tanh",
+      "solver": "lbfgs",
+      "alpha": 1.0,
+      "max_iter": 600,
+      "max_fun": 6000,
+      "tol": 1e-05
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_lbfgs64_relu_a1",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64
+      ],
+      "activation": "relu",
+      "solver": "lbfgs",
+      "alpha": 1.0,
+      "max_iter": 600,
+      "max_fun": 6000,
+      "tol": 1e-05
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_mlp_lbfgs64_tanh_a10",
+    "family": "mlp",
+    "params": {
+      "hidden_layer_sizes": [
+        64
+      ],
+      "activation": "tanh",
+      "solver": "lbfgs",
+      "alpha": 10.0,
+      "max_iter": 600,
+      "max_fun": 6000,
+      "tol": 1e-05
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00",
+    "scaler": "standard"
+  },
+  {
+    "id": "f2_svm_c3_g0.001",
+    "family": "svm",
+    "params": {
+      "C": 3.0,
+      "gamma": 0.001
+    },
+    "features": {
+      "blocks": [
+        "cyclic",
+        "music"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_svm_c30_g0.001",
+    "family": "svm",
+    "params": {
+      "C": 30.0,
+      "gamma": 0.001
+    },
+    "features": {
+      "blocks": [
+        "cyclic",
+        "music"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_svm_c30_g0.003",
+    "family": "svm",
+    "params": {
+      "C": 30.0,
+      "gamma": 0.003
+    },
+    "features": {
+      "blocks": [
+        "cyclic",
+        "music"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_svm_c300_g0.001",
+    "family": "svm",
+    "params": {
+      "C": 300.0,
+      "gamma": 0.001
+    },
+    "features": {
+      "blocks": [
+        "cyclic",
+        "music"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_gp_rbf3",
+    "family": "gaussian_process",
+    "params": {
+      "kernel": "rbf",
+      "length_scale": 3.0
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_gp_rbf10",
+    "family": "gaussian_process",
+    "params": {
+      "kernel": "rbf",
+      "length_scale": 10.0
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_gp_matern3",
+    "family": "gaussian_process",
+    "params": {
+      "kernel": "matern",
+      "length_scale": 3.0
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  },
+  {
+    "id": "f2_gp_matern10",
+    "family": "gaussian_process",
+    "params": {
+      "kernel": "matern",
+      "length_scale": 10.0
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic"
+      ],
+      "round": true,
+      "year_relative": true,
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ],
+    "cutoff_utc": "2026-11-01T06:31:00+00:00"
+  }
+]

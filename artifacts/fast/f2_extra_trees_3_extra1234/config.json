@@ -1,0 +1,25 @@
+{
+  "id": "f2_extra_trees_3_extra1234",
+  "family": "extra_trees",
+  "params": {
+    "max_features": 0.7,
+    "min_samples_leaf": 2,
+    "n_estimators": 500
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "blocks": [
+      "interactions",
+      "date_count",
+      "date_te3"
+    ]
+  },
+  "estimator_seeds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "cutoff_utc": "2026-11-01T06:31:00+00:00"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "f2_avg_lgb_zscore5",
+  "family": "lightgbm",
+  "estimator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "components": [
+    {
+      "path": "artifacts/fast/f2_lgb_zscore/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/fast/f2_lgb_zscore_extra1234/predictions.npz",
+      "weight": 0.8
+    }
+  ]
+}

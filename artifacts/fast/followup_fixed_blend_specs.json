@@ -1,0 +1,173 @@
+[
+  {
+    "id": "f2_blend_z5",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.65
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_z5_et10",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.55
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_z5_et25",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.4
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.25
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_lgbmix",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.65
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zero_l2_5/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_z5_mlp5",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.65
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/f2_avg_mlp_base5/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_z5_replace_et",
+    "components": [
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_catboost_a9a13819_seeds155-2026-1029_6fc9d3e21de3.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.1625
+      }
+    ]
+  },
+  {
+    "id": "f2_blend_z5_replace_et_cat",
+    "components": [
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_a8ce5635_seeds155-2026-1029_312912f99ea5.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_415b649d_seeds155-2026-1029_2a19c00b2221.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_lightgbm_6aefed81_seeds155-2026-1029_33118bb1182d.npz",
+        "weight": 0.05416666666666667
+      },
+      {
+        "path": "artifacts/phase2/bank/p2_p26_xgboost_3aad74aa_seeds155-2026-1029_b732e23db023.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "weight": 0.1625
+      },
+      {
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "weight": 0.1625
+      }
+    ]
+  }
+]

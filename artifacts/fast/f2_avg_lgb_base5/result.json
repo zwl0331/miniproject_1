@@ -1,0 +1,70 @@
+{
+  "id": "f2_avg_lgb_base5",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_avg_lgb_base5",
+    "family": "lightgbm",
+    "estimator_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "components": [
+      {
+        "path": "artifacts/fast/lgb_year_counts_seeds012/predictions.npz",
+        "weight": 0.6
+      },
+      {
+        "path": "artifacts/fast/f2_lgb_incumbent_extra34/predictions.npz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "cv": 0.839270933059718,
+  "per_seed": [
+    0.8403916312696943,
+    0.8394507619447452,
+    0.8379704059647148
+  ],
+  "elapsed_seconds": 0.09361822158098221,
+  "prediction_sha256": "e0df14567e26cf0fd1ae4d3aec15dbd698a5ffa3bc1228effa1b23e1cc56f260",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.839270933059718,
+      "per_seed": [
+        0.8403916312696943,
+        0.8394507619447452,
+        0.8379704059647148
+      ],
+      "fold_auc": [
+        [
+          0.8426983671034314,
+          0.8447333274627217,
+          0.8567167136315603,
+          0.8359347481507573,
+          0.8218749999999999
+        ],
+        [
+          0.8260821530370993,
+          0.8292275742632382,
+          0.8429648056827521,
+          0.8448676470588236,
+          0.8541116296818128
+        ],
+        [
+          0.8399437287786051,
+          0.8242794117647059,
+          0.8490262122813197,
+          0.8439848244687096,
+          0.8326178525302336
+        ]
+      ],
+      "delta_E": -0.0017906723706194727,
+      "delta_reference": -0.0017906723706194727
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "f2_blend_lgbmix",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_blend_lgbmix",
+    "components": [
+      {
+        "path": "artifacts/phase2/bank/p2_blend_eq_all_seeds155-2026-1029_375767dd7ee9.npz",
+        "weight": 0.65
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/fast/f2_avg_lgb_zero_l2_5/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "weight": 0.1
+      }
+    ]
+  },
+  "cv": 0.8430391438452955,
+  "per_seed": [
+    0.8440009998561591,
+    0.843793036956259,
+    0.8413233947234682
+  ],
+  "elapsed_seconds": 0.10672654211521149,
+  "prediction_sha256": "f5498d315d69b72a88ec50afb0c8840db40c8c6d894ac05d7481cccdda4816cf",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8430391438452955,
+      "per_seed": [
+        0.8440009998561591,
+        0.843793036956259,
+        0.8413233947234682
+      ],
+      "fold_auc": [
+        [
+          0.8447091057736924,
+          0.8486005929317835,
+          0.8599015204884348,
+          0.8402423094986498,
+          0.8265514705882352
+        ],
+        [
+          0.8304424361608886,
+          0.8362723083245275,
+          0.8421062287190325,
+          0.8502647058823529,
+          0.8598795056944932
+        ],
+        [
+          0.8400763049546662,
+          0.8335661764705882,
+          0.8540529235646355,
+          0.8447993718445461,
+          0.8341221967829047
+        ]
+      ],
+      "delta_E": 0.001977538414958069,
+      "delta_reference": 0.001977538414958069
+    }
+  ]
+}

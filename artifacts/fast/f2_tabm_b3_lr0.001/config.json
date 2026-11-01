@@ -1,0 +1,21 @@
+{
+  "id": "f2_tabm_b3_lr0.001",
+  "family": "tabm",
+  "params": {
+    "batch_size": 128,
+    "d_block": 128,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "n_blocks": 3,
+    "weight_decay": 0.01
+  },
+  "features": {
+    "blocks": [],
+    "round": true
+  },
+  "estimator_seeds": [
+    0
+  ],
+  "cutoff_utc": "2026-11-01T06:31:00+00:00",
+  "scaler": "quantile"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "f2_mlp_year64",
+  "family": "mlp",
+  "params": {
+    "hidden_layer_sizes": [
+      64,
+      32
+    ],
+    "alpha": 1.0,
+    "max_iter": 600,
+    "learning_rate_init": 0.001,
+    "batch_size": 128,
+    "tol": 1e-05,
+    "n_iter_no_change": 30
+  },
+  "features": {
+    "blocks": [
+      "date_count",
+      "date_te3",
+      "cyclic"
+    ],
+    "round": true,
+    "year_relative": true,
+    "date_counts": true
+  },
+  "estimator_seeds": [
+    0
+  ],
+  "cutoff_utc": "2026-11-01T06:31:00+00:00",
+  "scaler": "standard"
+}
