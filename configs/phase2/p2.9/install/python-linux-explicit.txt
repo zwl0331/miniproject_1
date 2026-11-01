@@ -1,5 +1,6 @@
-List of packages in environment: "/tmp/miniproject_1-p29-venv-20261101"
-
+# Python 3.12.16 bootstrap exported from /tmp/miniproject_1-p29-venv-20261101.
+# Exact conda-forge URLs and SHA-256 from mamba list --explicit --sha256 --no-pip.
+@EXPLICIT
 https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda#1dd3fffd892081df9726d7eb7e0dea6198962ba775bd88842135a4ddb4deb3c9
 https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-hda65f42_10.conda#1a0d382c515ebf55f8ee1f38c8b81bc95af5c2acc42ad53b66bc5df932032f96
 https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.10.23-hbd8a1cb_0.conda#95619b9c1184be7175392eeb0ee7eeb5ccf25d280951f4225f2d62e725790be3

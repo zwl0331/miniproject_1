@@ -27,6 +27,7 @@ The exact sharing question and approval are in decisions.md. The same read-only 
 | integration.md | Accepted suggestions, evidence-based corrections and pending work |
 | node_inventory.json | Initial OS, cgroup, interpreter and GPU observations |
 | python_install.json | Conda-forge Python 3.12.16 transaction |
+| python_rebuild_dry_run.json, python_rebuild_rejected_header.json | Successful explicit-lock parse and retained failed first parse; exported mamba output needed a comment header and @EXPLICIT marker |
 | linux_*resolve.json and .log | Dry-run package resolution, with the final neural report used for the lock |
 | linux_install*.log | Two quota-interrupted installs and the successful scratch installation |
 | linux_inventory_verified.json, package_licenses.json | Exact final inventory; license identifiers, source URLs and license hashes |
@@ -38,6 +39,8 @@ The exact sharing question and approval are in decisions.md. The same read-only 
 | check_foundation.txt, check_phase2.txt | Existing suites run on the node; the latter was still running at initial record |
 
 The installed environment is node-local at /tmp/miniproject_1-p29-venv-20261101, reached by .venv. The shared filesystem returned errno 122 (disk quota exceeded) after the first installation had written about 5.1 GiB. No project data or banks were moved. The exact same locked package transaction completed on scratch and passed the full inventory and pip consistency checks. Scratch is disposable; the committed lock and interpreter transaction are the rebuild inputs. REVIEW_PYTHON now points to the project interpreter.
+
+Interpreter rebuild syntax was dry-run checked with `mamba create --prefix /tmp/miniproject_1-p29-rebuild-check --file configs/phase2/p2.9/install/python-linux-explicit.txt --dry-run --json`. The initial `mamba list --explicit --sha256 --no-pip` output contained a human-readable header and omitted the @EXPLICIT marker. Correcting those two header lines made the dry run pass; package URLs/hashes were unchanged. A second full environment installation was not performed. Then install `linux-cuda.txt` with the documented no-deps/hash-required pip command and run `analysis.p29_environment verify` against its receipt.
 
 ## Integration into the project
 
