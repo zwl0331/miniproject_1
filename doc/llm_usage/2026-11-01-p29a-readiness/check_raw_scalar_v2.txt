@@ -1,0 +1,42 @@
+test_both_sides_reject_invalid_diagnostic_splits (__main__.RawNeural.test_both_sides_reject_invalid_diagnostic_splits) ... ok
+test_duplicate_queries_and_worker_restart_are_exact (__main__.RawNeural.test_duplicate_queries_and_worker_restart_are_exact) ... ok
+test_fixed_assignment_stopping_isolation_and_positive_control (__main__.RawNeural.test_fixed_assignment_stopping_isolation_and_positive_control) ... ok
+test_query_poisoning_cannot_refit_state (__main__.RawNeural.test_query_poisoning_cannot_refit_state) ... ERROR
+test_scalar_cpu_matches_legacy_training_receipt_and_predictions (__main__.RawNeural.test_scalar_cpu_matches_legacy_training_receipt_and_predictions) ... ok
+test_schema_rejects_unimplemented_fields_and_legacy_conversion_is_pure (__main__.RawNeural.test_schema_rejects_unimplemented_fields_and_legacy_conversion_is_pure) ... ok
+test_seed_average_equals_separate_fits_exactly (__main__.RawNeural.test_seed_average_equals_separate_fits_exactly) ... ok
+
+======================================================================
+ERROR: test_query_poisoning_cannot_refit_state (__main__.RawNeural.test_query_poisoning_cannot_refit_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/miniproject_1-p29-adapters-20261101/scripts/check_p29_raw_neural.py", line 147, in test_query_poisoning_cannot_refit_state
+    wrong.predict_high(query)
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 218, in predict_high
+    return np.mean(self.predict_each(raw_rows), axis=0)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 210, in predict_each
+    outputs = Worker.for_device(self.recipe["adapter"]["device"]).call(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 178, in call
+    raise RuntimeError(f"raw neural worker: {reply['error']}\n{reply.get('traceback', '')}")
+RuntimeError: raw neural worker: RuntimeError: Error(s) in loading state_dict for TabM:
+	size mismatch for backbone.blocks.0.0.weight: copying a param with shape torch.Size([32, 40]) from checkpoint, the shape in current model is torch.Size([32, 34]).
+	size mismatch for backbone.blocks.0.0.r: copying a param with shape torch.Size([16, 40]) from checkpoint, the shape in current model is torch.Size([16, 34]).
+Traceback (most recent call last):
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 108, in serve
+    result = backend.predict(torch, recipe, request["states"], request["Z"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/neural_backend.py", line 232, in predict
+    net.load_state_dict({name: torch.from_numpy(value).to(device) for name, value in state.items()})
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 2643, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for TabM:
+	size mismatch for backbone.blocks.0.0.weight: copying a param with shape torch.Size([32, 40]) from checkpoint, the shape in current model is torch.Size([32, 34]).
+	size mismatch for backbone.blocks.0.0.r: copying a param with shape torch.Size([16, 40]) from checkpoint, the shape in current model is torch.Size([16, 34]).
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 39.288s
+
+FAILED (errors=1)

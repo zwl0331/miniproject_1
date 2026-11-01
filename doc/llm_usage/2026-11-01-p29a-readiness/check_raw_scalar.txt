@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 272, in <module>
+    raw_neural.serve(sys.argv[2], sys.stdin.buffer, out)
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 83, in serve
+    "forbidden_imports": worker_import_check()}
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 69, in worker_import_check
+    raise RuntimeError(f"worker executes unbound project sources: {sorted(observed - set(SOURCES))}")
+RuntimeError: worker executes unbound project sources: ['_classes.py', '_ops.py']
+setUpClass (__main__.RawNeural) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.RawNeural)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/miniproject_1-p29-adapters-20261101/scripts/check_p29_raw_neural.py", line 35, in setUpClass
+    cls.fitted = N.fit_raw(cls.recipe, cls.rows, cls.y, cls.groups, cls.context)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 258, in fit_raw
+    worker = Worker.for_device(recipe["adapter"]["device"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 150, in for_device
+    instance = cls.workers[device] = cls(device)
+                                     ^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/raw_neural.py", line 130, in __init__
+    self.hello = tabm.read_frame(self.proc.stdout.fileno(), time.monotonic() + 120)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/tabm.py", line 311, in read_frame
+    return pickle.loads(read_exact(fd, int.from_bytes(read_exact(fd, 8, deadline), "big"), deadline))
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/miniproject_1-p29-adapters-20261101/songpop/phase2/tabm.py", line 305, in read_exact
+    raise EOFError("the TabM worker closed its output")
+EOFError: the TabM worker closed its output
+
+----------------------------------------------------------------------
+Ran 0 tests in 16.734s
+
+FAILED (errors=1)

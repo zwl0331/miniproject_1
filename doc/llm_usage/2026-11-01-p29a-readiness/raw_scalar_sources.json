@@ -1,0 +1,7 @@
+{
+  "songpop/phase2/raw_recipes.py": "187b79c144a2a13dbe232bdc5efb531edca56cfd909e1e69d22c0d71d45173f0",
+  "songpop/phase2/neural_backend.py": "f79bbe33a214da067be8b6d65751866c72e97dfd77a9cc0e076771915de126ec",
+  "songpop/phase2/raw_neural.py": "dd935a11c8c5ff62e34a4d29a3be2030a26347519ea6822d7e3d64eec980f56f",
+  "scripts/check_p29_raw_neural.py": "3b68148a7f8ac536df7142d0dbd381189d9c5c865b959f7a63731b10bdbd82a9",
+  "analysis/p29_scalar_gate.py": "35dd35b109edf1ac74086b6efc4b85b0f2ce4821797702544060f0e8194a173c"
+}

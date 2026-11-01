@@ -1141,3 +1141,28 @@ equivalence, CUDA determinism or scientific search readiness. The receipt tests
 validate stored metadata, not a new training method. Independent review is
 pending. No tolerance is inferred from model scores or loosened after a failed
 same-node neural gate.
+
+
+## Finding 035: scalar raw-neural boundary checks
+
+2026-11-01. Status: draft, provisional. Evidence: `scripts/check_p29_raw_neural.py`
+and `doc/llm_usage/2026-11-01-p29a-readiness/check_raw_scalar_v3.txt`; source
+manifest `raw_scalar_sources.json`. Seven checks pass on a bounded 400-row,
+four-epoch fixture. CPU predictions, model inputs and legacy receipt fields
+match the old adapter exactly. A two-seed fit equals the mean of its separate
+seed fits. Fixed S/V and encoder assignments isolate stopping inputs and the
+common training trajectory from V-label changes, with a permitted S-label
+positive control. A deliberately D-wide encoder path fails that invariant.
+Query poisoning, duplicate-query batches, fresh-worker repetition and invalid
+diagnostic assignments are covered. Earlier logs retain a virtual-source-file
+startup failure and a corrected category-vocabulary problem in the deliberately
+wrong query-refitting fixture. Neither is a successful run.
+
+The scalar adapter is standalone. Engine/run/cache/bank integration, full-data
+15-fold old/new comparisons, CUDA acceptance, expanded architectures and new
+scientific AUC results are not claimed. The score-free full-data gate script
+checks fresh old repeats before each new comparison, records source/data hashes,
+compares states and receipts exactly, and applies 1e-12 to predictions while
+reporting every nonzero difference. Its comparison accepts an exact positive
+control and rejects corrupted predictions and receipts. Full gate results remain
+pending. This evidence can support provisional integration only.

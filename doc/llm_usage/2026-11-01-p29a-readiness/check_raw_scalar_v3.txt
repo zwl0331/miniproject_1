@@ -1,0 +1,12 @@
+test_both_sides_reject_invalid_diagnostic_splits (__main__.RawNeural.test_both_sides_reject_invalid_diagnostic_splits) ... ok
+test_duplicate_queries_and_worker_restart_are_exact (__main__.RawNeural.test_duplicate_queries_and_worker_restart_are_exact) ... ok
+test_fixed_assignment_stopping_isolation_and_positive_control (__main__.RawNeural.test_fixed_assignment_stopping_isolation_and_positive_control) ... ok
+test_query_poisoning_cannot_refit_state (__main__.RawNeural.test_query_poisoning_cannot_refit_state) ... ok
+test_scalar_cpu_matches_legacy_training_receipt_and_predictions (__main__.RawNeural.test_scalar_cpu_matches_legacy_training_receipt_and_predictions) ... ok
+test_schema_rejects_unimplemented_fields_and_legacy_conversion_is_pure (__main__.RawNeural.test_schema_rejects_unimplemented_fields_and_legacy_conversion_is_pure) ... ok
+test_seed_average_equals_separate_fits_exactly (__main__.RawNeural.test_seed_average_equals_separate_fits_exactly) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 60.022s
+
+OK
