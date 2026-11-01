@@ -1,0 +1,38 @@
+[
+  {
+    "id": "x3_retrieval_c16_w64_scalar",
+    "reference": "x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0",
+    "weight": 0.05,
+    "cv": 0.8446399212608716,
+    "delta": 0.00014601937865092265,
+    "delta_per_seed": [
+      0.0002656285323859864,
+      -0.00010531656461343353,
+      0.00027774616818021514
+    ]
+  },
+  {
+    "id": "x3_tabm_f1_m0_quantile",
+    "reference": "x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0",
+    "weight": 0.05,
+    "cv": 0.8443730635068767,
+    "delta": -0.00012083837534400861,
+    "delta_per_seed": [
+      -4.001846534862352e-05,
+      -0.00013751926362159939,
+      -0.00018497739706180294
+    ]
+  },
+  {
+    "id": "x3_ft_transformer_f0_m1_quantile",
+    "reference": "x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0",
+    "weight": 0.05,
+    "cv": 0.8444773922453912,
+    "delta": -1.6509636829383407e-05,
+    "delta_per_seed": [
+      -2.6715247603448233e-05,
+      0.00012569568915155038,
+      -0.00014850935203625237
+    ]
+  }
+]

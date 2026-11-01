@@ -1,0 +1,11 @@
+{
+  "name": "extended_rank_neighbors",
+  "purpose": "Confirmed ranking and calendar-neighborhood addition. 90% of a logit mixture of 90% follow-up trees and 10% five-seed neighborhood LightGBM, plus 10% three-seed PairLogit. Provisional candidate; existing final selections remain unchanged.",
+  "components": [
+    {
+      "path": "artifacts/fast/x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0/predictions.npz",
+      "weight": 1.0
+    }
+  ],
+  "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv"
+}

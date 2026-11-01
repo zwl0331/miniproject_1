@@ -1,0 +1,57 @@
+{
+  "name": "extended_rank_neighbors",
+  "purpose": "Confirmed ranking and calendar-neighborhood addition. 90% of a logit mixture of 90% follow-up trees and 10% five-seed neighborhood LightGBM, plus 10% three-seed PairLogit. Provisional candidate; existing final selections remain unchanged.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8444939018822206,
+  "cv_per_seed": [
+    0.8457950557859754,
+    0.8450470608814928,
+    0.8426395889791938
+  ],
+  "fold_auc": [
+    [
+      0.8463736733175715,
+      0.8505085417400493,
+      0.8629982681695434,
+      0.8404697957027122,
+      0.8286250000000001
+    ],
+    [
+      0.828785233960124,
+      0.8374097393448398,
+      0.8464871727133967,
+      0.8512647058823528,
+      0.8612884525067512
+    ],
+    [
+      0.8436853230807758,
+      0.8335441176470588,
+      0.8576413349771046,
+      0.8455698896324997,
+      0.83275727955853
+    ]
+  ],
+  "delta_E": 0.0034322964518831434,
+  "components": [
+    {
+      "path": "artifacts/fast/x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0/predictions.npz",
+      "weight": 1.0,
+      "sha256": "d1391376905aefd7e62e840cc4781a0702fe87b7c8c284049b3f8c4c693fa9bf"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.0032042086782524113,
+    "max": 0.9890298956758292,
+    "correlation_current_best": 0.9988467606354594,
+    "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv",
+    "sha256": "e94065dd0834358511bf433e38115f5ae031a93743a58f0ce63bf29f839de975"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T07:31:58.228054+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/extended_rank_neighbors/predictions.npz",
+  "prediction_sha256": "d1391376905aefd7e62e840cc4781a0702fe87b7c8c284049b3f8c4c693fa9bf",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}
