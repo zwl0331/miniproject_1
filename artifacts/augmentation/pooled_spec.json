@@ -1,0 +1,44 @@
+{
+  "id": "a1_augmentation_pool_add5",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "base": "artifacts/fast/x3_fixed_hybrid_retrieval5/predictions.npz",
+    "a1_tabm_mixup_a01": "artifacts/neural/a1_tabm_mixup_a01/predictions.npz",
+    "a1_tabm_noise002": "artifacts/neural/a1_tabm_noise002/predictions.npz",
+    "a1_retrieval_noise002": "artifacts/neural/a1_retrieval_noise002/predictions.npz",
+    "a1_retrieval_noise005": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+  },
+  "expression": {
+    "kind": "probability",
+    "parts": [
+      {
+        "weight": 0.95,
+        "node": "base"
+      },
+      {
+        "weight": 0.05,
+        "node": {
+          "kind": "probability",
+          "parts": [
+            {
+              "weight": 0.25,
+              "node": "a1_tabm_mixup_a01"
+            },
+            {
+              "weight": 0.25,
+              "node": "a1_tabm_noise002"
+            },
+            {
+              "weight": 0.25,
+              "node": "a1_retrieval_noise002"
+            },
+            {
+              "weight": 0.25,
+              "node": "a1_retrieval_noise005"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

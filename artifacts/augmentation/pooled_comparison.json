@@ -1,0 +1,12 @@
+{
+  "id": "a1_augmentation_pool_add5",
+  "cv": 0.8445924522238355,
+  "delta": -5.677946978466242e-05,
+  "delta_per_seed": [
+    -1.9462225971267344e-05,
+    -8.91038738671801e-05,
+    -6.177230951587287e-05
+  ],
+  "positive_splits": 0,
+  "interpretation": "One user-requested equal-weight pooled check, no retraining."
+}

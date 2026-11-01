@@ -27,3 +27,8 @@ new files, while Sam's authoritative selections remain unchanged. The public
 score is logged as an owner-reported check only. All configs, seeds, fitted-fold
 records and prediction banks are saved; this is not a byte-exact cross-platform
 replay claim.
+
+After this assessment, Sam separately authorized a capped augmentation screen.
+Four mild Mixup/audio-noise settings completed without improving the strongest
+CV ensemble. See `notes/2026-11-01-augmentation.md`. SMOTE, CutMix, denoising
+and distillation remain untested; no exhaustive-coverage claim is made.

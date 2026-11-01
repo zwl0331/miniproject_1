@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam explicitly authorized a separate 30-minute augmentation screen; setup started 08:02:25 UTC, fit cutoff 08:32:25 UTC. Four GPU configurations launched at 08:07:52 UTC with four workers; process-group timeout enforces the cap (`artifacts/augmentation/gpu.log`, queue.json). Existing CSVs/selections stay preserved. This session owns development after 32e7c5d. Results are provisional under fast mode; Sam's existing selected pair remains unchanged.
+Updated 2026-11-01 08:24 UTC. Extended exploration and the separately authorized augmentation screen are complete. No training or review jobs remain. Four augmentation settings and their pooled addition failed to improve the strongest grouped-CV ensemble; no new submission was created. Existing owner selections remain unchanged. Both prior new files regressed on the owner-reported public board.
 
 ## Rules and ownership
 
@@ -27,7 +27,7 @@ Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam e
 
 ## Completed work
 
-- 96 CPU configurations and 68 neural configurations including estimator-seed confirmations, all on 15 folds. `artifacts/extended/scientific_completion.json`: 164/164 complete. The original 64-case neural grid spans TabM/MLP/ResNet/FT-Transformer/retrieval. None of its 960 outer fit records hit the epoch cap.
+- Prior extended block: 96 CPU configurations and 68 neural configurations including estimator-seed confirmations, all on 15 folds. `artifacts/extended/scientific_completion.json`: 164/164 complete. The original 64-case neural grid spans TabM/MLP/ResNet/FT-Transformer/retrieval. None of its 960 outer fit records hit the epoch cap.
 - Three invalid neural identifiers failed before fitting; ID-only repairs completed with unchanged recipes. Original errors retained, all resolved. Corrected roster: `neural_queue_corrected.json`. No unresolved run errors.
 - All 135 unique outer-local meta-training banks completed. Meta predictions were rebuilt inside outer training populations; global OOF banks were outer validation only. Focused known-wrong leakage controls pass. No dropped nested model-selection re-evaluation resumed.
 - Neural adapter is complete and documented: `notes/2026-11-01-neural-adapter.md`. Scalar/mixed layouts, quantile/year/count features, PLE/periodic embeddings, AUC stopping, pairwise objectives and group-excluding retrieval. No pretrained models; retrieval is a project adaptation, not exact published TabR.
@@ -35,10 +35,10 @@ Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam e
 - Closeout: `notes/2026-11-01-extended-closeout.md`. Results table: `notes/2026-11-01-fast-exploration.md`; `artifacts/extended/summary.csv`, `contributions.csv`, `learned_comparison.json`. LLM-use record: `doc/llm_usage/2026-11-01-extended-exploration/README.md` and `integration_index.md`.
 - P2.9 remains preserved on `p2.9-paused` at 1b47c17; old worktree/gates remain paused. Environment: Python 3.12.16, 32 CPU equivalents, 45 GiB RAM, A100 MIG 2g.20gb. Earlier state: `notes/state-archive.md`.
 
-- Policy clarification from Sam via the supervising session: `doc/llm_usage/2026-11-01-policy-clarification/user_prompt.md` and `assessment.md`. Provided-data augmentation is allowed but synthetic-row augmentation was not tested. No new experiment block or relaxation of the no-test-fitting rule was authorized.
+- Policy clarification from Sam via the supervising session: `doc/llm_usage/2026-11-01-policy-clarification/user_prompt.md` and `assessment.md`. Provided-data augmentation is allowed. Sam subsequently authorized four mild Mixup/noise settings; all completed without marginal CV gain. The no-test-fitting rule remains. Results: `notes/2026-11-01-augmentation.md`.
 
 ## Next action
 
-1. Active owner-authorized augmentation screen: read `doc/llm_usage/2026-11-01-augmentation/README.md`. Implement/test 2-4 mild settings on existing neural models; all augmentation inside training folds, preserve categorical/missing flags. Start 08:02:25 UTC, fit cutoff 08:32:25 UTC. Compare marginal gain to x3_fixed_hybrid_retrieval5 (.844649232). No wider search. Prior closeout/recommendations remain preserved.
+1. Read `notes/2026-11-01-extended-closeout.md`, `notes/2026-11-01-augmentation.md`, and `artifacts/augmentation/decision.json`. All authorized model tests are complete. Augmentation: 4/4 settings, 60/60 folds, no epoch-cap hits, no extra seeds; pooled 5% addition CV 0.844592 versus 0.844649, lower on all split seeds. No more launches are planned.
 2. Sam chooses/uploads the public checks and decides any change to his two final selections. Keep `final_selection.json` unchanged until he does. If changed, perform the one quick Fable review of that concrete pair, limited to leakage and file correctness, one round.
 3. Then report and Colab: `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, results and `doc/llm_usage/integration_index.md`. Public results are logged as owner-reported checks; private results remain unknown.

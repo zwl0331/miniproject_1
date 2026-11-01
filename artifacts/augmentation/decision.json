@@ -1,0 +1,112 @@
+{
+  "recorded_utc": "2026-11-01 08:24 UTC",
+  "finished_training_utc": "2026-11-01T08:18:20.037704+00:00",
+  "cutoff_utc": "2026-11-01T08:32:25+00:00",
+  "reference": "artifacts/fast/x3_fixed_hybrid_retrieval5/predictions.npz",
+  "reference_cv": 0.8446492316936202,
+  "completed_configs": 4,
+  "completed_outer_fits": 60,
+  "epoch_cap_hits": 0,
+  "extra_seed_runs": 0,
+  "new_submissions": 0,
+  "decision": "Do not add these augmentation models. All checked individual additions/replacements lose mean CV; equal-weight pooled addition loses all three split means.",
+  "best_per_config": [
+    {
+      "id": "a1_tabm_mixup_a01",
+      "family": "tabm",
+      "comparison": "add_0.05",
+      "cv": 0.8445370688476169,
+      "delta": -0.00011216284600323867,
+      "per_seed": [
+        0.8458768685658853,
+        0.8448826461684835,
+        0.8428516918084821
+      ],
+      "delta_per_seed": [
+        -0.0003028318986079137,
+        1.1930523584946506e-05,
+        -4.558716298674881e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8292587089586114,
+      "delta_versus_unaugmented_control": -7.645670600773258e-05,
+      "path": "artifacts/neural/a1_tabm_mixup_a01/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_noise002",
+      "family": "tabm",
+      "comparison": "add_0.05",
+      "cv": 0.844607596596836,
+      "delta": -4.163509678423161e-05,
+      "per_seed": [
+        0.8461016762762732,
+        0.8449929415209085,
+        0.8427281719933262
+      ],
+      "delta_per_seed": [
+        -7.802418822000501e-05,
+        0.0001222258760099626,
+        -0.0001691069781426524
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8291198830722897,
+      "delta_versus_unaugmented_control": -5.92895678870331e-06,
+      "path": "artifacts/neural/a1_tabm_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise002",
+      "family": "retrieval",
+      "comparison": "add_0.05",
+      "cv": 0.8444830199921408,
+      "delta": -0.0001662117014794943,
+      "per_seed": [
+        0.8458587291772002,
+        0.84462139235746,
+        0.8429689384417619
+      ],
+      "delta_per_seed": [
+        -0.00032097128729302593,
+        -0.00024932328743854093,
+        7.165947029308395e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.7895436462723204,
+      "delta_versus_unaugmented_control": -9.457928799086654e-05,
+      "path": "artifacts/neural/a1_retrieval_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise005",
+      "family": "retrieval",
+      "comparison": "add_0.05",
+      "cv": 0.8445953613069064,
+      "delta": -5.387038671370951e-05,
+      "per_seed": [
+        0.845969155578576,
+        0.8447979779100361,
+        0.8430189504321074
+      ],
+      "delta_per_seed": [
+        -0.00021054488591720766,
+        -7.273773486249357e-05,
+        0.0001216714606385727
+      ],
+      "positive_splits": 1,
+      "standalone": 0.7915595386392398,
+      "delta_versus_unaugmented_control": 1.7762026774881256e-05,
+      "path": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+    }
+  ],
+  "pooled": {
+    "id": "a1_augmentation_pool_add5",
+    "cv": 0.8445924522238355,
+    "delta": -5.677946978466242e-05,
+    "delta_per_seed": [
+      -1.9462225971267344e-05,
+      -8.91038738671801e-05,
+      -6.177230951587287e-05
+    ],
+    "positive_splits": 0,
+    "interpretation": "One user-requested equal-weight pooled check, no retraining."
+  },
+  "owner_final_selection": "unchanged"
+}

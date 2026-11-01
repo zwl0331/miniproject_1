@@ -38,3 +38,11 @@ previous neural blend and 0.86136 for the simpler hybrid, versus incumbent
 0.86153. Scores were logged. No augmentation config, selection criterion or
 training scope changed in response; the primary reference remains the strongest
 grouped-CV bank. Private outcomes are unknown.
+
+All four settings completed before the cap; none improved the highest-CV
+reference under the fixed additions/replacements. No extra seeds were launched.
+Sam asked: "Is it worth while to consider adding them to the ensemble or no?"
+Codex checked one equal-weight pool of all four, added at5% using saved banks:
+CV0.844592452 versus0.844649232, all three split means lower. No retraining.
+The decision is to leave these four models out and create no new submission.
+Full results: notes/2026-11-01-augmentation.md and artifacts/augmentation/decision.json.

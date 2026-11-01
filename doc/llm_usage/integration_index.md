@@ -37,4 +37,4 @@ Current roles from Sam's development handoff of 2026-10-31: Codex is the primary
 
 Each later task adds its rows.
 
-| Bounded augmentation screen | fast, 2026-11-01 | `2026-11-01-augmentation/README.md`; Sam accepted a 30-minute, 2-4-setting screen after closeout | Codex added training-only profile-matched Mixup and observed-audio input noise to existing neural adapters; same folds and matching unaugmented controls | Four settings, absolute 08:32:25 UTC process cap; no external data or test fitting | Focused validity/isolation tests and GPU route smokes passed; scientific runs provisional and running |
+| Bounded augmentation screen | fast, 2026-11-01 | `2026-11-01-augmentation/README.md`; Sam accepted a 30-minute, 2-4-setting screen after closeout | Codex added training-only profile-matched Mixup and observed-audio input noise to existing neural adapters; same folds and matching unaugmented controls | Four settings, absolute 08:32:25 UTC process cap; no external data or test fitting | Focused validity/isolation tests and GPU route smokes passed; four complete 15-fold runs plus one pooled check; no marginal CV gain, no new submission |

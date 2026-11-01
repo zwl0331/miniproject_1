@@ -1,0 +1,303 @@
+{
+  "reference": "artifacts/fast/x3_fixed_hybrid_retrieval5/predictions.npz",
+  "baseline_cv": 0.8446492316936202,
+  "completed": 4,
+  "remaining": [],
+  "results": [
+    {
+      "id": "a1_tabm_noise002",
+      "family": "tabm",
+      "comparison": "add_0.05",
+      "cv": 0.844607596596836,
+      "delta": -4.163509678423161e-05,
+      "per_seed": [
+        0.8461016762762732,
+        0.8449929415209085,
+        0.8427281719933262
+      ],
+      "delta_per_seed": [
+        -7.802418822000501e-05,
+        0.0001222258760099626,
+        -0.0001691069781426524
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8291198830722897,
+      "delta_versus_unaugmented_control": -5.92895678870331e-06,
+      "path": "artifacts/neural/a1_tabm_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise005",
+      "family": "retrieval",
+      "comparison": "add_0.05",
+      "cv": 0.8445953613069064,
+      "delta": -5.387038671370951e-05,
+      "per_seed": [
+        0.845969155578576,
+        0.8447979779100361,
+        0.8430189504321074
+      ],
+      "delta_per_seed": [
+        -0.00021054488591720766,
+        -7.273773486249357e-05,
+        0.0001216714606385727
+      ],
+      "positive_splits": 1,
+      "standalone": 0.7915595386392398,
+      "delta_versus_unaugmented_control": 1.7762026774881256e-05,
+      "path": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise005",
+      "family": "retrieval",
+      "comparison": "replace_retrieval",
+      "cv": 0.8445943629671416,
+      "delta": -5.4868726478714734e-05,
+      "per_seed": [
+        0.845729782165645,
+        0.8449553046717504,
+        0.8430980020640291
+      ],
+      "delta_per_seed": [
+        -0.00044991829884821755,
+        8.458902685182235e-05,
+        0.000200723092560251
+      ],
+      "positive_splits": 2,
+      "standalone": 0.7915595386392398,
+      "delta_versus_unaugmented_control": -4.5558293730133904e-05,
+      "path": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_mixup_a01",
+      "family": "tabm",
+      "comparison": "add_0.05",
+      "cv": 0.8445370688476169,
+      "delta": -0.00011216284600323867,
+      "per_seed": [
+        0.8458768685658853,
+        0.8448826461684835,
+        0.8428516918084821
+      ],
+      "delta_per_seed": [
+        -0.0003028318986079137,
+        1.1930523584946506e-05,
+        -4.558716298674881e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8292587089586114,
+      "delta_versus_unaugmented_control": -7.645670600773258e-05,
+      "path": "artifacts/neural/a1_tabm_mixup_a01/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_noise002",
+      "family": "tabm",
+      "comparison": "logit_0.1",
+      "cv": 0.8445151590314777,
+      "delta": -0.0001340726621425666,
+      "per_seed": [
+        0.8458298836990659,
+        0.8450431288389144,
+        0.8426724645564526
+      ],
+      "delta_per_seed": [
+        -0.0003498167654273354,
+        0.00017241319401584132,
+        -0.0002248144150162057
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8291198830722897,
+      "delta_versus_unaugmented_control": 3.907879198552511e-05,
+      "path": "artifacts/neural/a1_tabm_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_noise002",
+      "family": "tabm",
+      "comparison": "add_0.1",
+      "cv": 0.8444896079269,
+      "delta": -0.000159623766720296,
+      "per_seed": [
+        0.8458502929673536,
+        0.8450607085914994,
+        0.8425578222218467
+      ],
+      "delta_per_seed": [
+        -0.00032940749713961104,
+        0.00018999294660082544,
+        -0.00033945674962210237
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8291198830722897,
+      "delta_versus_unaugmented_control": -2.3586294598413695e-05,
+      "path": "artifacts/neural/a1_tabm_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise002",
+      "family": "retrieval",
+      "comparison": "add_0.05",
+      "cv": 0.8444830199921408,
+      "delta": -0.0001662117014794943,
+      "per_seed": [
+        0.8458587291772002,
+        0.84462139235746,
+        0.8429689384417619
+      ],
+      "delta_per_seed": [
+        -0.00032097128729302593,
+        -0.00024932328743854093,
+        7.165947029308395e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.7895436462723204,
+      "delta_versus_unaugmented_control": -9.457928799086654e-05,
+      "path": "artifacts/neural/a1_retrieval_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_mixup_a01",
+      "family": "tabm",
+      "comparison": "logit_0.1",
+      "cv": 0.8444520480383564,
+      "delta": -0.00019718365526381434,
+      "per_seed": [
+        0.8455490441084403,
+        0.8448183767260357,
+        0.8429887232805932
+      ],
+      "delta_per_seed": [
+        -0.0006306563560528611,
+        -5.233891886291531e-05,
+        9.144430912433332e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.8292587089586114,
+      "delta_versus_unaugmented_control": -2.403220113567084e-05,
+      "path": "artifacts/neural/a1_tabm_mixup_a01/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise002",
+      "family": "retrieval",
+      "comparison": "replace_retrieval",
+      "cv": 0.8444140319895627,
+      "delta": -0.00023519970405764626,
+      "per_seed": [
+        0.8456121932388749,
+        0.8447551985999782,
+        0.8428747041298346
+      ],
+      "delta_per_seed": [
+        -0.0005675072256182689,
+        -0.00011551704492041015,
+        -2.2574841634259712e-05
+      ],
+      "positive_splits": 0,
+      "standalone": 0.7895436462723204,
+      "delta_versus_unaugmented_control": -0.00022588927130901364,
+      "path": "artifacts/neural/a1_retrieval_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_tabm_mixup_a01",
+      "family": "tabm",
+      "comparison": "add_0.1",
+      "cv": 0.8443612808497757,
+      "delta": -0.0002879508438445126,
+      "per_seed": [
+        0.845485712945717,
+        0.8447123049537998,
+        0.8428858246498103
+      ],
+      "delta_per_seed": [
+        -0.0006939875187762512,
+        -0.00015841069109878703,
+        -1.1454321658499467e-05
+      ],
+      "positive_splits": 0,
+      "standalone": 0.8292587089586114,
+      "delta_versus_unaugmented_control": -0.00015191337172265246,
+      "path": "artifacts/neural/a1_tabm_mixup_a01/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise005",
+      "family": "retrieval",
+      "comparison": "add_0.1",
+      "cv": 0.8441785427011544,
+      "delta": -0.00047068899246575463,
+      "per_seed": [
+        0.8454364900760666,
+        0.8441904143958665,
+        0.8429087236315302
+      ],
+      "delta_per_seed": [
+        -0.0007432103884266184,
+        -0.000680301249032067,
+        1.144466006142153e-05
+      ],
+      "positive_splits": 1,
+      "standalone": 0.7915595386392398,
+      "delta_versus_unaugmented_control": -3.842445706951173e-05,
+      "path": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise005",
+      "family": "retrieval",
+      "comparison": "logit_0.1",
+      "cv": 0.8441550530478008,
+      "delta": -0.0004941786458195393,
+      "per_seed": [
+        0.8453747654354846,
+        0.8442975853480796,
+        0.8427928083598377
+      ],
+      "delta_per_seed": [
+        -0.0008049350290085799,
+        -0.0005731302968189356,
+        -0.00010447061163110227
+      ],
+      "positive_splits": 0,
+      "standalone": 0.7915595386392398,
+      "delta_versus_unaugmented_control": -8.937989010043464e-05,
+      "path": "artifacts/neural/a1_retrieval_noise005/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise002",
+      "family": "retrieval",
+      "comparison": "logit_0.1",
+      "cv": 0.8439137212912284,
+      "delta": -0.0007355104023917999,
+      "per_seed": [
+        0.845071756681991,
+        0.8439209607700162,
+        0.842748446421678
+      ],
+      "delta_per_seed": [
+        -0.0011079437825022298,
+        -0.0009497548748823581,
+        -0.00014883254979081162
+      ],
+      "positive_splits": 0,
+      "standalone": 0.7895436462723204,
+      "delta_versus_unaugmented_control": -0.0003307116466726434,
+      "path": "artifacts/neural/a1_retrieval_noise002/predictions.npz"
+    },
+    {
+      "id": "a1_retrieval_noise002",
+      "family": "retrieval",
+      "comparison": "add_0.1",
+      "cv": 0.8438931784791605,
+      "delta": -0.0007560532144595215,
+      "per_seed": [
+        0.8450439728097529,
+        0.8437858645634714,
+        0.8428496980642578
+      ],
+      "delta_per_seed": [
+        -0.0011357276547403483,
+        -0.001084851081427196,
+        -4.758090721102004e-05
+      ],
+      "positive_splits": 0,
+      "standalone": 0.7895436462723204,
+      "delta_versus_unaugmented_control": -0.00032378867906327863,
+      "path": "artifacts/neural/a1_retrieval_noise002/predictions.npz"
+    }
+  ],
+  "limitation": "Exploratory reused grouped folds; initial augmentation configs use estimator seed0."
+}
