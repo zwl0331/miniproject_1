@@ -1,0 +1,47 @@
+{
+  "id": "x3_fixed_hybrid_ebm5_pairlogit_d4_lr0p03_l210p0",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "base": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+    "ranking": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+    "neighbors": "artifacts/fast/x3_avg_neighbors_calendar_c64_lightgbm/predictions.npz",
+    "ebm": "artifacts/fast/x3_avg_ebm_short_i30_lr0.03_r100/predictions.npz"
+  },
+  "expression": {
+    "kind": "logit",
+    "parts": [
+      {
+        "weight": 0.95,
+        "node": {
+          "kind": "probability",
+          "parts": [
+            {
+              "weight": 0.9,
+              "node": {
+                "kind": "logit",
+                "parts": [
+                  {
+                    "weight": 0.9,
+                    "node": "base"
+                  },
+                  {
+                    "weight": 0.1,
+                    "node": "neighbors"
+                  }
+                ]
+              }
+            },
+            {
+              "weight": 0.1,
+              "node": "ranking"
+            }
+          ]
+        }
+      },
+      {
+        "weight": 0.05,
+        "node": "ebm"
+      }
+    ]
+  }
+}

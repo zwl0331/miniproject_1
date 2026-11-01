@@ -1,0 +1,2210 @@
+[
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 0
+    },
+    "elapsed_seconds": 74.23560083284974,
+    "warnings": [],
+    "prediction_sha256": "bb609825520f35742ad1de9e6b3b4eecaa46f5b9bc3e99a8f8d0cb0ad18cf775",
+    "source_sha256": "04a2e6eda814a458d77f6d55c635ac684300bbf5e19af4a41bdb960639a2d512"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 0
+    },
+    "elapsed_seconds": 52.01122652553022,
+    "warnings": [],
+    "prediction_sha256": "90d8e507c5f2a0de07f41092708f7962dedee62428f78b755165cea27ea82cb4",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 0
+    },
+    "elapsed_seconds": 64.89221357926726,
+    "warnings": [],
+    "prediction_sha256": "f3eaa9244432ecd519f1e2152b8ad0fad20fffedc1de5f225720ae669236d8aa",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 0
+    },
+    "elapsed_seconds": 99.01018716488034,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "bf775c5ea9fcfaac4ca0aa3e8bda449ff5679c1986d8bddcf2c7daf124e2c097",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 1
+    },
+    "elapsed_seconds": 69.66797924041748,
+    "warnings": [],
+    "prediction_sha256": "4c7e4725d19c5b2f03bf68f1ddbf1bbb48d464756e380c7a3e3976881af5fab9",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 1
+    },
+    "elapsed_seconds": 52.529412052594125,
+    "warnings": [],
+    "prediction_sha256": "fc48e3f6d070f2596fd94cd211ed861c8f8e09cdeaa0e0014173fc65022de1a1",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 1
+    },
+    "elapsed_seconds": 64.35305467247963,
+    "warnings": [],
+    "prediction_sha256": "6bd86affe18f79f9504692fffdeeef264170834908d34a49618f259223dce63c",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 1
+    },
+    "elapsed_seconds": 86.78784550260752,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "b6804bb422bab092fa3dfd2c031d9b1a908ac1268e570635cbcd523511854f09",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 2
+    },
+    "elapsed_seconds": 63.911568500101566,
+    "warnings": [],
+    "prediction_sha256": "84cdbf37ec62a45c75055c1bc3967259defc02997fbbfce3ef09b7072e173826",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 2
+    },
+    "elapsed_seconds": 53.386888339184225,
+    "warnings": [],
+    "prediction_sha256": "c5db7a5faee1f8a870491c8e661abce12d2ea9df24b6712b00ff2c1c128cbc45",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 2
+    },
+    "elapsed_seconds": 65.3753261230886,
+    "warnings": [],
+    "prediction_sha256": "8999b1a7a66fef4f2771ea3e2d1d4fbf157fc19e101159d95d796356750191c6",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 2
+    },
+    "elapsed_seconds": 89.82558052707464,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "5eb64f0b7eb4589565ef3de02fb91fc4b940c1b2e8459c377ecb1f4ba4e605bb",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 3
+    },
+    "elapsed_seconds": 68.47675543837249,
+    "warnings": [],
+    "prediction_sha256": "d99a9fbccd21282ec28acf1ee30ba3a66f27cc73efd942c5a6b8293584853671",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 3
+    },
+    "elapsed_seconds": 52.44510514847934,
+    "warnings": [],
+    "prediction_sha256": "ff53e60ceb0a703f2a96f256bde86fbacbc820a1780713792739ffcec81c7c07",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 3
+    },
+    "elapsed_seconds": 64.76323495153338,
+    "warnings": [],
+    "prediction_sha256": "fd02dc09f7f3a2318da787d11df57225f49def06f142364d027721e2be15c365",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 3
+    },
+    "elapsed_seconds": 73.9705860754475,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "903417f7706fbb2389adb845ab6601f62ec31ea66d92ea04f8fbaaca5da0867a",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 4
+    },
+    "elapsed_seconds": 56.85655972734094,
+    "warnings": [],
+    "prediction_sha256": "71475a4ecfdb91ba88f142463835bf27e30ebc696514b1fbf218b4a826f6208d",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 4
+    },
+    "elapsed_seconds": 50.994027433916926,
+    "warnings": [],
+    "prediction_sha256": "bc368a6d33173df54a22f264086f67925c57439932bdf991399039b47ec8a105",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 4
+    },
+    "elapsed_seconds": 54.30179027002305,
+    "warnings": [],
+    "prediction_sha256": "2a1962f1f0079b725c96c56462509ee8fc7a6794f6eb0cba3c295dc368d5bd56",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 4
+    },
+    "elapsed_seconds": 81.06482614856213,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "3beeab003bea60db35a0bffa459a27eb6de7891ada8d12949542bcb9ac101177",
+    "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 0
+    },
+    "elapsed_seconds": 59.92772752046585,
+    "warnings": [],
+    "prediction_sha256": "6921e92284802ab4ce8cf695664d8434e7e4c9ba54050db3fcadf84666522f7f",
+    "source_sha256": "c147ae1ace39dae389330493e3cc744dde91beefee7025102dafceca114d60fd"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 0
+    },
+    "elapsed_seconds": 43.147932971827686,
+    "warnings": [],
+    "prediction_sha256": "94315b9f4e79ea504d9013ac0ecad39f70903ecebae37bb43a5fedd9d51c5f9b",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 0
+    },
+    "elapsed_seconds": 54.66880672145635,
+    "warnings": [],
+    "prediction_sha256": "a37816939370be22e0694e06590904a436a4d75683a2fc71c56221c3a8ce4753",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 0
+    },
+    "elapsed_seconds": 104.09493832103908,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "16841be1a7b66c3fe720d8b4e52c21a961f34db1214420a8f673b7f58ba5a749",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 1
+    },
+    "elapsed_seconds": 78.28407857194543,
+    "warnings": [],
+    "prediction_sha256": "d3b31d2b943204ff5120dfc478f0dc2b7cf8c530568c32aa316bca6a17b48f9b",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 1
+    },
+    "elapsed_seconds": 56.445216284133494,
+    "warnings": [],
+    "prediction_sha256": "31dcff7e1b1ce65fc2d5f7ec2762b943e072f36747b94e8683b8bd49113eb74f",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 1
+    },
+    "elapsed_seconds": 68.61235610302538,
+    "warnings": [],
+    "prediction_sha256": "79009000996a471e3b1a73245b5c274aca85dd29f2909d90e9d18f3f6a3f6a84",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 1
+    },
+    "elapsed_seconds": 104.21014163922518,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "f2c535f6fb34775b2499b4b7b23d3afeda98ad3db4bcf3a25e68c4f2dea231ca",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_lgb_zscore5",
+        "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+        "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+        "components": [
+          [
+            {
+              "id": "f2_lgb_zscore",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_lgb_zscore_extra1234",
+              "family": "lightgbm",
+              "params": {
+                "colsample_bytree": 0.7,
+                "learning_rate": 0.01,
+                "min_child_samples": 10,
+                "n_estimators": 600,
+                "num_leaves": 63,
+                "reg_alpha": 0.0714,
+                "reg_lambda": 0.53,
+                "subsample": 0.7,
+                "subsample_freq": 1
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 2
+    },
+    "elapsed_seconds": 70.1531355958432,
+    "warnings": [],
+    "prediction_sha256": "313d36a80e665040e82f8758330fa4a33354a910974da25f44deabc2a78a5ad4",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_et5",
+        "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+        "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+        "components": [
+          [
+            {
+              "id": "f2_extra_trees_3",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_extra_trees_3_extra1234",
+              "family": "extra_trees",
+              "params": {
+                "max_features": 0.7,
+                "min_samples_leaf": 2,
+                "n_estimators": 500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "interactions",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 2
+    },
+    "elapsed_seconds": 52.673930352553725,
+    "warnings": [],
+    "prediction_sha256": "5c2ccc4e027ea039d7a94571324a374ba7899d683ee7b8d94512ff7e4dcbc0f3",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "f2_avg_cat5",
+        "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+        "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+        "components": [
+          [
+            {
+              "id": "f2_catboost_2",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                0
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.2
+          ],
+          [
+            {
+              "id": "f2_catboost_2_extra1234",
+              "family": "catboost",
+              "params": {
+                "boosting_type": "Plain",
+                "depth": 5,
+                "iterations": 1000,
+                "l2_leaf_reg": 6.0,
+                "learning_rate": 0.03,
+                "random_strength": 1.0
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "blocks": [
+                  "music",
+                  "date_count",
+                  "date_te3"
+                ]
+              },
+              "estimator_seeds": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "cutoff_utc": "2026-11-01T06:31:00+00:00"
+            },
+            0.8
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 2
+    },
+    "elapsed_seconds": 65.99882488232106,
+    "warnings": [],
+    "prediction_sha256": "cd2b405e870086a30f8f66d70ca2162a4df27e999079dd7078fcd94ce7de65cc",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "mlp_w128_a1.0_e300_standard_seeds012",
+        "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+        "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+        "components": [
+          [
+            {
+              "id": "mlp_w128_a1.0_e300_standard_seeds012",
+              "family": "mlp",
+              "params": {
+                "hidden_layer_sizes": [
+                  128,
+                  64
+                ],
+                "alpha": 1.0,
+                "max_iter": 300,
+                "learning_rate_init": 0.001,
+                "batch_size": 128,
+                "tol": 1e-05,
+                "n_iter_no_change": 30
+              },
+              "features": {
+                "blocks": [
+                  "date_count",
+                  "date_te3",
+                  "cyclic"
+                ],
+                "round": true
+              },
+              "scaler": "standard",
+              "estimator_seeds": [
+                0,
+                1,
+                2
+              ]
+            },
+            1.0
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 2
+    },
+    "elapsed_seconds": 102.65253552421927,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+    ],
+    "prediction_sha256": "60b22bfe438750f96594417e2cdc182675100430d6723e708facade0bcb66af3",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  }
+]

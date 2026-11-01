@@ -1,0 +1,33 @@
+{
+  "id": "x3_avg_neighbors_calendar_c64_lightgbm",
+  "family": "lightgbm",
+  "estimator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "components": [
+    {
+      "path": "artifacts/extended/x3_neighbors_calendar_c64_lightgbm/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_neighbors_calendar_c64_lightgbm_seed1/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_neighbors_calendar_c64_lightgbm_seed2/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_neighbors_calendar_c64_lightgbm_seed3/predictions.npz",
+      "weight": 0.2
+    },
+    {
+      "path": "artifacts/extended/x3_neighbors_calendar_c64_lightgbm_seed4/predictions.npz",
+      "weight": 0.2
+    }
+  ]
+}

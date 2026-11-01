@@ -1,0 +1,27 @@
+{
+  "id": "x3_neighbors_calendar_c8_lightgbm_seed2",
+  "family": "lightgbm",
+  "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 10,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 0.53,
+    "subsample": 0.7,
+    "subsample_freq": 1
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "year_standardize": true
+  },
+  "estimator_seeds": [
+    2
+  ],
+  "neighbors": {
+    "view": "calendar",
+    "clusters": 8
+  }
+}

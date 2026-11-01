@@ -1,0 +1,326 @@
+[
+  {
+    "id": "x3_neighbors_calendar_c64_lightgbm_seed1",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      1
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 64
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c64_lightgbm_seed2",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      2
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 64
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c64_lightgbm_seed3",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      3
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 64
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c64_lightgbm_seed4",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      4
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 64
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c8_lightgbm_seed1",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      1
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 8
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c8_lightgbm_seed2",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      2
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 8
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c8_lightgbm_seed3",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      3
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 8
+    }
+  },
+  {
+    "id": "x3_neighbors_calendar_c8_lightgbm_seed4",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      4
+    ],
+    "neighbors": {
+      "view": "calendar",
+      "clusters": 8
+    }
+  },
+  {
+    "id": "x3_pairlogit_d6_lr0.1_l210.0_seed1",
+    "family": "pairlogit",
+    "params": {
+      "depth": 6,
+      "learning_rate": 0.1,
+      "l2_leaf_reg": 10.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      1
+    ]
+  },
+  {
+    "id": "x3_pairlogit_d6_lr0.1_l210.0_seed2",
+    "family": "pairlogit",
+    "params": {
+      "depth": 6,
+      "learning_rate": 0.1,
+      "l2_leaf_reg": 10.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      2
+    ]
+  },
+  {
+    "id": "x3_pairlogit_d4_lr0.03_l23.0_seed1",
+    "family": "pairlogit",
+    "params": {
+      "depth": 4,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 3.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      1
+    ]
+  },
+  {
+    "id": "x3_pairlogit_d4_lr0.03_l23.0_seed2",
+    "family": "pairlogit",
+    "params": {
+      "depth": 4,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 3.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      2
+    ]
+  },
+  {
+    "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+    "family": "pairlogit",
+    "params": {
+      "depth": 4,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 10.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      1
+    ]
+  },
+  {
+    "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+    "family": "pairlogit",
+    "params": {
+      "depth": 4,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 10.0,
+      "iterations": 1500
+    },
+    "features": {
+      "year_relative": true,
+      "date_counts": true,
+      "year_standardize": true
+    },
+    "estimator_seeds": [
+      2
+    ]
+  }
+]

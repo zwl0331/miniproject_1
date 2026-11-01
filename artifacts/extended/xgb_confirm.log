@@ -1,0 +1,4 @@
+START x3_xgb_trees_seed1
+DONE x3_xgb_trees_seed1 CV=0.835627 blend=0.843763 seconds=35.1
+START x3_xgb_trees_seed2
+DONE x3_xgb_trees_seed2 CV=0.834434 blend=0.843658 seconds=33.5

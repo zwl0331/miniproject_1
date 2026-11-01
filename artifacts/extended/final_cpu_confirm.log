@@ -1,0 +1,28 @@
+START x3_neighbors_calendar_c64_lightgbm_seed1
+START x3_neighbors_calendar_c64_lightgbm_seed2
+START x3_neighbors_calendar_c64_lightgbm_seed3
+START x3_neighbors_calendar_c64_lightgbm_seed4
+DONE x3_neighbors_calendar_c64_lightgbm_seed1 CV=0.835271 blend=0.844031 seconds=71.7
+START x3_neighbors_calendar_c8_lightgbm_seed1
+DONE x3_neighbors_calendar_c64_lightgbm_seed2 CV=0.834405 blend=0.843931 seconds=73.0
+START x3_neighbors_calendar_c8_lightgbm_seed2
+DONE x3_neighbors_calendar_c64_lightgbm_seed4 CV=0.835846 blend=0.844128 seconds=74.1
+START x3_neighbors_calendar_c8_lightgbm_seed3
+DONE x3_neighbors_calendar_c64_lightgbm_seed3 CV=0.835345 blend=0.844066 seconds=75.3
+START x3_neighbors_calendar_c8_lightgbm_seed4
+DONE x3_neighbors_calendar_c8_lightgbm_seed1 CV=0.835665 blend=0.844022 seconds=66.5
+START x3_pairlogit_d6_lr0.1_l210.0_seed1
+DONE x3_neighbors_calendar_c8_lightgbm_seed3 CV=0.835028 blend=0.844010 seconds=64.8
+START x3_pairlogit_d6_lr0.1_l210.0_seed2
+DONE x3_neighbors_calendar_c8_lightgbm_seed2 CV=0.835129 blend=0.844015 seconds=66.5
+START x3_pairlogit_d4_lr0.03_l23.0_seed1
+DONE x3_neighbors_calendar_c8_lightgbm_seed4 CV=0.835056 blend=0.843923 seconds=67.9
+START x3_pairlogit_d4_lr0.03_l23.0_seed2
+DONE x3_pairlogit_d6_lr0.1_l210.0_seed2 CV=0.826871 blend=0.843636 seconds=458.7
+START x3_pairlogit_d4_lr0.03_l210.0_seed1
+DONE x3_pairlogit_d6_lr0.1_l210.0_seed1 CV=0.824589 blend=0.843204 seconds=462.2
+START x3_pairlogit_d4_lr0.03_l210.0_seed2
+DONE x3_pairlogit_d4_lr0.03_l23.0_seed1 CV=0.826443 blend=0.844154 seconds=493.1
+DONE x3_pairlogit_d4_lr0.03_l23.0_seed2 CV=0.826912 blend=0.844161 seconds=496.7
+DONE x3_pairlogit_d4_lr0.03_l210.0_seed1 CV=0.828898 blend=0.844233 seconds=516.4
+DONE x3_pairlogit_d4_lr0.03_l210.0_seed2 CV=0.829741 blend=0.844334 seconds=517.9

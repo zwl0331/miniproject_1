@@ -1,0 +1,71 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "f2_avg_et5",
+      "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+      "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+      "components": [
+        [
+          {
+            "id": "f2_extra_trees_3",
+            "family": "extra_trees",
+            "params": {
+              "max_features": 0.7,
+              "min_samples_leaf": 2,
+              "n_estimators": 500
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "interactions",
+                "date_count",
+                "date_te3"
+              ]
+            },
+            "estimator_seeds": [
+              0
+            ],
+            "cutoff_utc": "2026-11-01T06:31:00+00:00"
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "f2_extra_trees_3_extra1234",
+            "family": "extra_trees",
+            "params": {
+              "max_features": 0.7,
+              "min_samples_leaf": 2,
+              "n_estimators": 500
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "interactions",
+                "date_count",
+                "date_te3"
+              ]
+            },
+            "estimator_seeds": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "cutoff_utc": "2026-11-01T06:31:00+00:00"
+          },
+          0.8
+        ]
+      ]
+    },
+    "repeat": 2,
+    "fold": 2
+  },
+  "elapsed_seconds": 53.100914978422225,
+  "warnings": [],
+  "prediction_sha256": "06e1d50a7710bebc89d310b364b7a4261cdeda4c63d160b7f15ac072580ae018",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+}

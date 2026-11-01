@@ -1,0 +1,94 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "x3_avg_xgb3",
+      "path": "artifacts/fast/x3_avg_xgb3/predictions.npz",
+      "sha256": "5837f1881ed8874fc2a77b7bad831a0391b66faa8c5d062e1c5692e897a35749",
+      "components": [
+        [
+          {
+            "id": "f2_xgboost_3",
+            "family": "xgboost",
+            "params": {
+              "colsample_bytree": 0.8,
+              "learning_rate": 0.02,
+              "max_depth": 4,
+              "n_estimators": 1500,
+              "subsample": 0.8
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "date_te3",
+                "date_count"
+              ]
+            },
+            "estimator_seeds": [
+              0
+            ],
+            "cutoff_utc": "2026-11-01T06:31:00+00:00"
+          },
+          0.3333333333333333
+        ],
+        [
+          {
+            "id": "x3_xgb_trees_seed1",
+            "family": "xgboost",
+            "params": {
+              "colsample_bytree": 0.8,
+              "learning_rate": 0.02,
+              "max_depth": 4,
+              "n_estimators": 1500,
+              "subsample": 0.8
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "date_te3",
+                "date_count"
+              ]
+            },
+            "estimator_seeds": [
+              1
+            ]
+          },
+          0.3333333333333333
+        ],
+        [
+          {
+            "id": "x3_xgb_trees_seed2",
+            "family": "xgboost",
+            "params": {
+              "colsample_bytree": 0.8,
+              "learning_rate": 0.02,
+              "max_depth": 4,
+              "n_estimators": 1500,
+              "subsample": 0.8
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "date_te3",
+                "date_count"
+              ]
+            },
+            "estimator_seeds": [
+              2
+            ]
+          },
+          0.3333333333333333
+        ]
+      ]
+    },
+    "repeat": 1,
+    "fold": 3
+  },
+  "elapsed_seconds": 28.547462693415582,
+  "warnings": [],
+  "prediction_sha256": "4dbdb8bbb9d73d72fd8de8832100747fb516ec666e7b5ae11fb4fece5b6b8cbe",
+  "source_sha256": "c147ae1ace39dae389330493e3cc744dde91beefee7025102dafceca114d60fd"
+}

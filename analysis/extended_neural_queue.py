@@ -21,7 +21,7 @@ def configurations():
             blocks=[b for b in common if family != "retrieval" or not b.startswith("date_te")],
             features=extras if features else {}, layout="mixed_neural_v1" if mixed else "legacy_tabm_v1",
             scaler=scaler, params=p, stopping_metric=stopping, pairwise_weight=pairwise, embedding=embedding)
-        queue.append({"id":"x3_"+name, "recipe":recipe, "cutoff_utc":"2026-11-01T20:00:00+00:00"})
+        queue.append({"id":"x3_"+name.replace(".", "p"), "recipe":recipe, "cutoff_utc":"2026-11-01T20:00:00+00:00"})
     # Match each architecture across feature transfer, input layout and scaling.
     for family in ("tabm", "mlp", "resnet", "ft_transformer"):
         for features in (False, True):

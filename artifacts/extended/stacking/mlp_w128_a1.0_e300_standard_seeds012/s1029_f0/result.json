@@ -1,0 +1,53 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "mlp_w128_a1.0_e300_standard_seeds012",
+      "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+      "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+      "components": [
+        [
+          {
+            "id": "mlp_w128_a1.0_e300_standard_seeds012",
+            "family": "mlp",
+            "params": {
+              "hidden_layer_sizes": [
+                128,
+                64
+              ],
+              "alpha": 1.0,
+              "max_iter": 300,
+              "learning_rate_init": 0.001,
+              "batch_size": 128,
+              "tol": 1e-05,
+              "n_iter_no_change": 30
+            },
+            "features": {
+              "blocks": [
+                "date_count",
+                "date_te3",
+                "cyclic"
+              ],
+              "round": true
+            },
+            "scaler": "standard",
+            "estimator_seeds": [
+              0,
+              1,
+              2
+            ]
+          },
+          1.0
+        ]
+      ]
+    },
+    "repeat": 2,
+    "fold": 0
+  },
+  "elapsed_seconds": 77.35342294443399,
+  "warnings": [
+    "Stochastic Optimizer: Maximum iterations (300) reached and the optimization hasn't converged yet."
+  ],
+  "prediction_sha256": "c11f9e65bc177d6c1c238740abfd7cff6182d4bd8aceb7b1e2eb53d8a8bf58f3",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+}

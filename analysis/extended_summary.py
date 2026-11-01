@@ -45,13 +45,21 @@ def main():
     for row in rows[:12]:
         print(f"{row['id']:42} CV={row['cv']:.6f} blend={row['best_blend']:.6f} "
               f"delta={row['delta']:+.6f} w={row['weight']:.2f} splits={row['positive_splits']}/3")
-    errors = [str(path.relative_to(ROOT)) for parent in (OUT, ROOT / "artifacts/neural")
-              for path in parent.glob("x3_*/error.json") if not path.with_name("result.json").exists()]
+    rename_path = OUT / "neural_trial_id_renames.json"
+    renames = json.loads(rename_path.read_text()) if rename_path.exists() else {}
+    errors, resolved = [], []
+    for parent in (OUT, ROOT / "artifacts/neural"):
+        for path in parent.glob("x3_*/error.json"):
+            replacement = ROOT / "artifacts/neural" / renames.get(path.parent.name, path.parent.name) / "result.json"
+            if path.with_name("result.json").exists() or (path.parent.name in renames and replacement.exists()):
+                resolved.append(str(path.relative_to(ROOT)))
+            else:
+                errors.append(str(path.relative_to(ROOT)))
     print("Errors:", errors)
     if not args.write:
         return
     write_json(OUT / "summary.json", dict(updated_utc=datetime.now(timezone.utc).isoformat(),
-               reference=str(BASE.relative_to(ROOT)), results=rows, unresolved_errors=errors))
+               reference=str(BASE.relative_to(ROOT)), results=rows, unresolved_errors=errors, resolved_errors=resolved))
     with (OUT / "summary.csv").open("w") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]) if rows else ["id"], lineterminator="\n")
         writer.writeheader()

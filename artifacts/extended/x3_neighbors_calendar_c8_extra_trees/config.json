@@ -1,0 +1,25 @@
+{
+  "id": "x3_neighbors_calendar_c8_extra_trees",
+  "family": "extra_trees",
+  "params": {
+    "max_features": 0.7,
+    "min_samples_leaf": 2,
+    "n_estimators": 500
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "blocks": [
+      "interactions",
+      "date_count",
+      "date_te3"
+    ]
+  },
+  "estimator_seeds": [
+    0
+  ],
+  "neighbors": {
+    "view": "calendar",
+    "clusters": 8
+  }
+}

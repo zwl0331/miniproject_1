@@ -3,9 +3,23 @@ import unittest
 import numpy as np
 import pandas as pd
 from analysis.extended_stacking import meta_predictions
+from analysis.extended_combiners import fit_pairwise, apply
 
 
 class Boundary(unittest.TestCase):
+    def test_pairwise_direction_and_shrinkage(self):
+        y = np.array([0, 0, 1, 1])
+        Z = np.array([[.2, .9], [.3, .1], [.7, .9], [.8, .1]])
+        fitted = fit_pairwise(Z, y, 0.)
+        regularized = fit_pairwise(Z, y, 10.)
+        self.assertGreater(fitted['weights'][0], .99)
+        self.assertLess(regularized['weights'][0], fitted['weights'][0])
+        p = apply(fitted, Z)
+        self.assertGreater(p[y == 1].min(), p[y == 0].max())
+        self.assertAlmostEqual(sum(fitted['weights']), 1.)
+        constant = fit_pairwise(np.full((4, 2), .5), y, .01)
+        np.testing.assert_allclose(constant['weights'], [.5, .5])
+
     def test_labels_stay_inside_meta_training(self):
         groups = np.repeat(np.arange(30), 2)
         rows = pd.DataFrame({"x": np.arange(60.)}, index=np.arange(1000, 1060))

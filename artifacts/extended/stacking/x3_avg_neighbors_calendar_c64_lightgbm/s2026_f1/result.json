@@ -1,0 +1,168 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "x3_avg_neighbors_calendar_c64_lightgbm",
+      "path": "artifacts/fast/x3_avg_neighbors_calendar_c64_lightgbm/predictions.npz",
+      "sha256": "1992a5a8fc667e0c2e8aa7d9436bc8c3221504487e6ecf7b2004014c1ed2b18f",
+      "components": [
+        [
+          {
+            "id": "x3_neighbors_calendar_c64_lightgbm",
+            "family": "lightgbm",
+            "params": {
+              "colsample_bytree": 0.7,
+              "learning_rate": 0.01,
+              "min_child_samples": 10,
+              "n_estimators": 600,
+              "num_leaves": 63,
+              "reg_alpha": 0.0714,
+              "reg_lambda": 0.53,
+              "subsample": 0.7,
+              "subsample_freq": 1
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              0
+            ],
+            "neighbors": {
+              "view": "calendar",
+              "clusters": 64
+            }
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_neighbors_calendar_c64_lightgbm_seed1",
+            "family": "lightgbm",
+            "params": {
+              "colsample_bytree": 0.7,
+              "learning_rate": 0.01,
+              "min_child_samples": 10,
+              "n_estimators": 600,
+              "num_leaves": 63,
+              "reg_alpha": 0.0714,
+              "reg_lambda": 0.53,
+              "subsample": 0.7,
+              "subsample_freq": 1
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              1
+            ],
+            "neighbors": {
+              "view": "calendar",
+              "clusters": 64
+            }
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_neighbors_calendar_c64_lightgbm_seed2",
+            "family": "lightgbm",
+            "params": {
+              "colsample_bytree": 0.7,
+              "learning_rate": 0.01,
+              "min_child_samples": 10,
+              "n_estimators": 600,
+              "num_leaves": 63,
+              "reg_alpha": 0.0714,
+              "reg_lambda": 0.53,
+              "subsample": 0.7,
+              "subsample_freq": 1
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              2
+            ],
+            "neighbors": {
+              "view": "calendar",
+              "clusters": 64
+            }
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_neighbors_calendar_c64_lightgbm_seed3",
+            "family": "lightgbm",
+            "params": {
+              "colsample_bytree": 0.7,
+              "learning_rate": 0.01,
+              "min_child_samples": 10,
+              "n_estimators": 600,
+              "num_leaves": 63,
+              "reg_alpha": 0.0714,
+              "reg_lambda": 0.53,
+              "subsample": 0.7,
+              "subsample_freq": 1
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              3
+            ],
+            "neighbors": {
+              "view": "calendar",
+              "clusters": 64
+            }
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_neighbors_calendar_c64_lightgbm_seed4",
+            "family": "lightgbm",
+            "params": {
+              "colsample_bytree": 0.7,
+              "learning_rate": 0.01,
+              "min_child_samples": 10,
+              "n_estimators": 600,
+              "num_leaves": 63,
+              "reg_alpha": 0.0714,
+              "reg_lambda": 0.53,
+              "subsample": 0.7,
+              "subsample_freq": 1
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              4
+            ],
+            "neighbors": {
+              "view": "calendar",
+              "clusters": 64
+            }
+          },
+          0.2
+        ]
+      ]
+    },
+    "repeat": 1,
+    "fold": 1
+  },
+  "elapsed_seconds": 115.74130165111274,
+  "warnings": [],
+  "prediction_sha256": "4fc607e64d66e5dd9186b37d2d548deb7330646ebeecd58e256bcc44569e35d5",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+}

@@ -1,0 +1,48 @@
+START x3_ebm_short_i0_lr0.03_r100
+START x3_ebm_short_i0_lr0.03_r300
+DONE x3_ebm_short_i0_lr0.03_r100 CV=0.812264 blend=0.843430 seconds=21.1
+START x3_ebm_short_i0_lr0.03_r500
+DONE x3_ebm_short_i0_lr0.03_r300 CV=0.811985 blend=0.843643 seconds=28.6
+START x3_ebm_short_i0_lr0.003_r300
+DONE x3_ebm_short_i0_lr0.003_r300 CV=0.802816 blend=0.843105 seconds=25.5
+START x3_ebm_short_i0_lr0.003_r1000
+DONE x3_ebm_short_i0_lr0.03_r500 CV=0.808303 blend=0.843565 seconds=33.4
+START x3_ebm_short_i0_lr0.003_r3000
+DONE x3_ebm_short_i0_lr0.003_r1000 CV=0.814040 blend=0.843625 seconds=50.6
+START x3_ebm_short_i10_lr0.03_r100
+DONE x3_ebm_short_i10_lr0.03_r100 CV=0.819987 blend=0.843611 seconds=22.1
+START x3_ebm_short_i10_lr0.03_r300
+DONE x3_ebm_short_i10_lr0.03_r300 CV=0.815746 blend=0.843883 seconds=38.5
+START x3_ebm_short_i10_lr0.03_r500
+DONE x3_ebm_short_i0_lr0.003_r3000 CV=0.811017 blend=0.843627 seconds=126.6
+START x3_ebm_short_i10_lr0.003_r300
+DONE x3_ebm_short_i10_lr0.003_r300 CV=0.811590 blend=0.843156 seconds=35.5
+START x3_ebm_short_i10_lr0.003_r1000
+DONE x3_ebm_short_i10_lr0.03_r500 CV=0.810894 blend=0.843751 seconds=52.2
+START x3_ebm_short_i10_lr0.003_r3000
+DONE x3_ebm_short_i10_lr0.003_r1000 CV=0.819957 blend=0.843908 seconds=88.4
+START x3_ebm_short_i30_lr0.03_r100
+DONE x3_ebm_short_i30_lr0.03_r100 CV=0.823423 blend=0.843886 seconds=26.0
+START x3_ebm_short_i30_lr0.03_r300
+DONE x3_ebm_short_i30_lr0.03_r300 CV=0.813034 blend=0.843714 seconds=57.5
+START x3_ebm_short_i30_lr0.03_r500
+DONE x3_ebm_short_i10_lr0.003_r3000 CV=0.814342 blend=0.843938 seconds=241.4
+START x3_ebm_short_i30_lr0.003_r300
+DONE x3_ebm_short_i30_lr0.03_r500 CV=0.805620 blend=0.843290 seconds=89.6
+START x3_ebm_short_i30_lr0.003_r1000
+DONE x3_ebm_short_i30_lr0.003_r300 CV=0.819804 blend=0.843596 seconds=55.7
+START x3_ebm_short_i30_lr0.003_r3000
+DONE x3_ebm_short_i30_lr0.003_r1000 CV=0.819698 blend=0.844022 seconds=163.4
+START x3_ebm_short_i60_lr0.03_r100
+DONE x3_ebm_short_i60_lr0.03_r100 CV=0.824612 blend=0.843953 seconds=33.6
+START x3_ebm_short_i60_lr0.03_r300
+DONE x3_ebm_short_i60_lr0.03_r300 CV=0.807963 blend=0.843326 seconds=92.2
+START x3_ebm_short_i60_lr0.03_r500
+DONE x3_ebm_short_i60_lr0.03_r500 CV=0.804318 blend=0.843256 seconds=148.3
+START x3_ebm_short_i60_lr0.003_r300
+DONE x3_ebm_short_i30_lr0.003_r3000 CV=0.810631 blend=0.843642 seconds=473.8
+START x3_ebm_short_i60_lr0.003_r1000
+DONE x3_ebm_short_i60_lr0.003_r300 CV=0.823778 blend=0.843667 seconds=90.6
+START x3_ebm_short_i60_lr0.003_r3000
+DONE x3_ebm_short_i60_lr0.003_r1000 CV=0.818650 blend=0.843874 seconds=290.2
+DONE x3_ebm_short_i60_lr0.003_r3000 CV=0.807222 blend=0.843497 seconds=859.4

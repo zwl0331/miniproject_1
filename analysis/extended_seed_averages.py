@@ -26,6 +26,11 @@ def main():
         ("extended", "x3_ebm_short_i30_lr0.003_r1000", 5, "ebm"),
         ("extended", "x3_ebm_short_i10_lr0.003_r1000", 5, "ebm"),
         ("neural", "x3_tabm_auc", 3, "tabm"),
+        ("extended", "x3_pairlogit_d4_lr0.03_l23.0", 3, "pairlogit"),
+        ("extended", "x3_pairlogit_d4_lr0.03_l210.0", 3, "pairlogit"),
+        ("extended", "x3_pairlogit_d6_lr0.1_l210.0", 3, "pairlogit"),
+        ("extended", "x3_neighbors_calendar_c64_lightgbm", 5, "lightgbm"),
+        ("extended", "x3_neighbors_calendar_c8_lightgbm", 5, "lightgbm"),
     ]
     for parent, name, count, family in candidates:
         paths = [f"artifacts/{parent}/{name}{'_seed'+str(seed) if seed else ''}/predictions.npz"

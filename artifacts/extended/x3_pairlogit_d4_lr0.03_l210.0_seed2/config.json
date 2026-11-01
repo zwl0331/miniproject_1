@@ -1,0 +1,18 @@
+{
+  "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+  "family": "pairlogit",
+  "params": {
+    "depth": 4,
+    "learning_rate": 0.03,
+    "l2_leaf_reg": 10.0,
+    "iterations": 1500
+  },
+  "features": {
+    "year_relative": true,
+    "date_counts": true,
+    "year_standardize": true
+  },
+  "estimator_seeds": [
+    2
+  ]
+}

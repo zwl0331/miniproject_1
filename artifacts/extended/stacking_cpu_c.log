@@ -1,0 +1,76 @@
+META START f2_avg_lgb_zscore5 1029/3
+META START f2_avg_et5 1029/3
+META START mlp_w128_a1.0_e300_standard_seeds012 1029/3
+META START f2_avg_cat5 1029/3
+META DONE f2_avg_et5 1029/3 42.4s
+META START f2_avg_lgb_zscore5 1029/4
+META DONE f2_avg_cat5 1029/3 54.3s
+META DONE f2_avg_lgb_zscore5 1029/3 54.4s
+META START f2_avg_et5 1029/4
+META START f2_avg_cat5 1029/4
+META DONE mlp_w128_a1.0_e300_standard_seeds012 1029/3 82.8s
+META START mlp_w128_a1.0_e300_standard_seeds012 1029/4
+META DONE f2_avg_et5 1029/4 42.2s
+META START x3_avg_xgb3 155/0
+META DONE f2_avg_lgb_zscore5 1029/4 55.6s
+META START x3_avg_xgb3 155/1
+META DONE f2_avg_cat5 1029/4 53.7s
+META START x3_avg_xgb3 155/2
+META DONE x3_avg_xgb3 155/0 26.8s
+META START x3_avg_xgb3 155/3
+META DONE x3_avg_xgb3 155/1 26.5s
+META START x3_avg_xgb3 155/4
+META DONE x3_avg_xgb3 155/2 27.3s
+META START x3_avg_xgb3 2026/0
+META DONE x3_avg_xgb3 155/3 25.6s
+META START x3_avg_xgb3 2026/1
+META DONE x3_avg_xgb3 155/4 26.1s
+META START x3_avg_xgb3 2026/2
+META DONE mlp_w128_a1.0_e300_standard_seeds012 1029/4 76.6s
+META START x3_avg_xgb3 2026/3
+META DONE x3_avg_xgb3 2026/0 27.0s
+META START x3_avg_xgb3 2026/4
+META DONE x3_avg_xgb3 2026/1 25.6s
+META START x3_avg_xgb3 1029/0
+META DONE x3_avg_xgb3 2026/2 28.1s
+META START x3_avg_xgb3 1029/1
+META DONE x3_avg_xgb3 2026/3 28.5s
+META START x3_avg_xgb3 1029/2
+META DONE x3_avg_xgb3 2026/4 28.6s
+META START x3_avg_xgb3 1029/3
+META DONE x3_avg_xgb3 1029/0 24.7s
+META START x3_avg_xgb3 1029/4
+META DONE x3_avg_xgb3 1029/1 26.3s
+META START x3_avg_ebm_short_i30_lr0.03_r100 155/0
+META DONE x3_avg_xgb3 1029/2 26.2s
+META START x3_avg_ebm_short_i30_lr0.03_r100 155/1
+META DONE x3_avg_xgb3 1029/3 27.5s
+META START x3_avg_ebm_short_i30_lr0.03_r100 155/2
+META DONE x3_avg_xgb3 1029/4 26.8s
+META START x3_avg_ebm_short_i30_lr0.03_r100 155/3
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 155/0 29.1s
+META START x3_avg_ebm_short_i30_lr0.03_r100 155/4
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 155/1 28.9s
+META START x3_avg_ebm_short_i30_lr0.03_r100 2026/0
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 155/2 29.1s
+META START x3_avg_ebm_short_i30_lr0.03_r100 2026/1
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 155/3 29.2s
+META START x3_avg_ebm_short_i30_lr0.03_r100 2026/2
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 155/4 27.4s
+META START x3_avg_ebm_short_i30_lr0.03_r100 2026/3
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 2026/0 27.7s
+META START x3_avg_ebm_short_i30_lr0.03_r100 2026/4
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 2026/1 28.0s
+META START x3_avg_ebm_short_i30_lr0.03_r100 1029/0
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 2026/2 28.2s
+META START x3_avg_ebm_short_i30_lr0.03_r100 1029/1
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 2026/3 27.2s
+META START x3_avg_ebm_short_i30_lr0.03_r100 1029/2
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 2026/4 28.2s
+META START x3_avg_ebm_short_i30_lr0.03_r100 1029/3
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 1029/0 28.0s
+META START x3_avg_ebm_short_i30_lr0.03_r100 1029/4
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 1029/1 28.2s
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 1029/2 27.6s
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 1029/3 27.3s
+META DONE x3_avg_ebm_short_i30_lr0.03_r100 1029/4 27.8s

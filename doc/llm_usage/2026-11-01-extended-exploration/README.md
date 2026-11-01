@@ -86,3 +86,52 @@ At 06:42 UTC the other session relayed Sam's request for an ETA. Codex replied
 moderate confidence. Late useful candidates needing extra seeds or another meta
 channel are the main uncertainty. Report/Colab and the owner-dependent final-pair
 review are separate. This is an estimate, not a new owner deadline.
+
+At 07:00 UTC Codex added three convex pairwise-logistic weight fits, with
+nonnegative weights summing to one and regularization 0/.01/.1. They reuse the
+same outer-local training predictions as the existing six combiners. Each fit
+uses at most 50,000 deterministic training-only positive/negative pairs; no new
+base-model training is required. Ranking orientation, shrinkage and constant-input
+checks pass alongside the leakage controls (three tests in check_stacking.txt).
+These optimize a smooth ranking surrogate, not exact empirical AUC.
+
+At 07:03 UTC the completed session relayed Sam's request for light, read-only
+supervision across compactions. Primary code/STATE ownership stays here. Codex
+sent the current queues, stopping condition, ETA and known limitations. No new
+review gate or reruns. While meta workers were active, extended_stacking.py
+received changes only to combine and imports (id reuse, ranking comparator and
+combiner thread limit); run_task/meta_predictions/predict_channel stayed unchanged.
+Meta source_sha256 records the current file including those unrelated edits, not
+a byte-exact loaded-module snapshot. Raw neural worker-bound sources stay fixed
+since f809c43. No replay claim is made.
+
+Finish scope is fixed: existing 64 neural grid and 14 targeted CPU confirmations;
+extra seeds for at most two useful late neural configs; one confirmed neighborhood
+and one ranking meta channel; nine regularized combiners plus a few fixed blends;
+checked files and recommendations. No further families or broad grids.
+
+At 07:07 UTC meta pool C exited naturally after its completed EBM workers'
+300-second joblib idle timeout. It wrote outcomes and the same shell started
+final_cpu_confirm_queue.json with four workers. No process signals, duplicate
+launches or reruns were needed. The other session's read-only checkpoint is
+notes/2026-11-01-supervision-checkpoint.md.
+
+At 07:22 UTC three half-pairwise neural job names containing `0.5` were found
+to violate the runner's identifier grammar. They failed before fitting. The
+generator now writes `0p5`; all 64 corrected configs pass validation with the
+recipes unchanged. Original queue/error records are preserved. Completion uses
+neural_queue_corrected.json; only the three renamed cases run in
+neural_queue_id_repairs.json after TabM meta completed. This is a launcher fix,
+not extra scientific configurations.
+
+At 07:30 UTC all 14 final CPU confirmations were complete. The three-seed shallow
+PairLogit ranker with L2=10 gives +0.000456 CV at 10% probability addition, with
+all split means positive. Its individual estimator seeds all improve the mean
+at the same weight. It joins the final nine-channel pool, with the five-seed
+calendar-neighborhood model. Core-five and expanded-seven learned comparisons
+are complete; the expanded pairwise lambda=.1 at 25% logit addition gives
++0.000271 across all splits. Four fixed neighborhood/ranker/EBM combinations
+are saved before the final learned comparison. No new model families added.
+
+Neighborhood meta fitting completed at 07:30 UTC; the final 15 ranking meta tasks
+launched with six CPU workers in stacking_ranking.log.

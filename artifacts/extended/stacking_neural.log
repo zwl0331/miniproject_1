@@ -1,0 +1,30 @@
+META START x3_avg_tabm_auc 155/0
+META START x3_avg_tabm_auc 155/1
+META DONE x3_avg_tabm_auc 155/0 356.3s
+META START x3_avg_tabm_auc 155/2
+META DONE x3_avg_tabm_auc 155/1 442.5s
+META START x3_avg_tabm_auc 155/3
+META DONE x3_avg_tabm_auc 155/2 307.8s
+META START x3_avg_tabm_auc 155/4
+META DONE x3_avg_tabm_auc 155/3 365.3s
+META START x3_avg_tabm_auc 2026/0
+META DONE x3_avg_tabm_auc 155/4 444.1s
+META START x3_avg_tabm_auc 2026/1
+META DONE x3_avg_tabm_auc 2026/0 439.9s
+META START x3_avg_tabm_auc 2026/2
+META DONE x3_avg_tabm_auc 2026/1 487.2s
+META START x3_avg_tabm_auc 2026/3
+META DONE x3_avg_tabm_auc 2026/2 405.7s
+META START x3_avg_tabm_auc 2026/4
+META DONE x3_avg_tabm_auc 2026/3 464.2s
+META START x3_avg_tabm_auc 1029/0
+META DONE x3_avg_tabm_auc 2026/4 466.6s
+META START x3_avg_tabm_auc 1029/1
+META DONE x3_avg_tabm_auc 1029/0 388.1s
+META START x3_avg_tabm_auc 1029/2
+META DONE x3_avg_tabm_auc 1029/1 388.5s
+META START x3_avg_tabm_auc 1029/3
+META DONE x3_avg_tabm_auc 1029/2 388.1s
+META START x3_avg_tabm_auc 1029/4
+META DONE x3_avg_tabm_auc 1029/3 337.2s
+META DONE x3_avg_tabm_auc 1029/4 301.4s

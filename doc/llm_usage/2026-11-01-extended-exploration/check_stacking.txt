@@ -1,7 +1,8 @@
 test_labels_stay_inside_meta_training (__main__.Boundary.test_labels_stay_inside_meta_training) ... ok
+test_pairwise_direction_and_shrinkage (__main__.Boundary.test_pairwise_direction_and_shrinkage) ... ok
 test_split_track_rejected (__main__.Boundary.test_split_track_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 2 tests in 0.006s
+Ran 3 tests in 0.007s
 
 OK

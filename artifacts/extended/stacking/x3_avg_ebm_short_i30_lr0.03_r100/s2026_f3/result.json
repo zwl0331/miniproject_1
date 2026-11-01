@@ -1,0 +1,146 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "x3_avg_ebm_short_i30_lr0.03_r100",
+      "path": "artifacts/fast/x3_avg_ebm_short_i30_lr0.03_r100/predictions.npz",
+      "sha256": "087a6fcdc20eacf5d19284ba873c8f371c5f1bf55228c065e9c632e97f7ae9da",
+      "components": [
+        [
+          {
+            "id": "x3_ebm_short_i30_lr0.03_r100",
+            "family": "ebm",
+            "params": {
+              "outer_bags": 4,
+              "inner_bags": 0,
+              "learning_rate": 0.03,
+              "max_bins": 256,
+              "max_interaction_bins": 32,
+              "min_samples_leaf": 4,
+              "interactions": 30,
+              "max_rounds": 100
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              0
+            ]
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_ebm_short_i30_lr0.03_r100_seed1",
+            "family": "ebm",
+            "params": {
+              "outer_bags": 4,
+              "inner_bags": 0,
+              "learning_rate": 0.03,
+              "max_bins": 256,
+              "max_interaction_bins": 32,
+              "min_samples_leaf": 4,
+              "interactions": 30,
+              "max_rounds": 100
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              1
+            ]
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_ebm_short_i30_lr0.03_r100_seed2",
+            "family": "ebm",
+            "params": {
+              "outer_bags": 4,
+              "inner_bags": 0,
+              "learning_rate": 0.03,
+              "max_bins": 256,
+              "max_interaction_bins": 32,
+              "min_samples_leaf": 4,
+              "interactions": 30,
+              "max_rounds": 100
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              2
+            ]
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_ebm_short_i30_lr0.03_r100_seed3",
+            "family": "ebm",
+            "params": {
+              "outer_bags": 4,
+              "inner_bags": 0,
+              "learning_rate": 0.03,
+              "max_bins": 256,
+              "max_interaction_bins": 32,
+              "min_samples_leaf": 4,
+              "interactions": 30,
+              "max_rounds": 100
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              3
+            ]
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "x3_ebm_short_i30_lr0.03_r100_seed4",
+            "family": "ebm",
+            "params": {
+              "outer_bags": 4,
+              "inner_bags": 0,
+              "learning_rate": 0.03,
+              "max_bins": 256,
+              "max_interaction_bins": 32,
+              "min_samples_leaf": 4,
+              "interactions": 30,
+              "max_rounds": 100
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              4
+            ]
+          },
+          0.2
+        ]
+      ]
+    },
+    "repeat": 1,
+    "fold": 3
+  },
+  "elapsed_seconds": 27.177053780294955,
+  "warnings": [
+    "If validation_size is 0, the outer_bags have no purpose. Set outer_bags=1 to remove this warning.",
+    "Missing values detected. Our visualizations do not currently display missing values. To retain the glassbox nature of the model you need to either set the missing values to an extreme value like -1000 that will be visible on the graphs, or manually examine the missing value score in ebm.term_scores_[term_index][0]"
+  ],
+  "prediction_sha256": "07a23be7a3e1098f0ecb21a8795376366bcee8e4229624eafd4081e990c91f03",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+}

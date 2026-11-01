@@ -1,7 +1,7 @@
 """Fast learned ensembles with base-model cross-fitting inside every outer fold.
 
 Global OOF predictions are used only for outer validation, never meta training.
-All six existing regularized combiners share the same rebuilt training matrix.
+All regularized combiners share the same rebuilt training matrix.
 """
 import argparse
 from concurrent.futures import ProcessPoolExecutor
@@ -21,7 +21,8 @@ from analysis.fast_exploration import ROOT, data_inputs, load_arrays, score, sum
 from songpop.data import sha256_file
 from songpop.evaluate import PredictionBank, validate_bank
 from songpop.phase2.encoders import FitContext
-from songpop.phase2.procedures import population_folds, coordinate_seed, fit_combiner, apply_combiner
+from songpop.phase2.procedures import population_folds, coordinate_seed
+from analysis.extended_combiners import SETTINGS, fit as fit_combiner, apply as apply_combiner
 from songpop.phase2.raw_neural import fit_raw, Worker
 from songpop.splits import SPLIT_SEEDS
 
@@ -139,7 +140,7 @@ def combine(spec):
                 raise ValueError(f"channel mismatch in {key}")
         banks.append(bank)
     results = []
-    settings = [("constrained", x) for x in (0., .01, .1)] + [("stacker", x) for x in (.01, .1, 1.)]
+    settings = SETTINGS
     for setting in settings:
         name = f"x3_learned_{spec['id']}_{setting[0]}_{setting[1]:g}".replace(".", "p")
         folder = ROOT / "artifacts/extended" / name
@@ -167,7 +168,8 @@ def combine(spec):
                             raise ValueError("meta channel folds differ")
                         shared_meta = z["meta_fold"].copy()
                         Z.append(z["oof"].copy())
-                state = fit_combiner(setting, np.column_stack(Z), data.y[tr])
+                with threadpool_limits(limits=1):
+                    state = fit_combiner(setting, np.column_stack(Z), data.y[tr])
                 oof[r, va] = apply_combiner(state, np.column_stack([b["oof"][r, va] for b in banks]))
                 test[r, fold] = apply_combiner(state, np.column_stack([b["test_by_fold"][r, fold] for b in banks]))
                 states.append(dict(split_seed=seed, fold=fold, state=state))
@@ -179,7 +181,8 @@ def combine(spec):
         result = dict(id=name, status="complete", config=config, cv=float(auc.mean()),
             per_seed=auc.mean(axis=1).tolist(), elapsed_seconds=time.monotonic()-started,
             fit_info=states, comparisons=summaries(arrays, current_references()),
-            prediction_sha256=sha256_file(folder / "predictions.npz"), source_sha256=sha256_file(Path(__file__)))
+            prediction_sha256=sha256_file(folder / "predictions.npz"), source_sha256=sha256_file(Path(__file__)),
+            combiner_source_sha256=sha256_file(ROOT / "analysis/extended_combiners.py"))
         write_json(folder / "result.json", result)
         results.append(result)
         print(name, result["cv"], result["per_seed"], flush=True)

@@ -1,0 +1,40 @@
+META START f2_avg_lgb_zscore5 2026/3
+META DONE f2_avg_lgb_zscore5 2026/3 66.9s
+META START f2_avg_et5 2026/3
+META DONE f2_avg_et5 2026/3 52.9s
+META START f2_avg_cat5 2026/3
+META DONE f2_avg_cat5 2026/3 65.5s
+META START mlp_w128_a1.0_e300_standard_seeds012 2026/3
+META DONE mlp_w128_a1.0_e300_standard_seeds012 2026/3 101.4s
+META START f2_avg_lgb_zscore5 2026/4
+META DONE f2_avg_lgb_zscore5 2026/4 57.1s
+META START f2_avg_et5 2026/4
+META DONE f2_avg_et5 2026/4 42.3s
+META START f2_avg_cat5 2026/4
+META DONE f2_avg_cat5 2026/4 70.5s
+META START mlp_w128_a1.0_e300_standard_seeds012 2026/4
+META DONE mlp_w128_a1.0_e300_standard_seeds012 2026/4 80.5s
+META START f2_avg_lgb_zscore5 1029/0
+META DONE f2_avg_lgb_zscore5 1029/0 55.2s
+META START f2_avg_et5 1029/0
+META DONE f2_avg_et5 1029/0 43.2s
+META START f2_avg_cat5 1029/0
+META DONE f2_avg_cat5 1029/0 55.0s
+META START mlp_w128_a1.0_e300_standard_seeds012 1029/0
+META DONE mlp_w128_a1.0_e300_standard_seeds012 1029/0 77.4s
+META START f2_avg_lgb_zscore5 1029/1
+META DONE f2_avg_lgb_zscore5 1029/1 65.2s
+META START f2_avg_et5 1029/1
+META DONE f2_avg_et5 1029/1 55.6s
+META START f2_avg_cat5 1029/1
+META DONE f2_avg_cat5 1029/1 73.6s
+META START mlp_w128_a1.0_e300_standard_seeds012 1029/1
+META DONE mlp_w128_a1.0_e300_standard_seeds012 1029/1 109.3s
+META START f2_avg_lgb_zscore5 1029/2
+META DONE f2_avg_lgb_zscore5 1029/2 69.7s
+META START f2_avg_et5 1029/2
+META DONE f2_avg_et5 1029/2 53.1s
+META START f2_avg_cat5 1029/2
+META DONE f2_avg_cat5 1029/2 66.1s
+META START mlp_w128_a1.0_e300_standard_seeds012 1029/2
+META DONE mlp_w128_a1.0_e300_standard_seeds012 1029/2 105.4s

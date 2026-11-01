@@ -1,0 +1,80 @@
+START x3_ebm_i0_r1000
+START x3_ebm_i0_r3000
+START x3_ebm_i0_r6000
+START x3_ebm_i10_r1000
+DONE x3_ebm_i0_r1000 CV=0.801201 blend=0.843309 seconds=43.6
+START x3_ebm_i10_r3000
+DONE x3_ebm_i10_r1000 CV=0.802191 blend=0.843440 seconds=85.9
+START x3_ebm_i10_r6000
+DONE x3_ebm_i0_r3000 CV=0.788031 blend=0.842680 seconds=117.2
+START x3_ebm_i30_r1000
+DONE x3_ebm_i0_r6000 CV=0.780127 blend=0.842135 seconds=228.9
+START x3_ebm_i30_r3000
+DONE x3_ebm_i30_r1000 CV=0.795700 blend=0.842432 seconds=168.5
+START x3_ebm_i30_r6000
+DONE x3_ebm_i10_r3000 CV=0.784801 blend=0.841906 seconds=247.6
+START x3_ebm_i60_r1000
+DONE x3_ebm_i10_r6000 CV=0.779571 blend=0.841199 seconds=480.5
+START x3_ebm_i60_r3000
+DONE x3_ebm_i60_r1000 CV=0.795697 blend=0.842576 seconds=295.8
+START x3_ebm_i60_r6000
+DONE x3_ebm_i30_r3000 CV=0.784800 blend=0.841708 seconds=479.8
+START x3_ebm_variant0
+DONE x3_ebm_i30_r6000 CV=0.778126 blend=0.840944 seconds=952.6
+START x3_ebm_variant1
+DONE x3_ebm_i60_r3000 CV=0.784594 blend=0.841353 seconds=861.4
+START x3_ebm_variant2
+DONE x3_ebm_variant0 CV=0.792950 blend=0.842390 seconds=940.6
+START x3_ebm_variant3
+DONE x3_ebm_variant1 CV=0.785934 blend=0.842092 seconds=459.9
+START x3_ebm_variant4
+DONE x3_ebm_variant3 CV=0.785633 blend=0.841691 seconds=481.7
+START x3_ebm_variant5
+DONE x3_ebm_variant4 CV=0.788183 blend=0.841714 seconds=492.6
+START x3_ebm_variant6
+DONE x3_ebm_i60_r6000 CV=0.783145 blend=0.841429 seconds=1677.7
+START x3_ebm_variant7
+DONE x3_ebm_variant5 CV=0.792673 blend=0.842254 seconds=483.2
+START x3_pairlogit_d4_lr0.03_l23.0
+DONE x3_ebm_variant6 CV=0.795319 blend=0.842438 seconds=482.4
+START x3_pairlogit_d4_lr0.03_l210.0
+DONE x3_ebm_variant2 CV=0.785300 blend=0.841446 seconds=1265.1
+START x3_pairlogit_d4_lr0.1_l23.0
+DONE x3_ebm_variant7 CV=0.783437 blend=0.841548 seconds=441.7
+START x3_pairlogit_d4_lr0.1_l210.0
+DONE x3_pairlogit_d4_lr0.03_l23.0 CV=0.825612 blend=0.844038 seconds=493.0
+START x3_pairlogit_d6_lr0.03_l23.0
+DONE x3_pairlogit_d4_lr0.1_l23.0 CV=0.819444 blend=0.843446 seconds=443.0
+START x3_pairlogit_d6_lr0.03_l210.0
+DONE x3_pairlogit_d4_lr0.1_l210.0 CV=0.821265 blend=0.843516 seconds=449.5
+START x3_pairlogit_d6_lr0.1_l23.0
+DONE x3_pairlogit_d4_lr0.03_l210.0 CV=0.827924 blend=0.844074 seconds=499.2
+START x3_pairlogit_d6_lr0.1_l210.0
+DONE x3_pairlogit_d6_lr0.03_l23.0 CV=0.828346 blend=0.843791 seconds=495.0
+START x3_neighbors_audio_c8_lightgbm
+DONE x3_pairlogit_d6_lr0.1_l23.0 CV=0.825859 blend=0.843516 seconds=456.7
+START x3_neighbors_audio_c8_extra_trees
+DONE x3_pairlogit_d6_lr0.1_l210.0 CV=0.829060 blend=0.843952 seconds=459.4
+START x3_neighbors_audio_c32_lightgbm
+DONE x3_pairlogit_d6_lr0.03_l210.0 CV=0.830520 blend=0.843887 seconds=505.6
+START x3_neighbors_audio_c32_extra_trees
+DONE x3_neighbors_audio_c8_lightgbm CV=0.834596 blend=0.843634 seconds=66.4
+START x3_neighbors_audio_c64_lightgbm
+DONE x3_neighbors_audio_c8_extra_trees CV=0.831693 blend=0.843599 seconds=64.3
+START x3_neighbors_audio_c64_extra_trees
+DONE x3_neighbors_audio_c32_lightgbm CV=0.834717 blend=0.843663 seconds=71.6
+START x3_neighbors_calendar_c8_lightgbm
+DONE x3_neighbors_audio_c32_extra_trees CV=0.831710 blend=0.843596 seconds=67.1
+START x3_neighbors_calendar_c8_extra_trees
+DONE x3_neighbors_audio_c64_lightgbm CV=0.834647 blend=0.843736 seconds=64.2
+START x3_neighbors_calendar_c32_lightgbm
+DONE x3_neighbors_audio_c64_extra_trees CV=0.832328 blend=0.843667 seconds=61.2
+START x3_neighbors_calendar_c32_extra_trees
+DONE x3_neighbors_calendar_c8_extra_trees CV=0.828001 blend=0.843863 seconds=47.2
+START x3_neighbors_calendar_c64_lightgbm
+DONE x3_neighbors_calendar_c8_lightgbm CV=0.835731 blend=0.844107 seconds=53.9
+START x3_neighbors_calendar_c64_extra_trees
+DONE x3_neighbors_calendar_c32_lightgbm CV=0.834517 blend=0.843971 seconds=53.3
+DONE x3_neighbors_calendar_c32_extra_trees CV=0.827807 blend=0.843897 seconds=49.3
+DONE x3_neighbors_calendar_c64_extra_trees CV=0.828293 blend=0.843877 seconds=51.9
+DONE x3_neighbors_calendar_c64_lightgbm CV=0.836187 blend=0.844161 seconds=58.7

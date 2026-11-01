@@ -1,0 +1,77 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "f2_avg_cat5",
+      "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+      "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+      "components": [
+        [
+          {
+            "id": "f2_catboost_2",
+            "family": "catboost",
+            "params": {
+              "boosting_type": "Plain",
+              "depth": 5,
+              "iterations": 1000,
+              "l2_leaf_reg": 6.0,
+              "learning_rate": 0.03,
+              "random_strength": 1.0
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "music",
+                "date_count",
+                "date_te3"
+              ]
+            },
+            "estimator_seeds": [
+              0
+            ],
+            "cutoff_utc": "2026-11-01T06:31:00+00:00"
+          },
+          0.2
+        ],
+        [
+          {
+            "id": "f2_catboost_2_extra1234",
+            "family": "catboost",
+            "params": {
+              "boosting_type": "Plain",
+              "depth": 5,
+              "iterations": 1000,
+              "l2_leaf_reg": 6.0,
+              "learning_rate": 0.03,
+              "random_strength": 1.0
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "blocks": [
+                "music",
+                "date_count",
+                "date_te3"
+              ]
+            },
+            "estimator_seeds": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "cutoff_utc": "2026-11-01T06:31:00+00:00"
+          },
+          0.8
+        ]
+      ]
+    },
+    "repeat": 2,
+    "fold": 4
+  },
+  "elapsed_seconds": 53.71318307239562,
+  "warnings": [],
+  "prediction_sha256": "4f8f22fb84d51c3db0d8b84ace1e3a9da7552071d0ae8ccfdb9d36b7e0db4be0",
+  "source_sha256": "56abbcaaeccf3274a034c4ae5e569527ce9ff5bf0f7a25beea8e973e24b93b6c"
+}
