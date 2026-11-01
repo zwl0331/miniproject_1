@@ -12,3 +12,12 @@ Additional reserved work: 48 core-refinement configurations; ten stopping varian
 Sam chose E as fallback; the 0.003/all-three-fold trigger and 0.001 selection tie band are unchanged.
 Full-refit path retained; weighted E is represented by its four historical channels in learned combiners.
 Plan sha256 for R2 submission: 999f7d923238d8c619afb4b9631ff4bd86074d998bbf2e976375cbc04c5c5305
+
+R2 round 1 clarifications for recheck:
+274 distinct scientific configurations; six adapter-equivalence runs separate.
+Up to 58 extra individual-seed runs plus up to 29 fresh three-seed final-policy runs (87 single-seed run-equivalents), with deterministic/merged cases reducing the count.
+Same extra accounting applies to replacement nominees.
+At most four admitted new atoms from distinct families; no second recipe from the standalone family.
+Statistical ceiling 18 allows no expansion; GP floor 12 plus one eight-run batch gives 20 within ceiling 24.
+HIER row-count denominators and separate date_count distinct-group feature disambiguated.
+Outcome, stage and reason fields separated. STATE/README pointers refreshed.

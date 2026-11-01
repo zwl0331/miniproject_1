@@ -58,14 +58,14 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| none; two deep Fable consultation rounds complete, fresh R2 review being prepared | | `doc/llm_usage/2026-10-31-p2.9-plan/` | 2026-10-31 |
+| none; R2 round 1 approved at ad1ca96; non-blocking clarifications prepared for recheck | | `reviews/2026-10-31-p2.9-other-methods-plan.md` | 2026-10-31 |
 
 ## Next action
 
 Codex owns development and this state file from Sam's handoff of 2026-10-31. Claude Fable 5.1 xhigh is the independent reviewer through `.agent/review.conf`; the runner supplies `--model claude-fable-5-1 --effort xhigh` and uses read-only plan mode. The prior instruction that the finishing P2.7 session start nothing new does not pause this new development session.
 
 1. R2-review `doc/plans/phase2-p29-other-methods.md` in a fresh Fable session. Two deep Fable consultations, Codex design/critique and point-by-point integration are in `doc/llm_usage/2026-10-31-p2.9-plan/`. The plan covers 12 families and 274 initial configurations, with matched pairs, guaranteed core refinement, seed confirmations and separately budgeted feature/evaluation work. Sam chose E as the revised fallback, with the old numerical trigger and tie band retained. Next after plan approval: P2.9a implementation/score-free pilots when directed, then a measured large-job proposal; this turn launches no training.
-2. Checkout baseline: this checkout is at P2.7 completion commit 1ffaddd before the handoff. The separate `../Mini_project_1_p29` worktree is clean at 9693f11 on `p2.9-reopened`, as inspected during the handoff; it contains no subsequent tracked development. Integrate work deliberately from this completed baseline. Engine changes must reproduce the existing banks before the current menu is deployed again.
+2. Engine baseline: engine sources remain unchanged since P2.7 completion commit 1ffaddd; subsequent commits record the handoff and P2.9 plan. The separate `../Mini_project_1_p29` worktree is clean at 9693f11 on `p2.9-reopened`, as inspected during the handoff; it contains no subsequent tracked development. Integrate work deliberately from this completed baseline. Engine changes must reproduce the existing banks before the current menu is deployed again.
 3. P2.7's saved result keeps fold averaging with no fallback (Finding 030, draft). Phase 3 and the two final selections still require their R1 review and Sam's decision. The singleton diagnostic and transductive proposals remain open as listed above. No fitting job has launched in this planning turn; consultation is distinct from formal approval.
 
 Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7); the procedure-bank validator's check of each stored combiner state's regularization value against its declared setting, with rejection tests (R1 public-checks round 1, F3, non-blocking), also at the next source revision.
