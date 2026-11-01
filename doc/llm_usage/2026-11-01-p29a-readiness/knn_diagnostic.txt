@@ -1,0 +1,9 @@
+Started 2026-11-01T03:26:43.381056+00:00 PID 27998
+Filter: 'kNN:'; empty means the complete suite
+Source scripts/check_phase2.py sha256 d7b1d9fb8ff52e879eb9d3347e459d4b5710ce091fe8ae7685ccd81d2f23bc5f
+Source tools/run_checks_filtered.py sha256 d7cbdf801454743d4afdb15425d2bfef38d7210a179de9c11d440c0c6b50033f
+RUN   kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+DONE  FAIL kNN: the block-weighted representation of plan section 6.2, fitted on the training part only (0.35s)
+FAIL    kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+        AssertionError: 
+0 passed, 1 failed, 0 skipped, 0 staged

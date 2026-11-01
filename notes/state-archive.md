@@ -324,3 +324,13 @@ Sam resumed development on 2026-11-01. Codex owns development and STATE. Claude 
 Deferred: the comment on `WEIGHT_CLEANUP` in `songpop/phase2/procedures.py` (R2 F4, non-blocking) at the next source revision; structural validation of TabM receipts (Codex round T item 7); the procedure-bank validator's check of each stored combiner state's regularization value against its declared setting, with rejection tests (R1 public-checks round 1, F3, non-blocking), also at the next source revision.
 
 After the close: Sam asks (2026-10-31) for a read of the class's public Colab notebooks, posted in public Piazza notes from Tuesday 2026-11-03, against the rules (external data, lookups by identifier, code written for this dataset, pretrained models if the staff rule them out) and against each team's numbers on the private board; factual observations for Sam, who decides what to do with them; nothing from those notebooks enters the project's models or report beyond the Challenges discussion.
+
+## 2026-11-01: resume after node-session handoff
+
+Previous STATE at 94917b4 said work was paused on Sam's wrap request. Its running
+table recorded no remaining jobs and an interrupted legacy suite after about
+40 minutes, exit 130, with no complete node verdict. The retained output is
+`doc/llm_usage/2026-11-01-p29a-node/check_phase2.txt`. Sam resumed development in
+the new session, requested Fable consultation/review, and the full suite restarted
+with progress output. The stale statement that portability still awaited R2 was
+corrected to the existing approval at c6fa913; no method criterion changed.

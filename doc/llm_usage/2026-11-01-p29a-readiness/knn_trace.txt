@@ -1,0 +1,13 @@
+Original test sha256 d7b1d9fb8ff52e879eb9d3347e459d4b5710ce091fe8ae7685ccd81d2f23bc5f
+Filters ['kNN:']; only decorator instrumentation
+Traceback (most recent call last):
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 60, in wrap
+    note = fn()
+           ^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 321, in _
+    assert batch[0] == batch[2] == batch[4] == alone[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+FAIL    kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+        AssertionError: 
+0 passed, 1 failed, 0 skipped, 0 staged

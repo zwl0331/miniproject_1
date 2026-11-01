@@ -1,0 +1,9 @@
+Started 2026-11-01T03:26:43.276246+00:00 PID 27996
+Filter: 'anchor:'; empty means the complete suite
+Source scripts/check_phase2.py sha256 d7b1d9fb8ff52e879eb9d3347e459d4b5710ce091fe8ae7685ccd81d2f23bc5f
+Source tools/run_checks_filtered.py sha256 d7cbdf801454743d4afdb15425d2bfef38d7210a179de9c11d440c0c6b50033f
+RUN   anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly
+DONE  FAIL anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly (10.38s)
+FAIL    anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly
+        AssertionError: arrays differ: ['oof', 'test_by_fold']
+0 passed, 1 failed, 0 skipped, 0 staged
