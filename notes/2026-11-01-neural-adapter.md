@@ -2,7 +2,8 @@
 
 2026-11-01. Provisional development implementation. Sam authorized this session
 to finish the neural adapter under fast-mode rules and then take ownership of
-development. Extended architecture tests are running; current status is in STATE.md.
+development. The 64-configuration extended architecture grid is complete;
+remaining seed checks and ensemble status are in STATE.md.
 
 ## Use
 
@@ -130,6 +131,15 @@ with split seeds 155, 2026 and 1029. Pretrained models are prohibited. The exten
 checks in `doc/llm_usage/2026-11-01-extended-exploration/` cover stopping isolation,
 unknown categories, continuous-only PLE bins and retrieval group exclusion, with
 allowed-label positive controls. Three focused checks and six GPU smoke fits pass.
+
+The completed extended grid contains 17 TabM, 17 MLP, 11 ResNet,
+11 FT-Transformer and eight retrieval configurations, each evaluated on all
+15 saved folds. None of these 960 outer fit records hit the maximum epoch cap.
+Three launcher identifiers initially failed validation before fitting; their
+recipes were retained and all three renamed jobs completed. The corrected roster
+and original error records are preserved under `artifacts/extended/` and
+`artifacts/neural/`. Model selection and seed confirmations are summarized in
+`notes/2026-11-01-extended-closeout.md`.
 
 Architecture APIs were checked against the installed packages and their primary
 documentation: [TabM](https://github.com/yandex-research/tabm),

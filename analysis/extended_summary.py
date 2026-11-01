@@ -76,7 +76,8 @@ def main():
         "(CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. "
         "The best addition below is selected from fixed 10%, 25%, 50% probability blends. "
         "These are exploratory comparisons on reused folds, not independent significance tests. "
-        "Initial configurations use estimator seed 0; promising candidates need further seeds.\n\n"
+        "Initial configurations use estimator seed 0; promising additions receive extra estimator seeds. "
+        "Saved seed averages are included in the table.\n\n"
         f"Completed: {len(rows)}. Unresolved errors: {len(errors)}. Full configs, runtime, warnings, "
         "OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. "
         "Machine-readable table: artifacts/extended/summary.csv.\n\n" + "\n".join(table) + "\n")

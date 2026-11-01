@@ -1,0 +1,81 @@
+{
+  "status": "complete",
+  "task": {
+    "channel": {
+      "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+      "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+      "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+      "components": [
+        [
+          {
+            "id": "x3_pairlogit_d4_lr0.03_l210.0",
+            "family": "pairlogit",
+            "params": {
+              "depth": 4,
+              "learning_rate": 0.03,
+              "l2_leaf_reg": 10.0,
+              "iterations": 1500
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              0
+            ]
+          },
+          0.3333333333333333
+        ],
+        [
+          {
+            "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+            "family": "pairlogit",
+            "params": {
+              "depth": 4,
+              "learning_rate": 0.03,
+              "l2_leaf_reg": 10.0,
+              "iterations": 1500
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              1
+            ]
+          },
+          0.3333333333333333
+        ],
+        [
+          {
+            "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+            "family": "pairlogit",
+            "params": {
+              "depth": 4,
+              "learning_rate": 0.03,
+              "l2_leaf_reg": 10.0,
+              "iterations": 1500
+            },
+            "features": {
+              "year_relative": true,
+              "date_counts": true,
+              "year_standardize": true
+            },
+            "estimator_seeds": [
+              2
+            ]
+          },
+          0.3333333333333333
+        ]
+      ]
+    },
+    "repeat": 2,
+    "fold": 0
+  },
+  "elapsed_seconds": 480.0368205085397,
+  "warnings": [],
+  "prediction_sha256": "9386d2519e54f330500388b0a69fa2297110edb81d443a083a28880d16b6ece5",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+}

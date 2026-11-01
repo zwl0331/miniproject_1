@@ -1,0 +1,21 @@
+{
+  "id": "x3_fixed_hybrid_retrieval5",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "base": "artifacts/fast/x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0/predictions.npz",
+    "neural": "artifacts/fast/x3_avg_retrieval_c16_w64_scalar/predictions.npz"
+  },
+  "expression": {
+    "kind": "probability",
+    "parts": [
+      {
+        "weight": 0.95,
+        "node": "base"
+      },
+      {
+        "weight": 0.05,
+        "node": "neural"
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "x3_uniform_logit_trees_mlp_xgb",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "f2_avg_lgb_zscore5": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+    "f2_avg_et5": "artifacts/fast/f2_avg_et5/predictions.npz",
+    "f2_avg_cat5": "artifacts/fast/f2_avg_cat5/predictions.npz",
+    "mlp_w128_a1.0_e300_standard_seeds012": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+    "x3_avg_xgb3": "artifacts/fast/x3_avg_xgb3/predictions.npz"
+  },
+  "expression": {
+    "kind": "logit",
+    "parts": [
+      {
+        "weight": 0.2,
+        "node": "f2_avg_lgb_zscore5"
+      },
+      {
+        "weight": 0.2,
+        "node": "f2_avg_et5"
+      },
+      {
+        "weight": 0.2,
+        "node": "f2_avg_cat5"
+      },
+      {
+        "weight": 0.2,
+        "node": "mlp_w128_a1.0_e300_standard_seeds012"
+      },
+      {
+        "weight": 0.2,
+        "node": "x3_avg_xgb3"
+      }
+    ]
+  }
+}

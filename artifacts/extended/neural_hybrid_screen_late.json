@@ -1,0 +1,28 @@
+[
+  {
+    "id": "x3_tabm_pair0p5",
+    "kind": "logit",
+    "weight": 0.1,
+    "reference": "x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0",
+    "cv": 0.8443934089133072,
+    "delta": -0.00010049296891356807,
+    "delta_per_seed": [
+      -0.00014051327559794213,
+      -0.00016805997295610275,
+      7.094341813340677e-06
+    ]
+  },
+  {
+    "id": "x3_mlp_ple_bins8",
+    "kind": "probability",
+    "weight": 0.05,
+    "reference": "x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0",
+    "cv": 0.8443941197014119,
+    "delta": -9.978218080878658e-05,
+    "delta_per_seed": [
+      4.088948215996702e-05,
+      -0.00033039757255615143,
+      -9.838452030175304e-06
+    ]
+  }
+]

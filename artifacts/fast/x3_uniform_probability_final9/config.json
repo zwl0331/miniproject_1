@@ -1,0 +1,56 @@
+{
+  "id": "x3_uniform_probability_final9",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "f2_avg_lgb_zscore5": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+    "f2_avg_et5": "artifacts/fast/f2_avg_et5/predictions.npz",
+    "f2_avg_cat5": "artifacts/fast/f2_avg_cat5/predictions.npz",
+    "mlp_w128_a1.0_e300_standard_seeds012": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+    "x3_avg_xgb3": "artifacts/fast/x3_avg_xgb3/predictions.npz",
+    "x3_avg_ebm_short_i30_lr0.03_r100": "artifacts/fast/x3_avg_ebm_short_i30_lr0.03_r100/predictions.npz",
+    "x3_avg_tabm_auc": "artifacts/fast/x3_avg_tabm_auc/predictions.npz",
+    "x3_avg_neighbors_calendar_c64_lightgbm": "artifacts/fast/x3_avg_neighbors_calendar_c64_lightgbm/predictions.npz",
+    "x3_avg_pairlogit_d4_lr0.03_l210.0": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz"
+  },
+  "expression": {
+    "kind": "probability",
+    "parts": [
+      {
+        "weight": 0.1111111111111111,
+        "node": "f2_avg_lgb_zscore5"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "f2_avg_et5"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "f2_avg_cat5"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "mlp_w128_a1.0_e300_standard_seeds012"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "x3_avg_xgb3"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "x3_avg_ebm_short_i30_lr0.03_r100"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "x3_avg_tabm_auc"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "x3_avg_neighbors_calendar_c64_lightgbm"
+      },
+      {
+        "weight": 0.1111111111111111,
+        "node": "x3_avg_pairlogit_d4_lr0.03_l210.0"
+      }
+    ]
+  }
+}

@@ -1189,17 +1189,21 @@ The follow-up in this session is complete. Sam has assigned further experiments 
 
 ## Extended exploration after takeover
 
-Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising candidates need further seeds.
+Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising additions receive extra estimator seeds. Saved seed averages are included in the table.
 
-Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
+Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
 
 | Trial | Standalone CV | Best addition CV | Weight | Delta | Positive splits |
 |---|---:|---:|---:|---:|---:|
+| x3_uniform_probability_final9 | 0.843563 | 0.844353 | 0.50 | +0.000539 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0_seed2 | 0.829741 | 0.844334 | 0.10 | +0.000520 | 3/3 |
 | x3_fixed_hybrid_ebm10_pairlogit_d4_lr0p03_l210p0 | 0.844384 | 0.844331 | 0.50 | +0.000517 | 3/3 |
+| x3_uniform_logit_final9 | 0.843517 | 0.844326 | 0.50 | +0.000512 | 3/3 |
 | x3_fixed_hybrid_ebm5_pairlogit_d4_lr0p03_l210p0 | 0.844508 | 0.844322 | 0.50 | +0.000508 | 3/3 |
+| x3_fixed_hybrid_expanded_pairwise25 | 0.844500 | 0.844313 | 0.50 | +0.000499 | 3/3 |
 | x3_avg_pairlogit_d4_lr0.03_l210.0 | 0.831075 | 0.844270 | 0.10 | +0.000456 | 3/3 |
 | x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0 | 0.844494 | 0.844260 | 0.50 | +0.000445 | 3/3 |
+| x3_fixed_hybrid_core_stacker25 | 0.844458 | 0.844256 | 0.50 | +0.000442 | 3/3 |
 | x3_fixed_probability_pairlogit_d4_lr0p03_l210p0 | 0.844477 | 0.844250 | 0.50 | +0.000436 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0_seed1 | 0.828898 | 0.844233 | 0.10 | +0.000419 | 3/3 |
 | x3_neighbors_calendar_c64_lightgbm | 0.836187 | 0.844161 | 0.25 | +0.000347 | 2/3 |
@@ -1209,6 +1213,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_neighbors_calendar_c64_lightgbm_seed4 | 0.835846 | 0.844128 | 0.10 | +0.000314 | 3/3 |
 | x3_neighbors_calendar_c8_lightgbm | 0.835731 | 0.844107 | 0.10 | +0.000293 | 3/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_stacker_0p01 | 0.843122 | 0.844087 | 0.50 | +0.000273 | 2/3 |
+| x3_uniform_logit_trees_mlp_xgb_ebm_tabm | 0.843036 | 0.844076 | 0.25 | +0.000261 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0 | 0.827924 | 0.844074 | 0.10 | +0.000259 | 2/3 |
 | x3_neighbors_calendar_c64_lightgbm_seed3 | 0.835345 | 0.844066 | 0.10 | +0.000252 | 3/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_pairwise_0p1 | 0.843225 | 0.844053 | 0.25 | +0.000239 | 3/3 |
@@ -1222,6 +1227,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_neighbors_calendar_c8_lightgbm_seed2 | 0.835129 | 0.844015 | 0.10 | +0.000201 | 3/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_constrained_0p1 | 0.843084 | 0.844015 | 0.25 | +0.000201 | 3/3 |
 | x3_neighbors_calendar_c8_lightgbm_seed3 | 0.835028 | 0.844010 | 0.10 | +0.000196 | 3/3 |
+| x3_uniform_logit_trees_mlp_xgb | 0.843172 | 0.844006 | 0.25 | +0.000191 | 3/3 |
 | x3_neighbors_calendar_c32_lightgbm | 0.834517 | 0.843971 | 0.10 | +0.000157 | 3/3 |
 | x3_learned_trees_mlp_xgb_pairwise_0p1 | 0.843485 | 0.843967 | 0.50 | +0.000153 | 2/3 |
 | x3_learned_trees_mlp_xgb_constrained_0p1 | 0.843448 | 0.843963 | 0.25 | +0.000149 | 3/3 |
@@ -1264,6 +1270,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_retrieval_c16_w64_scalar | 0.794431 | 0.843796 | 0.10 | -0.000018 | 2/3 |
 | x3_ft_transformer_f0_m1_quantile | 0.816237 | 0.843793 | 0.10 | -0.000021 | 1/3 |
 | x3_pairlogit_d6_lr0.03_l23.0 | 0.828346 | 0.843791 | 0.10 | -0.000023 | 1/3 |
+| x3_tabm_pair1 | 0.827429 | 0.843774 | 0.10 | -0.000040 | 1/3 |
 | x3_ebm_short_i60_lr0.03_r100_seed1 | 0.823675 | 0.843772 | 0.10 | -0.000043 | 1/3 |
 | x3_tabm_f1_m0_quantile | 0.828992 | 0.843766 | 0.10 | -0.000048 | 1/3 |
 | x3_xgb_trees_seed1 | 0.835627 | 0.843763 | 0.10 | -0.000052 | 2/3 |
@@ -1275,14 +1282,17 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_avg_pairlogit_d6_lr0.1_l210.0 | 0.831014 | 0.843738 | 0.10 | -0.000076 | 1/3 |
 | x3_tabm_f1_m1_standard | 0.829305 | 0.843736 | 0.10 | -0.000078 | 1/3 |
 | x3_neighbors_audio_c64_lightgbm | 0.834647 | 0.843736 | 0.10 | -0.000078 | 0/3 |
+| x3_tabm_pair0p5 | 0.828719 | 0.843730 | 0.10 | -0.000084 | 0/3 |
 | x3_ebm_short_i60_lr0.03_r100_seed4 | 0.822577 | 0.843727 | 0.10 | -0.000087 | 0/3 |
 | x3_avg_xgb3 | 0.835798 | 0.843726 | 0.10 | -0.000088 | 1/3 |
 | x3_tabm_auc_seed1 | 0.830665 | 0.843725 | 0.10 | -0.000089 | 1/3 |
 | x3_ebm_short_i30_lr0.003_r1000_seed3 | 0.816803 | 0.843721 | 0.10 | -0.000093 | 1/3 |
+| x3_mlp_ple_bins8 | 0.821166 | 0.843719 | 0.10 | -0.000095 | 1/3 |
 | x3_ebm_short_i30_lr0.03_r300 | 0.813034 | 0.843714 | 0.10 | -0.000100 | 1/3 |
 | x3_mlp_wide_reg | 0.817440 | 0.843712 | 0.10 | -0.000103 | 1/3 |
 | x3_tabm_f1_m1_quantile | 0.828661 | 0.843710 | 0.10 | -0.000104 | 1/3 |
 | x3_ebm_short_i60_lr0.03_r100_seed2 | 0.822789 | 0.843700 | 0.10 | -0.000115 | 1/3 |
+| x3_tabm_ple_bins8 | 0.829955 | 0.843697 | 0.10 | -0.000117 | 1/3 |
 | x3_ebm_short_i60_lr0.03_r100_seed3 | 0.822404 | 0.843680 | 0.10 | -0.000134 | 2/3 |
 | x3_tabm_slow_reg | 0.829173 | 0.843671 | 0.10 | -0.000143 | 1/3 |
 | x3_neighbors_audio_c64_extra_trees | 0.832328 | 0.843667 | 0.10 | -0.000147 | 0/3 |
@@ -1305,17 +1315,22 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_tabm_small_reg | 0.826917 | 0.843611 | 0.10 | -0.000203 | 1/3 |
 | x3_ebm_short_i10_lr0.03_r100 | 0.819987 | 0.843611 | 0.10 | -0.000203 | 0/3 |
 | x3_neighbors_audio_c8_extra_trees | 0.831693 | 0.843599 | 0.10 | -0.000215 | 0/3 |
+| x3_tabm_periodic_mixed | 0.827545 | 0.843599 | 0.10 | -0.000216 | 0/3 |
 | x3_neighbors_audio_c32_extra_trees | 0.831710 | 0.843596 | 0.10 | -0.000218 | 0/3 |
 | x3_ebm_short_i30_lr0.003_r300 | 0.819804 | 0.843596 | 0.10 | -0.000219 | 1/3 |
 | x3_resnet_f0_m0_standard | 0.813580 | 0.843594 | 0.10 | -0.000220 | 1/3 |
 | x3_resnet_f1_m0_standard | 0.815705 | 0.843588 | 0.10 | -0.000226 | 0/3 |
 | x3_retrieval_c64_w64_scalar | 0.791974 | 0.843581 | 0.10 | -0.000233 | 0/3 |
+| x3_retrieval_c16_w64_scalar_seed1 | 0.790323 | 0.843573 | 0.10 | -0.000241 | 1/3 |
+| x3_ft_transformer_pair1 | 0.814380 | 0.843566 | 0.10 | -0.000249 | 1/3 |
 | x3_ebm_short_i0_lr0.03_r500 | 0.808303 | 0.843565 | 0.10 | -0.000249 | 1/3 |
 | x3_resnet_f1_m1_standard | 0.808902 | 0.843564 | 0.10 | -0.000250 | 0/3 |
 | x3_retrieval_c16_w128_ple | 0.804206 | 0.843559 | 0.10 | -0.000255 | 1/3 |
 | x3_resnet_slow_reg | 0.815453 | 0.843558 | 0.10 | -0.000256 | 0/3 |
+| x3_mlp_periodic_mixed | 0.815975 | 0.843529 | 0.10 | -0.000286 | 0/3 |
 | x3_pairlogit_d6_lr0.1_l23.0 | 0.825859 | 0.843516 | 0.10 | -0.000298 | 1/3 |
 | x3_pairlogit_d4_lr0.1_l210.0 | 0.821265 | 0.843516 | 0.10 | -0.000299 | 1/3 |
+| x3_tabm_ple_bins32 | 0.827624 | 0.843499 | 0.10 | -0.000315 | 1/3 |
 | x3_ebm_short_i60_lr0.003_r3000 | 0.807222 | 0.843497 | 0.10 | -0.000317 | 1/3 |
 | x3_tabm_f0_m1_standard | 0.827125 | 0.843485 | 0.10 | -0.000329 | 0/3 |
 | x3_mlp_f1_m1_quantile | 0.817369 | 0.843480 | 0.10 | -0.000334 | 0/3 |
@@ -1332,6 +1347,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_mlp_f0_m1_quantile | 0.815211 | 0.843418 | 0.10 | -0.000396 | 0/3 |
 | x3_resnet_f1_m0_quantile | 0.814106 | 0.843395 | 0.10 | -0.000419 | 0/3 |
 | x3_ft_transformer_f1_m1_standard | 0.814056 | 0.843394 | 0.10 | -0.000420 | 0/3 |
+| x3_ft_transformer_pair0p5 | 0.811453 | 0.843391 | 0.10 | -0.000423 | 0/3 |
 | x3_resnet_wide_reg | 0.809352 | 0.843374 | 0.10 | -0.000440 | 0/3 |
 | x3_mlp_f1_m1_standard | 0.818074 | 0.843371 | 0.10 | -0.000443 | 0/3 |
 | x3_tabm_f0_m0_standard | 0.826465 | 0.843369 | 0.10 | -0.000445 | 0/3 |
@@ -1341,6 +1357,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_mlp_auc | 0.818397 | 0.843356 | 0.10 | -0.000458 | 0/3 |
 | x3_mlp_pair0p5 | 0.816703 | 0.843353 | 0.10 | -0.000461 | 0/3 |
 | x3_mlp_slow_reg | 0.820100 | 0.843353 | 0.10 | -0.000461 | 0/3 |
+| x3_mlp_ple_bins32 | 0.817748 | 0.843338 | 0.10 | -0.000476 | 0/3 |
 | x3_ebm_short_i60_lr0.03_r300 | 0.807963 | 0.843326 | 0.10 | -0.000488 | 1/3 |
 | x3_ft_transformer_f1_m1_quantile | 0.814639 | 0.843322 | 0.10 | -0.000492 | 1/3 |
 | x3_mlp_small_reg | 0.820747 | 0.843321 | 0.10 | -0.000493 | 0/3 |
@@ -1357,6 +1374,7 @@ Completed: 184. Unresolved errors: 2. Full configs, runtime, warnings, OOF/test 
 | x3_resnet_f1_m1_quantile | 0.809254 | 0.843242 | 0.10 | -0.000572 | 0/3 |
 | x3_pairlogit_d6_lr0.1_l210.0_seed1 | 0.824589 | 0.843204 | 0.10 | -0.000610 | 0/3 |
 | x3_ebm_short_i10_lr0.003_r300 | 0.811590 | 0.843156 | 0.10 | -0.000658 | 0/3 |
+| x3_retrieval_c64_w128_ple | 0.802268 | 0.843129 | 0.10 | -0.000685 | 0/3 |
 | x3_mlp_f0_m1_standard | 0.814790 | 0.843106 | 0.10 | -0.000708 | 0/3 |
 | x3_ebm_short_i0_lr0.003_r300 | 0.802816 | 0.843105 | 0.10 | -0.000709 | 0/3 |
 | x3_retrieval_c16_w128_scalar | 0.784077 | 0.843021 | 0.10 | -0.000793 | 0/3 |

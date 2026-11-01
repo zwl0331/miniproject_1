@@ -1,0 +1,5 @@
+{
+  "id": "x3_tabm_pair0.5",
+  "status": "error",
+  "traceback": "Traceback (most recent call last):\n  File \"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/extended_gpu.py\", line 15, in run\n    return run_trial(config)\n           ^^^^^^^^^^^^^^^^^\n  File \"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/neural_exploration.py\", line 60, in run_trial\n    cutoff = check_config(config)\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/neural_exploration.py\", line 49, in check_config\n    raise ValueError(\"unsafe trial id\")\nValueError: unsafe trial id\n"
+}

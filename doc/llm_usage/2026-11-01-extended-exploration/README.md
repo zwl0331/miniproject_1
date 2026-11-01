@@ -135,3 +135,29 @@ are saved before the final learned comparison. No new model families added.
 
 Neighborhood meta fitting completed at 07:30 UTC; the final 15 ranking meta tasks
 launched with six CPU workers in stacking_ranking.log.
+
+At 07:36 UTC the retrieval c16/w64/scalar configuration was selected for the
+first of at most two allowed late neural seed confirmations. Its fixed 5%
+probability addition improves the stronger hybrid by 0.000146 (2/3 splits).
+Two other small old-reference neural gains failed against the stronger hybrid.
+Seeds 1 and 2 run with one GPU worker in gpu_late_confirm.log.
+
+Uniform logit averages of the three fixed learned pools and a uniform probability
+average of the final pool provide the corresponding simple baselines. These
+require no fits; saved specifications are uniform_pool_baseline_specs.json.
+They distinguish learning weights from merely changing the averaging operation.
+
+A direct browser-tool read of the competition leaderboard failed at 07:42 UTC.
+No Kaggle connector or installed Kaggle client was available. The public 0.86153
+remains explicitly owner-reported; current rank and private score were not verified.
+No credentials were requested and no submission was made.
+
+The first additional retrieval seed confirms the 5% addition to the stronger
+hybrid: CV 0.844621, with all three split means higher. The final decision uses
+the saved three-seed average at the same fixed 5% weight. The second seed is
+still running. This does not add another learned meta channel.
+
+At 07:47 UTC all 64 corrected neural configurations completed. All three ID-only
+repairs succeeded; original pre-fit errors remain recorded and are marked resolved.
+No second late configuration qualified on the stronger hybrid. Final ranking
+meta fits are 12/15 complete; the last retrieval estimator seed is running.
