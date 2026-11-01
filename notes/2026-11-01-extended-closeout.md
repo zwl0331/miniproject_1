@@ -119,8 +119,7 @@ blend**, by grouped CV. The small EBM and learned increments over the simpler
 hybrid are treated as tied, with simplicity preferred. Both new files improve
 all split means over the submitted reference. The neural increment is eligible
 but small and mixed; it is not a private-score guarantee. The submitted follow-up
-file remains preserved, with public 0.86153 recorded as a check only. No public
-scores have been reported for the two new files.
+file remains preserved, with public 0.86153 recorded as a check only. Subsequent public scores are recorded below.
 
 An interim recommendation kept the incumbent as a hedge based partly on its
 public result. The final recommendation above corrects that reasoning to follow
@@ -143,3 +142,14 @@ we did not test synthetic-row augmentation such as mixup/SMOTE, input noise,
 denoising or distillation. Broad family coverage does not exhaust every allowed
 method. This clarification does not authorize another run block or lift Sam's
 explicit no-test-feature-fitting rule. See the accompanying assessment.
+
+## Subsequent public checks reported by Sam
+
+Sam reports both uploads: extended neural blend **0.86047**, and extended
+rank/neighborhood blend **0.86136**. These regress by 0.00106 and 0.00017
+respectively against follow-up trees **0.86153**. The neural file is 0.00089
+below the simpler file on this public subset. The small reused-fold CV gains
+did not transfer to that subset; private scores remain unknown. This is logged
+as a check, without changing the CV selection rule or final_selection.json.
+The separately authorized augmentation queue was specified before these scores
+arrived and continues unchanged within its original cap.

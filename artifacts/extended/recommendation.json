@@ -13,5 +13,16 @@
   "unique_meta_banks": 135,
   "unresolved_errors": 0,
   "resolved_pre_fit_id_errors": 3,
-  "preserved_current_reference": "submissions/2026-11-01_fast_followup_trees.csv"
+  "preserved_current_reference": "submissions/2026-11-01_fast_followup_trees.csv",
+  "later_public_checks": {
+    "extended_neural_blend": {
+      "public_score": 0.86047,
+      "delta_vs_followup": -0.001060000000000061
+    },
+    "extended_rank_neighbors": {
+      "public_score": 0.86136,
+      "delta_vs_followup": -0.00017000000000000348
+    }
+  },
+  "public_check_note": "Both CV gains regressed on the owner-reported public subset; private scores unknown. Selection rule and authoritative owner choices unchanged."
 }

@@ -32,3 +32,9 @@ controls. Three augmentation checks plus three GPU route smokes pass. The test
 loader also ran four imported legacy checks successfully; future invocations
 now explicitly select the augmentation class to avoid that unnecessary rerun.
 Total validation time 43.979 seconds. Sources are frozen before scientific launch.
+
+While the four predeclared settings ran, Sam reported public 0.86047 for the
+previous neural blend and 0.86136 for the simpler hybrid, versus incumbent
+0.86153. Scores were logged. No augmentation config, selection criterion or
+training scope changed in response; the primary reference remains the strongest
+grouped-CV bank. Private outcomes are unknown.

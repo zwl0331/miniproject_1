@@ -49,9 +49,11 @@
     "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv",
     "sha256": "177874ed7e61012ca2493189de05445f90899f1a74b7e4356d2df7976176b2b8"
   },
-  "public_score": null,
+  "public_score": 0.86047,
   "created_utc": "2026-11-01T07:51:34.857637+00:00",
   "prediction_path": "artifacts/fast/final_candidates/extended_neural_blend/predictions.npz",
   "prediction_sha256": "6b6752fa54a33e26a22b6fd081ec38b256d945316068ec6b1381dca1eecf44bd",
-  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction.",
+  "public_score_source": "Sam reported upload and score through supervising Codex session",
+  "public_score_reported_utc": "2026-11-01T08:12:18.530788+00:00"
 }

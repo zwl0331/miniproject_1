@@ -61,6 +61,19 @@ training partition. All candidates from the query's own track group are masked.
 Query/test rows never enter memory fitting. This is a compact project adaptation
 of the general TabR mechanism, not an exact reproduction of the published model.
 
+The separately authorized augmentation screen adds an optional training-only
+`augmentation` argument for `mixed_neural_v1` recipes. For example,
+`augmentation={"kind": "noise", "sigma": 0.02, "probability": 0.5}` perturbs
+observed continuous audio coordinates after preprocessing, in those transformed
+units, and clips to the current training population's range. Categories, missing
+flags, imputed missing cells and validation/test queries are unchanged.
+`{"kind": "mixup", "alpha": 0.1, "probability": 0.5}` interpolates continuous
+coordinates and labels between training rows with identical categorical and
+missingness profiles. It is rejected for retrieval and pairwise-loss recipes.
+Augmentation uses a separate deterministic random stream derived from the batch
+seed and is rebuilt independently for stopping and final training. The bounded
+screen's status is in `doc/llm_usage/2026-11-01-augmentation/README.md`.
+
 ## Running complete trials
 
 ```bash

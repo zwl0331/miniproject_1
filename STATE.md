@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam explicitly authorized a separate 30-minute augmentation screen; setup started 08:02:25 UTC, fit cutoff 08:32:25 UTC. Existing CSVs/selections stay preserved. This session owns development after 32e7c5d. Results are provisional under fast mode; Sam's existing selected pair remains unchanged.
+Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam explicitly authorized a separate 30-minute augmentation screen; setup started 08:02:25 UTC, fit cutoff 08:32:25 UTC. Four GPU configurations launched at 08:07:52 UTC with four workers; process-group timeout enforces the cap (`artifacts/augmentation/gpu.log`, queue.json). Existing CSVs/selections stay preserved. This session owns development after 32e7c5d. Results are provisional under fast mode; Sam's existing selected pair remains unchanged.
 
 ## Rules and ownership
 
@@ -15,14 +15,14 @@ Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam e
 | File | CV mean | Split 155 / 2026 / 1029 | Status |
 |---|---:|---|---|
 | `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Existing first final pick; APPROVED; Sam reported public 0.86153 |
-| `2026-11-01_fast_extended_neural_blend.csv` | 0.844649 | 0.846180 / 0.844871 / 0.842897 | Highest new CV; checked, provisional, not owner-selected |
-| `2026-11-01_fast_extended_rank_neighbors.csv` | 0.844494 | 0.845795 / 0.845047 / 0.842640 | Simpler checked alternative; provisional |
+| `2026-11-01_fast_extended_neural_blend.csv` | 0.844649 | 0.846180 / 0.844871 / 0.842897 | Highest new CV; Sam reports public 0.86047; not final-selected |
+| `2026-11-01_fast_extended_rank_neighbors.csv` | 0.844494 | 0.845795 / 0.845047 / 0.842640 | Simpler checked alternative; Sam reports public 0.86136 |
 | `2026-11-01_fast_combined.csv` | 0.842837 | 0.843593 / 0.843488 / 0.841429 | Existing second final pick; APPROVED at 91050e5 |
 
 - Recommendation by grouped CV: extended neural blend plus the simpler rank/neighborhood file. Preserve follow-up trees as the submitted reference. The neural increment over it is +0.000155 with mixed split and estimator-seed signs; both new candidates improve all split means versus submitted follow-up trees. No private-score guarantee.
 - The hybrid combines confirmed five-seed calendar-neighborhood LightGBM and three-seed PairLogit with the submitted blend. The neural candidate adds 5% of a three-seed TabR-inspired project retrieval model. Exact expressions: `artifacts/extended/fixed_blend_specs.json`, `retrieval_blend_spec.json`.
 - Learned ensembles were tested: 27 regularized combiners over core-five/expanded-seven/final-nine pools. Best standalone 0.843574; best addition to old incumbent 0.844333. Six learned additions to the stronger hybrid gave at most +0.000006, so no further file was proposed.
-- Both new files pass 863-row, ordered unique ID and finite-[0,1] probability checks. Hashes/CV/correlations: `submissions/README.md` and CSV JSON sidecars. No agent upload. Live leaderboard access failed; 0.86153 is explicitly owner-reported, rank/private score unverified.
+- Both new files pass 863-row, ordered unique ID and finite-[0,1] probability checks. Hashes/CV/correlations: `submissions/README.md` and CSV JSON sidecars. Sam reports both new uploads: neural public 0.86047 (-0.00106), simpler hybrid 0.86136 (-0.00017) versus incumbent 0.86153. CV gains did not transfer to the public subset; private score unknown. All public scores are owner-reported; no agent upload or selection change.
 - Recommendation only: `artifacts/extended/recommendation.json`. Authoritative owner selections remain `artifacts/fast/final_selection.json`; prior review: `reviews/2026-11-01-fast-followup-final-files.md`. Both selected CSV hashes are unchanged.
 
 ## Completed work
@@ -41,4 +41,4 @@ Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam e
 
 1. Active owner-authorized augmentation screen: read `doc/llm_usage/2026-11-01-augmentation/README.md`. Implement/test 2-4 mild settings on existing neural models; all augmentation inside training folds, preserve categorical/missing flags. Start 08:02:25 UTC, fit cutoff 08:32:25 UTC. Compare marginal gain to x3_fixed_hybrid_retrieval5 (.844649232). No wider search. Prior closeout/recommendations remain preserved.
 2. Sam chooses/uploads the public checks and decides any change to his two final selections. Keep `final_selection.json` unchanged until he does. If changed, perform the one quick Fable review of that concrete pair, limited to leakage and file correctness, one round.
-3. Then report and Colab: `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, results and `doc/llm_usage/integration_index.md`. Do not claim new candidate public/private results before Sam reports them.
+3. Then report and Colab: `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, results and `doc/llm_usage/integration_index.md`. Public results are logged as owner-reported checks; private results remain unknown.
