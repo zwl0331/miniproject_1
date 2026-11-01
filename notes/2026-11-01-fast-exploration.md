@@ -1184,3 +1184,29 @@ Sam also assigned the parallel session to finish the neural adapter. Its code an
 The owner-selected follow-up trees and previous combined CSVs received one Fable 5.1 xhigh review, leakage and file correctness only: APPROVED at 91050e5. F1 was a non-blocking correlation-record clarification, now addressed without changing CSVs, models or predictions. Both hashes remain unchanged. No uploads or pushes.
 
 The follow-up in this session is complete. Sam has assigned further experiments to Codex session `01a19580-8f99-7492-9bc9-409b9774fb23`, as reported by that session; it takes development and project-state ownership after this handoff. The two reviewed files remain a preserved checkpoint.
+
+<!-- extended-results -->
+
+## Extended exploration after takeover
+
+Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising candidates need further seeds.
+
+Completed: 15. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
+
+| Trial | Standalone CV | Best addition CV | Weight | Delta | Positive splits |
+|---|---:|---:|---:|---:|---:|
+| x3_ebm_short_i0_lr0.03_r300 | 0.811985 | 0.843643 | 0.10 | -0.000171 | 2/3 |
+| x3_ebm_short_i0_lr0.03_r500 | 0.808303 | 0.843565 | 0.10 | -0.000249 | 1/3 |
+| x3_mlp_f1_m1_quantile | 0.817369 | 0.843480 | 0.10 | -0.000334 | 0/3 |
+| x3_ebm_i10_r1000 | 0.802191 | 0.843440 | 0.10 | -0.000374 | 0/3 |
+| x3_ebm_short_i0_lr0.03_r100 | 0.812264 | 0.843430 | 0.10 | -0.000385 | 0/3 |
+| x3_mlp_f1_m1_standard | 0.818074 | 0.843371 | 0.10 | -0.000443 | 0/3 |
+| x3_ebm_i0_r1000 | 0.801201 | 0.843309 | 0.10 | -0.000505 | 0/3 |
+| x3_ebm_short_i0_lr0.003_r300 | 0.802816 | 0.843105 | 0.10 | -0.000709 | 0/3 |
+| x3_ebm_i0_r3000 | 0.788031 | 0.842680 | 0.10 | -0.001134 | 0/3 |
+| x3_ebm_i60_r1000 | 0.795697 | 0.842576 | 0.10 | -0.001238 | 0/3 |
+| x3_ebm_i30_r1000 | 0.795700 | 0.842432 | 0.10 | -0.001382 | 0/3 |
+| x3_ebm_i0_r6000 | 0.780127 | 0.842135 | 0.10 | -0.001679 | 0/3 |
+| x3_ebm_i10_r3000 | 0.784801 | 0.841906 | 0.10 | -0.001908 | 0/3 |
+| x3_ebm_i30_r3000 | 0.784800 | 0.841708 | 0.10 | -0.002107 | 0/3 |
+| x3_ebm_i10_r6000 | 0.779571 | 0.841199 | 0.10 | -0.002616 | 0/3 |

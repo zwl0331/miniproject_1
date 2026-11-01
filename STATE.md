@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 06:06 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural extensions passed focused boundary checks and six GPU smoke fits. The 64-trial GPU queue launched at 06:01 UTC with four workers, log `artifacts/extended/gpu.log`. Worker-bound neural sources remain fixed during this queue. A 24-trial shorter EBM follow-up launches with two CPU workers; log `artifacts/extended/cpu_short.log`. Original 20:00 UTC experiment deadline applies.
+Updated 2026-11-01 06:04 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural extensions passed focused boundary checks and six GPU smoke fits. The 64-trial GPU queue launched at 06:01 UTC with four workers, log `artifacts/extended/gpu.log`. Worker-bound neural sources remain fixed during this queue. A 24-trial shorter EBM follow-up launches with two CPU workers; log `artifacts/extended/cpu_short.log`. Original 20:00 UTC experiment deadline applies.
 
 ## Rules and ownership
 
