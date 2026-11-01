@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 221, in <module>
+    main()
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 194, in main
+    raise RuntimeError(result.stderr.decode())
+RuntimeError: Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 221, in <module>
+    main()
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 160, in main
+    pickle.dump(worker(payload, args.worker), out, protocol=pickle.HIGHEST_PROTOCOL)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 138, in worker
+    modules = {str(Path(m.__file__).resolve().relative_to(Path.cwd())): sha(m.__file__)
+                                                                        ^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/analysis/p29_tabm_device_pilot.py", line 19, in sha
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '_ops.py'
+

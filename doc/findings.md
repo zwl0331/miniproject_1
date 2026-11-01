@@ -1060,3 +1060,28 @@ Evidence:
 Uncertainty and review status:
 
 `draft`, 2026-11-01. These modules are not connected to `engine.fit_recipe` or the neural worker. They are outside the migration R2 snapshot at 74fc0b3. No neural stopping, calibration, retrieval or new prediction-bank claim follows from these tests. Full raw-adapter tests and review remain required before scientific tuning depends on them. No legacy module was changed.
+
+## Finding 033: bounded TabM CPU and GPU device pilot
+
+Question:
+
+Does this node's CUDA route reduce complete scalar TabM fitting time at realistic population sizes while repeating exactly in fresh processes?
+
+Current conclusion:
+
+One fixed historical scalar B recipe was run through a raw-row prototype at 3,091 production-fold rows and 2,061 smaller fitting rows. Each device/population pair ran twice, sequentially, in fresh processes. The worker received fitting labels and query features only. It rebuilt features/preprocessing on S for stopping and on D for final refitting, predicted validation/test features, and returned hashes and stopping receipts. No outer AUC was computed and no candidate was ranked.
+
+| Population | CPU process seconds, two runs | CUDA process seconds, two runs | CPU/CUDA chosen epoch | Ratio of mean complete process times |
+|---|---|---|---|---|
+| 3,091 rows | 54.7763, 49.9915 | 23.6002, 23.2152 | 67 / 85 | 2.23789 |
+| 2,061 rows | 42.3614, 40.1364 | 17.6017, 17.2255 | 76 / 54 | 2.36878 |
+
+For every pair, model-state hashes, prediction hashes, full stopping receipts and source manifests match exactly between fresh runs. The production CPU prototype matches both prediction hashes and the complete TabM receipt from the old node adapter's first-fold probe. CUDA takes a different numerical trajectory and is not CPU-equivalent; production CUDA evaluated 105 stopping epochs versus CPU 87, and the smaller route evaluated 74 versus CPU 96. Thus the measured ratios compare the complete fixed procedure on each device, not identical optimizer-step counts or a general GPU speedup. Peak Torch CUDA allocation was about 83 MiB; this excludes driver/runtime and non-Torch process memory.
+
+Evidence:
+
+`../analysis/p29_tabm_device_pilot.py`; `llm_usage/2026-11-01-p29a-node/tabm_device_pilot.json` and `.log`. The receipt binds data, historical bank, device policy, wheel lock, executing sources, exact parameters, subfit counts, split/feature/preprocessing identities, stopping losses and update counts. Four thread limits were explicit; one GPU worker at a time. The existing phase-two suite ran concurrently on CPU. The first attempt failed after fitting while hashing Torch's virtual `_ops.py` module; its log is retained as `tabm_device_pilot_source_manifest_error.log`. The manifest builder was fixed to hash only actual files, then the complete pilot was repeated.
+
+Uncertainty and review status:
+
+`draft`, 2026-11-01. This is one recipe and two population sizes, not the three-recipe/all-15-fold CPU equivalence gate, a final recipe_v2 adapter, fitted D-arm isolation, other-family timing or a search budget. Worker startup and serialization are included in process time. No GPU concurrency scaling, persistent-worker optimization, full nested path, all-shape determinism or model-performance claim is established. No scientific search, production bank or submission was generated.

@@ -1,0 +1,9 @@
+production cpu repeat 0: 54.78s, epoch 67; no AUC
+production cpu repeat 1: 49.99s, epoch 67; no AUC
+production cuda repeat 0: 23.60s, epoch 85; no AUC
+production cuda repeat 1: 23.22s, epoch 85; no AUC
+nested_size cpu repeat 0: 42.36s, epoch 76; no AUC
+nested_size cpu repeat 1: 40.14s, epoch 76; no AUC
+nested_size cuda repeat 0: 17.60s, epoch 54; no AUC
+nested_size cuda repeat 1: 17.23s, epoch 54; no AUC
+All fresh-process repeats exact; first-fold CPU predictions/receipt match the old adapter

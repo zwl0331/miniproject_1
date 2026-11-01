@@ -8,7 +8,7 @@ Caltech CS/CNS/EE 155, Machine Learning & Data Mining, fall 2026. Miniproject 1 
 
 | Path | Content |
 |---|---|
-| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `plans/phase2-models-features.md` (phase 2 plan); `plans/phase2-p29-other-methods.md` (P2.9 neural, kernel, retrieval and statistical extension); `findings.md` (evidence ledger, Findings 000 to 032); `review_policy.md` (the review-gated rules of 2026-10-28 to 30, superseded by `../AGENTS.md`, kept for the old records) |
+| `doc/` | This README; `project_plan.md` (master plan); `plans/modeling_strategy.md` (methods, validation protocol, experiment order); `plans/phase1-data-baseline.md` (phase 1 plan); `plans/phase2-models-features.md` (phase 2 plan); `plans/phase2-p29-other-methods.md` (P2.9 neural, kernel, retrieval and statistical extension); `findings.md` (evidence ledger, Findings 000 to 033); `review_policy.md` (the review-gated rules of 2026-10-28 to 30, superseded by `../AGENTS.md`, kept for the old records) |
 | `doc/plans/phase2-p29-node-contracts.md` | Linux migration, runtime identities and the P2.9 raw-adapter contracts |
 | `doc/prior_project/` | Evidence carried over from an earlier audio-only attempt at this miniproject (P2.8): copied result files with their hashes and a README of what is used; the source folder is not read |
 | `doc/llm_usage/` | Evidence for the report's LLM Usage section: `integration_index.md` (one row per LLM-assisted component) and the verbatim prompts and answers of the consultations, one directory per task |

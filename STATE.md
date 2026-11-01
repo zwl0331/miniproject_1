@@ -39,6 +39,7 @@ All phase 2 scores are exploratory matched evaluations (plan section 5.7); mean 
 | P2.9 plan | 12 families, 274 distinct initial configurations, guaranteed core refinement, feature comparisons, seed checks and revised evaluation; E fallback as Sam chose | reviewed (R2 APPROVED, round 3; all 11 findings resolved) | `doc/plans/phase2-p29-other-methods.md`; `reviews/2026-10-31-p2.9-other-methods-plan.md` | fe9c54a |
 | P2.9a node | Environment installed; 19 foundation checks pass; six synthetic GPU probes repeat exactly; H/E atoms repeat byte-identically on-node, but several differ from Mac; node E diagnostic 0.840896 vs historical 0.841062 | provisional, Finding 031; portability amendment v1.3 under R2 | `doc/plans/phase2-p29-node-contracts.md`; `doc/llm_usage/2026-11-01-p29a-node/`; `artifacts/phase2/p29/` | 74fc0b3 |
 | P2.9a boundary | Raw-feature wrapper and strict group partitions; eight focused tests pass, including a deliberately leaky encoder control and legacy feature equivalence; not connected to the engine | provisional, Finding 032; outside migration R2 snapshot | `songpop/phase2/raw_features.py`; `raw_splits.py`; `scripts/check_p29_boundaries.py` | see git log |
+| P2.9a device pilot | Fixed TabM B, 3,091/2,061 fitting rows, two fresh CPU/CUDA repeats each: exact within-device states/predictions/receipts; first-fold CPU equals old adapter; GPU process times about 2.24/2.37 times shorter | provisional, Finding 033; one recipe, no outer AUC or search budget | `analysis/p29_tabm_device_pilot.py`; `doc/llm_usage/2026-11-01-p29a-node/tabm_device_pilot.json` | see git log |
 | Workflow | agent-workflow v1, homework profile; primary developer Codex after the 2026-10-31 handoff; reviewer Claude Fable 5.1 xhigh, with model and effort passed explicitly; earlier roles archived | migration reviewed; handoff owner-directed | `reviews/2026-10-30-agent-workflow-migration.md`; `decisions.md`; `.agent/review.conf` | ce04746 (migration) |
 
 Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 passed, 0 failed, 0 staged (`artifacts/phase2/check_phase2.txt`). Codex consultation rounds S to V adopted (`doc/llm_usage/2026-10-30-p2.5-consultation/`, `-p2.6-consultation/`). A rehearsal of P2.6b's evaluate stage with seed-0 stand-ins ran without error; its outputs were discarded and its scores are not used.
@@ -61,8 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
-| Phase-two checks; fresh Fable R2 at 74fc0b3. Consultations, tree replays and explicit-thread CPU repeats complete; no search fits | checks 45241; review 58793 | `doc/llm_usage/2026-11-01-p29a-node/`; `reviews/2026-11-01-p29a-node-portability.md` | 2026-11-01 |
-| Bounded TabM device prototype: one fixed B recipe, production/nested-size populations, CPU/CUDA, two fresh repeats; no outer AUC or ranking | `analysis.p29_tabm_device_pilot` | `doc/llm_usage/2026-11-01-p29a-node/tabm_device_pilot.log` | 2026-11-01 |
+| Phase-two checks; Fable R2 round 2 at c6fa913. Consultations, tree replays and CPU/CUDA prototype pilots complete; no search fits | checks 45241; review 56127 | `doc/llm_usage/2026-11-01-p29a-node/`; `reviews/2026-11-01-p29a-node-portability.md` | 2026-11-01 |
 
 ## Next action
 

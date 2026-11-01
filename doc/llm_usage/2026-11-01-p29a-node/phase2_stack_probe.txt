@@ -1,0 +1,84 @@
+[New LWP 12658]
+[New LWP 12657]
+[New LWP 12495]
+[New LWP 12494]
+[New LWP 12493]
+[New LWP 12492]
+[New LWP 12491]
+[New LWP 12490]
+[New LWP 12489]
+[New LWP 12457]
+[New LWP 12456]
+[New LWP 12455]
+[New LWP 12454]
+[New LWP 12453]
+[New LWP 12452]
+[New LWP 12451]
+[New LWP 12450]
+[New LWP 12449]
+[New LWP 12448]
+[New LWP 12447]
+[New LWP 12446]
+[New LWP 12445]
+[New LWP 12444]
+[New LWP 12412]
+[New LWP 12411]
+[New LWP 12410]
+[New LWP 12409]
+[New LWP 12408]
+[New LWP 12407]
+[New LWP 12405]
+[New LWP 12406]
+[New LWP 12404]
+[New LWP 12403]
+[New LWP 12380]
+[New LWP 12379]
+[New LWP 12371]
+[New LWP 12370]
+[New LWP 12369]
+[New LWP 12313]
+[New LWP 12312]
+[New LWP 12311]
+[New LWP 12304]
+[New LWP 12290]
+[New LWP 12289]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib64/libthread_db.so.1".
+0x00007ff3a3b1a5b4 in PyArrayIdentityHash_GetItem () from /exp/mu2e/app/users/wzhou2/projects/miniproject_1/.venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-x86_64-linux-gnu.so
+0x7ff389eb9328:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/songpop/metrics.py"
+0x7ff38f41ef98:	"cached_weighted_auc"
+$1 = 18
+0x7ff389eb9328:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/songpop/metrics.py"
+0x7ff3a5b2b348:	"paired_cluster_bootstrap"
+$2 = 76
+0x7ff389f39058:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/run_experiments.py"
+0x7ff389d153d8:	"feature_bootstraps"
+$3 = 1160
+0x7ff389f39058:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/run_experiments.py"
+0x7ff3a4ffc2d8:	"audit_features"
+$4 = 1376
+0x7ff3a5af6258:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py"
+0x7ff3a5001ee8:	"audited"
+$5 = 1897
+0x7ff3a5af6258:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py"
+0x56225a893638 <_PyRuntime+65848>:	"_"
+$6 = 1840
+0x7ff3a5af6258:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py"
+0x7ff3a5b40298:	"wrap"
+$7 = 55
+0x7ff3a5af6258:	"/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py"
+0x56225a889318 <_PyRuntime+24088>:	"<module>"
+$8 = 1
+0x56225a889610 <_PyRuntime+24848>:	"<shim>"
+0x7ff3a5cd9098:	"<interpreter trampoline>"
+$9 = 1
+0x56225a807688 <runpy_toplevel_consts_5_consts_2_filename+40>:	"<frozen runpy>"
+0x56225a807328 <const_str__run_code+40>:	"_run_code"
+$10 = 65
+0x56225a807688 <runpy_toplevel_consts_5_consts_2_filename+40>:	"<frozen runpy>"
+0x56225a8071a8 <const_str__run_module_as_main+40>:	"_run_module_as_main"
+$11 = 173
+0x56225a889610 <_PyRuntime+24848>:	"<shim>"
+0x7ff3a5cd9098:	"<interpreter trampoline>"
+$12 = 1
+[Inferior 1 (process 12288) detached]
