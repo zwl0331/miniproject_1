@@ -36,7 +36,8 @@ The exact sharing question and approval are in decisions.md. The same read-only 
 | portability_probe.json and .log | First-fold CPU H/TabM comparison with the Mac banks; no AUC |
 | portability_cpu4_* | First-fold repeat diagnostics with all four thread variables explicit |
 | tree_replay*.log, migration_comparison.txt | Full historical tree refits, fresh node repeat and migration comparison |
-| check_foundation.txt, check_phase2.txt | Existing suites run on the node; the latter was still running at initial record |
+| check_foundation.txt | Existing foundation suite: 19 passed |
+| check_phase2.txt (pending, not in the migration review snapshot) | Existing phase-two suite is still running; no completed-suite claim |
 
 The installed environment is node-local at /tmp/miniproject_1-p29-venv-20261101, reached by .venv. The shared filesystem returned errno 122 (disk quota exceeded) after the first installation had written about 5.1 GiB. No project data or banks were moved. The exact same locked package transaction completed on scratch and passed the full inventory and pip consistency checks. Scratch is disposable; the committed lock and interpreter transaction are the rebuild inputs. REVIEW_PYTHON now points to the project interpreter.
 

@@ -12,6 +12,8 @@ The first installation exceeded the shared filesystem's quota after about 5.1 Gi
 
 The new route is not the old Mac binary environment, despite equal distribution versions. CPU/GPU and macOS/Linux reproducibility are different questions. Keep historical identities and artifacts immutable. P2.9 recipes will include a runtime-route identity covering device/backend policy, the Linux lock hash, source hashes and dependency versions. The current `runs.fitted_config` contains package versions but not wheel/build identities; matching version strings alone must not silently authorize cross-platform cache reuse.
 
+The runtime route is also an explicit field of every new run configuration and nested cache key, independent of recipe schema. This covers freshly evaluated recipe_v1 E atoms without changing their canonical recipes or recipe hashes. It includes policy id, Linux wheel/bootstrap lock hashes and runtime build strings (Torch/CUDA/cuDNN where used). Source hashes remain independently bound. Historical comparisons report arrays at 1e-12 separately from expected source/runtime metadata differences; a metadata mismatch does not by itself imply a prediction difference, and matching arrays do not authorize cache sharing across incompatible identities.
+
 ## Source audit and dispatch boundary
 
 | Current source | Observed behavior | Required P2.9 implementation |

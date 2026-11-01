@@ -62,6 +62,7 @@ Checks: full `scripts.check_phase2` on the P2.5 and P2.6 code (527673c): 55 pass
 | What | Job or process ID | Log | Started |
 |---|---|---|---|
 | Phase-two checks; fresh Fable R2 at 74fc0b3. Consultations, tree replays and explicit-thread CPU repeats complete; no search fits | checks 45241; review 58793 | `doc/llm_usage/2026-11-01-p29a-node/`; `reviews/2026-11-01-p29a-node-portability.md` | 2026-11-01 |
+| Bounded TabM device prototype: one fixed B recipe, production/nested-size populations, CPU/CUDA, two fresh repeats; no outer AUC or ranking | `analysis.p29_tabm_device_pilot` | `doc/llm_usage/2026-11-01-p29a-node/tabm_device_pilot.log` | 2026-11-01 |
 
 ## Next action
 
