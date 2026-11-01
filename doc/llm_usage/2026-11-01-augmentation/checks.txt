@@ -1,0 +1,26 @@
+test_all_architectures_cpu_and_cuda_fit_predict (scripts.check_neural_adapter.AdvancedNeural.test_all_architectures_cpu_and_cuda_fit_predict) ... PASS cpu tabm scalar
+PASS cpu tabm ple
+PASS cpu tabm periodic
+PASS cpu mlp scalar
+PASS cpu mlp ple
+PASS cpu mlp periodic
+PASS cpu resnet scalar
+PASS cpu resnet ple
+PASS cpu resnet periodic
+PASS cpu ft_transformer scalar
+ok
+test_constant_bins_and_invalid_recipes (scripts.check_neural_adapter.AdvancedNeural.test_constant_bins_and_invalid_recipes) ... ok
+test_ple_stopping_labels_and_features_are_isolated (scripts.check_neural_adapter.AdvancedNeural.test_ple_stopping_labels_and_features_are_isolated) ... ok
+test_resnet_keeps_singleton_final_batch (scripts.check_neural_adapter.AdvancedNeural.test_resnet_keeps_singleton_final_batch) ... ok
+test_batch_validity_and_positive_controls (__main__.Augmentation.test_batch_validity_and_positive_controls) ... ok
+test_invalid_routes_rejected (__main__.Augmentation.test_invalid_routes_rejected) ... ok
+test_stopping_isolation_and_gpu_smoke (__main__.Augmentation.test_stopping_isolation_and_gpu_smoke) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 43.979s
+
+OK
+PASS unchanged categories/flags/missing cells, paired labels, deterministic seed, input immutability
+PASS GPU tabm mixup
+PASS GPU tabm noise
+PASS GPU retrieval noise

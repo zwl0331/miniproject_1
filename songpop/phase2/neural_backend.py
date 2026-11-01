@@ -158,21 +158,29 @@ def train(torch, recipe, spec, Z, y, epochs, init_seed, batch_seed, device, Zv=N
         group_tensor = torch.as_tensor(np.unique(groups, return_inverse=True)[1], device=device, dtype=torch.long)
         net.set_memory(inputs, labels, group_tensor)
     pair_weight = recipe.get("extensions", {}).get("pairwise_weight", 0.)
+    augmenter = None
+    if "augmentation" in recipe:
+        from songpop.phase2.neural_augmentation import Augmenter
+        augmenter = Augmenter(recipe["augmentation"], spec, Z, batch_seed)
     losses, trajectory, updates = [], [], 0
     for _ in range(epochs):
         net.train()
         permutation = torch.randperm(len(inputs), generator=generator)
         for start in range(0, len(inputs), p["batch_size"]):
-            indices = permutation[start:start + p["batch_size"]].to(device)
+            indices_cpu = permutation[start:start + p["batch_size"]]
+            indices = indices_cpu.to(device)
             if len(indices) == 1 and family == "resnet":
                 # Keep the observation, but use training-derived running moments.
                 # BatchNorm cannot estimate variance from a singleton batch.
                 for module in net.modules():
                     if isinstance(module, torch.nn.BatchNorm1d):
                         module.eval()
-            outputs = architectures.forward(net, inputs[indices], family,
+            batch, targets = inputs[indices], labels[indices]
+            if augmenter is not None:
+                batch, targets = augmenter.batch(torch, inputs, labels, indices_cpu.numpy())
+            outputs = architectures.forward(net, batch, family,
                 None if group_tensor is None else group_tensor[indices])
-            loss = torch.nn.functional.binary_cross_entropy_with_logits(outputs, labels[indices, None].expand_as(outputs))
+            loss = torch.nn.functional.binary_cross_entropy_with_logits(outputs, targets[:, None].expand_as(outputs))
             if pair_weight:
                 positives, negatives = outputs[labels[indices] == 1], outputs[labels[indices] == 0]
                 if len(positives) and len(negatives):

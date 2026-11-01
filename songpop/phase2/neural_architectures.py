@@ -12,6 +12,12 @@ def specification(recipe, Z, prep=None):
     spec = {"d_in": Z.shape[1]}
     if recipe["adapter"]["layout"] == "mixed_neural_v1":
         spec.update(n_cont=prep.n_cont_, n_flags=prep.n_flags_, cat_cardinalities=prep.cat_cardinalities_)
+    if "augmentation" in recipe:
+        from songpop.phase2.neural_augmentation import AUDIO
+        columns = prep.output_columns()
+        spec["augmentation_audio"] = [i for i, c in enumerate(columns[:spec["n_cont"]]) if c in AUDIO]
+        spec["augmentation_missing"] = {str(i): columns.index("missing_" + columns[i])
+            for i in spec["augmentation_audio"] if "missing_" + columns[i] in columns}
     if recipe["family"] == "retrieval":
         spec["memory_rows"] = len(Z)
     if recipe["adapter"]["representation"] == "ple":

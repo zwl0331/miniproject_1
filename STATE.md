@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 08:00 UTC. Extended development is complete. No training or review jobs remain running. This session owns development after 32e7c5d. Results are provisional under fast mode; Sam's existing selected pair remains unchanged.
+Updated 2026-11-01 08:00 UTC. Prior extended block is complete at 275ae6a. Sam explicitly authorized a separate 30-minute augmentation screen; setup started 08:02:25 UTC, fit cutoff 08:32:25 UTC. Existing CSVs/selections stay preserved. This session owns development after 32e7c5d. Results are provisional under fast mode; Sam's existing selected pair remains unchanged.
 
 ## Rules and ownership
 
@@ -39,6 +39,6 @@ Updated 2026-11-01 08:00 UTC. Extended development is complete. No training or r
 
 ## Next action
 
-1. Read `notes/2026-11-01-extended-closeout.md`, `artifacts/extended/recommendation.json`, and the submission log. No more experiment launches are planned.
+1. Active owner-authorized augmentation screen: read `doc/llm_usage/2026-11-01-augmentation/README.md`. Implement/test 2-4 mild settings on existing neural models; all augmentation inside training folds, preserve categorical/missing flags. Start 08:02:25 UTC, fit cutoff 08:32:25 UTC. Compare marginal gain to x3_fixed_hybrid_retrieval5 (.844649232). No wider search. Prior closeout/recommendations remain preserved.
 2. Sam chooses/uploads the public checks and decides any change to his two final selections. Keep `final_selection.json` unchanged until he does. If changed, perform the one quick Fable review of that concrete pair, limited to leakage and file correctness, one round.
 3. Then report and Colab: `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, results and `doc/llm_usage/integration_index.md`. Do not claim new candidate public/private results before Sam reports them.

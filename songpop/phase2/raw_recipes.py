@@ -38,7 +38,8 @@ def number(value):
 def validate(recipe):
     advanced = isinstance(recipe, dict) and recipe.get("adapter", {}).get("name") == "raw_neural_v2"
     extension_keys = {"extensions"} if advanced and "extensions" in recipe else set()
-    exact_keys(recipe, KEYS | ({"embedding"} if advanced else set()) | extension_keys, "recipe_v2")
+    augmentation_keys = {"augmentation"} if advanced and "augmentation" in recipe else set()
+    exact_keys(recipe, KEYS | ({"embedding"} if advanced else set()) | extension_keys | augmentation_keys, "recipe_v2")
     if recipe["schema"] != SCHEMA or recipe["family"] not in ("tabm", "mlp", "resnet", "ft_transformer", "retrieval"):
         raise ValueError("unimplemented raw neural family")
     if not advanced and recipe["family"] != "tabm":
@@ -140,6 +141,18 @@ def validate(recipe):
     if recipe["training_weights"] != "none" or recipe["iterations"] != "raw_stop_refit_v1" \
             or recipe["deployment"] != "fold_average":
         raise ValueError("raw neural recipes require unweighted stop/refit and fold-average deployment")
+    if "augmentation" in recipe:
+        aug = recipe["augmentation"]
+        if not isinstance(aug, dict) or aug.get("kind") not in ("mixup", "noise"):
+            raise ValueError("unimplemented training augmentation")
+        field = "alpha" if aug["kind"] == "mixup" else "sigma"
+        exact_keys(aug, {"kind", field, "probability"}, "training augmentation")
+        if not number(aug[field]) or aug[field] <= 0 or not number(aug["probability"]) or not 0 < aug["probability"] <= 1:
+            raise ValueError("augmentation strength and probability must be positive")
+        if adapter["layout"] != "mixed_neural_v1":
+            raise ValueError("augmentation requires explicit continuous and categorical boundaries")
+        if aug["kind"] == "mixup" and (recipe["family"] == "retrieval" or recipe.get("extensions", {}).get("pairwise_weight", 0)):
+            raise ValueError("mixup is not implemented with retrieval or pairwise loss")
     return recipe
 
 
@@ -155,7 +168,7 @@ def from_legacy(recipe, *, device="cpu", name=None):
 
 def make_recipe(family="tabm", *, representation="scalar", device="cuda", blocks=None,
                 scaler="standard", estimator_seeds=(0,), name=None, params=None, embedding=None,
-                features=None, layout="legacy_tabm_v1", pairwise_weight=0., stopping_metric="log_loss"):
+                features=None, layout="legacy_tabm_v1", pairwise_weight=0., stopping_metric="log_loss", augmentation=None):
     """Construct an executable recipe. Overrides are validated, never ignored."""
     p = dict(FIXED, n_blocks=2, d_block=128, dropout=0.1, learning_rate=0.001,
              weight_decay=0.0001, batch_size=128)
@@ -183,4 +196,6 @@ def make_recipe(family="tabm", *, representation="scalar", device="cuda", blocks
         recipe["extensions"] = dict(features=features or {}, layout=layout,
                                     pairwise_weight=pairwise_weight, stopping_metric=stopping_metric)
         recipe["adapter"].update(layout=layout, stopping_metric=stopping_metric)
+    if augmentation is not None:
+        recipe["augmentation"] = copy.deepcopy(augmentation)
     return validate(recipe)
