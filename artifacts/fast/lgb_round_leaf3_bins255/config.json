@@ -1,0 +1,22 @@
+{
+  "id": "lgb_round_leaf3_bins255",
+  "family": "lightgbm",
+  "params": {
+    "colsample_bytree": 0.7,
+    "learning_rate": 0.01,
+    "min_child_samples": 3,
+    "n_estimators": 600,
+    "num_leaves": 63,
+    "reg_alpha": 0.0714,
+    "reg_lambda": 0.53,
+    "subsample": 0.7,
+    "subsample_freq": 1,
+    "max_bin": 255
+  },
+  "features": {
+    "round": true
+  },
+  "estimator_seeds": [
+    0
+  ]
+}

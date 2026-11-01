@@ -31,7 +31,7 @@ P2.7 restricted nested result: selected procedure 0.8398 versus H 0.8306; saved 
 
 ## Running
 
-Feature batch: 12 LightGBM configurations, all 15 saved folds, four workers with four threads each. Launch 2026-11-01 04:22 UTC; log `artifacts/fast/features.log`. Quick saved-fold and leakage checks passed before launch.
+Initial 12 feature trials complete. Best new standalone: year-relative audio LightGBM, 0.838242; best fixed addition 0.841616 (+0.000554 over E, below the noise threshold). Six feature follow-ups and the small model-family grid are next. Logs under `artifacts/fast/`.
 
 ## Next action
 

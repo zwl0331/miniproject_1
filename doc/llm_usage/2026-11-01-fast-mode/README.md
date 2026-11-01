@@ -18,3 +18,5 @@ existing edits in commit 8c03e05, checked that `p2.9-paused` protects the comple
 adapter chain at 1b47c17, and rewrote STATE for fast exploration. The earlier
 Integration row describes the preceding session, not current ownership.
 No design consultation or exploration review is required in this mode.
+
+Codex wrote `analysis/fast_features.py`, `fast_exploration.py`, `check_fast.py`, `fast_reuse.py` and `fast_submission.py`. The runner reuses saved grouped splits and existing encoders. New features are fitted only on training rows. All 12 initial feature trials completed; results, configs and probabilities are saved under `artifacts/fast/` and summarized in the requested notes table. No consultation or review was run.

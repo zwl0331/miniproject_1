@@ -1,0 +1,276 @@
+[
+  {
+    "id": "lgb_control",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {},
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_round",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_round_detail",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "round": true,
+      "round_detail": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_hier3",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "hier": [
+        30,
+        10,
+        3
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_hier10",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "hier": [
+        100,
+        30,
+        10
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_hier_replace",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "blocks": [
+        "date_count"
+      ],
+      "hier": [
+        30,
+        10,
+        3
+      ]
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_date_counts",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "date_counts": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_year_relative",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "year_relative": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_audio_extra",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "audio_extra": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_cyclic_music_round",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1
+    },
+    "features": {
+      "blocks": [
+        "date_count",
+        "date_te3",
+        "cyclic",
+        "music"
+      ],
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_round_leaf3_bins255",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 3,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1,
+      "max_bin": 255
+    },
+    "features": {
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  },
+  {
+    "id": "lgb_round_leaf10_bins1023",
+    "family": "lightgbm",
+    "params": {
+      "colsample_bytree": 0.7,
+      "learning_rate": 0.01,
+      "min_child_samples": 10,
+      "n_estimators": 600,
+      "num_leaves": 63,
+      "reg_alpha": 0.0714,
+      "reg_lambda": 0.53,
+      "subsample": 0.7,
+      "subsample_freq": 1,
+      "max_bin": 1023
+    },
+    "features": {
+      "round": true
+    },
+    "estimator_seeds": [
+      0
+    ]
+  }
+]
