@@ -97,6 +97,14 @@ groups, query immutability, serialization, multiple seeds, scalar compatibility,
 constant columns and ResNet singleton batches. The deliberately leaky control
 in the preserved scalar test is detected.
 
+Final checks: four advanced tests passed in 83.932 seconds, including all ten
+architecture/representation combinations on CPU and CUDA. The scalar
+compatibility recheck passed in 20.883 seconds. The full saved-fold runner smoke,
+`adapter_smoke_mlp_ple_2epochs`, completed all 15 folds in 99.2 seconds and passed
+bank validation. Its config, OOF/test arrays and fit information are committed
+under `artifacts/neural/adapter_smoke_mlp_ple_2epochs/`. Its two-epoch cap is for
+integration verification, not a nominated scientific configuration.
+
 These are correctness checks. They do not establish that any architecture
 improves AUC. Candidate selection still requires complete saved grouped folds
 with split seeds 155, 2026 and 1029. TabR and pretrained models are not implemented.

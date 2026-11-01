@@ -21,6 +21,9 @@ advanced checks passed in 80.894 seconds, including all ten supported
 architecture/representation combinations on CPU and CUDA. After cleanup of
 expected constant-bin warnings and worker output handles, `check_advanced.txt`
 records the final advanced checks and `check_legacy.txt` records scalar
-compatibility. Full-data runner smoke evidence is recorded separately.
+compatibility. `check_bank_smoke.txt` records a complete 15-fold, two-epoch GPU
+integration run. It finished in 99.2 seconds, wrote the normal prediction bank
+and passed its automatic validation. The result config and predictions are
+under `artifacts/neural/adapter_smoke_mlp_ple_2epochs/`; code commit `bf9aa18`.
 
 This record is development evidence, not independent review or a final release.
