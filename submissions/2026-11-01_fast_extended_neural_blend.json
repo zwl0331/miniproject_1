@@ -1,0 +1,57 @@
+{
+  "name": "extended_neural_blend",
+  "purpose": "Three-seed retrieval confirmation: 95% confirmed ranking-neighborhood hybrid plus 5% TabR-inspired c16/w64/scalar retrieval average. Best current CV; incremental gain versus hybrid is mixed across split seeds. Provisional candidate; existing final selections remain unchanged.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8446492316936202,
+  "cv_per_seed": [
+    0.8461797004644932,
+    0.8448707156448986,
+    0.8428972789714688
+  ],
+  "fold_auc": [
+    [
+      0.846005406161846,
+      0.8510956029118234,
+      0.8632771222261361,
+      0.8409174298461899,
+      0.8296029411764707
+    ],
+    [
+      0.8287042151858643,
+      0.8370941939650112,
+      0.8461863038628625,
+      0.8508455882352942,
+      0.8615232769754608
+    ],
+    [
+      0.844311377245509,
+      0.8345220588235295,
+      0.8571937008336268,
+      0.8455478748385581,
+      0.8329113831161208
+    ]
+  ],
+  "delta_E": 0.003587626263282684,
+  "components": [
+    {
+      "path": "artifacts/fast/x3_fixed_hybrid_retrieval5/predictions.npz",
+      "weight": 1.0,
+      "sha256": "6b6752fa54a33e26a22b6fd081ec38b256d945316068ec6b1381dca1eecf44bd"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.005717926702792227,
+    "max": 0.9841470492660461,
+    "correlation_current_best": 0.9986130215324016,
+    "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv",
+    "sha256": "177874ed7e61012ca2493189de05445f90899f1a74b7e4356d2df7976176b2b8"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T07:51:34.857637+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/extended_neural_blend/predictions.npz",
+  "prediction_sha256": "6b6752fa54a33e26a22b6fd081ec38b256d945316068ec6b1381dca1eecf44bd",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

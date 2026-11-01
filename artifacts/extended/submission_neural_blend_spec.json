@@ -1,0 +1,11 @@
+{
+  "name": "extended_neural_blend",
+  "purpose": "Three-seed retrieval confirmation: 95% confirmed ranking-neighborhood hybrid plus 5% TabR-inspired c16/w64/scalar retrieval average. Best current CV; incremental gain versus hybrid is mixed across split seeds. Provisional candidate; existing final selections remain unchanged.",
+  "components": [
+    {
+      "path": "artifacts/fast/x3_fixed_hybrid_retrieval5/predictions.npz",
+      "weight": 1.0
+    }
+  ],
+  "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv"
+}

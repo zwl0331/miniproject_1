@@ -1,0 +1,1888 @@
+{
+  "id": "x3_learned_final9_constrained_0",
+  "status": "complete",
+  "config": {
+    "id": "x3_learned_final9_constrained_0",
+    "family": "learned_ensemble",
+    "setting": [
+      "constrained",
+      0.0
+    ],
+    "pool": {
+      "id": "final9",
+      "channels": [
+        {
+          "id": "f2_avg_lgb_zscore5",
+          "path": "artifacts/fast/f2_avg_lgb_zscore5/predictions.npz",
+          "sha256": "bce7f86ef9bfb8f3cf6876eb8481c1b9d348d1f12e1ac99797fd5233d8910eec",
+          "components": [
+            [
+              {
+                "id": "f2_lgb_zscore",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  0
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "f2_lgb_zscore_extra1234",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.8
+            ]
+          ]
+        },
+        {
+          "id": "f2_avg_et5",
+          "path": "artifacts/fast/f2_avg_et5/predictions.npz",
+          "sha256": "5b228e7528bdb5b4d79d93cedc322e303aa5d467fe5d988a9174c08c0a48e8f7",
+          "components": [
+            [
+              {
+                "id": "f2_extra_trees_3",
+                "family": "extra_trees",
+                "params": {
+                  "max_features": 0.7,
+                  "min_samples_leaf": 2,
+                  "n_estimators": 500
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "interactions",
+                    "date_count",
+                    "date_te3"
+                  ]
+                },
+                "estimator_seeds": [
+                  0
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "f2_extra_trees_3_extra1234",
+                "family": "extra_trees",
+                "params": {
+                  "max_features": 0.7,
+                  "min_samples_leaf": 2,
+                  "n_estimators": 500
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "interactions",
+                    "date_count",
+                    "date_te3"
+                  ]
+                },
+                "estimator_seeds": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.8
+            ]
+          ]
+        },
+        {
+          "id": "f2_avg_cat5",
+          "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+          "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3",
+          "components": [
+            [
+              {
+                "id": "f2_catboost_2",
+                "family": "catboost",
+                "params": {
+                  "boosting_type": "Plain",
+                  "depth": 5,
+                  "iterations": 1000,
+                  "l2_leaf_reg": 6.0,
+                  "learning_rate": 0.03,
+                  "random_strength": 1.0
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "music",
+                    "date_count",
+                    "date_te3"
+                  ]
+                },
+                "estimator_seeds": [
+                  0
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "f2_catboost_2_extra1234",
+                "family": "catboost",
+                "params": {
+                  "boosting_type": "Plain",
+                  "depth": 5,
+                  "iterations": 1000,
+                  "l2_leaf_reg": 6.0,
+                  "learning_rate": 0.03,
+                  "random_strength": 1.0
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "music",
+                    "date_count",
+                    "date_te3"
+                  ]
+                },
+                "estimator_seeds": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.8
+            ]
+          ]
+        },
+        {
+          "id": "mlp_w128_a1.0_e300_standard_seeds012",
+          "path": "artifacts/fast/mlp_w128_a1.0_e300_standard_seeds012/predictions.npz",
+          "sha256": "e7eba95f03a03e1e0fe5285eff86e4f22c8161d7b9c0d5077dcec2c756eca86b",
+          "components": [
+            [
+              {
+                "id": "mlp_w128_a1.0_e300_standard_seeds012",
+                "family": "mlp",
+                "params": {
+                  "hidden_layer_sizes": [
+                    128,
+                    64
+                  ],
+                  "alpha": 1.0,
+                  "max_iter": 300,
+                  "learning_rate_init": 0.001,
+                  "batch_size": 128,
+                  "tol": 1e-05,
+                  "n_iter_no_change": 30
+                },
+                "features": {
+                  "blocks": [
+                    "date_count",
+                    "date_te3",
+                    "cyclic"
+                  ],
+                  "round": true
+                },
+                "scaler": "standard",
+                "estimator_seeds": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              1.0
+            ]
+          ]
+        },
+        {
+          "id": "x3_avg_xgb3",
+          "path": "artifacts/fast/x3_avg_xgb3/predictions.npz",
+          "sha256": "5837f1881ed8874fc2a77b7bad831a0391b66faa8c5d062e1c5692e897a35749",
+          "components": [
+            [
+              {
+                "id": "f2_xgboost_3",
+                "family": "xgboost",
+                "params": {
+                  "colsample_bytree": 0.8,
+                  "learning_rate": 0.02,
+                  "max_depth": 4,
+                  "n_estimators": 1500,
+                  "subsample": 0.8
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "date_te3",
+                    "date_count"
+                  ]
+                },
+                "estimator_seeds": [
+                  0
+                ],
+                "cutoff_utc": "2026-11-01T06:31:00+00:00"
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_xgb_trees_seed1",
+                "family": "xgboost",
+                "params": {
+                  "colsample_bytree": 0.8,
+                  "learning_rate": 0.02,
+                  "max_depth": 4,
+                  "n_estimators": 1500,
+                  "subsample": 0.8
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "date_te3",
+                    "date_count"
+                  ]
+                },
+                "estimator_seeds": [
+                  1
+                ]
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_xgb_trees_seed2",
+                "family": "xgboost",
+                "params": {
+                  "colsample_bytree": 0.8,
+                  "learning_rate": 0.02,
+                  "max_depth": 4,
+                  "n_estimators": 1500,
+                  "subsample": 0.8
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "blocks": [
+                    "date_te3",
+                    "date_count"
+                  ]
+                },
+                "estimator_seeds": [
+                  2
+                ]
+              },
+              0.3333333333333333
+            ]
+          ]
+        },
+        {
+          "id": "x3_avg_ebm_short_i30_lr0.03_r100",
+          "path": "artifacts/fast/x3_avg_ebm_short_i30_lr0.03_r100/predictions.npz",
+          "sha256": "087a6fcdc20eacf5d19284ba873c8f371c5f1bf55228c065e9c632e97f7ae9da",
+          "components": [
+            [
+              {
+                "id": "x3_ebm_short_i30_lr0.03_r100",
+                "family": "ebm",
+                "params": {
+                  "outer_bags": 4,
+                  "inner_bags": 0,
+                  "learning_rate": 0.03,
+                  "max_bins": 256,
+                  "max_interaction_bins": 32,
+                  "min_samples_leaf": 4,
+                  "interactions": 30,
+                  "max_rounds": 100
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  0
+                ]
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_ebm_short_i30_lr0.03_r100_seed1",
+                "family": "ebm",
+                "params": {
+                  "outer_bags": 4,
+                  "inner_bags": 0,
+                  "learning_rate": 0.03,
+                  "max_bins": 256,
+                  "max_interaction_bins": 32,
+                  "min_samples_leaf": 4,
+                  "interactions": 30,
+                  "max_rounds": 100
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  1
+                ]
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_ebm_short_i30_lr0.03_r100_seed2",
+                "family": "ebm",
+                "params": {
+                  "outer_bags": 4,
+                  "inner_bags": 0,
+                  "learning_rate": 0.03,
+                  "max_bins": 256,
+                  "max_interaction_bins": 32,
+                  "min_samples_leaf": 4,
+                  "interactions": 30,
+                  "max_rounds": 100
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  2
+                ]
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_ebm_short_i30_lr0.03_r100_seed3",
+                "family": "ebm",
+                "params": {
+                  "outer_bags": 4,
+                  "inner_bags": 0,
+                  "learning_rate": 0.03,
+                  "max_bins": 256,
+                  "max_interaction_bins": 32,
+                  "min_samples_leaf": 4,
+                  "interactions": 30,
+                  "max_rounds": 100
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  3
+                ]
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_ebm_short_i30_lr0.03_r100_seed4",
+                "family": "ebm",
+                "params": {
+                  "outer_bags": 4,
+                  "inner_bags": 0,
+                  "learning_rate": 0.03,
+                  "max_bins": 256,
+                  "max_interaction_bins": 32,
+                  "min_samples_leaf": 4,
+                  "interactions": 30,
+                  "max_rounds": 100
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  4
+                ]
+              },
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "x3_avg_tabm_auc",
+          "path": "artifacts/fast/x3_avg_tabm_auc/predictions.npz",
+          "sha256": "dbbba7e2f0e1cdbe5e3e49a6a1c145f3ef29781eecd4b92c4ccdac31ff5d5aa7",
+          "components": [
+            [
+              {
+                "id": "x3_tabm_auc",
+                "recipe": {
+                  "schema": "recipe_v2",
+                  "name": "tabm_ple",
+                  "family": "tabm",
+                  "params": {
+                    "k": 16,
+                    "max_epochs": 400,
+                    "patience": 25,
+                    "tolerance": 1e-06,
+                    "inner_folds": 5,
+                    "threads": 4,
+                    "n_blocks": 2,
+                    "d_block": 128,
+                    "dropout": 0.1,
+                    "learning_rate": 0.001,
+                    "weight_decay": 0.0001,
+                    "batch_size": 128
+                  },
+                  "base": "F2",
+                  "blocks": [
+                    "date_count",
+                    "date_te3",
+                    "cyclic"
+                  ],
+                  "drop": [],
+                  "preprocessing": {
+                    "name": "tabm_numeric",
+                    "scaler": "standard"
+                  },
+                  "training_weights": "none",
+                  "estimator_seeds": [
+                    0
+                  ],
+                  "iterations": "raw_stop_refit_v1",
+                  "deployment": "fold_average",
+                  "adapter": {
+                    "name": "raw_neural_v2",
+                    "numerical_policy": "linux_ieee_deterministic_v1",
+                    "layout": "mixed_neural_v1",
+                    "representation": "ple",
+                    "initialization": "normal",
+                    "optimizer": "legacy_adamw_v1",
+                    "stopping_metric": "auc",
+                    "seed_policy": "legacy_tabm_v1",
+                    "last_batch": "keep",
+                    "prediction_batch_rows": 256,
+                    "device": "cuda"
+                  },
+                  "embedding": {
+                    "d_embedding": 8,
+                    "n_bins": 16
+                  },
+                  "extensions": {
+                    "features": {
+                      "year_relative": true,
+                      "year_standardize": true,
+                      "date_counts": true,
+                      "round": true
+                    },
+                    "layout": "mixed_neural_v1",
+                    "pairwise_weight": 0.0,
+                    "stopping_metric": "auc"
+                  }
+                },
+                "cutoff_utc": "2026-11-01T20:00:00+00:00"
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_tabm_auc_seed1",
+                "recipe": {
+                  "schema": "recipe_v2",
+                  "name": "tabm_ple",
+                  "family": "tabm",
+                  "params": {
+                    "k": 16,
+                    "max_epochs": 400,
+                    "patience": 25,
+                    "tolerance": 1e-06,
+                    "inner_folds": 5,
+                    "threads": 4,
+                    "n_blocks": 2,
+                    "d_block": 128,
+                    "dropout": 0.1,
+                    "learning_rate": 0.001,
+                    "weight_decay": 0.0001,
+                    "batch_size": 128
+                  },
+                  "base": "F2",
+                  "blocks": [
+                    "date_count",
+                    "date_te3",
+                    "cyclic"
+                  ],
+                  "drop": [],
+                  "preprocessing": {
+                    "name": "tabm_numeric",
+                    "scaler": "standard"
+                  },
+                  "training_weights": "none",
+                  "estimator_seeds": [
+                    1
+                  ],
+                  "iterations": "raw_stop_refit_v1",
+                  "deployment": "fold_average",
+                  "adapter": {
+                    "name": "raw_neural_v2",
+                    "numerical_policy": "linux_ieee_deterministic_v1",
+                    "layout": "mixed_neural_v1",
+                    "representation": "ple",
+                    "initialization": "normal",
+                    "optimizer": "legacy_adamw_v1",
+                    "stopping_metric": "auc",
+                    "seed_policy": "legacy_tabm_v1",
+                    "last_batch": "keep",
+                    "prediction_batch_rows": 256,
+                    "device": "cuda"
+                  },
+                  "embedding": {
+                    "d_embedding": 8,
+                    "n_bins": 16
+                  },
+                  "extensions": {
+                    "features": {
+                      "year_relative": true,
+                      "year_standardize": true,
+                      "date_counts": true,
+                      "round": true
+                    },
+                    "layout": "mixed_neural_v1",
+                    "pairwise_weight": 0.0,
+                    "stopping_metric": "auc"
+                  }
+                },
+                "cutoff_utc": "2026-11-01T20:00:00+00:00"
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_tabm_auc_seed2",
+                "recipe": {
+                  "schema": "recipe_v2",
+                  "name": "tabm_ple",
+                  "family": "tabm",
+                  "params": {
+                    "k": 16,
+                    "max_epochs": 400,
+                    "patience": 25,
+                    "tolerance": 1e-06,
+                    "inner_folds": 5,
+                    "threads": 4,
+                    "n_blocks": 2,
+                    "d_block": 128,
+                    "dropout": 0.1,
+                    "learning_rate": 0.001,
+                    "weight_decay": 0.0001,
+                    "batch_size": 128
+                  },
+                  "base": "F2",
+                  "blocks": [
+                    "date_count",
+                    "date_te3",
+                    "cyclic"
+                  ],
+                  "drop": [],
+                  "preprocessing": {
+                    "name": "tabm_numeric",
+                    "scaler": "standard"
+                  },
+                  "training_weights": "none",
+                  "estimator_seeds": [
+                    2
+                  ],
+                  "iterations": "raw_stop_refit_v1",
+                  "deployment": "fold_average",
+                  "adapter": {
+                    "name": "raw_neural_v2",
+                    "numerical_policy": "linux_ieee_deterministic_v1",
+                    "layout": "mixed_neural_v1",
+                    "representation": "ple",
+                    "initialization": "normal",
+                    "optimizer": "legacy_adamw_v1",
+                    "stopping_metric": "auc",
+                    "seed_policy": "legacy_tabm_v1",
+                    "last_batch": "keep",
+                    "prediction_batch_rows": 256,
+                    "device": "cuda"
+                  },
+                  "embedding": {
+                    "d_embedding": 8,
+                    "n_bins": 16
+                  },
+                  "extensions": {
+                    "features": {
+                      "year_relative": true,
+                      "year_standardize": true,
+                      "date_counts": true,
+                      "round": true
+                    },
+                    "layout": "mixed_neural_v1",
+                    "pairwise_weight": 0.0,
+                    "stopping_metric": "auc"
+                  }
+                },
+                "cutoff_utc": "2026-11-01T20:00:00+00:00"
+              },
+              0.3333333333333333
+            ]
+          ]
+        },
+        {
+          "id": "x3_avg_neighbors_calendar_c64_lightgbm",
+          "path": "artifacts/fast/x3_avg_neighbors_calendar_c64_lightgbm/predictions.npz",
+          "sha256": "1992a5a8fc667e0c2e8aa7d9436bc8c3221504487e6ecf7b2004014c1ed2b18f",
+          "components": [
+            [
+              {
+                "id": "x3_neighbors_calendar_c64_lightgbm",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  0
+                ],
+                "neighbors": {
+                  "view": "calendar",
+                  "clusters": 64
+                }
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_neighbors_calendar_c64_lightgbm_seed1",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  1
+                ],
+                "neighbors": {
+                  "view": "calendar",
+                  "clusters": 64
+                }
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_neighbors_calendar_c64_lightgbm_seed2",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  2
+                ],
+                "neighbors": {
+                  "view": "calendar",
+                  "clusters": 64
+                }
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_neighbors_calendar_c64_lightgbm_seed3",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  3
+                ],
+                "neighbors": {
+                  "view": "calendar",
+                  "clusters": 64
+                }
+              },
+              0.2
+            ],
+            [
+              {
+                "id": "x3_neighbors_calendar_c64_lightgbm_seed4",
+                "family": "lightgbm",
+                "params": {
+                  "colsample_bytree": 0.7,
+                  "learning_rate": 0.01,
+                  "min_child_samples": 10,
+                  "n_estimators": 600,
+                  "num_leaves": 63,
+                  "reg_alpha": 0.0714,
+                  "reg_lambda": 0.53,
+                  "subsample": 0.7,
+                  "subsample_freq": 1
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  4
+                ],
+                "neighbors": {
+                  "view": "calendar",
+                  "clusters": 64
+                }
+              },
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+          "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+          "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+          "components": [
+            [
+              {
+                "id": "x3_pairlogit_d4_lr0.03_l210.0",
+                "family": "pairlogit",
+                "params": {
+                  "depth": 4,
+                  "learning_rate": 0.03,
+                  "l2_leaf_reg": 10.0,
+                  "iterations": 1500
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  0
+                ]
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+                "family": "pairlogit",
+                "params": {
+                  "depth": 4,
+                  "learning_rate": 0.03,
+                  "l2_leaf_reg": 10.0,
+                  "iterations": 1500
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  1
+                ]
+              },
+              0.3333333333333333
+            ],
+            [
+              {
+                "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+                "family": "pairlogit",
+                "params": {
+                  "depth": 4,
+                  "learning_rate": 0.03,
+                  "l2_leaf_reg": 10.0,
+                  "iterations": 1500
+                },
+                "features": {
+                  "year_relative": true,
+                  "date_counts": true,
+                  "year_standardize": true
+                },
+                "estimator_seeds": [
+                  2
+                ]
+              },
+              0.3333333333333333
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "cv": 0.8429598628045983,
+  "per_seed": [
+    0.8454284941079422,
+    0.8430412544240801,
+    0.8404098398817734
+  ],
+  "elapsed_seconds": 0.5258685853332281,
+  "fit_info": [
+    {
+      "split_seed": 155,
+      "fold": 0,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.09678861422188374,
+          0.19279282595124314,
+          0.21867843146754395,
+          0.047896179494769466,
+          0.0,
+          0.0,
+          0.0,
+          0.28928950908827844,
+          0.15455443977628122
+        ],
+        "weights": [
+          0.09678861422188374,
+          0.19279282595124314,
+          0.21867843146754395,
+          0.047896179494769466,
+          0.0,
+          0.0,
+          0.0,
+          0.28928950908827844,
+          0.15455443977628122
+        ],
+        "loss": 0.46044040582797063,
+        "equal_weight_loss": 0.46341326263192467,
+        "iterations": 34,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 155,
+      "fold": 1,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.28441485630026664,
+          0.1822029987270126,
+          0.18689582256250722,
+          0.0384960858309869,
+          0.03354258408979743,
+          0.0,
+          0.06516485370921153,
+          0.05382910830796272,
+          0.15545369047225505
+        ],
+        "weights": [
+          0.28441485630026664,
+          0.1822029987270126,
+          0.18689582256250722,
+          0.0384960858309869,
+          0.03354258408979743,
+          0.0,
+          0.06516485370921153,
+          0.05382910830796272,
+          0.15545369047225505
+        ],
+        "loss": 0.4620464685490801,
+        "equal_weight_loss": 0.46348330843242813,
+        "iterations": 43,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 155,
+      "fold": 2,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.19982181944560495,
+          0.29028138498392314,
+          0.09790473121255118,
+          0.019759771436859766,
+          1.0285097562035342e-18,
+          0.09166287562724809,
+          0.0,
+          0.16102512264904237,
+          0.13954429464477047
+        ],
+        "weights": [
+          0.19982181944560495,
+          0.29028138498392314,
+          0.09790473121255118,
+          0.019759771436859766,
+          1.0285097562035342e-18,
+          0.09166287562724809,
+          0.0,
+          0.16102512264904237,
+          0.13954429464477047
+        ],
+        "loss": 0.47221192130623746,
+        "equal_weight_loss": 0.47490484860082044,
+        "iterations": 39,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 155,
+      "fold": 3,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.0070718112256389,
+          0.3232939963385801,
+          0.016230650433184786,
+          0.10856513314343726,
+          0.14141090621966912,
+          0.05312977429969836,
+          0.039871979198185116,
+          0.20272769004432253,
+          0.10769805909728385
+        ],
+        "weights": [
+          0.007071811225638901,
+          0.32329399633858014,
+          0.01623065043318479,
+          0.10856513314343727,
+          0.14141090621966915,
+          0.05312977429969837,
+          0.03987197919818512,
+          0.20272769004432256,
+          0.10769805909728386
+        ],
+        "loss": 0.46188790115225786,
+        "equal_weight_loss": 0.4635145656830693,
+        "iterations": 43,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 155,
+      "fold": 4,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.08912565542943438,
+          0.18219097073210522,
+          0.14779691479277504,
+          0.05101889409567622,
+          0.05133566293269472,
+          0.12006505641917267,
+          0.07266837677771215,
+          0.18852326052240603,
+          0.09727520829802364
+        ],
+        "weights": [
+          0.08912565542943436,
+          0.1821909707321052,
+          0.147796914792775,
+          0.051018894095676205,
+          0.0513356629326947,
+          0.12006505641917264,
+          0.07266837677771214,
+          0.18852326052240598,
+          0.09727520829802361
+        ],
+        "loss": 0.4552105218206071,
+        "equal_weight_loss": 0.45601280152774515,
+        "iterations": 43,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 2026,
+      "fold": 0,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          1.1634209288774629e-17,
+          0.2586886477939033,
+          0.209115572470989,
+          1.1777146098623792e-17,
+          0.18511771134192995,
+          0.14089437347055284,
+          9.144885335912647e-18,
+          0.10049865893207845,
+          0.10568503599054657
+        ],
+        "weights": [
+          1.1634209288774629e-17,
+          0.2586886477939033,
+          0.209115572470989,
+          1.1777146098623792e-17,
+          0.18511771134192995,
+          0.14089437347055284,
+          9.144885335912647e-18,
+          0.10049865893207845,
+          0.10568503599054657
+        ],
+        "loss": 0.4624826196528252,
+        "equal_weight_loss": 0.46614257832493383,
+        "iterations": 36,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 2026,
+      "fold": 1,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.3504172026393428,
+          0.21602032269458518,
+          1.8662782805972406e-18,
+          0.04339248608843116,
+          7.927222534675387e-18,
+          0.09027123997476065,
+          0.08067835471390222,
+          0.08300938624995276,
+          0.13621100763902505
+        ],
+        "weights": [
+          0.35041720263934284,
+          0.21602032269458524,
+          1.866278280597241e-18,
+          0.043392486088431166,
+          7.927222534675388e-18,
+          0.09027123997476066,
+          0.08067835471390224,
+          0.08300938624995277,
+          0.13621100763902508
+        ],
+        "loss": 0.4645610093945454,
+        "equal_weight_loss": 0.4668542987816711,
+        "iterations": 39,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 2026,
+      "fold": 2,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.0032948664991126995,
+          0.1791660797512541,
+          0.3268351752780668,
+          0.07073666825891457,
+          0.07715408361195811,
+          0.006409696300723083,
+          1.57722034641283e-17,
+          0.18528436831699677,
+          0.1511190619829739
+        ],
+        "weights": [
+          0.0032948664991126995,
+          0.1791660797512541,
+          0.3268351752780668,
+          0.07073666825891457,
+          0.07715408361195811,
+          0.006409696300723083,
+          1.57722034641283e-17,
+          0.18528436831699677,
+          0.1511190619829739
+        ],
+        "loss": 0.4564121777741687,
+        "equal_weight_loss": 0.45862527670625847,
+        "iterations": 41,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 2026,
+      "fold": 3,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.0,
+          0.1767007382396161,
+          0.151007530361296,
+          0.09907463066165903,
+          0.0,
+          0.22678125267080426,
+          0.0,
+          0.21945562546127725,
+          0.12698022260534747
+        ],
+        "weights": [
+          0.0,
+          0.1767007382396161,
+          0.151007530361296,
+          0.09907463066165903,
+          0.0,
+          0.22678125267080426,
+          0.0,
+          0.21945562546127725,
+          0.12698022260534747
+        ],
+        "loss": 0.46324795388462925,
+        "equal_weight_loss": 0.46502702168153615,
+        "iterations": 35,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 2026,
+      "fold": 4,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.2383562825052034,
+          0.10476518760595664,
+          0.13357296819378595,
+          0.04381304680121051,
+          0.08102893624620734,
+          0.10709529047204547,
+          4.911070558400832e-18,
+          0.1528905014314258,
+          0.13847778674416492
+        ],
+        "weights": [
+          0.2383562825052034,
+          0.10476518760595664,
+          0.13357296819378595,
+          0.04381304680121051,
+          0.08102893624620734,
+          0.10709529047204547,
+          4.911070558400832e-18,
+          0.1528905014314258,
+          0.13847778674416492
+        ],
+        "loss": 0.4613385965973165,
+        "equal_weight_loss": 0.4629820144059272,
+        "iterations": 39,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 1029,
+      "fold": 0,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.02176686569573954,
+          0.18482173667155627,
+          0.27970528769097575,
+          0.07480672116456785,
+          0.0914046427145679,
+          0.043597593791757865,
+          7.386550816531126e-18,
+          0.15670664724307837,
+          0.14719050502775644
+        ],
+        "weights": [
+          0.02176686569573954,
+          0.18482173667155627,
+          0.27970528769097575,
+          0.07480672116456785,
+          0.0914046427145679,
+          0.043597593791757865,
+          7.386550816531126e-18,
+          0.15670664724307837,
+          0.14719050502775644
+        ],
+        "loss": 0.4618012895135897,
+        "equal_weight_loss": 0.4631879659989902,
+        "iterations": 41,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 1029,
+      "fold": 1,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.0,
+          0.24267299857935815,
+          0.13715676162808982,
+          0.05034544172955873,
+          9.020689130021485e-18,
+          0.22543306971272098,
+          0.0,
+          0.26594523635615297,
+          0.07844649199411935
+        ],
+        "weights": [
+          0.0,
+          0.24267299857935815,
+          0.13715676162808982,
+          0.05034544172955873,
+          9.020689130021485e-18,
+          0.22543306971272098,
+          0.0,
+          0.26594523635615297,
+          0.07844649199411935
+        ],
+        "loss": 0.46281761878719474,
+        "equal_weight_loss": 0.465240843610479,
+        "iterations": 35,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 1029,
+      "fold": 2,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.0,
+          0.22117122864545707,
+          0.28835685339937994,
+          0.06520546347512639,
+          4.252873018825037e-18,
+          0.16264457355178727,
+          0.02557210990190034,
+          0.14847056027409675,
+          0.0885792107522524
+        ],
+        "weights": [
+          0.0,
+          0.22117122864545702,
+          0.2883568533993799,
+          0.06520546347512637,
+          4.252873018825036e-18,
+          0.16264457355178724,
+          0.025572109901900335,
+          0.14847056027409672,
+          0.08857921075225239
+        ],
+        "loss": 0.4692489476325503,
+        "equal_weight_loss": 0.47123355884155504,
+        "iterations": 39,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 1029,
+      "fold": 3,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.1225464362694022,
+          0.3129432316255353,
+          0.037217447073483755,
+          0.08149421341846369,
+          0.08365478575007691,
+          0.0982466458047152,
+          0.0,
+          0.12693060252249716,
+          0.13696663753582577
+        ],
+        "weights": [
+          0.1225464362694022,
+          0.3129432316255353,
+          0.037217447073483755,
+          0.08149421341846369,
+          0.08365478575007691,
+          0.0982466458047152,
+          0.0,
+          0.12693060252249716,
+          0.13696663753582577
+        ],
+        "loss": 0.4664629667585271,
+        "equal_weight_loss": 0.46864641634520643,
+        "iterations": 40,
+        "message": "Optimization terminated successfully"
+      }
+    },
+    {
+      "split_seed": 1029,
+      "fold": 4,
+      "state": {
+        "kind": "constrained",
+        "lambda": 0.0,
+        "raw_weights": [
+          0.21565277726689883,
+          0.34401842230140134,
+          0.31726942773109906,
+          0.010906121922531741,
+          4.382624569710105e-18,
+          5.469010499012749e-18,
+          4.256510959159045e-18,
+          1.31355636072543e-17,
+          0.11215325077806898
+        ],
+        "weights": [
+          0.21565277726689883,
+          0.34401842230140134,
+          0.31726942773109906,
+          0.010906121922531741,
+          4.382624569710105e-18,
+          5.469010499012749e-18,
+          4.256510959159045e-18,
+          1.31355636072543e-17,
+          0.11215325077806898
+        ],
+        "loss": 0.4601718101807955,
+        "equal_weight_loss": 0.4652547794590156,
+        "iterations": 26,
+        "message": "Optimization terminated successfully"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8429598628045983,
+      "per_seed": [
+        0.8454284941079422,
+        0.8430412544240801,
+        0.8404098398817734
+      ],
+      "fold_auc": [
+        [
+          0.8453867173402272,
+          0.8485272102853119,
+          0.8641063461312668,
+          0.8414751379593753,
+          0.8276470588235294
+        ],
+        [
+          0.8232317652517842,
+          0.836294323118469,
+          0.8479768404367736,
+          0.8479779411764707,
+          0.8597254021369026
+        ],
+        [
+          0.8426836364172025,
+          0.8270735294117646,
+          0.8564965656921453,
+          0.8461129212163907,
+          0.8296825466713631
+        ]
+      ],
+      "delta_E": 0.0018982573742608588,
+      "delta_reference": 0.0018982573742608588
+    },
+    {
+      "reference": "blend_eq_all",
+      "weight": 0.1,
+      "cv": 0.8417016103311791,
+      "per_seed": [
+        0.8431927247090364,
+        0.8423753391307249,
+        0.8395367671537759
+      ],
+      "fold_auc": [
+        [
+          0.8438620913155238,
+          0.8487913878126099,
+          0.8586393389691205,
+          0.8392296289773394,
+          0.8254411764705882
+        ],
+        [
+          0.8263694014185651,
+          0.8356779088881062,
+          0.8388113478924504,
+          0.8505514705882353,
+          0.8604665668662674
+        ],
+        [
+          0.8379035287358862,
+          0.8326544117647059,
+          0.8526366384877304,
+          0.8429941587413408,
+          0.8314950980392157
+        ]
+      ],
+      "delta_E": 0.0006400049008415953,
+      "delta_reference": 0.0006400049008415953
+    },
+    {
+      "reference": "blend_eq_all",
+      "weight": 0.25,
+      "cv": 0.8424836211088423,
+      "per_seed": [
+        0.8441051217729507,
+        0.843064047377353,
+        0.8402816941762232
+      ],
+      "fold_auc": [
+        [
+          0.8445544335682877,
+          0.8490995949277915,
+          0.8600482857813785,
+          0.8401909416461195,
+          0.8266323529411765
+        ],
+        [
+          0.8265535349964279,
+          0.836338352706352,
+          0.8405945462017143,
+          0.8511617647058822,
+          0.8606720382763885
+        ],
+        [
+          0.8391040796635512,
+          0.8325147058823529,
+          0.8539281730656334,
+          0.8442049724081249,
+          0.8316565398614536
+        ]
+      ],
+      "delta_E": 0.001422015678504862,
+      "delta_reference": 0.001422015678504862
+    },
+    {
+      "reference": "blend_eq_all",
+      "weight": 0.5,
+      "cv": 0.843390434127043,
+      "per_seed": [
+        0.8452511554490325,
+        0.8439697342237599,
+        0.8409504127083363
+      ],
+      "fold_auc": [
+        [
+          0.845659235035464,
+          0.8493637724550898,
+          0.862198397323001,
+          0.8412696665492544,
+          0.827764705882353
+        ],
+        [
+          0.8264872469083973,
+          0.8364117353528238,
+          0.8440508688505342,
+          0.8516470588235294,
+          0.8612517611835152
+        ],
+        [
+          0.8409085887266058,
+          0.8315367647058824,
+          0.8552930902900082,
+          0.8453570799577316,
+          0.8316565398614536
+        ]
+      ],
+      "delta_E": 0.002328828696705476,
+      "delta_reference": 0.002328828696705476
+    },
+    {
+      "reference": "constrained_l0.1",
+      "weight": 0.1,
+      "cv": 0.841649318987378,
+      "per_seed": [
+        0.8430723622864971,
+        0.8423241103532029,
+        0.8395514843224339
+      ],
+      "fold_auc": [
+        [
+          0.8438178992568369,
+          0.8489014617823177,
+          0.8584778971468827,
+          0.8386792591288014,
+          0.8254852941176472
+        ],
+        [
+          0.8263988627910231,
+          0.8358393507103439,
+          0.8386792591288013,
+          0.8508455882352943,
+          0.8598574909005519
+        ],
+        [
+          0.8379108940790008,
+          0.8327426470588234,
+          0.8526146236937888,
+          0.843287689327228,
+          0.8312015674533286
+        ]
+      ],
+      "delta_E": 0.00058771355704057,
+      "delta_reference": 0.000646789082279664
+    },
+    {
+      "reference": "constrained_l0.1",
+      "weight": 0.25,
+      "cv": 0.8424568008184485,
+      "per_seed": [
+        0.8440744588205833,
+        0.843008326466234,
+        0.8402876171685282
+      ],
+      "fold_auc": [
+        [
+          0.8447091057736924,
+          0.8490995949277915,
+          0.860151021486439,
+          0.83966992485617,
+          0.8267426470588236
+        ],
+        [
+          0.8265535349964278,
+          0.8362869848538218,
+          0.8407192967007162,
+          0.8512867647058824,
+          0.860195051074322
+        ],
+        [
+          0.8391114450066657,
+          0.8326323529411764,
+          0.8541042914171656,
+          0.8442343254667137,
+          0.8313556710109193
+        ]
+      ],
+      "delta_E": 0.001395195388111059,
+      "delta_reference": 0.001454270913350153
+    },
+    {
+      "reference": "constrained_l0.1",
+      "weight": 0.5,
+      "cv": 0.8433488498150215,
+      "per_seed": [
+        0.8452159455454188,
+        0.8438962969654353,
+        0.8409343069342107
+      ],
+      "fold_auc": [
+        [
+          0.8456739657216932,
+          0.8493124046025596,
+          0.8620809850886462,
+          0.8412403134906659,
+          0.8277720588235293
+        ],
+        [
+          0.8264209588203667,
+          0.8364851179992956,
+          0.8440288540565927,
+          0.8516323529411767,
+          0.8609142010097451
+        ],
+        [
+          0.8408570313248044,
+          0.8317279411764706,
+          0.855322443348597,
+          0.8453570799577316,
+          0.8314070388634496
+        ]
+      ],
+      "delta_E": 0.002287244384683973,
+      "delta_reference": 0.002346319909923067
+    },
+    {
+      "reference": "fast_combined",
+      "weight": 0.1,
+      "cv": 0.8431459470502596,
+      "per_seed": [
+        0.844157114823966,
+        0.8437194155643566,
+        0.8415613107624559
+      ],
+      "fold_auc": [
+        [
+          0.845600312290548,
+          0.848622607725725,
+          0.8598868439591405,
+          0.8404037513208876,
+          0.8262720588235295
+        ],
+        [
+          0.8301257264069648,
+          0.836081513443701,
+          0.8429427908888107,
+          0.85025,
+          0.859197047082306
+        ],
+        [
+          0.8405403215708803,
+          0.8331029411764705,
+          0.8544932194434659,
+          0.8453130503698486,
+          0.8343570212516143
+        ]
+      ],
+      "delta_E": 0.002084341619922103,
+      "delta_reference": 0.0003094001274639435
+    },
+    {
+      "reference": "fast_combined",
+      "weight": 0.25,
+      "cv": 0.8434302002932851,
+      "per_seed": [
+        0.8444816954868208,
+        0.8440080129950648,
+        0.8418008923979695
+      ],
+      "fold_auc": [
+        [
+          0.8456886964079221,
+          0.8486299459903722,
+          0.8607380826582129,
+          0.8406679288481859,
+          0.8266838235294117
+        ],
+        [
+          0.8292050585176511,
+          0.8361695726194669,
+          0.8442049724081249,
+          0.8506176470588236,
+          0.8598428143712574
+        ],
+        [
+          0.8411737410787281,
+          0.8328235294117646,
+          0.8553151050839499,
+          0.8457386697193847,
+          0.8339534166960197
+        ]
+      ],
+      "delta_E": 0.002368594862947604,
+      "delta_reference": 0.0005936533704894442
+    },
+    {
+      "reference": "fast_combined",
+      "weight": 0.5,
+      "cv": 0.8437267235372249,
+      "per_seed": [
+        0.845331083643436,
+        0.8441816509589893,
+        0.8416674360092491
+      ],
+      "fold_auc": [
+        [
+          0.8465651722385488,
+          0.8488721087237291,
+          0.8622204121169426,
+          0.841210960432077,
+          0.8277867647058823
+        ],
+        [
+          0.8278277393552379,
+          0.8362062639427028,
+          0.8457239931900904,
+          0.8506176470588235,
+          0.860532611248092
+        ],
+        [
+          0.8421680623991868,
+          0.8312426470588236,
+          0.8559535341082539,
+          0.8459955089820359,
+          0.8329774274979453
+        ]
+      ],
+      "delta_E": 0.0026651181068874097,
+      "delta_reference": 0.00089017661442925
+    },
+    {
+      "reference": "followup_trees",
+      "weight": 0.1,
+      "cv": 0.8439844409220775,
+      "per_seed": [
+        0.8450209823894645,
+        0.8446235750227352,
+        0.8423087653540324
+      ],
+      "fold_auc": [
+        [
+          0.8464841534642891,
+          0.8512350299401198,
+          0.8612957907713984,
+          0.8392222907126924,
+          0.8268676470588235
+        ],
+        [
+          0.8298384780254988,
+          0.8366832511447693,
+          0.8445865621697781,
+          0.8509926470588236,
+          0.8610169367148057
+        ],
+        [
+          0.8426394443585155,
+          0.8339632352941175,
+          0.8572670834800986,
+          0.8455625513678524,
+          0.8321115122695785
+        ]
+      ],
+      "delta_E": 0.0029228354917399946,
+      "delta_reference": 0.0001702764032749382
+    },
+    {
+      "reference": "followup_trees",
+      "weight": 0.25,
+      "cv": 0.8441370081304723,
+      "per_seed": [
+        0.8453278674580511,
+        0.8447757147523923,
+        0.8423074421809735
+      ],
+      "fold_auc": [
+        [
+          0.8465504415523197,
+          0.8509268228249384,
+          0.8622277503815897,
+          0.8398240284137607,
+          0.8271102941176471
+        ],
+        [
+          0.8290798476847044,
+          0.836881384290243,
+          0.8457166549254431,
+          0.8511470588235295,
+          0.8610536280380416
+        ],
+        [
+          0.8431992104352182,
+          0.8332941176470589,
+          0.8574138487730422,
+          0.8457533462486791,
+          0.8318766878008689
+        ]
+      ],
+      "delta_E": 0.003075402700134844,
+      "delta_reference": 0.0003228436116697875
+    },
+    {
+      "reference": "followup_trees",
+      "weight": 0.5,
+      "cv": 0.8440669822427355,
+      "per_seed": [
+        0.8456083510643136,
+        0.8446673878962283,
+        0.8419252077676642
+      ],
+      "fold_auc": [
+        [
+          0.8465430762092052,
+          0.8498921275096865,
+          0.8633945344604907,
+          0.8406826053774803,
+          0.8275294117647061
+        ],
+        [
+          0.8277393552378638,
+          0.8369033990841847,
+          0.8467586885053423,
+          0.8506397058823529,
+          0.8612957907713983
+        ],
+        [
+          0.8432286718076761,
+          0.8316250000000001,
+          0.8575092462134555,
+          0.8459661559234473,
+          0.8312969648937418
+        ]
+      ],
+      "delta_E": 0.0030053768123979863,
+      "delta_reference": 0.0002528177239329299
+    }
+  ],
+  "prediction_sha256": "25ff3ecd322fb061967f76d6b5a859a6c42ee2fdbf58ffdd9290cb16b667f5f5",
+  "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576",
+  "combiner_source_sha256": "c1826bcf1cb573e84881bf81d20111e97144180891fe9bfc7877ed9daea957a9"
+}

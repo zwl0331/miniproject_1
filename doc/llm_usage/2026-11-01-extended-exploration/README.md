@@ -161,3 +161,32 @@ At 07:47 UTC all 64 corrected neural configurations completed. All three ID-only
 repairs succeeded; original pre-fit errors remain recorded and are marked resolved.
 No second late configuration qualified on the stronger hybrid. Final ranking
 meta fits are 12/15 complete; the last retrieval estimator seed is running.
+
+At 07:52 UTC all 96 CPU and 68 neural scientific configurations including
+confirmations were complete. The retrieval three-seed average at 5% yields
+CV 0.844649, versus hybrid 0.844494. The incremental evidence is mixed: two
+of three split means improve; estimator seeds 0/1 improve the hybrid mean,
+seed 2 worsens it. The averaged candidate improves all split means over the
+submitted follow-up trees. An optional second CSV records this qualification.
+
+At closeout all 135 unique outer-local meta banks and 27 learned combiners
+completed. The full table showed that the strongest final-nine standalone
+combiner was constrained lambda=.1 (0.843574), correcting an interim log-tail
+statement that named pairwise lambda=.1 (0.843497). Two saved-bank additions
+of that actual best combiner at 25%/50% yielded 0.844494/0.844391 on the stronger
+hybrid. No extra base fits were needed. Across six checked learned-on-hybrid
+mixtures, the largest increment was only 0.000006. No third CSV was prepared.
+
+The recommendation is the existing follow-up trees file plus the highest-CV
+new neural blend; the simpler hybrid is an alternative because the extra neural
+gain is mixed across seeds. Both new files pass automatic file checks and are
+logged. final_selection.json and both previously selected CSVs are unchanged.
+Sam retains selection/uploads and any changed final pair receives its one quick
+Fable leakage/file-correctness review. No review of exploration was introduced.
+
+The supervising session relayed Sam's policy clarification at closeout and saved
+its verbatim text under 2026-11-01-policy-clarification. The final recommendation
+was corrected to the two new files by grouped CV, rather than retaining the old
+file partly because of its public score. The old selected pair stays unchanged
+until Sam decides. Provided-data augmentation is allowed but untested beyond
+feature engineering/resampling/pair sampling. No new experiment block started.

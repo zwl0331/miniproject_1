@@ -1,0 +1,55 @@
+{
+  "queues": [
+    {
+      "queue": "cpu_queue.json",
+      "expected": 40,
+      "complete": 40,
+      "missing": []
+    },
+    {
+      "queue": "cpu_short_queue.json",
+      "expected": 24,
+      "complete": 24,
+      "missing": []
+    },
+    {
+      "queue": "cpu_confirm_queue.json",
+      "expected": 16,
+      "complete": 16,
+      "missing": []
+    },
+    {
+      "queue": "xgb_confirm_queue.json",
+      "expected": 2,
+      "complete": 2,
+      "missing": []
+    },
+    {
+      "queue": "final_cpu_confirm_queue.json",
+      "expected": 14,
+      "complete": 14,
+      "missing": []
+    },
+    {
+      "queue": "neural_queue_corrected.json",
+      "expected": 64,
+      "complete": 64,
+      "missing": []
+    },
+    {
+      "queue": "neural_confirm_queue.json",
+      "expected": 2,
+      "complete": 2,
+      "missing": []
+    },
+    {
+      "queue": "neural_late_confirm_queue.json",
+      "expected": 2,
+      "complete": 2,
+      "missing": []
+    }
+  ],
+  "total": 164,
+  "complete": 164,
+  "note": "Three original neural identifiers failed before fitting; corrected roster counts each repaired configuration once. Derived averages and learned ensembles are separate."
+}

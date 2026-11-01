@@ -1191,12 +1191,18 @@ The follow-up in this session is complete. Sam has assigned further experiments 
 
 Sam reopened the remaining method tests. The preserved follow-up tree blend is the reference (CV 0.843814; public 0.86153, reported by Sam). Each complete run uses all 15 saved grouped folds. The best addition below is selected from fixed 10%, 25%, 50% probability blends. These are exploratory comparisons on reused folds, not independent significance tests. Initial configurations use estimator seed 0; promising additions receive extra estimator seeds. Saved seed averages are included in the table.
 
-Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
+Completed: 218. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test arrays and fit records are under artifacts/extended and artifacts/neural. Machine-readable table: artifacts/extended/summary.csv.
 
 | Trial | Standalone CV | Best addition CV | Weight | Delta | Positive splits |
 |---|---:|---:|---:|---:|---:|
+| x3_fixed_hybrid_retrieval5 | 0.844649 | 0.844371 | 0.50 | +0.000557 | 3/3 |
+| x3_fixed_hybrid_final_constrained25 | 0.844494 | 0.844363 | 0.50 | +0.000549 | 3/3 |
+| x3_fixed_hybrid_final_pairwise25 | 0.844474 | 0.844355 | 0.50 | +0.000541 | 3/3 |
 | x3_uniform_probability_final9 | 0.843563 | 0.844353 | 0.50 | +0.000539 | 3/3 |
+| x3_fixed_hybrid_final_constrained50 | 0.844391 | 0.844352 | 0.50 | +0.000538 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0_seed2 | 0.829741 | 0.844334 | 0.10 | +0.000520 | 3/3 |
+| x3_fixed_hybrid_final_stacker25 | 0.844481 | 0.844333 | 0.50 | +0.000519 | 3/3 |
+| x3_learned_final9_constrained_0p1 | 0.843574 | 0.844333 | 0.50 | +0.000518 | 3/3 |
 | x3_fixed_hybrid_ebm10_pairlogit_d4_lr0p03_l210p0 | 0.844384 | 0.844331 | 0.50 | +0.000517 | 3/3 |
 | x3_uniform_logit_final9 | 0.843517 | 0.844326 | 0.50 | +0.000512 | 3/3 |
 | x3_fixed_hybrid_ebm5_pairlogit_d4_lr0p03_l210p0 | 0.844508 | 0.844322 | 0.50 | +0.000508 | 3/3 |
@@ -1206,17 +1212,24 @@ Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test 
 | x3_fixed_hybrid_core_stacker25 | 0.844458 | 0.844256 | 0.50 | +0.000442 | 3/3 |
 | x3_fixed_probability_pairlogit_d4_lr0p03_l210p0 | 0.844477 | 0.844250 | 0.50 | +0.000436 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0_seed1 | 0.828898 | 0.844233 | 0.10 | +0.000419 | 3/3 |
+| x3_learned_final9_stacker_0p01 | 0.843410 | 0.844231 | 0.50 | +0.000417 | 2/3 |
+| x3_learned_final9_pairwise_0p1 | 0.843497 | 0.844216 | 0.50 | +0.000402 | 3/3 |
+| x3_learned_final9_constrained_0p01 | 0.843249 | 0.844161 | 0.25 | +0.000347 | 3/3 |
 | x3_neighbors_calendar_c64_lightgbm | 0.836187 | 0.844161 | 0.25 | +0.000347 | 2/3 |
 | x3_pairlogit_d4_lr0.03_l23.0_seed2 | 0.826912 | 0.844161 | 0.10 | +0.000347 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l23.0_seed1 | 0.826443 | 0.844154 | 0.10 | +0.000340 | 3/3 |
 | x3_avg_pairlogit_d4_lr0.03_l23.0 | 0.828826 | 0.844150 | 0.10 | +0.000336 | 3/3 |
+| x3_learned_final9_constrained_0 | 0.842960 | 0.844137 | 0.25 | +0.000323 | 3/3 |
 | x3_neighbors_calendar_c64_lightgbm_seed4 | 0.835846 | 0.844128 | 0.10 | +0.000314 | 3/3 |
 | x3_neighbors_calendar_c8_lightgbm | 0.835731 | 0.844107 | 0.10 | +0.000293 | 3/3 |
+| x3_learned_final9_pairwise_0p01 | 0.843156 | 0.844092 | 0.25 | +0.000278 | 3/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_stacker_0p01 | 0.843122 | 0.844087 | 0.50 | +0.000273 | 2/3 |
+| x3_learned_final9_pairwise_0 | 0.842942 | 0.844077 | 0.25 | +0.000263 | 3/3 |
 | x3_uniform_logit_trees_mlp_xgb_ebm_tabm | 0.843036 | 0.844076 | 0.25 | +0.000261 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l210.0 | 0.827924 | 0.844074 | 0.10 | +0.000259 | 2/3 |
 | x3_neighbors_calendar_c64_lightgbm_seed3 | 0.835345 | 0.844066 | 0.10 | +0.000252 | 3/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_pairwise_0p1 | 0.843225 | 0.844053 | 0.25 | +0.000239 | 3/3 |
+| x3_learned_final9_stacker_0p1 | 0.842910 | 0.844047 | 0.25 | +0.000233 | 3/3 |
 | x3_avg_neighbors_calendar_c64_lightgbm | 0.836439 | 0.844041 | 0.25 | +0.000227 | 3/3 |
 | x3_pairlogit_d4_lr0.03_l23.0 | 0.825612 | 0.844038 | 0.10 | +0.000223 | 3/3 |
 | x3_avg_neighbors_calendar_c8_lightgbm | 0.836225 | 0.844033 | 0.10 | +0.000219 | 3/3 |
@@ -1240,6 +1253,7 @@ Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test 
 | x3_neighbors_calendar_c64_lightgbm_seed2 | 0.834405 | 0.843931 | 0.10 | +0.000117 | 2/3 |
 | x3_neighbors_calendar_c8_lightgbm_seed4 | 0.835056 | 0.843923 | 0.10 | +0.000109 | 2/3 |
 | x3_learned_trees_mlp_xgb_ebm_tabm_pairwise_0 | 0.842881 | 0.843918 | 0.10 | +0.000104 | 3/3 |
+| x3_learned_final9_stacker_1 | 0.842193 | 0.843918 | 0.25 | +0.000104 | 2/3 |
 | x3_learned_trees_mlp_xgb_pairwise_0 | 0.843210 | 0.843914 | 0.10 | +0.000100 | 2/3 |
 | x3_learned_trees_mlp_xgb_stacker_0p1 | 0.843205 | 0.843913 | 0.10 | +0.000099 | 2/3 |
 | x3_learned_trees_mlp_xgb_pairwise_0p01 | 0.843309 | 0.843912 | 0.10 | +0.000097 | 2/3 |
@@ -1267,6 +1281,7 @@ Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test 
 | x3_ebm_short_i30_lr0.03_r100_seed3 | 0.821452 | 0.843834 | 0.10 | +0.000020 | 1/3 |
 | x3_ebm_short_i30_lr0.003_r1000_seed2 | 0.817051 | 0.843824 | 0.10 | +0.000009 | 2/3 |
 | x3_ebm_short_i30_lr0.03_r100_seed1 | 0.822789 | 0.843815 | 0.10 | +0.000001 | 1/3 |
+| x3_avg_retrieval_c16_w64_scalar | 0.804323 | 0.843805 | 0.10 | -0.000009 | 2/3 |
 | x3_retrieval_c16_w64_scalar | 0.794431 | 0.843796 | 0.10 | -0.000018 | 2/3 |
 | x3_ft_transformer_f0_m1_quantile | 0.816237 | 0.843793 | 0.10 | -0.000021 | 1/3 |
 | x3_pairlogit_d6_lr0.03_l23.0 | 0.828346 | 0.843791 | 0.10 | -0.000023 | 1/3 |
@@ -1377,6 +1392,7 @@ Completed: 202. Unresolved errors: 0. Full configs, runtime, warnings, OOF/test 
 | x3_retrieval_c64_w128_ple | 0.802268 | 0.843129 | 0.10 | -0.000685 | 0/3 |
 | x3_mlp_f0_m1_standard | 0.814790 | 0.843106 | 0.10 | -0.000708 | 0/3 |
 | x3_ebm_short_i0_lr0.003_r300 | 0.802816 | 0.843105 | 0.10 | -0.000709 | 0/3 |
+| x3_retrieval_c16_w64_scalar_seed2 | 0.787002 | 0.843087 | 0.10 | -0.000727 | 0/3 |
 | x3_retrieval_c16_w128_scalar | 0.784077 | 0.843021 | 0.10 | -0.000793 | 0/3 |
 | x3_retrieval_c16_w64_ple | 0.801899 | 0.842864 | 0.10 | -0.000950 | 0/3 |
 | x3_ebm_i0_r3000 | 0.788031 | 0.842680 | 0.10 | -0.001134 | 0/3 |

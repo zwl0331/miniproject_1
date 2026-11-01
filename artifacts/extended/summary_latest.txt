@@ -1,0 +1,14 @@
+Completed: 218; positive additions: 86
+x3_fixed_hybrid_retrieval5                 CV=0.844649 blend=0.844371 delta=+0.000557 w=0.50 splits=3/3
+x3_fixed_hybrid_final_constrained25        CV=0.844494 blend=0.844363 delta=+0.000549 w=0.50 splits=3/3
+x3_fixed_hybrid_final_pairwise25           CV=0.844474 blend=0.844355 delta=+0.000541 w=0.50 splits=3/3
+x3_uniform_probability_final9              CV=0.843563 blend=0.844353 delta=+0.000539 w=0.50 splits=3/3
+x3_fixed_hybrid_final_constrained50        CV=0.844391 blend=0.844352 delta=+0.000538 w=0.50 splits=3/3
+x3_pairlogit_d4_lr0.03_l210.0_seed2        CV=0.829741 blend=0.844334 delta=+0.000520 w=0.10 splits=3/3
+x3_fixed_hybrid_final_stacker25            CV=0.844481 blend=0.844333 delta=+0.000519 w=0.50 splits=3/3
+x3_learned_final9_constrained_0p1          CV=0.843574 blend=0.844333 delta=+0.000518 w=0.50 splits=3/3
+x3_fixed_hybrid_ebm10_pairlogit_d4_lr0p03_l210p0 CV=0.844384 blend=0.844331 delta=+0.000517 w=0.50 splits=3/3
+x3_uniform_logit_final9                    CV=0.843517 blend=0.844326 delta=+0.000512 w=0.50 splits=3/3
+x3_fixed_hybrid_ebm5_pairlogit_d4_lr0p03_l210p0 CV=0.844508 blend=0.844322 delta=+0.000508 w=0.50 splits=3/3
+x3_fixed_hybrid_expanded_pairwise25        CV=0.844500 blend=0.844313 delta=+0.000499 w=0.50 splits=3/3
+Errors: []

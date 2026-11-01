@@ -1,0 +1,23 @@
+{
+  "id": "x3_avg_retrieval_c16_w64_scalar",
+  "family": "retrieval",
+  "estimator_seeds": [
+    0,
+    1,
+    2
+  ],
+  "components": [
+    {
+      "path": "artifacts/neural/x3_retrieval_c16_w64_scalar/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/neural/x3_retrieval_c16_w64_scalar_seed1/predictions.npz",
+      "weight": 0.3333333333333333
+    },
+    {
+      "path": "artifacts/neural/x3_retrieval_c16_w64_scalar_seed2/predictions.npz",
+      "weight": 0.3333333333333333
+    }
+  ]
+}

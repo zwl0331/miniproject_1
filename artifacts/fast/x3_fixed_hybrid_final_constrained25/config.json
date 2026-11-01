@@ -1,0 +1,21 @@
+{
+  "id": "x3_fixed_hybrid_final_constrained25",
+  "family": "fixed_ensemble",
+  "inputs": {
+    "base": "artifacts/fast/x3_fixed_hybrid_pairlogit_d4_lr0p03_l210p0/predictions.npz",
+    "learned": "artifacts/extended/x3_learned_final9_constrained_0p1/predictions.npz"
+  },
+  "expression": {
+    "kind": "probability",
+    "parts": [
+      {
+        "weight": 0.75,
+        "node": "base"
+      },
+      {
+        "weight": 0.25,
+        "node": "learned"
+      }
+    ]
+  }
+}

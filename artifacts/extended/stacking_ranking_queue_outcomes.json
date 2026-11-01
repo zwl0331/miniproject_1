@@ -1,0 +1,1217 @@
+[
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 0
+    },
+    "elapsed_seconds": 475.3435713518411,
+    "warnings": [],
+    "prediction_sha256": "fb397b23e495a6d45285be66605c93b4f3853d1ea365dc13b5411c19c1971886",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 1
+    },
+    "elapsed_seconds": 472.0393576323986,
+    "warnings": [],
+    "prediction_sha256": "aa8fc1a0059e6ce601024fd4b57b5268881adafba48e886d3c89ffc27178a026",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 2
+    },
+    "elapsed_seconds": 474.4713200610131,
+    "warnings": [],
+    "prediction_sha256": "01af0b73b177e539161c6e02eaaf5f7de96e12e24f0c5f1b5a6f202ab4f4c4b5",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 3
+    },
+    "elapsed_seconds": 475.1573216980323,
+    "warnings": [],
+    "prediction_sha256": "d7750418cbaeb3c62466d9f6e74db05401b06eae6cca92cb99f0c4936adcde56",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 0,
+      "fold": 4
+    },
+    "elapsed_seconds": 473.6990586174652,
+    "warnings": [],
+    "prediction_sha256": "4b82484b2631b61a8b3150bca856c75914d6efa16d4d9c86a894d7634fe6f9d0",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 0
+    },
+    "elapsed_seconds": 478.75735235679895,
+    "warnings": [],
+    "prediction_sha256": "4dc4192c2565c3859409450a91f0b71172fadffda651aeaf2f54ab0a665d9026",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 1
+    },
+    "elapsed_seconds": 486.8367537930608,
+    "warnings": [],
+    "prediction_sha256": "0a6a3ed10e68b3ea10906c7f0145cf649490c9349a0521211368cf77ce701f1e",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 2
+    },
+    "elapsed_seconds": 480.39218535926193,
+    "warnings": [],
+    "prediction_sha256": "96b705f7a761dbfd4d533fb1048862b14e5f11a45caa9af13f7316b0c4ed32d6",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 3
+    },
+    "elapsed_seconds": 479.3967035198584,
+    "warnings": [],
+    "prediction_sha256": "a7daceca600e374b16bd62571c8a1fe03a052ed7bec9b967214772ee46961628",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 1,
+      "fold": 4
+    },
+    "elapsed_seconds": 474.94008717499673,
+    "warnings": [],
+    "prediction_sha256": "838a58d28c2341399bebc70072be5a5655a97828477b37985e7c582f70069580",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 2,
+      "fold": 0
+    },
+    "elapsed_seconds": 480.0368205085397,
+    "warnings": [],
+    "prediction_sha256": "9386d2519e54f330500388b0a69fa2297110edb81d443a083a28880d16b6ece5",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 2,
+      "fold": 1
+    },
+    "elapsed_seconds": 482.90332034323364,
+    "warnings": [],
+    "prediction_sha256": "d011af634685f9152fd8f9c1505798da468c32fa36084e9eae80921ce7e0c6aa",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 2,
+      "fold": 2
+    },
+    "elapsed_seconds": 491.350136901252,
+    "warnings": [],
+    "prediction_sha256": "53a08475d8d130020a2ebf13c8171f54894a1349f7a370ee4f729283c75e36aa",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 2,
+      "fold": 3
+    },
+    "elapsed_seconds": 482.07339587341994,
+    "warnings": [],
+    "prediction_sha256": "d69e40b895ed55c053b889b1d1893d2b1ad89b962686dd6de7442727ec4d6b95",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  },
+  {
+    "status": "complete",
+    "task": {
+      "channel": {
+        "id": "x3_avg_pairlogit_d4_lr0.03_l210.0",
+        "path": "artifacts/fast/x3_avg_pairlogit_d4_lr0.03_l210.0/predictions.npz",
+        "sha256": "edec6e143dc8b74801e1d972ba9e3476684379c3a2a7cb5db8c95681eee68d66",
+        "components": [
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                0
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed1",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                1
+              ]
+            },
+            0.3333333333333333
+          ],
+          [
+            {
+              "id": "x3_pairlogit_d4_lr0.03_l210.0_seed2",
+              "family": "pairlogit",
+              "params": {
+                "depth": 4,
+                "learning_rate": 0.03,
+                "l2_leaf_reg": 10.0,
+                "iterations": 1500
+              },
+              "features": {
+                "year_relative": true,
+                "date_counts": true,
+                "year_standardize": true
+              },
+              "estimator_seeds": [
+                2
+              ]
+            },
+            0.3333333333333333
+          ]
+        ]
+      },
+      "repeat": 2,
+      "fold": 4
+    },
+    "elapsed_seconds": 490.9159240713343,
+    "warnings": [],
+    "prediction_sha256": "ed1633ba4b4eea903286f870d27d819228b7709f974008e952c4a8d6c8d1198c",
+    "source_sha256": "38a9538dc248e9ee6cfd223ea5905f135ff999f9ea3a539134f2162c32c57576"
+  }
+]

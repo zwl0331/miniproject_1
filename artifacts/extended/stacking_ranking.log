@@ -1,0 +1,30 @@
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 155/0
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 155/1
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 155/2
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 2026/0
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 155/4
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 155/3
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 155/1 472.0s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 2026/1
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 155/4 473.7s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 155/2 474.5s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 2026/2
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 155/3 475.2s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 2026/3
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 155/0 475.3s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 2026/4
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 1029/0
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 2026/0 478.8s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 1029/1
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 2026/4 474.9s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 1029/2
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 2026/3 479.4s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 2026/2 480.4s
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 1029/3
+META START x3_avg_pairlogit_d4_lr0.03_l210.0 1029/4
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 1029/0 480.0s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 2026/1 486.8s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 1029/1 482.9s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 1029/3 482.1s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 1029/2 491.4s
+META DONE x3_avg_pairlogit_d4_lr0.03_l210.0 1029/4 490.9s

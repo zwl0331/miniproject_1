@@ -1,0 +1,17 @@
+{
+  "updated_utc": "2026-11-01 08:00 UTC",
+  "status": "recommendation only; owner final_selection.json unchanged",
+  "recommended_final_pair": [
+    "submissions/2026-11-01_fast_extended_neural_blend.csv",
+    "submissions/2026-11-01_fast_extended_rank_neighbors.csv"
+  ],
+  "reason": "Follow the owner CV-only selection rule: neural blend 0.844649 and simpler hybrid 0.844494. Tiny EBM/learned increments over the hybrid are treated as tied and simplicity is preferred. Both new files improve every split mean over submitted follow-up trees (0.843814). The incremental neural gain is mixed across split and estimator seeds. Public 0.86153 is an owner-reported check, not the selection criterion.",
+  "owner_actions": "Sam selects and uploads. If he changes the final pair, run its one quick Fable leakage/file correctness review, one round. No new selection or upload by the agent.",
+  "scientific_configs": 164,
+  "neural_grid_configs": 64,
+  "learned_combiners": 27,
+  "unique_meta_banks": 135,
+  "unresolved_errors": 0,
+  "resolved_pre_fit_id_errors": 3,
+  "preserved_current_reference": "submissions/2026-11-01_fast_followup_trees.csv"
+}

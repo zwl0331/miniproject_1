@@ -1,0 +1,13 @@
+                                              id comparison       cv    delta  positive_splits
+                      x3_fixed_hybrid_retrieval5    add_0.5 0.844371 0.000557                3
+             x3_fixed_hybrid_final_constrained25    add_0.5 0.844363 0.000549                3
+                x3_fixed_hybrid_final_pairwise25    add_0.5 0.844355 0.000541                3
+                   x3_uniform_probability_final9 logit_0.25 0.844355 0.000541                3
+             x3_fixed_hybrid_final_constrained50    add_0.5 0.844352 0.000538                3
+                         x3_uniform_logit_final9 logit_0.25 0.844349 0.000535                3
+             x3_pairlogit_d4_lr0.03_l210.0_seed2    add_0.1 0.844334 0.000520                3
+                 x3_fixed_hybrid_final_stacker25    add_0.5 0.844333 0.000519                3
+               x3_learned_final9_constrained_0p1    add_0.5 0.844333 0.000518                3
+x3_fixed_hybrid_ebm10_pairlogit_d4_lr0p03_l210p0    add_0.5 0.844331 0.000517                3
+ x3_fixed_hybrid_ebm5_pairlogit_d4_lr0p03_l210p0    add_0.5 0.844322 0.000508                3
+             x3_fixed_hybrid_expanded_pairwise25    add_0.5 0.844313 0.000499                3
