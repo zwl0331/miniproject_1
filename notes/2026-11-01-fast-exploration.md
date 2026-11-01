@@ -17,6 +17,22 @@ population. New candidates are compared with fixed additions at weights 0.10,
 the existing properly cross-fitted constrained procedure; it does not fit blend
 weights on validation labels. Report every weight, even when it loses.
 
+Latest result, 2026-11-01 05:41 UTC: the bounded follow-up finished in about
+40 minutes. 48 CPU configurations, six extra-seed runs and eight GPU neural
+configurations completed, with no failures. The selected follow-up tree blend
+scores 0.843814 (+0.000978 vs previous combined, +0.002753 vs original E), with
+all three split means up. Sam selected it alongside the unchanged previous
+combined file (0.842837). The optional CatBoost addition is 0.843988, only
++0.000174 over the tree blend and mixed across splits. Public scores pending.
+
+All eight GPU models and two simple neural averages were compared as probability
+additions, MLP replacements and fixed log-odds blends. None improved the stronger
+tree blend. This is evidence about the tested configurations, not an exhaustive
+rejection of those families. The same applies to the four fixed-kernel GP and
+four broader SVM cases. Detailed comparisons are saved in
+`artifacts/fast/followup_current_contributions.{json,csv}`. One final selected-pair
+review is pending; no exploration reviews or repeated full suites were run.
+
 ## Results
 
 | Model or feature change | CV mean | Seed 155 | Seed 2026 | Seed 1029 | Change vs E | Change vs combined | Runtime |
@@ -357,6 +373,28 @@ weights on validation labels. Report every weight, even when it loses.
 | fast_combined + 0.10 f2_lgb_zscore_extra1234 | 0.842919 | 0.843860 | 0.843508 | 0.841388 | +0.001857 | +0.000082 | 107.1 s |
 | fast_combined + 0.25 f2_lgb_zscore_extra1234 | 0.842929 | 0.844068 | 0.843563 | 0.841155 | +0.001867 | +0.000092 | 107.1 s |
 | fast_combined + 0.50 f2_lgb_zscore_extra1234 | 0.842587 | 0.844118 | 0.843192 | 0.840451 | +0.001525 | -0.000250 | 107.1 s |
+| f2_logit_gp_matern10_w10 | 0.843482 | 0.844307 | 0.844399 | 0.841739 | +0.002420 | +0.000645 | 0.1 s |
+| f2_logit_gp_matern10_w25 | 0.842400 | 0.843165 | 0.843584 | 0.840453 | +0.001339 | -0.000436 | 0.1 s |
+| f2_logit_neural_avg_family_w10 | 0.843507 | 0.844215 | 0.844410 | 0.841894 | +0.002445 | +0.000670 | 0.1 s |
+| f2_logit_neural_avg_family_w25 | 0.842591 | 0.843108 | 0.843700 | 0.840964 | +0.001529 | -0.000246 | 0.1 s |
+| f2_logit_neural_avg_top3_w10 | 0.843387 | 0.844305 | 0.844342 | 0.841512 | +0.002325 | +0.000550 | 0.1 s |
+| f2_logit_neural_avg_top3_w25 | 0.842248 | 0.843165 | 0.843280 | 0.840298 | +0.001186 | -0.000589 | 0.1 s |
+| f2_logit_neural_ft_transformer_scalar_w10 | 0.843320 | 0.843866 | 0.844252 | 0.841841 | +0.002258 | +0.000483 | 0.1 s |
+| f2_logit_neural_ft_transformer_scalar_w25 | 0.841321 | 0.841300 | 0.842542 | 0.840121 | +0.000260 | -0.001515 | 0.1 s |
+| f2_logit_neural_mlp_periodic_w10 | 0.843407 | 0.844366 | 0.843869 | 0.841984 | +0.002345 | +0.000570 | 0.1 s |
+| f2_logit_neural_mlp_periodic_w25 | 0.841340 | 0.842376 | 0.841193 | 0.840451 | +0.000278 | -0.001497 | 0.1 s |
+| f2_logit_neural_mlp_ple_w10 | 0.843430 | 0.844371 | 0.844137 | 0.841783 | +0.002369 | +0.000594 | 0.1 s |
+| f2_logit_neural_mlp_ple_w25 | 0.841883 | 0.843055 | 0.842537 | 0.840057 | +0.000821 | -0.000954 | 0.1 s |
+| f2_logit_neural_resnet_periodic_w10 | 0.843283 | 0.844022 | 0.844736 | 0.841092 | +0.002222 | +0.000447 | 0.1 s |
+| f2_logit_neural_resnet_periodic_w25 | 0.840853 | 0.841045 | 0.843345 | 0.838168 | -0.000209 | -0.001984 | 0.1 s |
+| f2_logit_neural_resnet_ple_w10 | 0.843588 | 0.843991 | 0.844832 | 0.841942 | +0.002526 | +0.000751 | 0.1 s |
+| f2_logit_neural_resnet_ple_w25 | 0.842163 | 0.841805 | 0.844046 | 0.840636 | +0.001101 | -0.000674 | 0.1 s |
+| f2_logit_neural_tabm_periodic_w10 | 0.843242 | 0.844205 | 0.844275 | 0.841245 | +0.002180 | +0.000405 | 0.1 s |
+| f2_logit_neural_tabm_periodic_w25 | 0.841796 | 0.842776 | 0.842989 | 0.839622 | +0.000734 | -0.001041 | 0.1 s |
+| f2_logit_neural_tabm_ple_w10 | 0.843398 | 0.844235 | 0.844263 | 0.841696 | +0.002336 | +0.000561 | 0.1 s |
+| f2_logit_neural_tabm_ple_w25 | 0.842265 | 0.843143 | 0.842990 | 0.840661 | +0.001203 | -0.000572 | 0.1 s |
+| f2_logit_neural_tabm_scalar_w10 | 0.843468 | 0.844249 | 0.844476 | 0.841678 | +0.002406 | +0.000631 | 0.1 s |
+| f2_logit_neural_tabm_scalar_w25 | 0.841942 | 0.842464 | 0.843225 | 0.840137 | +0.000881 | -0.000894 | 0.1 s |
 | f2_mlp_incumbent_extra34 | 0.807986 | 0.801662 | 0.810006 | 0.812292 | -0.033075 | -0.034850 | 196.3 s |
 | blend_eq_all + 0.10 f2_mlp_incumbent_extra34 | 0.841963 | 0.842746 | 0.842759 | 0.840384 | +0.000901 | -0.000874 | 196.3 s |
 | blend_eq_all + 0.25 f2_mlp_incumbent_extra34 | 0.840989 | 0.840297 | 0.842324 | 0.840345 | -0.000073 | -0.001848 | 196.3 s |
@@ -487,6 +525,8 @@ weights on validation labels. Report every weight, even when it loses.
 | fast_combined + 0.10 f2_mlp_year64 | 0.842330 | 0.842880 | 0.843429 | 0.840682 | +0.001269 | -0.000506 | 72.3 s |
 | fast_combined + 0.25 f2_mlp_year64 | 0.839382 | 0.839582 | 0.840616 | 0.837947 | -0.001680 | -0.003455 | 72.3 s |
 | fast_combined + 0.50 f2_mlp_year64 | 0.830080 | 0.829505 | 0.831835 | 0.828901 | -0.010981 | -0.012756 | 72.3 s |
+| f2_neural_avg_family | 0.825371 | 0.825395 | 0.827638 | 0.823081 | -0.015690 | -0.017465 | 0.1 s |
+| f2_neural_avg_top3 | 0.825389 | 0.826085 | 0.827727 | 0.822355 | -0.015673 | -0.017447 | 0.1 s |
 | f2_svm_c300_g0.001 | 0.793810 | 0.795277 | 0.794972 | 0.791180 | -0.047252 | -0.049027 | 31.9 s |
 | blend_eq_all + 0.10 f2_svm_c300_g0.001 | 0.840927 | 0.842512 | 0.841621 | 0.838649 | -0.000134 | -0.001909 | 31.9 s |
 | blend_eq_all + 0.25 f2_svm_c300_g0.001 | 0.839402 | 0.840853 | 0.840454 | 0.836900 | -0.001660 | -0.003434 | 31.9 s |
@@ -1000,6 +1040,26 @@ weights on validation labels. Report every weight, even when it loses.
 | constrained_l0.1 + 0.10 tabm_standard_w128 | 0.840613 | 0.842203 | 0.841136 | 0.838500 | -0.000449 | -0.002223 | 661.6 s |
 | constrained_l0.1 + 0.25 tabm_standard_w128 | 0.838853 | 0.840774 | 0.839011 | 0.836774 | -0.002209 | -0.003983 | 661.6 s |
 | constrained_l0.1 + 0.50 tabm_standard_w128 | 0.832345 | 0.834522 | 0.832048 | 0.830464 | -0.008717 | -0.010492 | 661.6 s |
+| f2_neural_ft_transformer_scalar | 0.812886 | 0.812049 | 0.815647 | 0.810962 | -0.028176 | -0.029951 | 556.6 s |
+| blend_eq_all + 0.10 f2_neural_ft_transformer_scalar | 0.841042 | 0.842131 | 0.842007 | 0.838987 | -0.000020 | -0.001795 | 556.6 s |
+| blend_eq_all + 0.25 f2_neural_ft_transformer_scalar | 0.839554 | 0.840156 | 0.841214 | 0.837290 | -0.001508 | -0.003283 | 556.6 s |
+| blend_eq_all + 0.50 f2_neural_ft_transformer_scalar | 0.833999 | 0.834070 | 0.835880 | 0.832048 | -0.007062 | -0.008837 | 556.6 s |
+| constrained_l0.1 + 0.10 f2_neural_ft_transformer_scalar | 0.840977 | 0.842011 | 0.842025 | 0.838896 | -0.000084 | -0.001859 | 556.6 s |
+| constrained_l0.1 + 0.25 f2_neural_ft_transformer_scalar | 0.839519 | 0.840124 | 0.841147 | 0.837286 | -0.001543 | -0.003318 | 556.6 s |
+| constrained_l0.1 + 0.50 f2_neural_ft_transformer_scalar | 0.833935 | 0.833938 | 0.835834 | 0.832033 | -0.007126 | -0.008901 | 556.6 s |
+| fast_combined + 0.10 f2_neural_ft_transformer_scalar | 0.842448 | 0.843300 | 0.843257 | 0.840787 | +0.001386 | -0.000389 | 556.6 s |
+| fast_combined + 0.25 f2_neural_ft_transformer_scalar | 0.840609 | 0.841077 | 0.841801 | 0.838948 | -0.000453 | -0.002228 | 556.6 s |
+| fast_combined + 0.50 f2_neural_ft_transformer_scalar | 0.834515 | 0.834222 | 0.836381 | 0.832940 | -0.006547 | -0.008322 | 556.6 s |
+| f2_neural_mlp_periodic | 0.808767 | 0.809435 | 0.806907 | 0.809958 | -0.032295 | -0.034070 | 141.0 s |
+| blend_eq_all + 0.10 f2_neural_mlp_periodic | 0.841194 | 0.842936 | 0.841487 | 0.839159 | +0.000133 | -0.001642 | 141.0 s |
+| blend_eq_all + 0.25 f2_neural_mlp_periodic | 0.839830 | 0.841715 | 0.839680 | 0.838093 | -0.001232 | -0.003007 | 141.0 s |
+| blend_eq_all + 0.50 f2_neural_mlp_periodic | 0.833944 | 0.835590 | 0.833016 | 0.833227 | -0.007117 | -0.008892 | 141.0 s |
+| constrained_l0.1 + 0.10 f2_neural_mlp_periodic | 0.841111 | 0.842747 | 0.841457 | 0.839130 | +0.000050 | -0.001725 | 141.0 s |
+| constrained_l0.1 + 0.25 f2_neural_mlp_periodic | 0.839804 | 0.841680 | 0.839667 | 0.838064 | -0.001258 | -0.003033 | 141.0 s |
+| constrained_l0.1 + 0.50 f2_neural_mlp_periodic | 0.833870 | 0.835589 | 0.832915 | 0.833108 | -0.007191 | -0.008966 | 141.0 s |
+| fast_combined + 0.10 f2_neural_mlp_periodic | 0.842481 | 0.843511 | 0.842931 | 0.841001 | +0.001420 | -0.000355 | 141.0 s |
+| fast_combined + 0.25 f2_neural_mlp_periodic | 0.840437 | 0.841660 | 0.840306 | 0.839344 | -0.000625 | -0.002400 | 141.0 s |
+| fast_combined + 0.50 f2_neural_mlp_periodic | 0.833911 | 0.835200 | 0.833046 | 0.833487 | -0.007150 | -0.008925 | 141.0 s |
 | f2_neural_mlp_ple | 0.818192 | 0.819640 | 0.818350 | 0.816586 | -0.022870 | -0.024645 | 189.0 s |
 | blend_eq_all + 0.10 f2_neural_mlp_ple | 0.841167 | 0.842625 | 0.841952 | 0.838923 | +0.000105 | -0.001670 | 189.0 s |
 | blend_eq_all + 0.25 f2_neural_mlp_ple | 0.840248 | 0.841688 | 0.841190 | 0.837866 | -0.000814 | -0.002589 | 189.0 s |
@@ -1010,6 +1070,36 @@ weights on validation labels. Report every weight, even when it loses.
 | fast_combined + 0.10 f2_neural_mlp_ple | 0.842496 | 0.843507 | 0.843211 | 0.840772 | +0.001435 | -0.000340 | 189.0 s |
 | fast_combined + 0.25 f2_neural_mlp_ple | 0.840999 | 0.842191 | 0.841894 | 0.838912 | -0.000063 | -0.001838 | 189.0 s |
 | fast_combined + 0.50 f2_neural_mlp_ple | 0.836313 | 0.837749 | 0.837040 | 0.834150 | -0.004749 | -0.006524 | 189.0 s |
+| f2_neural_resnet_periodic | 0.793186 | 0.785513 | 0.800672 | 0.793373 | -0.047876 | -0.049651 | 108.8 s |
+| blend_eq_all + 0.10 f2_neural_resnet_periodic | 0.841177 | 0.842422 | 0.842425 | 0.838684 | +0.000116 | -0.001659 | 108.8 s |
+| blend_eq_all + 0.25 f2_neural_resnet_periodic | 0.839467 | 0.840113 | 0.841468 | 0.836820 | -0.001595 | -0.003370 | 108.8 s |
+| blend_eq_all + 0.50 f2_neural_resnet_periodic | 0.831657 | 0.831093 | 0.835440 | 0.828437 | -0.009405 | -0.011180 | 108.8 s |
+| constrained_l0.1 + 0.10 f2_neural_resnet_periodic | 0.841069 | 0.842252 | 0.842265 | 0.838689 | +0.000007 | -0.001768 | 108.8 s |
+| constrained_l0.1 + 0.25 f2_neural_resnet_periodic | 0.839416 | 0.840095 | 0.841405 | 0.836746 | -0.001646 | -0.003421 | 108.8 s |
+| constrained_l0.1 + 0.50 f2_neural_resnet_periodic | 0.831552 | 0.831034 | 0.835293 | 0.828330 | -0.009509 | -0.011284 | 108.8 s |
+| fast_combined + 0.10 f2_neural_resnet_periodic | 0.842412 | 0.843033 | 0.843582 | 0.840622 | +0.001351 | -0.000424 | 108.8 s |
+| fast_combined + 0.25 f2_neural_resnet_periodic | 0.840216 | 0.840597 | 0.841972 | 0.838078 | -0.000846 | -0.002621 | 108.8 s |
+| fast_combined + 0.50 f2_neural_resnet_periodic | 0.832095 | 0.831386 | 0.835658 | 0.829242 | -0.008966 | -0.010741 | 108.8 s |
+| f2_neural_resnet_ple | 0.813580 | 0.808721 | 0.816290 | 0.815730 | -0.027481 | -0.029256 | 163.0 s |
+| blend_eq_all + 0.10 f2_neural_resnet_ple | 0.841581 | 0.842474 | 0.842608 | 0.839661 | +0.000519 | -0.001256 | 163.0 s |
+| blend_eq_all + 0.25 f2_neural_resnet_ple | 0.840987 | 0.841134 | 0.842531 | 0.839295 | -0.000075 | -0.001850 | 163.0 s |
+| blend_eq_all + 0.50 f2_neural_resnet_ple | 0.836429 | 0.835224 | 0.838494 | 0.835570 | -0.004632 | -0.006407 | 163.0 s |
+| constrained_l0.1 + 0.10 f2_neural_resnet_ple | 0.841571 | 0.842440 | 0.842583 | 0.839689 | +0.000509 | -0.001266 | 163.0 s |
+| constrained_l0.1 + 0.25 f2_neural_resnet_ple | 0.840943 | 0.841098 | 0.842478 | 0.839252 | -0.000119 | -0.001894 | 163.0 s |
+| constrained_l0.1 + 0.50 f2_neural_resnet_ple | 0.836359 | 0.835081 | 0.838487 | 0.835508 | -0.004703 | -0.006478 | 163.0 s |
+| fast_combined + 0.10 f2_neural_resnet_ple | 0.842809 | 0.843323 | 0.843790 | 0.841314 | +0.001747 | -0.000028 | 163.0 s |
+| fast_combined + 0.25 f2_neural_resnet_ple | 0.841510 | 0.841575 | 0.842911 | 0.840044 | +0.000448 | -0.001327 | 163.0 s |
+| fast_combined + 0.50 f2_neural_resnet_ple | 0.836488 | 0.835196 | 0.838573 | 0.835693 | -0.004574 | -0.006349 | 163.0 s |
+| f2_neural_tabm_periodic | 0.819392 | 0.820552 | 0.822700 | 0.814924 | -0.021670 | -0.023445 | 388.9 s |
+| blend_eq_all + 0.10 f2_neural_tabm_periodic | 0.841188 | 0.842538 | 0.842098 | 0.838927 | +0.000126 | -0.001649 | 388.9 s |
+| blend_eq_all + 0.25 f2_neural_tabm_periodic | 0.840412 | 0.841817 | 0.841452 | 0.837967 | -0.000650 | -0.002424 | 388.9 s |
+| blend_eq_all + 0.50 f2_neural_tabm_periodic | 0.836453 | 0.837760 | 0.838090 | 0.833508 | -0.004609 | -0.006384 | 388.9 s |
+| constrained_l0.1 + 0.10 f2_neural_tabm_periodic | 0.841124 | 0.842367 | 0.842100 | 0.838905 | +0.000062 | -0.001713 | 388.9 s |
+| constrained_l0.1 + 0.25 f2_neural_tabm_periodic | 0.840386 | 0.841816 | 0.841446 | 0.837895 | -0.000676 | -0.002451 | 388.9 s |
+| constrained_l0.1 + 0.50 f2_neural_tabm_periodic | 0.836430 | 0.837728 | 0.838111 | 0.833453 | -0.004631 | -0.006406 | 388.9 s |
+| fast_combined + 0.10 f2_neural_tabm_periodic | 0.842477 | 0.843402 | 0.843236 | 0.840793 | +0.001415 | -0.000359 | 388.9 s |
+| fast_combined + 0.25 f2_neural_tabm_periodic | 0.840999 | 0.841885 | 0.842226 | 0.838886 | -0.000063 | -0.001838 | 388.9 s |
+| fast_combined + 0.50 f2_neural_tabm_periodic | 0.836444 | 0.837457 | 0.838037 | 0.833836 | -0.004618 | -0.006393 | 388.9 s |
 | f2_neural_tabm_ple | 0.826485 | 0.826869 | 0.828579 | 0.824008 | -0.014576 | -0.016351 | 382.4 s |
 | blend_eq_all + 0.10 f2_neural_tabm_ple | 0.841183 | 0.842486 | 0.842065 | 0.838999 | +0.000122 | -0.001653 | 382.4 s |
 | blend_eq_all + 0.25 f2_neural_tabm_ple | 0.840535 | 0.841817 | 0.841684 | 0.838106 | -0.000526 | -0.002301 | 382.4 s |
@@ -1087,4 +1177,4 @@ processes and the existing TabM adapter. All three saved split seeds are retaine
 The combined reference (CV 0.842837) remains frozen; the table now also prints
 changes against it. Existing approved CSVs are preserved. Initial confirmed tree blend: CV 0.843814, per split 0.844708 / 0.844520 / 0.842215, +0.000978 over approved combined on all splits. Five-estimator-seed year-standardized LightGBM and transferred Extra Trees supply the gain. The broader SVM and four fixed-kernel Gaussian-process tests did not add to the approved combined blend; the best longer-MLP replacement gained only 0.000028 with mixed split signs.
 
-Sam also assigned the parallel session to finish the neural adapter. Its code and focused checks were integrated, without repeating them. Eight scientific GPU trials now cover scalar/embedded TabM, embedded MLP/ResNet and FT-Transformer; the separate two-epoch adapter smoke is excluded from model selection. The cutoff remains 06:31 UTC. `submissions/2026-11-01_fast_followup_trees.csv` is checked and prepared as an additional public candidate; previous owner selections remain unchanged.
+Sam also assigned the parallel session to finish the neural adapter. Its code and focused checks were integrated, without repeating them. Eight completed scientific GPU trials cover scalar/embedded TabM, embedded MLP/ResNet and FT-Transformer; the separate two-epoch adapter smoke is excluded from model selection. Training finished before the 06:31 UTC cutoff. `submissions/2026-11-01_fast_followup_trees.csv` is checked and prepared as an additional public candidate; previous owner selections remain unchanged.

@@ -1,0 +1,17 @@
+{
+  "id": "f2_logit_gp_matern10_w25",
+  "method": "sigmoid_of_weighted_logits",
+  "clip": 1e-06,
+  "components": [
+    {
+      "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+      "weight": 0.75,
+      "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+    },
+    {
+      "path": "artifacts/fast/f2_gp_matern10/predictions.npz",
+      "weight": 0.25,
+      "sha256": "571c5052731da223b1107cdf54e61da25abd1e05a9aa96c6ba1ae572db95447e"
+    }
+  ]
+}

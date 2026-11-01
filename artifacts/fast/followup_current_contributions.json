@@ -528,6 +528,22 @@
     "source": "artifacts/fast/f2_lgb_tune11/predictions.npz"
   },
   {
+    "id": "f2_neural_resnet_ple",
+    "family": "resnet",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8435944317464484,
+    "standalone_cv": 0.8135802770083882,
+    "delta_tree_blend": -0.00021973277235424563,
+    "per_seed": [
+      0.8440902276085985,
+      0.8447746329242968,
+      0.8419184347064499
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_ple/predictions.npz"
+  },
+  {
     "id": "f2_lgb_tune10",
     "family": "lightgbm",
     "comparison": "add_0.1",
@@ -848,6 +864,22 @@
     "source": "artifacts/fast/f2_extra_trees_0/predictions.npz"
   },
   {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8434409620055164,
+    "standalone_cv": 0.8253711269018292,
+    "delta_tree_blend": -0.00037320251328620824,
+    "per_seed": [
+      0.8442183995910935,
+      0.8443936697367149,
+      0.8417108166887409
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_family/predictions.npz"
+  },
+  {
     "id": "f2_xgboost_2",
     "family": "xgboost",
     "comparison": "add_0.1",
@@ -958,6 +990,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_mlp_w64_e1000/predictions.npz"
+  },
+  {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8433558763306902,
+    "standalone_cv": 0.8253890817633961,
+    "delta_tree_blend": -0.0004582881881125915,
+    "per_seed": [
+      0.844297873073042,
+      0.8442836714567393,
+      0.8414860844622888
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_top3/predictions.npz"
   },
   {
     "id": "f2_neural_tabm_ple",
@@ -1104,6 +1152,22 @@
     "source": "artifacts/fast/f2_lgb_tune04_extra1234/predictions.npz"
   },
   {
+    "id": "f2_neural_ft_transformer_scalar",
+    "family": "ft_transformer",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8432821121883287,
+    "standalone_cv": 0.8128858687010612,
+    "delta_tree_blend": -0.0005320523304740421,
+    "per_seed": [
+      0.8438719512678572,
+      0.8443243766428505,
+      0.8416500086542781
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz"
+  },
+  {
     "id": "f2_mlp_w128_e600",
     "family": "mlp",
     "comparison": "add_0.1",
@@ -1200,6 +1264,22 @@
     "source": "artifacts/fast/f2_mlp_incumbent_extra34/predictions.npz"
   },
   {
+    "id": "f2_neural_mlp_periodic",
+    "family": "mlp",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8432474148909328,
+    "standalone_cv": 0.8087666482641404,
+    "delta_tree_blend": -0.0005667496278696597,
+    "per_seed": [
+      0.8442104913138776,
+      0.8437853392628677,
+      0.8417464140960537
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz"
+  },
+  {
     "id": "f2_gp_rbf10",
     "family": "gaussian_process",
     "comparison": "add_0.1",
@@ -1294,6 +1374,38 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_lgb_tune11/predictions.npz"
+  },
+  {
+    "id": "f2_neural_tabm_periodic",
+    "family": "tabm",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8431667730742117,
+    "standalone_cv": 0.8193919674615027,
+    "delta_tree_blend": -0.0006473914445906948,
+    "per_seed": [
+      0.8441201920231602,
+      0.84419097983759,
+      0.8411891473618857
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz"
+  },
+  {
+    "id": "f2_neural_resnet_periodic",
+    "family": "resnet",
+    "comparison": "add_0.1",
+    "weight": 0.1,
+    "cv": 0.8431528340576642,
+    "standalone_cv": 0.7931857711644218,
+    "delta_tree_blend": -0.0006613304611384022,
+    "per_seed": [
+      0.8438715381804224,
+      0.8445171445257953,
+      0.8410698194667751
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz"
   },
   {
     "id": "f2_avg_cat5",
@@ -1454,6 +1566,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_lgb_zscore/predictions.npz"
+  },
+  {
+    "id": "f2_neural_resnet_ple",
+    "family": "resnet",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8430454789429896,
+    "standalone_cv": 0.8135802770083882,
+    "delta_tree_blend": -0.0007686855758131846,
+    "per_seed": [
+      0.8437877325986187,
+      0.8438185843095661,
+      0.8415301199207835
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_ple/predictions.npz"
   },
   {
     "id": "f2_extra_trees_3_extra1234",
@@ -1760,6 +1888,22 @@
     "source": "artifacts/fast/f2_lgb_window1/predictions.npz"
   },
   {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8428701294105228,
+    "standalone_cv": 0.8253890817633961,
+    "delta_tree_blend": -0.0009440351082798948,
+    "per_seed": [
+      0.8441671303366786,
+      0.8435479912109795,
+      0.8408952666839102
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_top3/predictions.npz"
+  },
+  {
     "id": "f2_tabm_b3_lr0.001",
     "family": "tabm",
     "comparison": "replace_mlp",
@@ -1824,6 +1968,22 @@
     "source": "artifacts/fast/f2_lgb_zscore_extra1234/predictions.npz"
   },
   {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8428586752910502,
+    "standalone_cv": 0.8253711269018292,
+    "delta_tree_blend": -0.0009554892277524966,
+    "per_seed": [
+      0.8440258991784176,
+      0.8435611015758802,
+      0.8409890251188527
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_family/predictions.npz"
+  },
+  {
     "id": "f2_lgb_zscore",
     "family": "lightgbm",
     "comparison": "replace_mlp",
@@ -1886,6 +2046,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_lgb_shrink100/predictions.npz"
+  },
+  {
+    "id": "f2_neural_mlp_periodic",
+    "family": "mlp",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8427983863905212,
+    "standalone_cv": 0.8087666482641404,
+    "delta_tree_blend": -0.0010157781282814637,
+    "per_seed": [
+      0.8443470898229588,
+      0.843092272552789,
+      0.8409557967958158
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz"
   },
   {
     "id": "f2_svm_c300_g0.001",
@@ -2336,6 +2512,38 @@
     "source": "artifacts/fast/f2_mlp_lbfgs64_tanh_a10/predictions.npz"
   },
   {
+    "id": "f2_neural_tabm_periodic",
+    "family": "tabm",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8426128228096299,
+    "standalone_cv": 0.8193919674615027,
+    "delta_tree_blend": -0.001201341709172632,
+    "per_seed": [
+      0.8439393037671131,
+      0.8432980090394423,
+      0.8406011556223346
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz"
+  },
+  {
+    "id": "f2_neural_resnet_periodic",
+    "family": "resnet",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8426105928689614,
+    "standalone_cv": 0.7931857711644218,
+    "delta_tree_blend": -0.0012035716498411952,
+    "per_seed": [
+      0.8437364371755729,
+      0.8436742102727474,
+      0.8404211311585641
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz"
+  },
+  {
     "id": "f2_lgb_tune01",
     "family": "lightgbm",
     "comparison": "replace_mlp",
@@ -2480,6 +2688,22 @@
     "source": "artifacts/fast/f2_extra_trees_1/predictions.npz"
   },
   {
+    "id": "f2_neural_ft_transformer_scalar",
+    "family": "ft_transformer",
+    "comparison": "replace_mlp",
+    "weight": 0.1,
+    "cv": 0.8425475682525405,
+    "standalone_cv": 0.8128858687010612,
+    "delta_tree_blend": -0.0012665962662620212,
+    "per_seed": [
+      0.8437043263700513,
+      0.8431659078846865,
+      0.8407724705028841
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz"
+  },
+  {
     "id": "f2_mlp_tanh64",
     "family": "mlp",
     "comparison": "replace_mlp",
@@ -2558,6 +2782,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_gp_rbf3/predictions.npz"
+  },
+  {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8424659386855405,
+    "standalone_cv": 0.8253711269018292,
+    "delta_tree_blend": -0.0013482258332621806,
+    "per_seed": [
+      0.8431403651888756,
+      0.8435692579676765,
+      0.8406881929000694
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_family/predictions.npz"
   },
   {
     "id": "f2_gp_rbf10",
@@ -2704,6 +2944,22 @@
     "source": "artifacts/fast/f2_lgb_tune07/predictions.npz"
   },
   {
+    "id": "f2_neural_resnet_ple",
+    "family": "resnet",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8422301542021232,
+    "standalone_cv": 0.8135802770083882,
+    "delta_tree_blend": -0.0015840103166794666,
+    "per_seed": [
+      0.8420354799084272,
+      0.8439110737825413,
+      0.8407439089154011
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_ple/predictions.npz"
+  },
+  {
     "id": "f2_svm_c30_g0.001",
     "family": "svm",
     "comparison": "replace_mlp",
@@ -2766,6 +3022,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/neural/f2_neural_tabm_ple/predictions.npz"
+  },
+  {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8421133108683149,
+    "standalone_cv": 0.8253890817633961,
+    "delta_tree_blend": -0.0017008536504878509,
+    "per_seed": [
+      0.8431425957938693,
+      0.8431966348397193,
+      0.8400007019713558
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_top3/predictions.npz"
   },
   {
     "id": "f2_gp_matern10",
@@ -3024,6 +3296,22 @@
     "source": "artifacts/fast/f2_catboost_1/predictions.npz"
   },
   {
+    "id": "f2_neural_tabm_periodic",
+    "family": "tabm",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8415668880890993,
+    "standalone_cv": 0.8193919674615027,
+    "delta_tree_blend": -0.002247276429703423,
+    "per_seed": [
+      0.8426048935339653,
+      0.8428568914807675,
+      0.8392388792525649
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz"
+  },
+  {
     "id": "f2_tabm_b2_lr0.0003",
     "family": "tabm",
     "comparison": "add_0.25",
@@ -3200,6 +3488,22 @@
     "source": "artifacts/fast/f2_lgb_tune14/predictions.npz"
   },
   {
+    "id": "f2_neural_ft_transformer_scalar",
+    "family": "ft_transformer",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8413599277929201,
+    "standalone_cv": 0.8128858687010612,
+    "delta_tree_blend": -0.0024542367258825934,
+    "per_seed": [
+      0.8415545223856606,
+      0.8426423259840206,
+      0.839882935009079
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz"
+  },
+  {
     "id": "f2_lgb_shrink100",
     "family": "lightgbm",
     "comparison": "add_0.5",
@@ -3262,6 +3566,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_mlp_w128_e1000/predictions.npz"
+  },
+  {
+    "id": "f2_neural_mlp_periodic",
+    "family": "mlp",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8411588664469772,
+    "standalone_cv": 0.8087666482641404,
+    "delta_tree_blend": -0.002655298071825333,
+    "per_seed": [
+      0.8422170412051955,
+      0.8413257653241379,
+      0.8399337928115985
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz"
   },
   {
     "id": "f2_mlp_incumbent_extra34",
@@ -3374,6 +3694,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_extra_trees_1/predictions.npz"
+  },
+  {
+    "id": "f2_neural_resnet_periodic",
+    "family": "resnet",
+    "comparison": "add_0.25",
+    "weight": 0.25,
+    "cv": 0.8408315015255649,
+    "standalone_cv": 0.7931857711644218,
+    "delta_tree_blend": -0.00298266299323798,
+    "per_seed": [
+      0.8411977337489119,
+      0.8430610780501077,
+      0.8382356927776744
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz"
   },
   {
     "id": "f2_xgboost_2",
@@ -3536,6 +3872,22 @@
     "source": "artifacts/fast/f2_svm_c3_g0.001/predictions.npz"
   },
   {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8389116635515598,
+    "standalone_cv": 0.8253711269018292,
+    "delta_tree_blend": -0.0049025009672429105,
+    "per_seed": [
+      0.8394160054321571,
+      0.8402513191762774,
+      0.8370676660462447
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_family/predictions.npz"
+  },
+  {
     "id": "f2_mlp_lbfgs64_tanh_a10",
     "family": "mlp",
     "comparison": "add_0.25",
@@ -3566,6 +3918,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/neural/f2_neural_tabm_ple/predictions.npz"
+  },
+  {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8383533597265347,
+    "standalone_cv": 0.8253890817633961,
+    "delta_tree_blend": -0.0054608047922677,
+    "per_seed": [
+      0.839307413954379,
+      0.8396957688270085,
+      0.8360568963982173
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/fast/f2_neural_avg_top3/predictions.npz"
   },
   {
     "id": "f2_gp_matern3",
@@ -3632,6 +4000,38 @@
     "source": "artifacts/neural/f2_neural_mlp_ple/predictions.npz"
   },
   {
+    "id": "f2_neural_resnet_ple",
+    "family": "resnet",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8367086730850577,
+    "standalone_cv": 0.8135802770083882,
+    "delta_tree_blend": -0.007105491433744911,
+    "per_seed": [
+      0.8352905540124441,
+      0.8390740954817086,
+      0.8357613697610204
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_ple/predictions.npz"
+  },
+  {
+    "id": "f2_neural_tabm_periodic",
+    "family": "tabm",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8366114592282766,
+    "standalone_cv": 0.8193919674615027,
+    "delta_tree_blend": -0.007202705290525986,
+    "per_seed": [
+      0.8376785114273299,
+      0.8383134594388387,
+      0.8338424068186614
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz"
+  },
+  {
     "id": "f2_gp_rbf3",
     "family": "gaussian_process",
     "comparison": "add_0.5",
@@ -3662,6 +4062,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_gp_rbf10/predictions.npz"
+  },
+  {
+    "id": "f2_neural_ft_transformer_scalar",
+    "family": "ft_transformer",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8348233705261497,
+    "standalone_cv": 0.8128858687010612,
+    "delta_tree_blend": -0.008990793992652827,
+    "per_seed": [
+      0.8345524583673981,
+      0.8365892912351984,
+      0.8333283619758529
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz"
   },
   {
     "id": "f2_avg_mlp_base5",
@@ -3710,6 +4126,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_tabm_b2_lr0.0003/predictions.npz"
+  },
+  {
+    "id": "f2_neural_mlp_periodic",
+    "family": "mlp",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8340396965926333,
+    "standalone_cv": 0.8087666482641404,
+    "delta_tree_blend": -0.009774467926169317,
+    "per_seed": [
+      0.8352016200180493,
+      0.8335579616976162,
+      0.8333595080622345
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz"
   },
   {
     "id": "f2_mlp_lbfgs64_relu_a1",
@@ -3838,6 +4270,22 @@
     ],
     "all_splits_up": false,
     "source": "artifacts/fast/f2_mlp_w64_e1000/predictions.npz"
+  },
+  {
+    "id": "f2_neural_resnet_periodic",
+    "family": "resnet",
+    "comparison": "add_0.5",
+    "weight": 0.5,
+    "cv": 0.8320878823930895,
+    "standalone_cv": 0.7931857711644218,
+    "delta_tree_blend": -0.011726282125713139,
+    "per_seed": [
+      0.8316175926744297,
+      0.8358936493628761,
+      0.8287524051419627
+    ],
+    "all_splits_up": false,
+    "source": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz"
   },
   {
     "id": "f2_mlp_w64_e600",

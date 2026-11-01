@@ -1,0 +1,69 @@
+{
+  "id": "f2_logit_neural_tabm_periodic_w25",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_logit_neural_tabm_periodic_w25",
+    "method": "sigmoid_of_weighted_logits",
+    "clip": 1e-06,
+    "components": [
+      {
+        "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+        "weight": 0.75,
+        "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz",
+        "weight": 0.25,
+        "sha256": "e60e49359010101beba1ea08b573e1b6a9190d78b1d05fad49acdd5469cd1683"
+      }
+    ]
+  },
+  "cv": 0.8417957109801812,
+  "per_seed": [
+    0.8427755271960962,
+    0.8429892819960253,
+    0.8396223237484224
+  ],
+  "elapsed_seconds": 0.10811822861433029,
+  "prediction_sha256": "c3f5c2b1e38ac51ecf1cd5b8e760ff2101fe188c800f45016e37abff56cc2ce4",
+  "code_sha256": {
+    "analysis/fast_logit_blends.py": "949479a6347a5bef631c22d87c9d77074f39b2948713237541f5428c896ff387"
+  },
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8417957109801812,
+      "per_seed": [
+        0.8427755271960962,
+        0.8429892819960253,
+        0.8396223237484224
+      ],
+      "fold_auc": [
+        [
+          0.8443776653335395,
+          0.8491803158389104,
+          0.8587200598802396,
+          0.8380701831630857,
+          0.823529411764706
+        ],
+        [
+          0.8305013589058046,
+          0.8344670952213221,
+          0.843544528589879,
+          0.8477794117647058,
+          0.8586540154984149
+        ],
+        [
+          0.8401646890720403,
+          0.8295735294117648,
+          0.8539868791828109,
+          0.8454818304567336,
+          0.8289046906187625
+        ]
+      ],
+      "delta_E": 0.0007341055498437665,
+      "delta_reference": -0.00201845353862129
+    }
+  ]
+}

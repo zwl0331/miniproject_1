@@ -6,15 +6,14 @@ correlation with the current best file. The per-file R1 requirement below is
 historical during this mode. Sam decides and uploads, at most 10 per day.
 Only the two final files receive the one-round Fable leakage/correctness review.
 
-Final selection, 2026-11-01: Sam chose `2026-11-01_fast_combined.csv` and
-`2026-10-31_p2.6b_blend_eq_all.csv`. The authoritative selection and review status
-is [`final_selection.json`](../artifacts/fast/final_selection.json). The new
-file's sidecar and saved result retain the status of their preparation event,
-before Sam selected it. Both selected CSVs passed the single Fable review at
-`c04f340` with verdict APPROVED; see the
-[review record](../reviews/2026-11-01-fast-final-files.md). CSV bytes are unchanged.
-Development is closed. The new file has not been uploaded; the original file's
-previous public score is 0.85377. Sam performs uploads and final Kaggle selections.
+Final selection updated 2026-11-01: Sam chose `2026-11-01_fast_followup_trees.csv`
+and the unchanged `2026-11-01_fast_combined.csv`. The authoritative selection and
+review status is [`final_selection.json`](../artifacts/fast/final_selection.json).
+Preparation sidecars/results retain their earlier event status. The original
+selection is preserved in `final_selection_initial.json`. One final leakage/file
+review of the updated pair is pending. No new file has been uploaded; Sam performs
+uploads and final Kaggle selections. The optional CatBoost variant remains a
+public-check candidate only.
 
 Every file here is written once by `../scripts/prepare_submission.py` (through `songpop.artifacts.write_submission`: exclusive create, read back, validated), next to a sidecar JSON with its provenance and its Kaggle description. Each submission file gets an R1 review before Sam uploads it (`../AGENTS.md`; Sam's decision of 2026-10-30 in `../decisions.md`; before then, a gated action under `../doc/review_policy.md` section 4.3). Sam uploads every file and reports the public score.
 
@@ -59,3 +58,6 @@ Events, newest last. A file reviewed and ready for Sam, a file uploaded, and a p
 | 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Sam selected for the final pair. Fable 5.1 xhigh APPROVED at c04f340, round 1, leakage and file correctness only. CV 0.842837; correlation with original E 0.997326. CSV unchanged; ready for Sam. Public score pending. |
 | 2026-11-01 | `2026-10-31_p2.6b_blend_eq_all.csv` | `d2b5c461c21f03591d72b716f007e93c43900e9f0d048355b4a883a2482ac3cc` | Sam selected for the final pair. Fable 5.1 xhigh APPROVED at c04f340, round 1, leakage and file correctness only. CV 0.841062; prior public score 0.85377. CSV unchanged; original uploaded entry can be selected by Sam. |
 | 2026-11-01 | `2026-11-01_fast_followup_trees.csv` | `a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338` | Prepared for public check under fast mode. CV 0.843814; per seed 0.844708/0.844520/0.842215. Automatic IDs/count/probability checks passed; correlation with 2026-11-01_fast_combined.csv: 0.997782. Purpose: Check the confirmed year-standardized LightGBM and new Extra Trees contribution; fixed weights 0.40 original E, 0.25 five-seed LightGBM, 0.10 original three-seed MLP, 0.25 five-seed Extra Trees. Compare against the approved combined file without changing the previous final selection.. Sam decides and uploads; public score pending. |
+| 2026-11-01 | `2026-11-01_fast_followup_trees_cat.csv` | `748e5cfac5d294eeff1c72517e674f33dd64f7c8e52affff4af0a80c2b5126bd` | Prepared for public check under fast mode. CV 0.843988; per seed 0.845335/0.844740/0.841890. Automatic IDs/count/probability checks passed; correlation with 2026-11-01_fast_followup_trees.csv: 0.999776. Purpose: Optional check of adding 10% five-seed CatBoost to the follow-up tree blend; CV edge is small and mixed across split seeds.. Sam decides and uploads; public score pending. |
+| 2026-11-01 | `2026-11-01_fast_followup_trees.csv` | `a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338` | Sam selected for the updated final pair; one final leakage/file review pending. CV 0.843814; automatic file checks passed. CSV bytes unchanged since preparation; public score pending. |
+| 2026-11-01 | `2026-11-01_fast_combined.csv` | `fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751` | Sam selected for the updated final pair; one final leakage/file review pending. CV 0.842837; automatic file checks passed. CSV bytes unchanged since preparation; public score pending. |

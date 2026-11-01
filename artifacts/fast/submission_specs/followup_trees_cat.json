@@ -1,0 +1,15 @@
+{
+  "name": "followup_trees_cat",
+  "purpose": "Optional check of adding 10% five-seed CatBoost to the follow-up tree blend; CV edge is small and mixed across split seeds.",
+  "components": [
+    {
+      "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+      "weight": 0.9
+    },
+    {
+      "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+      "weight": 0.1
+    }
+  ],
+  "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv"
+}

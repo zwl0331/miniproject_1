@@ -1,0 +1,69 @@
+{
+  "id": "f2_logit_gp_matern10_w10",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_logit_gp_matern10_w10",
+    "method": "sigmoid_of_weighted_logits",
+    "clip": 1e-06,
+    "components": [
+      {
+        "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+        "weight": 0.9,
+        "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+      },
+      {
+        "path": "artifacts/fast/f2_gp_matern10/predictions.npz",
+        "weight": 0.1,
+        "sha256": "571c5052731da223b1107cdf54e61da25abd1e05a9aa96c6ba1ae572db95447e"
+      }
+    ]
+  },
+  "cv": 0.843481727529674,
+  "per_seed": [
+    0.844306733613303,
+    0.8443991238274482,
+    0.8417393251482709
+  ],
+  "elapsed_seconds": 0.11314423941075802,
+  "prediction_sha256": "5e5fa5e4b9f4ec6c4efccad27d364278a5ec576a75a41a2cee91b9dcd9553aec",
+  "code_sha256": {
+    "analysis/fast_logit_blends.py": "949479a6347a5bef631c22d87c9d77074f39b2948713237541f5428c896ff387"
+  },
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.843481727529674,
+      "per_seed": [
+        0.844306733613303,
+        0.8443991238274482,
+        0.8417393251482709
+      ],
+      "fold_auc": [
+        [
+          0.8452615065072806,
+          0.8505599095925795,
+          0.8603711694258541,
+          0.8386499060702126,
+          0.8266911764705882
+        ],
+        [
+          0.8305529163076061,
+          0.8365144710578842,
+          0.8445058412586592,
+          0.8499264705882353,
+          0.8604959199248563
+        ],
+        [
+          0.8429193273968669,
+          0.8334705882352941,
+          0.8570542738053305,
+          0.8444764882000705,
+          0.8307759481037923
+        ]
+      ],
+      "delta_E": 0.002420122099336508,
+      "delta_reference": -0.00033243698912854835
+    }
+  ]
+}

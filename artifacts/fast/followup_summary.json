@@ -1,0 +1,35 @@
+{
+  "completed_utc": "2026-11-01T05:42:38.860556+00:00",
+  "started_utc": "2026-11-01T05:01:10+00:00",
+  "training_finished_utc": "2026-11-01T05:39:55+00:00",
+  "initial_cpu_configs": 48,
+  "extra_seed_configs": 6,
+  "scientific_gpu_configs": 8,
+  "cpu_outer_fit_entries": 1020,
+  "gpu_outer_fit_entries": 120,
+  "errors": [],
+  "best_recommended_cv": 0.8438141645188025,
+  "delta_previous_combined": 0.0009776175960068967,
+  "optional_cat_cv": 0.8439883077958112,
+  "chosen_files": [
+    [
+      "submissions/2026-11-01_fast_followup_trees.csv",
+      0.8438141645188025
+    ],
+    [
+      "submissions/2026-11-01_fast_combined.csv",
+      0.8428365469227956
+    ]
+  ],
+  "neural_scores": {
+    "f2_neural_ft_transformer_scalar": 0.8128858687010612,
+    "f2_neural_mlp_ple": 0.8181917824361407,
+    "f2_neural_tabm_scalar": 0.81950122930826,
+    "f2_neural_tabm_ple": 0.8264851406044001,
+    "f2_neural_resnet_ple": 0.8135802770083882,
+    "f2_neural_resnet_periodic": 0.7931857711644218,
+    "f2_neural_tabm_periodic": 0.8193919674615027,
+    "f2_neural_mlp_periodic": 0.8087666482641404
+  },
+  "interpretation": "New year-standardized audio and feature transfer to Extra Trees improve the blend. Small CatBoost gain is mixed across splits. Tested SVM, fixed-kernel GP and GPU neural additions/replacements/logit averages do not improve the stronger tree blend. Scores are exploratory on reused grouped folds."
+}

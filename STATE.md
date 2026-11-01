@@ -1,50 +1,41 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01, 05:30 UTC. Sam authorized one more fast exploration block. Cutoff 06:31 UTC (90 minutes). Running session 22615, log `artifacts/fast/followup.log`, six workers plus incumbent seed-average session 34476 (two workers, `artifacts/fast/followup_incumbent_seeds.log`); 48 targeted configurations: 10 LightGBM tuning, six feature variants, 10 tree transfers, 12 MLP, four SVM, four Gaussian processes and two TabM. Previously approved submission files remain unchanged.
+Updated 2026-11-01, 05:41 UTC. The authorized follow-up is finished. Sam selected follow-up trees plus previous combined. One final leakage/file review is pending; all training jobs have exited.
 
 ## Rules and ownership
 
-- Codex owns development. Fast-mode override in AGENTS.md and owner prompt in `doc/llm_usage/2026-11-01-fast-mode/prompt.md`.
-- Train only on provided data; no external data, pretrained models, identifier lookups, external dataset-specific code, fitted test features or pseudo-labels.
-- Retained validation: saved track-grouped folds, split seeds 155, 2026, 1029; fit all transforms inside training folds; choose by mean of 15 fold AUCs. Small gains remain eligible. Public scores are checks only.
-- Sam authorized a bounded follow-up after asking what remained worth testing. The fast-mode rules continue for this block. He selects and uploads, at most 10 per day. Automatic file checks replace per-file exploration R1; only two final files get one quick Fable review, leakage and file correctness only, one round.
-- Experiments deadline 2026-11-01 20:00 UTC; files deadline 2026-11-02 20:00 UTC; Kaggle close 2026-11-03 01:00 UTC. Work finished ahead of those limits. Report and public Colab due 2026-11-03 23:59 PST.
+- Codex owns the project. Fast-mode override: AGENTS.md; owner prompts and steering: `doc/llm_usage/2026-11-01-fast-mode/`.
+- Provided data only; no external data, pretrained models, identifier lookups, dataset-specific external code, fitted test features or pseudo-labels.
+- Saved track-grouped folds; split seeds 155, 2026, 1029; all fitted transforms inside training folds. Rank by mean of 15 fold AUCs. Small gains remain eligible; public scores are checks only.
+- Sam selects and uploads, at most 10 per day. Automatic file checks; one quick Fable review of the selected final pair, leakage and file correctness only, one round. No further modeling or review loops.
+- Follow-up cap was 06:31 UTC; training finished about 05:40 UTC. Original experiment deadline 2026-11-01 20:00 UTC; file deadline 2026-11-02 20:00 UTC; Kaggle closes 2026-11-03 01:00 UTC. Report and Colab due 2026-11-03 23:59 PST.
 
-## Follow-up checkpoint
+## Final candidates
 
-- Best completed fixed blend: `artifacts/fast/f2_blend_z5_et25/`, CV 0.843814, per split 0.844708 / 0.844520 / 0.842215. +0.000978 versus approved combined, all splits up. Uses five-seed year-standardized LightGBM and new Extra Trees; still exploratory.
-- All 48 initial CPU trials and six additional-seed runs are complete, no errors. Six five-seed averages saved. Optional CatBoost addition scores 0.843988 (+0.000174 vs tree blend, mixed split signs). GPU queues are the only running experiments.
+All scores are exploratory on repeatedly used grouped folds.
 
-## Results and files
+| File | CV mean | Per split 155 / 2026 / 1029 | Status |
+|---|---:|---|---|
+| `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Sam's first final pick; review pending |
+| `2026-11-01_fast_combined.csv` | 0.842837 | 0.843593 / 0.843488 / 0.841429 | Sam's second final pick; bytes unchanged |
+| `2026-11-01_fast_followup_trees_cat.csv` | 0.843988 | 0.845335 / 0.844740 / 0.841890 | Optional public check; small mixed CatBoost gain |
+| Original `2026-10-31_p2.6b_blend_eq_all.csv` | 0.841062 | 0.842493 / 0.841728 / 0.838964 | Earlier reference; public 0.85377 |
 
-All new scores are exploratory; the repeated CV folds have been used for model development.
+- Follow-up trees = 0.40 original E + 0.25 five-seed year-standardized/count LightGBM + 0.10 original three-seed MLP + 0.25 five-seed feature-transfer Extra Trees. Gain +0.000978 over previous combined, +0.002753 over E; all three split means improve.
+- Authoritative selection: `artifacts/fast/final_selection.json`; previous pair: `final_selection_initial.json`. New files passed automatic 863-row/ordered-ID/finite-probability checks; hashes and CV logged in `submissions/README.md`. Pair correlation 0.997782. No uploads or pushes performed.
+- Follow-up: 48 initial CPU configurations, six extra-seed runs, eight scientific GPU configurations, six CPU seed averages, two neural averages and small fixed probability/logit blend checks. All complete, no failures. Separate two-epoch adapter smoke is not a scientific candidate.
+- Broader tests include four additional RBF SVMs, four fixed-kernel Gaussian processes, embedded TabM/MLP/ResNet and FT-Transformer. None of their tested additions, replacements or logit blends improved the stronger tree blend. Earlier two SVM additions did give small gains to the original E; they are retained, not erased by a threshold.
+- Table: `notes/2026-11-01-fast-exploration.md`. Full records/configs/OOF/test arrays: `artifacts/fast/`, `artifacts/neural/`. Summary: `artifacts/fast/followup_summary.json`. Existing split/bank checks retained; focused new-feature checks in `followup_checks.txt`.
 
-| Candidate | Mean CV | Per seed 155 / 2026 / 1029 | Gain vs E | Status |
-|---|---:|---|---:|---|
-| Original E | 0.841062 | 0.842493 / 0.841728 / 0.838964 | 0 | Sam's second final pick; public 0.85377 |
-| New combined: 0.65 E + 0.25 year-relative/date-count LightGBM + 0.10 MLP | 0.842837 | 0.843593 / 0.843488 / 0.841429 | +0.001775 | Sam's first final pick; leakage/file review APPROVED |
-| Combined with 0.10 extra date-feature Extra Trees, E reduced to 0.55 | 0.842945 | 0.843692 / 0.843725 / 0.841418 | +0.001883 | optional public check |
-| 0.90 E + 0.10 MLP | 0.842299 | 0.843366 / 0.843136 / 0.840395 | +0.001237 | optional public check |
+## Preserved work and environment
 
-- Final pair: `submissions/2026-11-01_fast_combined.csv` (sha256 fc3d6730...) and `submissions/2026-10-31_p2.6b_blend_eq_all.csv` (d2b5c461...). Owner decision and full hashes: `artifacts/fast/final_selection.json`.
-- Public-check alternatives: `submissions/2026-11-01_fast_combined_et10.csv`, `submissions/2026-11-01_fast_mlp10.csv`. All three new files passed automatic row/ID/probability checks; correlations with E are 0.997326, 0.996354 and 0.998652. No uploads performed.
-- Completed 51 fresh 15-fold runs, four small initial blend checks and five seeded fixed blends. Both selected new components average estimator seeds 0, 1, 2. Standalone new LightGBM 0.839308; selected MLP 0.810332.
-- Historical rescore: 678 saved runs, 658 distinct prediction sets, no training. Best recovered contribution: Extra Trees +0.000469 at weight 0.10. No hard gain threshold rejected candidates.
-- Single results table: `notes/2026-11-01-fast-exploration.md`; every config, OOF/test array, runtime and warning: `artifacts/fast/`. Code: `analysis/fast_*.py`. Quick validation checks passed; malformed submission controls rejected. No nested reevaluation, byte replay or new framework/adapter.
-
-## Parallel adapter work
-
-- Session `01a19580-8f99-7492-9bc9-409b9774fb23` reports Sam explicitly assigned it to finish neural adapters in fast mode. Adapter commits bf9aa18 and 2b463c1 integrated as e9eb1fe/a85b3ca. Eight scientific neural configurations run on GPU in two processes: sessions 79367 and 47454; queues/logs `artifacts/neural/followup_{0,1}.*`. Includes embedded TabM, MLP, ResNet and FT-Transformer. Cutoff remains 06:31 UTC; max 150 epochs and patience 15. No old P2.9 gates.
-
-## Preserved work
-
-- P2.9 stopped, saved on `p2.9-paused` at 1b47c17; main initial snapshot 8c03e05. Adapter worktree is clean. The paused branch remains unchanged; only the separately authorized neural adapter has now been integrated.
-- Old suite PID 25623 exited without a final verdict. Its log is committed. The 135-fit P2.9 gate never ran.
-- `.venv`: node-local Python 3.12.16, 32 CPU equivalents, 45 GiB RAM, A100 MIG 2g.20gb. No new packages installed.
-- Older STATE snapshots and outstanding course/team/upload bookkeeping are preserved in `notes/state-archive.md`.
+- P2.9 remains saved on `p2.9-paused` at 1b47c17; original worktree unchanged. Old suite PID 25623 exited; the old 135-fit gate never ran.
+- Sam separately assigned adapter completion to Codex session `01a19580-8f99-7492-9bc9-409b9774fb23`. Its isolated commits bf9aa18/2b463c1 were integrated as e9eb1fe/a85b3ca. No old process gates resumed. See `notes/2026-11-01-neural-adapter.md` and its LLM-use directory.
+- Node: Python 3.12.16, 32 CPU equivalents, 45 GiB RAM, A100 MIG 2g.20gb. No packages installed during fast exploration.
+- Full prior states and open course/team/upload bookkeeping: `notes/state-archive.md`.
 
 ## Next action
 
-1. Run `analysis.fast_followup` for the small boundary check and queue. Run the 48 configurations with `analysis.fast_exploration --queue artifacts/fast/followup_queue.json --workers 6`, retaining all three saved split seeds. Cutoff 06:31 UTC.
-2. LightGBM confirmation session 14305 (`artifacts/fast/followup_lgb_confirm.log`), one worker: z-score year residuals and zero-L2 variant, estimator seeds 1–4. Initial z-score replacement CV 0.843284, +0.000447 over combined, all split means up; provisional. Compare each addition with the approved 0.842837 combined bank, E and the existing constrained reference. Average additional estimator seeds only for a few promising candidates. No repeated reviews or old P2.9 process gates.
-3. Save results in the same notes table and commit code/results. Prepare improved public-check candidates if justified; Sam retains final-file selection. Existing review only covers the unchanged previous pair.
+1. Run and collect the one fresh Fable review of the selected pair: `reviews/2026-11-01-fast-followup-final-files.md`. Scope is leakage and file correctness. Do not launch more training or repeated reviews.
+2. Deliver files and verdict. Sam uploads and reports public scores; log them without tuning models to the board. Final Kaggle selections remain his action.
+3. Then report and Colab. Read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`. Model development is finished.

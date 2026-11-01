@@ -1,0 +1,68 @@
+{
+  "id": "f2_neural_avg_top3",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "selection": "Three best standalone mean-fold CV scores among the eight completed configs; exploratory.",
+    "components": [
+      {
+        "path": "artifacts/neural/f2_neural_tabm_ple/predictions.npz",
+        "weight": 0.3333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_scalar/predictions.npz",
+        "weight": 0.3333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz",
+        "weight": 0.3333333333333333
+      }
+    ]
+  },
+  "cv": 0.8253890817633961,
+  "per_seed": [
+    0.8260851964726939,
+    0.8277267650069948,
+    0.8223552838104993
+  ],
+  "elapsed_seconds": 0.08090844843536615,
+  "prediction_sha256": "10b40072a63291433ba4906b4a50b38275b9c5934971ecc1c38f18693142a00f",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8253890817633961,
+      "per_seed": [
+        0.8260851964726939,
+        0.8277267650069948,
+        0.8223552838104993
+      ],
+      "fold_auc": [
+        [
+          0.8280707956780167,
+          0.8302475930491957,
+          0.842289685335212,
+          0.8245017318304566,
+          0.8053161764705883
+        ],
+        [
+          0.8213904294731571,
+          0.820678495949278,
+          0.8311208465422097,
+          0.8268088235294118,
+          0.8386352295409182
+        ],
+        [
+          0.8257728086262898,
+          0.808029411764706,
+          0.8377986673711401,
+          0.8312162439826231,
+          0.8089592873077375
+        ]
+      ],
+      "delta_E": -0.015672523666941385,
+      "delta_reference": -0.015672523666941385
+    }
+  ]
+}

@@ -1,27 +1,20 @@
 {
   "owner": "Sam",
-  "decision": "Combined + original ensemble (Recommended)",
-  "selected_utc": "2026-11-01T04:42:27.750579+00:00",
-  "status": "owner selected; Fable leakage/file-correctness review APPROVED; development closed",
-  "review": {
-    "record": "reviews/2026-11-01-fast-final-files.md",
-    "verdict": "APPROVED",
-    "commit": "c04f3404b3ffcc4b30f8e0401e8ad258f6e51c06",
-    "round": 1,
-    "completed_utc": "2026-11-01T04:48:14+00:00",
-    "csv_bytes_unchanged": true
-  },
+  "decision": "Follow-up trees + previous combined (Recommended)",
+  "selected_utc": "2026-11-01T05:42:38.860556+00:00",
+  "status": "owner selected updated pair; one final leakage/file review pending",
   "files": [
+    {
+      "path": "submissions/2026-11-01_fast_followup_trees.csv",
+      "sha256": "a1c525f85c07f3e2f4e6567cd0150e8650d5bbdc8bb8d24a662cebbb3ae14338",
+      "cv_mean": 0.8438141645188025
+    },
     {
       "path": "submissions/2026-11-01_fast_combined.csv",
       "sha256": "fc3d6730db0b96bca34aad4a50484df57590029d3201634319c2450a4810b751",
       "cv_mean": 0.8428365469227956
-    },
-    {
-      "path": "submissions/2026-10-31_p2.6b_blend_eq_all.csv",
-      "sha256": "d2b5c461c21f03591d72b716f007e93c43900e9f0d048355b4a883a2482ac3cc",
-      "cv_mean": 0.8410616054303375
     }
   ],
-  "review_scope": "Only these two files, leakage and file correctness, one round."
+  "review_scope": "Only the selected pair, leakage and file correctness, one round. Previous combined CSV bytes are unchanged.",
+  "previous_selection_record": "artifacts/fast/final_selection_initial.json"
 }

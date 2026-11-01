@@ -1,0 +1,69 @@
+{
+  "id": "f2_logit_neural_avg_top3_w25",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_logit_neural_avg_top3_w25",
+    "method": "sigmoid_of_weighted_logits",
+    "clip": 1e-06,
+    "components": [
+      {
+        "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+        "weight": 0.75,
+        "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+      },
+      {
+        "path": "artifacts/fast/f2_neural_avg_top3/predictions.npz",
+        "weight": 0.25,
+        "sha256": "10b40072a63291433ba4906b4a50b38275b9c5934971ecc1c38f18693142a00f"
+      }
+    ]
+  },
+  "cv": 0.8422475898467157,
+  "per_seed": [
+    0.8431647575155743,
+    0.843280496354805,
+    0.8402975156697675
+  ],
+  "elapsed_seconds": 0.06754920538514853,
+  "prediction_sha256": "7c24aa2166928b55fd4459e8f9c0daa87390ee9f7921f73e1a0c826360e41f4a",
+  "code_sha256": {
+    "analysis/fast_logit_blends.py": "949479a6347a5bef631c22d87c9d77074f39b2948713237541f5428c896ff387"
+  },
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8422475898467157,
+      "per_seed": [
+        0.8431647575155743,
+        0.843280496354805,
+        0.8402975156697675
+      ],
+      "fold_auc": [
+        [
+          0.8444734147940283,
+          0.8485932546671362,
+          0.8594025184924269,
+          0.8392443055066339,
+          0.824110294117647
+        ],
+        [
+          0.8315987950298666,
+          0.835340348714336,
+          0.8439921627333569,
+          0.8473088235294117,
+          0.858162351767054
+        ],
+        [
+          0.8416672190674002,
+          0.8306617647058824,
+          0.8552343841728308,
+          0.8443810907596573,
+          0.8295431196430668
+        ]
+      ],
+      "delta_E": 0.001185984416378183,
+      "delta_reference": -0.0015665746720868734
+    }
+  ]
+}

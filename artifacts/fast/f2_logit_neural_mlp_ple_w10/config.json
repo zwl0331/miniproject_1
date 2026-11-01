@@ -1,0 +1,17 @@
+{
+  "id": "f2_logit_neural_mlp_ple_w10",
+  "method": "sigmoid_of_weighted_logits",
+  "clip": 1e-06,
+  "components": [
+    {
+      "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+      "weight": 0.9,
+      "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+    },
+    {
+      "path": "artifacts/neural/f2_neural_mlp_ple/predictions.npz",
+      "weight": 0.1,
+      "sha256": "e7ffae60c7f92e78151dfc97a88ad960c1f3d2af534013962bc89b807ecf9ebf"
+    }
+  ]
+}

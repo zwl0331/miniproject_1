@@ -1,0 +1,62 @@
+{
+  "name": "followup_trees_cat",
+  "purpose": "Optional check of adding 10% five-seed CatBoost to the follow-up tree blend; CV edge is small and mixed across split seeds.",
+  "status": "prepared for Sam; not uploaded or final-selected",
+  "cv_mean": 0.8439883077958112,
+  "cv_per_seed": [
+    0.8453354332251495,
+    0.8447395388298723,
+    0.8418899513324123
+  ],
+  "fold_auc": [
+    [
+      0.8467640365026404,
+      0.8513597804391217,
+      0.8614205412704004,
+      0.8398460432077024,
+      0.8272867647058824
+    ],
+    [
+      0.8297648245943536,
+      0.8374684454620173,
+      0.8444324586121874,
+      0.8511764705882353,
+      0.8608554948925677
+    ],
+    [
+      0.8422859078890189,
+      0.8332794117647059,
+      0.8568121110719736,
+      0.8450562111071974,
+      0.8320161148291652
+    ]
+  ],
+  "delta_E": 0.0029267023654737656,
+  "components": [
+    {
+      "path": "artifacts/fast/f2_blend_z5_et25/predictions.npz",
+      "weight": 0.9,
+      "sha256": "53fea8eda366beb9c43186cebc22825af64fad64b42b971d5af1a0a8c7736c32"
+    },
+    {
+      "path": "artifacts/fast/f2_avg_cat5/predictions.npz",
+      "weight": 0.1,
+      "sha256": "6f4b953d72528cdce8d0362bb4551cd8cb3aaf7682b676df7c168008f05b69f3"
+    }
+  ],
+  "checks": {
+    "rows": 863,
+    "ids_match_test_in_order": true,
+    "finite_in_unit_interval": true,
+    "min": 0.0030373308342942374,
+    "max": 0.9885671470297132,
+    "correlation_current_best": 0.9997759192925745,
+    "current_best_file": "submissions/2026-11-01_fast_followup_trees.csv",
+    "sha256": "748e5cfac5d294eeff1c72517e674f33dd64f7c8e52affff4af0a80c2b5126bd"
+  },
+  "public_score": null,
+  "created_utc": "2026-11-01T05:33:30.292013+00:00",
+  "prediction_path": "artifacts/fast/final_candidates/followup_trees_cat/predictions.npz",
+  "prediction_sha256": "fe221ec9f65853c0248c8318578dbae983986995aca24f1629d5cbd4ba8afd17",
+  "llm_use": "Codex authored the fast exploration, blending and file checks under Sam's 2026-11-01 instruction."
+}

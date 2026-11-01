@@ -1,0 +1,59 @@
+[
+  {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "components": [
+      {
+        "path": "artifacts/neural/f2_neural_tabm_scalar/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_resnet_ple/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_ple/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_mlp_ple/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz",
+        "weight": 0.125
+      }
+    ]
+  },
+  {
+    "id": "f2_neural_avg_top3",
+    "family": "neural_ensemble",
+    "selection": "Three best standalone mean-fold CV scores among the eight completed configs; exploratory.",
+    "components": [
+      {
+        "path": "artifacts/neural/f2_neural_tabm_ple/predictions.npz",
+        "weight": 0.3333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_scalar/predictions.npz",
+        "weight": 0.3333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz",
+        "weight": 0.3333333333333333
+      }
+    ]
+  }
+]

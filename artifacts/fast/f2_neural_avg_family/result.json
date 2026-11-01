@@ -1,0 +1,87 @@
+{
+  "id": "f2_neural_avg_family",
+  "status": "complete_fixed_blend",
+  "config": {
+    "id": "f2_neural_avg_family",
+    "family": "neural_ensemble",
+    "components": [
+      {
+        "path": "artifacts/neural/f2_neural_tabm_scalar/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_periodic/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_resnet_ple/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_mlp_periodic/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_tabm_ple/predictions.npz",
+        "weight": 0.08333333333333333
+      },
+      {
+        "path": "artifacts/neural/f2_neural_mlp_ple/predictions.npz",
+        "weight": 0.125
+      },
+      {
+        "path": "artifacts/neural/f2_neural_ft_transformer_scalar/predictions.npz",
+        "weight": 0.25
+      },
+      {
+        "path": "artifacts/neural/f2_neural_resnet_periodic/predictions.npz",
+        "weight": 0.125
+      }
+    ]
+  },
+  "cv": 0.8253711269018292,
+  "per_seed": [
+    0.82539468330541,
+    0.8276375042513193,
+    0.8230811931487578
+  ],
+  "elapsed_seconds": 0.10405517555773258,
+  "prediction_sha256": "0f41ee361567a123eedad91d6fe67d365ee6407ab1829e47e852cd3a31ff1d9c",
+  "comparisons": [
+    {
+      "reference": "standalone",
+      "weight": 1.0,
+      "cv": 0.8253711269018292,
+      "per_seed": [
+        0.82539468330541,
+        0.8276375042513193,
+        0.8230811931487578
+      ],
+      "fold_auc": [
+        [
+          0.819755323301736,
+          0.8314070388634497,
+          0.8453130503698485,
+          0.8263656510508395,
+          0.8041323529411765
+        ],
+        [
+          0.8137083766047242,
+          0.826057443935658,
+          0.827591141246918,
+          0.8305955882352942,
+          0.8402349712340025
+        ],
+        [
+          0.8231212851050667,
+          0.8151397058823528,
+          0.8400661911471174,
+          0.8309300516613831,
+          0.806148731947869
+        ]
+      ],
+      "delta_E": -0.015690478528508245,
+      "delta_reference": -0.015690478528508245
+    }
+  ]
+}
