@@ -1,0 +1,31 @@
+test_all_architectures_cpu_and_cuda_fit_predict (scripts.check_neural_adapter.AdvancedNeural.test_all_architectures_cpu_and_cuda_fit_predict) ... PASS cpu tabm scalar
+PASS cpu tabm ple
+PASS cpu tabm periodic
+PASS cpu mlp scalar
+PASS cpu mlp ple
+PASS cpu mlp periodic
+PASS cpu resnet scalar
+PASS cpu resnet ple
+PASS cpu resnet periodic
+PASS cpu ft_transformer scalar
+ok
+test_constant_bins_and_invalid_recipes (scripts.check_neural_adapter.AdvancedNeural.test_constant_bins_and_invalid_recipes) ... ok
+test_ple_stopping_labels_and_features_are_isolated (scripts.check_neural_adapter.AdvancedNeural.test_ple_stopping_labels_and_features_are_isolated) ... ok
+test_resnet_keeps_singleton_final_batch (scripts.check_neural_adapter.AdvancedNeural.test_resnet_keeps_singleton_final_batch) ... ok
+test_extended_features_stopping_isolation (__main__.Extended.test_extended_features_stopping_isolation) ... ok
+test_mixed_unknown_categories_and_bins (__main__.Extended.test_mixed_unknown_categories_and_bins) ... FAIL
+test_retrieval_group_mask_and_no_supervised_features (__main__.Extended.test_retrieval_group_mask_and_no_supervised_features) ... ok
+
+======================================================================
+FAIL: test_mixed_unknown_categories_and_bins (__main__.Extended.test_mixed_unknown_categories_and_bins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_extended_neural.py", line 48, in test_mixed_unknown_categories_and_bins
+    self.assertTrue((Z[:,catpos]==0).all())
+AssertionError: np.False_ is not true
+
+----------------------------------------------------------------------
+Ran 7 tests in 61.245s
+
+FAILED (failures=1)
+PASS retrieval group exclusion and label positive control

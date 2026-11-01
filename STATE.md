@@ -1,6 +1,6 @@
 # State: CS 155 Miniproject 1
 
-Updated 2026-11-01 05:50 UTC. This session completed its follow-up and one final review: APPROVED at 91050e5. Sam selected follow-up trees plus previous combined. Development ownership transfers to the other Codex session below; all jobs from this session have exited.
+Updated 2026-11-01 05:53 UTC. Handoff complete at 32e7c5d. Sam directly authorized this session to test the remaining directions and prioritize AUC with available compute. CPU queue `artifacts/extended/cpu_queue.json` launched with four workers, log `artifacts/extended/cpu.log`: 20 broader EBM, eight pairwise CatBoost, twelve neighborhood-feature configurations. Neural feature/representation/objective/retrieval extensions are being implemented. Original 20:00 UTC experiment deadline applies.
 
 ## Rules and ownership
 
@@ -16,13 +16,13 @@ All scores are exploratory on repeatedly used grouped folds.
 
 | File | CV mean | Per split 155 / 2026 / 1029 | Status |
 |---|---:|---|---|
-| `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Sam's first final pick; APPROVED at 91050e5 |
+| `2026-11-01_fast_followup_trees.csv` | 0.843814 | 0.844708 / 0.844520 / 0.842215 | Sam's first final pick; APPROVED; public 0.86153 |
 | `2026-11-01_fast_combined.csv` | 0.842837 | 0.843593 / 0.843488 / 0.841429 | Sam's second final pick; APPROVED at 91050e5 |
 | `2026-11-01_fast_followup_trees_cat.csv` | 0.843988 | 0.845335 / 0.844740 / 0.841890 | Optional public check; small mixed CatBoost gain |
 | Original `2026-10-31_p2.6b_blend_eq_all.csv` | 0.841062 | 0.842493 / 0.841728 / 0.838964 | Earlier reference; public 0.85377 |
 
 - Follow-up trees = 0.40 original E + 0.25 five-seed year-standardized/count LightGBM + 0.10 original three-seed MLP + 0.25 five-seed feature-transfer Extra Trees. Gain +0.000978 over previous combined, +0.002753 over E; all three split means improve.
-- Authoritative selection: `artifacts/fast/final_selection.json`; previous pair: `final_selection_initial.json`. New files passed automatic 863-row/ordered-ID/finite-probability checks; hashes and CV logged in `submissions/README.md`. Pair correlation 0.997782. No uploads or pushes performed.
+- Authoritative selection: `artifacts/fast/final_selection.json`; previous pair: `final_selection_initial.json`. New files passed automatic 863-row/ordered-ID/finite-probability checks; hashes and CV logged in `submissions/README.md`. Pair correlation 0.997782. Sam uploaded follow-up trees and reported public 0.86153; no agent upload or push.
 - Follow-up: 48 initial CPU configurations, six extra-seed runs, eight scientific GPU configurations, six CPU seed averages, two neural averages and small fixed probability/logit blend checks. All complete, no failures. Separate two-epoch adapter smoke is not a scientific candidate.
 - Broader tests include four additional RBF SVMs, four fixed-kernel Gaussian processes, embedded TabM/MLP/ResNet and FT-Transformer. None of their tested additions, replacements or logit blends improved the stronger tree blend. Earlier two SVM additions did give small gains to the original E; they are retained, not erased by a threshold.
 - Table: `notes/2026-11-01-fast-exploration.md`. Full records/configs/OOF/test arrays: `artifacts/fast/`, `artifacts/neural/`. Summary: `artifacts/fast/followup_summary.json`. Existing split/bank checks retained; focused new-feature checks in `followup_checks.txt`.
@@ -36,7 +36,7 @@ All scores are exploratory on repeatedly used grouped folds.
 
 ## Next action
 
-1. Receiving session continues Sam's separately requested testing from preserved commit 91050e5 and this handoff. Its reported owner instruction is recorded in decisions.md. The reviewed CSVs remain unchanged; any later final-pair change remains Sam's choice. No training or review job remains from this session.
+1. Monitor `artifacts/extended/cpu.log` and result directories. Finish the raw-neural feature transfer, mixed input representations, AUC/pairwise objectives and learned retrieval with focused boundary checks, then launch GPU comparisons. Keep saved 15-fold validation and seed-confirm promising candidates. Read `doc/llm_usage/2026-11-01-extended-exploration/README.md` for the new scope.
 2. Review evidence: `reviews/2026-11-01-fast-followup-final-files.md`. One round, APPROVED, no blocking finding; F1 only clarified the pair-correlation record. No model replay or further review. Full final hashes: `artifacts/fast/final_selection.json`.
-3. Sam uploads and reports public scores; log them without tuning models to the board. No new public scores have been received.
+3. Sam uploads and reports public scores; log them without tuning models to the board. Sam reported 0.86153 for follow-up trees; rank and private score are unknown.
 4. After the receiving session finishes, report and Colab: read `doc/README.md`, `Project_1.pdf`, `latex/project1_template.tex`, the results table and `doc/llm_usage/integration_index.md`.

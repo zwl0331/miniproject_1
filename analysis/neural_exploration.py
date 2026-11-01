@@ -29,7 +29,7 @@ from songpop.splits import SPLIT_SEEDS
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "artifacts/neural"
-CUTOFF = "2026-11-01T06:31:00+00:00"
+CUTOFF = "2026-11-01T20:00:00+00:00"
 
 
 def starter_queue(device="cuda"):
@@ -115,10 +115,16 @@ def run_trial(config, *, output=OUT):
         "packages": {p: importlib.metadata.version(p) for p in
             ("numpy", "pandas", "scikit-learn", "torch", "tabm", "rtdl-num-embeddings", "rtdl-revisiting-models")},
         "prediction_sha256": sha256_file(folder / "predictions.npz"),
-        "finished_utc": datetime.now(timezone.utc).isoformat(), "comparisons": summaries(arrays, references())}
+        "finished_utc": datetime.now(timezone.utc).isoformat(), "comparisons": summaries(arrays, comparison_references())}
     write_json(result_path, result)
     print(f"DONE {config['id']} CV={result['cv']:.6f} seconds={result['elapsed_seconds']:.1f}", flush=True)
     return result
+
+
+def comparison_references():
+    from analysis.fast_exploration import load_arrays
+    path = ROOT / "artifacts/fast/f2_blend_z5_et25/predictions.npz"
+    return dict(references(), followup_trees=load_arrays(path))
 
 
 def main():

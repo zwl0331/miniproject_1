@@ -7,6 +7,7 @@ import hashlib
 import json
 
 import numpy as np
+from sklearn.metrics import roc_auc_score
 
 from songpop.phase2 import tabm
 from songpop.phase2 import neural_architectures as architectures
@@ -15,6 +16,7 @@ from songpop.phase2.features import RAW_COLUMNS
 from songpop.phase2.raw_features import RawFeaturePipeline
 from songpop.phase2.raw_recipes import validate
 from songpop.phase2.raw_splits import crossfit, partition, population
+from songpop.phase2.neural_preprocessing import make_preprocessor
 
 
 def array_digest(value):
@@ -42,8 +44,13 @@ def feature_state(features):
         else:
             raise ValueError(f"no stable raw feature-state serializer for {type(fitted).__name__}")
         states[name] = state
-    return {"columns": features.columns_, "lineage": features.lineage_, "states": states,
-            "encoder_receipts": features.receipts_}
+    result = {"columns": features.columns_, "lineage": features.lineage_, "states": states,
+              "encoder_receipts": features.receipts_}
+    if features.extra is not None:
+        result["extra"] = {k: getattr(features.extra, k) for k in
+            ("options", "counts", "global_means", "year_means", "year_scales", "global_scales")
+            if hasattr(features.extra, k)}
+    return result
 
 
 def state_digest(state):
@@ -85,7 +92,7 @@ def prepare(recipe, rows, y, groups, context, diagnostics=None, *, final=True):
     features = RawFeaturePipeline(recipe)
     Xs = features.fit_transform(rows.iloc[fit], y[fit], groups[fit], context, encoder_splits=enc_s)
     Xv = features.transform(rows.iloc[valid])
-    prep = tabm.TabMPreprocessor(recipe["preprocessing"]["scaler"]).fit(Xs)
+    prep = make_preprocessor(recipe).fit(Xs)
     Zs, Zv = prep.transform(Xs), prep.transform(Xv)
     result = {"fit": fit, "valid": valid, "stop_features": features, "stop_prep": prep,
               "final_encoder_splits": enc_d,
@@ -93,7 +100,7 @@ def prepare(recipe, rows, y, groups, context, diagnostics=None, *, final=True):
     if final:
         d_features = RawFeaturePipeline(recipe)
         Xd = d_features.fit_transform(rows, y, groups, context, encoder_splits=enc_d)
-        d_prep = tabm.TabMPreprocessor(recipe["preprocessing"]["scaler"]).fit(Xd)
+        d_prep = make_preprocessor(recipe).fit(Xd)
         result.update(features=d_features, prep=d_prep, Zd=d_prep.transform(Xd), Xd=Xd)
     return result
 
@@ -136,7 +143,7 @@ def numpy_state(net):
     return state
 
 
-def train(torch, recipe, spec, Z, y, epochs, init_seed, batch_seed, device, Zv=None, yv=None, *, fixed_horizon=False):
+def train(torch, recipe, spec, Z, y, epochs, init_seed, batch_seed, device, Zv=None, yv=None, *, fixed_horizon=False, groups=None):
     p, family = recipe["params"], recipe["family"]
     net = architectures.build(torch, recipe, spec, init_seed).to(device)
     optimizer = torch.optim.AdamW(architectures.parameter_groups(net, family),
@@ -144,6 +151,13 @@ def train(torch, recipe, spec, Z, y, epochs, init_seed, batch_seed, device, Zv=N
     generator = torch.Generator(device="cpu").manual_seed(batch_seed)
     inputs = torch.from_numpy(Z).to(device)
     labels = torch.from_numpy(np.asarray(y, dtype=np.float32)).to(device)
+    group_tensor = None
+    if family == "retrieval":
+        if groups is None:
+            raise ValueError("retrieval training requires explicit track groups")
+        group_tensor = torch.as_tensor(np.unique(groups, return_inverse=True)[1], device=device, dtype=torch.long)
+        net.set_memory(inputs, labels, group_tensor)
+    pair_weight = recipe.get("extensions", {}).get("pairwise_weight", 0.)
     losses, trajectory, updates = [], [], 0
     for _ in range(epochs):
         net.train()
@@ -156,20 +170,28 @@ def train(torch, recipe, spec, Z, y, epochs, init_seed, batch_seed, device, Zv=N
                 for module in net.modules():
                     if isinstance(module, torch.nn.BatchNorm1d):
                         module.eval()
-            outputs = architectures.forward(net, inputs[indices], family)
+            outputs = architectures.forward(net, inputs[indices], family,
+                None if group_tensor is None else group_tensor[indices])
             loss = torch.nn.functional.binary_cross_entropy_with_logits(outputs, labels[indices, None].expand_as(outputs))
+            if pair_weight:
+                positives, negatives = outputs[labels[indices] == 1], outputs[labels[indices] == 0]
+                if len(positives) and len(negatives):
+                    pair_loss = torch.nn.functional.softplus(negatives[None] - positives[:, None]).mean()
+                    loss = (1 - pair_weight) * loss + pair_weight * pair_loss
             if not torch.isfinite(loss):
                 raise ValueError("non-finite neural training loss")
             optimizer.zero_grad()
             loss.backward()
-            if not all(torch.isfinite(q.grad).all() for q in net.parameters() if q.grad is not None):
+            if not torch.stack([torch.isfinite(q.grad).all() for q in net.parameters() if q.grad is not None]).all():
                 raise ValueError("non-finite neural training gradient")
             optimizer.step()
             updates += 1
         if fixed_horizon:
             trajectory.append(state_digest(numpy_state(net)))
         if Zv is not None:
-            losses.append(tabm.ensemble_log_loss(torch, logits(torch, net, Zv, device, family), yv))
+            z = logits(torch, net, Zv, device, family)
+            losses.append(1 - roc_auc_score(yv, tabm.mean_probability(torch, z))
+                if recipe["adapter"]["stopping_metric"] == "auc" else tabm.ensemble_log_loss(torch, z, yv))
             if not fixed_horizon and tabm.stop_rule(losses, p["tolerance"], p["patience"])[0]:
                 break
     return net, losses, updates, trajectory
@@ -181,13 +203,13 @@ def fit(torch, recipe, rows, y, groups, context, diagnostics=None):
     y = np.asarray(y)
     p, device = recipe["params"], recipe["adapter"]["device"]
     fit_rows, valid = prepared["fit"], prepared["valid"]
-    stop_spec = architectures.specification(recipe, prepared["Zs"])
+    stop_spec = architectures.specification(recipe, prepared["Zs"], prepared["stop_prep"])
     records, states, stopping = [], [], []
     import tabm as tabm_package
     for seed in recipe["estimator_seeds"]:
         seeds = tabm.stage_seeds(context, seed)
         stopping_net, losses, stop_updates, _ = train(torch, recipe, stop_spec, prepared["Zs"], y[fit_rows], p["max_epochs"],
-            seeds["stop_init"], seeds["stop_batches"], device, prepared["Zv"], y[valid])
+            seeds["stop_init"], seeds["stop_batches"], device, prepared["Zv"], y[valid], groups=np.asarray(groups)[fit_rows])
         del stopping_net
         stopped, epoch = tabm.stop_rule(losses, p["tolerance"], p["patience"])
         stopping.append((seed, seeds, losses, stop_updates, stopped, epoch))
@@ -195,12 +217,12 @@ def fit(torch, recipe, rows, y, groups, context, diagnostics=None):
     # seed has selected its own epoch, then initialize independent final models.
     d_features = RawFeaturePipeline(recipe)
     Xd = d_features.fit_transform(rows, y, groups, context, encoder_splits=prepared["final_encoder_splits"])
-    d_prep = tabm.TabMPreprocessor(recipe["preprocessing"]["scaler"]).fit(Xd)
+    d_prep = make_preprocessor(recipe).fit(Xd)
     prepared.update(features=d_features, prep=d_prep, Zd=d_prep.transform(Xd))
-    final_spec = architectures.specification(recipe, prepared["Zd"])
+    final_spec = architectures.specification(recipe, prepared["Zd"], prepared["prep"])
     for seed, seeds, losses, stop_updates, stopped, epoch in stopping:
         net, _, final_updates, _ = train(torch, recipe, final_spec, prepared["Zd"], y, epoch,
-                                         seeds["final_init"], seeds["final_batches"], device)
+                                         seeds["final_init"], seeds["final_batches"], device, groups=groups)
         states.append(numpy_state(net))
         del net
         records.append({"policy": tabm.ITERATIONS, "seeds": seeds,
@@ -216,6 +238,8 @@ def fit(torch, recipe, rows, y, groups, context, diagnostics=None):
             "stopped_by": "patience" if stopped else "max_epochs", "validation_losses": losses,
             "stopping_updates": stop_updates, "final_updates": final_updates,
             "versions": {"torch": str(torch.__version__), "tabm": str(tabm_package.__version__)}, "estimator_seed": seed})
+        if recipe["adapter"]["stopping_metric"] == "auc":
+            records[-1]["validation_losses_meaning"] = "one_minus_inner_validation_auc"
     raw = {"schema": "raw_neural_receipt_v1", "adapter": recipe["adapter"],
            "stop_split_sha256": splits_sha256(rows.index, [(fit_rows, valid)]),
            "stop_feature_state_sha256": object_digest(feature_state(prepared["stop_features"])),
@@ -258,10 +282,10 @@ def trajectory(torch, recipe, rows, y, groups, context, diagnostics, epochs, see
     prepared = prepare(recipe, rows, y, groups, context, diagnostics, final=False)
     seeds = tabm.stage_seeds(context, seed)
     fit_rows, valid = prepared["fit"], prepared["valid"]
-    spec = architectures.specification(recipe, prepared["Zs"])
+    spec = architectures.specification(recipe, prepared["Zs"], prepared["stop_prep"])
     _, losses, updates, states = train(torch, recipe, spec, prepared["Zs"], np.asarray(y)[fit_rows], epochs,
         seeds["stop_init"], seeds["stop_batches"], recipe["adapter"]["device"], prepared["Zv"], np.asarray(y)[valid],
-        fixed_horizon=True)
+        fixed_horizon=True, groups=np.asarray(groups)[fit_rows])
     return {"trajectory": states, "losses": losses, "updates": updates,
             "model_spec_sha256": object_digest(spec),
             "split_sha256": splits_sha256(rows.index, [(fit_rows, valid)]),

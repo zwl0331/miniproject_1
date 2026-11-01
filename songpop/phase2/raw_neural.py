@@ -33,6 +33,7 @@ SOURCES = (
     "songpop/phase2/tabm.py", "songpop/phase2/raw_features.py", "songpop/phase2/raw_splits.py",
     "songpop/phase2/neural_stopping.py", "songpop/phase2/raw_recipes.py", "songpop/phase2/neural_backend.py",
     "songpop/phase2/raw_neural.py", "songpop/phase2/neural_architectures.py",
+    "songpop/phase2/neural_preprocessing.py", "songpop/phase2/neural_retrieval.py", "analysis/fast_features.py",
 )
 FORBIDDEN = {"torch", "lightgbm", "xgboost", "catboost", "songpop.artifacts", "songpop.phase2.models",
              "songpop.phase2.recipes", "songpop.phase2.engine"}

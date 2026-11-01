@@ -1,0 +1,9 @@
+test_extended_features_stopping_isolation (__main__.Extended.test_extended_features_stopping_isolation) ... ok
+test_mixed_unknown_categories_and_bins (__main__.Extended.test_mixed_unknown_categories_and_bins) ... ok
+test_retrieval_group_mask_and_no_supervised_features (__main__.Extended.test_retrieval_group_mask_and_no_supervised_features) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 18.791s
+
+OK
+PASS retrieval group exclusion and label positive control

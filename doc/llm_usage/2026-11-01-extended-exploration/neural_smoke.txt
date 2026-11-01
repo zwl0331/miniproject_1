@@ -1,0 +1,6 @@
+PASS tabm ple log_loss 0
+PASS tabm scalar auc 0.5
+PASS mlp periodic auc 0.5
+PASS resnet ple log_loss 0
+PASS ft_transformer scalar auc 0
+PASS retrieval ple auc 0
