@@ -1,0 +1,29 @@
+test_all_architectures_cpu_and_cuda_fit_predict (__main__.AdvancedNeural.test_all_architectures_cpu_and_cuda_fit_predict) ... PASS cpu tabm scalar
+PASS cpu tabm ple
+PASS cpu tabm periodic
+PASS cpu mlp scalar
+PASS cpu mlp ple
+PASS cpu mlp periodic
+PASS cpu resnet scalar
+PASS cpu resnet ple
+PASS cpu resnet periodic
+PASS cpu ft_transformer scalar
+PASS cuda tabm scalar
+PASS cuda tabm ple
+PASS cuda tabm periodic
+PASS cuda mlp scalar
+PASS cuda mlp ple
+PASS cuda mlp periodic
+PASS cuda resnet scalar
+PASS cuda resnet ple
+PASS cuda resnet periodic
+PASS cuda ft_transformer scalar
+ok
+test_constant_bins_and_invalid_recipes (__main__.AdvancedNeural.test_constant_bins_and_invalid_recipes) ... ok
+test_ple_stopping_labels_and_features_are_isolated (__main__.AdvancedNeural.test_ple_stopping_labels_and_features_are_isolated) ... ok
+test_resnet_keeps_singleton_final_batch (__main__.AdvancedNeural.test_resnet_keeps_singleton_final_batch) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 83.932s
+
+OK
