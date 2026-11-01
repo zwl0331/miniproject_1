@@ -11,6 +11,7 @@ from songpop import artifacts
 from songpop.evaluate import N_SPLITS, PredictionBank, validate_bank
 from songpop.phase2.features import feature_columns
 from songpop.phase2.recipes import recipe_hash, recipe_id
+from songpop.phase2.receipts import legacy_tabm
 from songpop.splits import SPLIT_SEEDS
 
 BANK_SCHEMA_V2 = "bank_v2"
@@ -133,6 +134,13 @@ def validate_v2_metadata(bank):
         bad = [k for k, ok in links.items() if not ok]
         if bad:
             raise ValueError(f"fitted-bank metadata contradicts its config, arrays or recipe in {bad}")
+        if md["recipe"]["schema"] == "recipe_v1" and md["recipe"]["family"] == "tabm":
+            from songpop.phase2.encoders import FitContext
+            for r, seed in enumerate(bank.split_seeds):
+                for k in range(K):
+                    fitting = bank.fold_id[r] != k
+                    legacy_tabm(md["recipe"], md["fit_receipts"][r * K + k], bank.train_row_id[fitting],
+                                bank.y[fitting], bank.group_id[fitting], FitContext(int(seed), k))
     if sorted(md["feature_lineage"]) != sorted(md["features"]):
         raise ValueError("feature lineage does not cover exactly the features")
 

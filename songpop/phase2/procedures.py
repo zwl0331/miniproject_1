@@ -35,7 +35,7 @@ META_FOLDS = 5
 META_PROTOCOL = "meta-v1"
 CLIP = 1e-6  # the constrained-weight loss and the stacker's logits clip probabilities to [CLIP, 1 - CLIP]
 SLSQP = {"ftol": 1e-12, "maxiter": 2000}
-WEIGHT_CLEANUP = 1e-9  # solver weights below this are set to zero and the rest renormalized; larger negatives fail
+WEIGHT_CLEANUP = 1e-9  # bounds tolerated negative mass, sum error and cleanup movement; positive weights are kept
 STACKER = {"solver": "lbfgs", "tol": 1e-10, "max_iter": 5000}
 LAMBDAS = (0.0, 0.01, 0.1)
 CS = (0.01, 0.1, 1.0)
@@ -428,6 +428,11 @@ def validate_procedure_metadata(bank):
     for st in md["states"]:
         if st["kind"] != setting[0] or not np.isfinite(np.asarray(st.get("weights", st.get("coef")), dtype=float)).all():
             raise ValueError(f"procedure bank {md['run_id']}: a combiner state is malformed")
+        key = "lambda" if setting[0] == "constrained" else "C"
+        value = st.get(key)
+        if (isinstance(value, bool) or not isinstance(value, (int, float)) or not np.isfinite(value)
+                or value != setting[1]):
+            raise ValueError(f"procedure bank {md['run_id']}: saved {key} differs from its declared setting")
 
 
 def save_procedure_bank(bank, path):

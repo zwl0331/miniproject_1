@@ -1,0 +1,40 @@
+Original test sha256 d7b1d9fb8ff52e879eb9d3347e459d4b5710ce091fe8ae7685ccd81d2f23bc5f
+Filters ['kNN:', 'anchor:', 'comparisons:']; only decorator instrumentation
+Traceback (most recent call last):
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 60, in wrap
+    note = fn()
+           ^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 321, in _
+    assert batch[0] == batch[2] == batch[4] == alone[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Batch probabilities: ['0x1.30cdf0a0e72b8p-4', '0x1.1b95aca6b7be8p-2', '0x1.30cdf0a0e72b8p-4', '0x1.8a1db22b3fc0ap-2', '0x1.30cdf0a0e72bap-4']
+Alone probability: ['0x1.30cdf0a0e72bap-4']
+Repeated-query absolute differences: [2.7755575615628914e-17, 2.7755575615628914e-17, 0.0]
+Traceback (most recent call last):
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 60, in wrap
+    note = fn()
+           ^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 335, in _
+    assert not diff, f"arrays differ: {diff}"
+           ^^^^^^^^
+AssertionError: arrays differ: ['oof', 'test_by_fold']
+Anchor oof: max absolute error 5.5511151231257827e-17; unequal entries 4
+Anchor test_by_fold: max absolute error 1.1102230246251565e-16; unequal entries 12
+Anchor test_mean: max absolute error 0; unequal entries 0
+Anchor fold_auc: max absolute error 0; unequal entries 0
+Traceback (most recent call last):
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 60, in wrap
+    note = fn()
+           ^^^^
+  File "/exp/mu2e/app/users/wzhou2/projects/miniproject_1/scripts/check_phase2.py", line 1062, in _
+    recs = [r for r in runs.logged(CTX) if r.get("recipe_id", "").startswith("lightgbm_F2_anchor_")]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'startswith'
+FAIL    kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+        AssertionError: 
+FAIL    anchor: the LightGBM F2 recipe through the new engine equals the phase 1 bank exactly
+        AssertionError: arrays differ: ['oof', 'test_by_fold']
+FAIL    comparisons: seed-restricted, matched, logged once, verified
+        AttributeError: 'NoneType' object has no attribute 'startswith'
+0 passed, 3 failed, 0 skipped, 0 staged

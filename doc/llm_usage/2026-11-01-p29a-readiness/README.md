@@ -17,3 +17,13 @@ time. The previous interrupted log remains under `2026-11-01-p29a-node/`.
 The full rerun uses the pinned project interpreter and four-thread environment
 limits. Its verdict is pending until the process exits and prints its aggregate.
 No scientific search is authorized by this verification launch.
+
+Isolated follow-up: `analysis.p29_trace_checks` records original-line tracebacks
+without changing test bodies. `failure_diagnostics.txt` measures the exact
+numerical differences and identifies the null-recipe fixture error. The proposed
+test corrections pass (`check_fixes.txt`). On the complete validator sources,
+nine affected checks pass (`check_affected.txt`), including bank validation,
+procedure reconstruction, neural-worker repeatability and held-out-label
+isolation. Five new receipt tests pass (`check_receipts.txt`) against historical
+records and deliberately corrupted copies. No stored bank or prediction is
+modified. Finding 034 is draft pending independent review.

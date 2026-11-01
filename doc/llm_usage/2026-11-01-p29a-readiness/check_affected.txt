@@ -1,0 +1,24 @@
+Original test sha256 d445b18862859a145dda021b5737fae656c46788bf642d2bd0d551198b4c6762
+Filters ['kNN:', 'anchor:', 'comparisons:', 'banks:', 'learned-procedure submissions', 'deployment (P2.6a)', 'neural early stopping', 'TabM through the engine']; only decorator instrumentation
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_f7e2b467ff5c on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_f7e2b467ff5c on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  already logged
+  p2_lightgbm_F2_anchor_seeds155-2026-1029_e00287a531af - p2_probe_compare_seeds155_f7e2b467ff5c on seeds [155]: +0.0099  [+0.0048, +0.0155]  1.000  2000/2000  equals log
+PASS    kNN: the block-weighted representation of plan section 6.2, fitted on the training part only
+        29 columns; block weights 1/sqrt(10), alpha, beta/sqrt(3) (1/10, alpha, beta/6 under Manhattan); exact matches, ties, batch positions and unseen categories behave as declared
+PASS    anchor: historical LightGBM F2 arrays match at 1e-12; same-node seed replay is exact
+        mean fold AUC 0.8314739289, historical numerical arrays within 1e-12, identities exact; submission bytes equal the P1.3 file; seed 2026 alone repeats node arrays exactly
+PASS    banks: bank_v2 round trip; metadata validation rejects every inconsistency
+        11 single contradictions refused; a three-fold bank round-trips with n_splits=3
+PASS    comparisons: seed-restricted, matched, logged once, verified
+        a three-seed and a one-seed bank compared on seed 155, logged once, verified; nothing written
+PASS    P2.6b pool rule on synthetic banks: H* the strongest; three family representatives, two contribution recipes (another configuration of a represented family allowed), the anchor, leading-family configurations within 0.002, at most eight atoms; one channel per family with the within-family average for H*'s family; at most 32 procedures; complexity ranks by kind, atoms, transformations, regularization, id; a family left out of learned channels keeps its fixed blends
+        pool ['l3', 'cb', 'xg', 'anchor', 'et', 'h', 'l2']; 30 candidates
+PASS    learned-procedure submissions (P2.6b): a procedure bank's every fold is rebuilt from its atoms' banks and its stored combiner states; a corrupted fold, a corrupted state or a member that differs from its recorded hash is refused, even when two members' corruptions cancel inside a channel average
+        rebuild exact; a corrupted fold, state or member refused
+PASS    deployment (P2.6a): a learned procedure's bank is its own schema, refused as a fitted bank; its test mean is the average of its fold procedures' test predictions
+        procedure banks stay apart from fitted banks and are refused without their identity and states
+PASS    neural early stopping (P2.5): preprocessing fitted on inner training rows only, then on all fitting rows; the inner split keeps groups whole; the stopping stage trains on inner training rows and validates on the rest; a new network trains for the chosen epoch on all fitting rows; members' probabilities averaged; repeatable after unrelated random draws and across prediction batches; torch only in the worker; the stop rule by hand; outer labels never reach a fit; unseen categories all zero; weights, missing groups, fitted blocks and foreign preprocessing refused
+        stopped by max_epochs at 12 of 12 epochs, chosen 12; inner 320/80 rows, groups disjoint
+PASS    TabM through the engine (P2.5): fold receipts carry the stopping record; a bit-identical repeat; changing the labels of each fold's held-out rows changes none of that fold's predictions
+        chosen epochs [6, 6, 6, 6, 6]
+9 passed, 0 failed, 0 skipped, 0 staged
